@@ -1,99 +1,93 @@
 package main;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
+import java.awt.Color; // Biblioteca para gerenciamento de cores.
+import java.awt.Graphics; // Biblioteca para renderizações gráficas.
+import java.awt.Graphics2D; // Biblioteca para renderizações de formas geométricas.
 
-import javax.swing.JPanel; // Importa as propriedades da classe JPanel. (Define as interações quando a janela está selecionada)
+import javax.swing.JPanel; // Importa as propriedades da classe JPanel. (Interface da janela).
 
 
-// Sub-Classe da Classe JPanel
+// Sub-Classe da Classe JPanel.
 public class Screen extends JPanel implements Runnable{
 	
-	final int originalTileSize = 16; // Tamanho dos Tiles do jogo. (16x16)
+	final int originalTileSize = 16; // Tamanho dos Tiles do jogo. (16x16).
 	final int scale = 3; // Escala dos pixels.
 	final int tileSize = originalTileSize * scale; // Tile redimensionado.
 	
 	final int horizontalTiles = 16; // Quantos tiles horizontais (ainda não tá implementado);
 	final int verticalTiles = 9; // Quantos tiles verticais (ainda não tá implementado);	
-// Tamanho da tela (comentei pq não sei se precisa, já que a tela tá maximizada, então o calculo de tamanho é outro)
-	//final int screenWidth = tileSize * horizontalTiles; 
-	//final int screenHeight = tileSize * verticalTiles;
 	
-	TeclasInput tecla = new TeclasInput();
-	Thread gameThread; //criar uma segunda linha de processamento por trás, para executar algo por cima do clock base
-	int jogadorx = 100;
-	int jogadory = 100;
-	int movspeed = 4;
-	int FPS = 60;
+	KeyInput key = new KeyInput();
+	
+	Thread gameThread; // Cria uma linha de execução secundária para executar um código em segundo plano por cima do clock base.
+	
+	int playerX = 100; // Variável da posição X do jogador.
+	int playerY = 100; // Variável da posição Y do jogador.
+	int movSpeed = 4; // Variável da velocidade de movimento do jogador.
+	int fps = 60; // Quantas vezes a tela vai ser atualizada por segundo.
+	
 	public Screen() {
-		
-		this.setBackground(Color.BLACK);
-		this.setDoubleBuffered(true);
-		this.addKeyListener(tecla);
-		this.setFocusable(true);
+		this.setBackground(Color.BLACK); // Define o plano de fundo da janela como a cor preta.
+		this.setDoubleBuffered(true); // Vai renderizar os componentes gráficos em segundo plano em uma memória temporária.
+		this.addKeyListener(key); // Implementação da classe KeyInput.
+		this.setFocusable(true); // Indica se é possivel focar na janela do jogo.
 		
 	}
+	
     public void startGameThread() {
     	gameThread = new Thread(this);
     	gameThread.start();
-    	
-    	
-    	
-    	
-    	 
-    	
+
     }
-    public void atualizar() {//função que atualiza o tempo, para atualizazr as informações na tela
-    	if(tecla.cimaPressionado == true) {
-    		jogadory -= movspeed;
+    
+    // Função que atualiza a posição do jogador quando a tecla de movimento é pressionada.
+    public void update() {
+    	if(key.upHold == true) {
+    		playerY -= movSpeed;
     	}
-    	else if(tecla.baixoPressionado == true) {
-    		jogadory += movspeed;
+    	else if(key.downHold == true) {
+    		playerY += movSpeed;
     	}
-    	else if(tecla.esquerdaPressionado == true) {
-    		jogadorx -= movspeed;
+    	else if(key.leftHold == true) {
+    		playerX -= movSpeed;
     	}
-    	else if(tecla.direitaPressionado == true) {
-    		jogadorx += movspeed;
+    	else if(key.rightHold == true) {
+    		playerX += movSpeed;
     	}
-    	
-    	
-    	
-    	
     }
-    public void paintComponent(Graphics g) {//função na qual desenha algo na tela, e a movimenta
-    	
-    	super.paintComponent(g);//super significa que esta função é filha da função pai, que seria screen. então ela ocorre por um plano abaixo
-    	Graphics2D g2 = (Graphics2D)g;//mudando o gráfico do pincel para 2D, assim podendo mudar em x,y e entre outros
-    	g2.setColor(Color.WHITE);//escolhendo a cor do nosso objeto g2, que seria o quadrado
-    	g2.fillRect(jogadorx, jogadory, tileSize, tileSize);//criando nosso quadrado g2, com as coordenadas x,y e o tamanho 16/16
-    	g2.dispose();//liberando memória, após função gráfica
-    	
+    
+    // Função que renderiza os gráficos do jogo.
+    public void paintComponent(Graphics g) {
+    	super.paintComponent(g); // Limpa o desenho anterior antes de renderizar novamente.
+    	Graphics2D g2 = (Graphics2D)g; // Faz um casting para Graphics2D para poder manipular x, y e outros atributos mais avançados.
+    	g2.setColor(Color.WHITE); // Escolhendo a cor do nosso objeto g2, que seria o quadrado.
+    	g2.fillRect(playerX, playerY, tileSize, tileSize); // Criando nosso quadrado g2 com as coordenadas x, y e o tamanho 16/16.
+    	g2.dispose(); // Liberando memória após função gráfica.
     	
     }
 
-	public void run() {//linha de execução secundária do jogo, onde ocorrem as coisas na tela
-		double drawInterval = 1000000000/FPS;//nosso intervalo de atualizações necessárias(1 nano segundo convertido para segundo/fps
-		double delta = 0;//nossa variável de controle, ela servirá como um contador de segundos
-		long lastTime = System.nanoTime();//armazenamos nosso tempo atual(que será trocado, então ele é nosso ultimo tempo
-		long currentTime;//tempo atual, este será contado na hora de pintar e desenhar
-		while (gameThread != null) {//enquanto o thread do jogo(tempo) está rodando,ele irá contar
-			currentTime = System.nanoTime();//nosos tempo atual na thread recebe o tempo em nano segundos
-			delta += (currentTime - lastTime) / drawInterval;//nosso delta vai receber o resto da diferença entre o tempo passado e o atual, dividido pelo fps. e quando der 1 segundo, irá aplicar
+    // Linha de execução secundária do jogo, onde ocorrem as coisas na tela.
+	public void run() {
+		double drawInterval = 1000000000/fps; // Nosso intervalo de atualizações necessárias(1 nano segundo convertido para segundo/fps.
+		double delta = 0; // Nossa variável de controle, ela servirá como um contador de segundos.
+		long lastTime = System.nanoTime(); // Armazenamos nosso tempo atual (que será trocado, então ele é nosso ultimo tempo).
+		long currentTime; // Tempo atual, este será contado na hora de pintar e desenhar.
+		
+		// Enquanto o thread do jogo (tempo) está rodando, ele irá contar o tempo.
+		while (gameThread != null) {
+			currentTime = System.nanoTime(); // Nosso tempo atual na thread recebe o tempo em nano segundos.
+			delta += (currentTime - lastTime) / drawInterval; // Nosso delta vai receber o resto da diferença entre o tempo passado e o atual, dividido pelo fps. E quando der 1 segundo, irá aplicar.
+			lastTime = currentTime; // Resetamos nosso tempo passado, para atualizar o loop, já que o cálculo ja foi feito.
 			
-			lastTime = currentTime;//resetamos nosso tempo passado, para atualizar o loop, já que o cálculo ja foi feito
-			if(delta >= 1) {//quando delta der o tempo de 1/60 frames por segundo, ele irá atualizar um frame
-			atualizar();//atualiza o tempo, e desenha novamente
-            repaint();//desenhar
-            delta --;//reduz o delta para recalcular no nosso loop
+			//Quando delta der o tempo de 1/60 frames por segundo, ele irá atualizar um frame.
+			if(delta >= 1) { 
+				update(); // Chama a função de atualizar a posição do jogador.
+				repaint(); // Redesenha o objeto.
+				delta --; // Reduz o delta para recalcular no nosso loop.
 			}
 			
 		}
 		
 	}
-	
-	
-	
 
 }
