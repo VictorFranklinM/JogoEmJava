@@ -1,0 +1,167 @@
+package entity;
+
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
+import main.KeyInput;
+import main.Screen;
+
+public class Player extends Entity{
+	Screen screen;
+	KeyInput key;
+	
+	public Player(Screen screen, KeyInput keyInput) {
+		this.screen = screen;
+		this.key = keyInput;
+		
+		setDefaultValues();
+		renderPlayer();
+	}
+	
+	public void setDefaultValues() {
+		x = 100;
+		y = 100;
+		speed = 5;
+		facing = "down";
+	}
+	
+	public void renderPlayer() {
+		try {
+			up1 = ImageIO.read(getClass().getResourceAsStream("/player/Up-1.png"));
+			up2 = ImageIO.read(getClass().getResourceAsStream("/player/Up-2.png"));
+			up3 = ImageIO.read(getClass().getResourceAsStream("/player/Up-3.png"));
+			
+			down1 = ImageIO.read(getClass().getResourceAsStream("/player/Down-1.png"));
+			down2 = ImageIO.read(getClass().getResourceAsStream("/player/Down-2.png"));
+			down3 = ImageIO.read(getClass().getResourceAsStream("/player/Down-3.png"));
+			
+			left1 = ImageIO.read(getClass().getResourceAsStream("/player/Left-1.png"));
+			left2 = ImageIO.read(getClass().getResourceAsStream("/player/Left-2.png"));
+			left3 = ImageIO.read(getClass().getResourceAsStream("/player/Left-3.png"));
+			
+			right1 = ImageIO.read(getClass().getResourceAsStream("/player/Right-1.png"));
+			right2 = ImageIO.read(getClass().getResourceAsStream("/player/Right-2.png"));
+			right3 = ImageIO.read(getClass().getResourceAsStream("/player/Right-3.png"));
+			}
+		
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	// NOTA: tentar fazer com switch case pra ver se fica mais fluido.
+	public void update() {
+		if(key.upHold == true || key.downHold == true || key.leftHold == true || key.rightHold == true) {
+			if(key.upHold == true) {
+	    		// Checa se o personagem está movendo na diagonal e recalcula o vetor de velocidade.
+	    		if(key.leftHold || key.rightHold) {
+	    			speed = 4;
+	    		}
+	    		facing = "up";
+	    		y -= speed;
+	    	}
+	    	if(key.downHold == true) {
+	    		// Checa se o personagem está movendo na diagonal e recalcula o vetor de velocidade.
+	    		if(key.leftHold || key.rightHold) {
+	    			speed = 4;
+	    		}
+	    		facing = "down";
+	    		y += speed;
+	    	}
+	    	if(key.leftHold == true) {
+	    		// Checa se o personagem está movendo na diagonal e recalcula o vetor de velocidade.
+	    		if(key.upHold || key.downHold) {
+	    			speed = 4;
+	    		}
+	    		facing = "left";
+	    		x -= speed;
+	    	}
+	    	if(key.rightHold == true) {
+	    		// Checa se o personagem está movendo na diagonal e recalcula o vetor de velocidade.
+	    		if(key.upHold || key.downHold) {
+	    			speed = 4;
+	    		}
+	    		facing = "right";
+	    		x += speed;
+	    	}
+	    	speed = 5;
+	    	spriteCounter++;
+	    	
+	    	if(spriteCounter > 6) {
+	    		if(spriteNum == 1) {
+	    			spriteNum = 2;
+	    		}
+	    		else if(spriteNum == 2) {
+	    			spriteNum = 3;
+	    		}
+	    		else if(spriteNum == 3) {
+	    			spriteNum = 1;
+	    		}
+	    		spriteCounter = 0;
+	    	}
+		}
+		else {
+			spriteNum = 2;
+		}
+	}
+	
+	public void drawn(Graphics2D g2) {
+		BufferedImage image = null;
+		
+		switch(facing) {
+		case "up":
+			if(spriteNum == 1) {
+				image = up1;
+			}
+			if(spriteNum == 2) {
+				image = up2;
+			}
+			if(spriteNum == 3) {
+				image = up3;
+			}
+			break;
+			
+		case "down":
+			if(spriteNum == 1) {
+				image = down1;
+			}
+			if(spriteNum == 2) {
+				image = down2;
+			}
+			if(spriteNum == 3) {
+				image = down3;
+			}
+			break;
+			
+		case "left":
+			if(spriteNum == 1) {
+				image = left1;
+			}
+			if(spriteNum == 2) {
+				image = left2;
+			}
+			if(spriteNum == 3) {
+				image = left3;
+			}
+			break;
+			
+		case "right":
+			if(spriteNum == 1) {
+				image = right1;
+			}
+			if(spriteNum == 2) {
+				image = right2;
+			}
+			if(spriteNum == 3) {
+				image = right3;
+			}
+			break;
+		}
+		g2.drawImage(image, x, y, screen.tileSize, screen.tileSize, null);
+	}
+}
