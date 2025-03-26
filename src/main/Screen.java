@@ -23,9 +23,6 @@ public class Screen extends JPanel implements Runnable{
 	Thread gameThread; // Cria uma linha de execução secundária para executar um código em segundo plano por cima do clock base.
 	Player player = new Player(this,key);
 	
-	int playerX = 100; // Variável da posição X do jogador.
-	int playerY = 100; // Variável da posição Y do jogador.
-	int movSpeed = 5; // Variável da velocidade de movimento do jogador.
 	int fps = 60; // Quantas vezes a tela vai ser atualizada por segundo.
 	
 	public Screen() {
