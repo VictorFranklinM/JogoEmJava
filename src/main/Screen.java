@@ -7,6 +7,7 @@ import java.awt.Graphics2D; // Biblioteca para renderizações de formas geomét
 import javax.swing.JPanel; // Importa as propriedades da classe JPanel. (Interface da janela).
 
 import entity.Player;
+import tile.TileOrganizer;
 
 
 // Sub-Classe da Classe JPanel.
@@ -16,9 +17,10 @@ public class Screen extends JPanel implements Runnable{
 	final int scale = 4; // Escala dos pixels.
 	public final int tileSize = originalTileSize * scale; // Tile redimensionado.
 	
-	final int horizontalTiles = 20; // Quantos tiles horizontais (ainda não tá implementado);
-	final int verticalTiles = 12; // Quantos tiles verticais (ainda não tá implementado);	
+	public final int horizontalTiles = 22; // Quantos tiles horizontais (ainda não tá implementado);
+	public final int verticalTiles = 12; // Quantos tiles verticais (ainda não tá implementado);	
 	
+	TileOrganizer tileM = new TileOrganizer(this);
 	KeyInput key = new KeyInput();
 	Thread gameThread; // Cria uma linha de execução secundária para executar um código em segundo plano por cima do clock base.
 	Player player = new Player(this,key);
@@ -48,8 +50,11 @@ public class Screen extends JPanel implements Runnable{
     public void paintComponent(Graphics g) {
     	super.paintComponent(g); // Limpa o desenho anterior antes de renderizar novamente.
     	Graphics2D g2 = (Graphics2D)g; // Faz um casting para Graphics2D para poder manipular x, y e outros atributos mais avançados.
+    	
+    	tileM.draw(g2); // mapa
+    	
     	player.drawn(g2); // Função que renderiza o player.
-    	g2.dispose(); // Liberando memória após função gráfica.
+    	g2.dispose(); // Liberando memória após função gráfica.	
     	
     }
 
