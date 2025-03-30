@@ -12,9 +12,9 @@ import main.Screen;
 
 public class TileOrganizer {
 	
-	Screen sc;
-	Tile[] tile;
-	int mapTileNum[][];
+	Screen sc; // Referência à tela principal
+	Tile[] tile; // Array de tiles
+	int mapTileNum[][]; // Matriz que armazena os números dos tiles do mapa
 	
 	public TileOrganizer(Screen sc) {
 		
@@ -22,16 +22,18 @@ public class TileOrganizer {
 		
 		tile = new Tile[10]; //Quantidade máxima de tiles que podem ser usados, alterar conforme necessidade;
 		
-		mapTileNum = new int [sc.horizontalTiles][sc.verticalTiles];
+		mapTileNum = new int [sc.horizontalTiles][sc.verticalTiles]; // Inicializa a matriz do mapa
 		
 		getTileImage();
 		loadMap("/maps/mapa01.txt");
 	}
 	
+	// Método para carregar as imagens dos tiles
 	public void getTileImage() {
 		
 		try {
 			
+			// Carregando diferentes tipos de tiles, quantidade máxima definida acima em tile
 			tile[0] = new Tile();
 			tile[0].image = ImageIO.read(getClass().getResourceAsStream("/tiles/blank.png"));
 			
@@ -45,10 +47,11 @@ public class TileOrganizer {
 			tile[3].image = ImageIO.read(getClass().getResourceAsStream("/tiles/sand.png"));
 			
 		}catch(IOException e) {
-			e.printStackTrace();
+			e.printStackTrace(); // Exibe erro caso ocorra problema ao carregar as imagens
 		}
 	}
 	
+	// Método para carregar o mapa a partir de um arquivo de texto
 	public void loadMap(String mapPath) {
 		try {
 			
@@ -61,28 +64,30 @@ public class TileOrganizer {
 			
 			while(col < sc.horizontalTiles && row < sc.verticalTiles) {	
 				
-				String line = br.readLine();
+				String line = br.readLine(); // Lê uma linha do arquivo
 				
 				while (col < sc.horizontalTiles) {
 					
-					String numbers[] = line.split(" ");
+					String numbers[] = line.split(" "); // Divide a linha em números
 					
-					int num = Integer.parseInt(numbers[col]);
+					int num = Integer.parseInt(numbers[col]); // Converte a string em número inteiro
 					
-					mapTileNum[col][row] = num;
+					mapTileNum[col][row] = num; // Armazena o número na matriz
 					col++;
 				}
-				if(col == sc.horizontalTiles) {		
+				if(col == sc.horizontalTiles) {	// Se a linha foi completamente lida, passa para a próxima
 					
 					col = 0;
 					row++;					
 				}
 			}
 			br.close();
-		}catch(Exception e) {	
+		}catch(Exception e) {
+			e.printStackTrace(); // Exibe erro caso ocorra problema ao carregar o mapa
 		}
 	}
 	
+	// Método para desenhar os tiles na tela
 	public void draw(Graphics2D g2) {
 		
 		int col = 0;
@@ -92,13 +97,13 @@ public class TileOrganizer {
 		
 		while(col < sc.horizontalTiles && row < sc.verticalTiles) {
 			
-			int tileNum = mapTileNum[col][row];
+			int tileNum = mapTileNum[col][row]; // Obtém o número do tile
 			
-			g2.drawImage(tile[tileNum].image, x, y, sc.tileSize, sc.tileSize, null);
+			g2.drawImage(tile[tileNum].image, x, y, sc.tileSize, sc.tileSize, null); // Desenha a imagem do tile
 			
 			col++;
 			x += sc.tileSize;
-			if (col == sc.horizontalTiles) {
+			if (col == sc.horizontalTiles) { // Move para a próxima linha ao atingir o limite de colunas
 				col = 0;
 				x = 0;
 				row++;
