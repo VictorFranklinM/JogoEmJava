@@ -23,8 +23,9 @@ public class Player extends Entity{
 	}
 	
 	public void setDefaultValues() {
-		x = 128;
-		y = 128;
+		// x e y como estão garantem que o char apareça no tile [3][3], modificar conforme necessário
+		x = screen.originalTileSize * screen.scale * 2;
+		y = screen.originalTileSize * screen.scale * 2;
 		speed = 5;
 		facing = "down";
 	}
