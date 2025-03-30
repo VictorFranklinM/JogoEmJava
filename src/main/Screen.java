@@ -13,8 +13,8 @@ import tile.TileOrganizer;
 // Sub-Classe da Classe JPanel.
 public class Screen extends JPanel implements Runnable{
 	
-	final int originalTileSize = 16; // Tamanho dos Tiles do jogo. (16x16).
-	final int scale = 4; // Escala dos pixels.
+	public final int originalTileSize = 16; // Tamanho dos Tiles do jogo. (16x16).
+	public final int scale = 4; // Escala dos pixels.
 	public final int tileSize = originalTileSize * scale; // Tile redimensionado.
 	
 	public final int horizontalTiles = 22; // Quantos tiles horizontais (ainda não tá implementado);
