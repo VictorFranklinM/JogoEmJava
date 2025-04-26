@@ -1,31 +1,41 @@
 package main;
 
 import java.awt.Color; // Biblioteca para gerenciamento de cores.
+import java.awt.Dimension;
 import java.awt.Graphics; // Biblioteca para renderizações gráficas.
 import java.awt.Graphics2D; // Biblioteca para renderizações de formas geométricas.
+import java.awt.Toolkit;
 
 import javax.swing.JPanel; // Importa as propriedades da classe JPanel. (Interface da janela).
 
 import entity.Player;
+import tile.TileOrganizer;
 
 
 // Sub-Classe da Classe JPanel.
 public class Screen extends JPanel implements Runnable{
 	
-	final int originalTileSize = 16; // Tamanho dos Tiles do jogo. (16x16).
-	final int scale = 4; // Escala dos pixels.
+	private final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); // Pega as proporções da tela.
+	public final int screenWidth = (int) screenSize.getWidth(); // Pega apenas a largura.
+	public final int screenHeight = (int) screenSize.getHeight(); // Pega apenas a altura.
+	
+	public final int originalTileSize = 16; // Tamanho dos Tiles do jogo. (16x16).
+	public final int scale = 4; // Escala dos pixels.
 	public final int tileSize = originalTileSize * scale; // Tile redimensionado.
 	
-	final int horizontalTiles = 20; // Quantos tiles horizontais (ainda não tá implementado);
-	final int verticalTiles = 12; // Quantos tiles verticais (ainda não tá implementado);	
+	public final int horizontalTiles = 22; // Quantos tiles horizontais cabem na tela.
+	public final int verticalTiles = 12; // Quantos tiles verticais cabem na tela.
 	
+	public final int maxWorldCol = 50;
+	public final int maxWorldRow = 50;
+	public final int worldWidth = tileSize * maxWorldCol;
+	public final int worldHeight = tileSize * maxWorldRow;
+	
+	TileOrganizer tileM = new TileOrganizer(this);
 	KeyInput key = new KeyInput();
 	Thread gameThread; // Cria uma linha de execução secundária para executar um código em segundo plano por cima do clock base.
-	Player player = new Player(this,key);
+	public Player player = new Player(this,key);
 	
-	int playerX = 100; // Variável da posição X do jogador.
-	int playerY = 100; // Variável da posição Y do jogador.
-	int movSpeed = 5; // Variável da velocidade de movimento do jogador.
 	int fps = 60; // Quantas vezes a tela vai ser atualizada por segundo.
 	
 	public Screen() {
@@ -51,8 +61,11 @@ public class Screen extends JPanel implements Runnable{
     public void paintComponent(Graphics g) {
     	super.paintComponent(g); // Limpa o desenho anterior antes de renderizar novamente.
     	Graphics2D g2 = (Graphics2D)g; // Faz um casting para Graphics2D para poder manipular x, y e outros atributos mais avançados.
+    	
+    	tileM.draw(g2); // mapa
+    	
     	player.drawn(g2); // Função que renderiza o player.
-    	g2.dispose(); // Liberando memória após função gráfica.
+    	g2.dispose(); // Liberando memória após função gráfica.	
     	
     }
 

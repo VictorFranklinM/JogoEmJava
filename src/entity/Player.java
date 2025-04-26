@@ -14,17 +14,26 @@ public class Player extends Entity{
 	Screen screen;
 	KeyInput key;
 	
+	public final int screenX;
+	public final int screenY;
+	
 	public Player(Screen screen, KeyInput keyInput) {
 		this.screen = screen;
 		this.key = keyInput;
+		
+		/* Como o personagem é renderizado a partir do pixel superior esquerdo, subtraimos meio tile de X e Y para que ele
+		 * seja renderizado corretamente no meio da tela. */
+		screenX = (screen.screenWidth / 2) - (screen.tileSize/2);
+		screenY = (screen.screenHeight / 2) - (screen.tileSize/2);
 		
 		setDefaultValues();
 		renderPlayer();
 	}
 	
 	public void setDefaultValues() {
-		x = 100;
-		y = 100;
+		// World X e Y são onde o personagem do player aparecerá no mapa inicialmente.
+		worldX = screen.tileSize * 23;
+		worldY = screen.tileSize * 4;
 		speed = 5;
 		facing = "down";
 	}
@@ -63,7 +72,7 @@ public class Player extends Entity{
 	    			speed = 4;
 	    		}
 	    		facing = "up";
-	    		y -= speed;
+	    		worldY -= speed;
 	    	}
 	    	if(key.downHold == true) {
 	    		// Checa se o personagem está movendo na diagonal e recalcula o vetor de velocidade.
@@ -71,7 +80,7 @@ public class Player extends Entity{
 	    			speed = 4;
 	    		}
 	    		facing = "down";
-	    		y += speed;
+	    		worldY += speed;
 	    	}
 	    	if(key.leftHold == true) {
 	    		// Checa se o personagem está movendo na diagonal e recalcula o vetor de velocidade.
@@ -79,7 +88,7 @@ public class Player extends Entity{
 	    			speed = 4;
 	    		}
 	    		facing = "left";
-	    		x -= speed;
+	    		worldX -= speed;
 	    	}
 	    	if(key.rightHold == true) {
 	    		// Checa se o personagem está movendo na diagonal e recalcula o vetor de velocidade.
@@ -87,7 +96,7 @@ public class Player extends Entity{
 	    			speed = 4;
 	    		}
 	    		facing = "right";
-	    		x += speed;
+	    		worldX += speed;
 	    	}
 	    	speed = 5;
 	    	spriteCounter++;
@@ -162,6 +171,6 @@ public class Player extends Entity{
 			}
 			break;
 		}
-		g2.drawImage(image, x, y, screen.tileSize, screen.tileSize, null);
+		g2.drawImage(image, screenX, screenY, screen.tileSize, screen.tileSize, null);
 	}
 }

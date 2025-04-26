@@ -22,5 +22,7 @@ public class Main {
 		window.setVisible(true); // Se é vísivel.
 		
 		screen.startGameThread(); // Começa a rodar a linha de processamento para atualizar a tela do jogo.
+		
+		System.out.println(screen.screenHeight+"\n"+screen.screenWidth);
 	}
 }
