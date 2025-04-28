@@ -14,8 +14,8 @@ import main.Screen;
 public class TileOrganizer {
 	
 	Screen screen; // Referência à tela principal
-	Tile[] tile; // Array de tiles
-	int mapTileNum[][]; // Matriz que armazena os números dos tiles do mapa
+	public Tile[] tile; // Array de tiles
+	public int mapTileNum[][]; // Matriz que armazena os números dos tiles do mapa
 	
 	public TileOrganizer(Screen sc) {
 		
@@ -36,22 +36,29 @@ public class TileOrganizer {
 			
 			// Carregando diferentes tipos de tiles, quantidade máxima definida acima em tile
 			tile[0] = new Tile();
-			tile[0].image = ImageIO.read(getClass().getResourceAsStream("/tiles/grass.png"));
+			tile[0].image = ImageIO.read(getClass().getResourceAsStream("/tiles/barrel.png"));
+			tile[0].collision = true;
 			
 			tile[1] = new Tile();
-			tile[1].image = ImageIO.read(getClass().getResourceAsStream("/tiles/stone.png"));
+			tile[1].image = ImageIO.read(getClass().getResourceAsStream("/tiles/cactus.png"));
+			tile[1].collision = true;
 			
 			tile[2] = new Tile();
-			tile[2].image = ImageIO.read(getClass().getResourceAsStream("/tiles/sand.png"));
+			tile[2].image = ImageIO.read(getClass().getResourceAsStream("/tiles/grass.png"));
 			
 			tile[3] = new Tile();
-			tile[3].image = ImageIO.read(getClass().getResourceAsStream("/tiles/cactus.png"));
+			tile[3].image = ImageIO.read(getClass().getResourceAsStream("/tiles/sand.png"));
 			
 			tile[4] = new Tile();
-			tile[4].image = ImageIO.read(getClass().getResourceAsStream("/tiles/water.png"));
+			tile[4].image = ImageIO.read(getClass().getResourceAsStream("/tiles/stone.png"));
 			
 			tile[5] = new Tile();
-			tile[5].image = ImageIO.read(getClass().getResourceAsStream("/tiles/stone.png"));
+			tile[5].image = ImageIO.read(getClass().getResourceAsStream("/tiles/wall.png"));
+			tile[5].collision = true;
+			
+			tile[6] = new Tile();
+			tile[6].image = ImageIO.read(getClass().getResourceAsStream("/tiles/water.png"));
+			tile[6].collision = true;
 			
 		}catch(IOException e) {
 			e.printStackTrace(); // Exibe erro caso ocorra problema ao carregar as imagens

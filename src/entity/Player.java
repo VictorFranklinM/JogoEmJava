@@ -2,6 +2,7 @@ package entity;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -26,14 +27,17 @@ public class Player extends Entity{
 		screenX = (screen.screenWidth / 2) - (screen.tileSize/2);
 		screenY = (screen.screenHeight / 2) - (screen.tileSize/2);
 		
+		collisionArea = new Rectangle((4 * screen.scale), (8 * screen.scale), (8 * screen.scale), (8 * screen.scale));
+		// X do retângulo (começa no canto esquerdo), Y (começa no canto superior), largura do retângulo, altura.
+		
 		setDefaultValues();
 		renderPlayer();
 	}
 	
 	public void setDefaultValues() {
 		// World X e Y são onde o personagem do player aparecerá no mapa inicialmente.
-		worldX = screen.tileSize * 23;
-		worldY = screen.tileSize * 4;
+		worldX = screen.tileSize * 47;
+		worldY = screen.tileSize * 29;
 		speed = 5;
 		facing = "down";
 	}
@@ -67,39 +71,87 @@ public class Player extends Entity{
 	public void update() {
 		if(key.upHold == true || key.downHold == true || key.leftHold == true || key.rightHold == true) {
 			if(key.upHold == true) {
-	    		// Checa se o personagem está movendo na diagonal e recalcula o vetor de velocidade.
-	    		if(key.leftHold || key.rightHold) {
-	    			speed = 4;
-	    		}
 	    		facing = "up";
-	    		worldY -= speed;
 	    	}
 	    	if(key.downHold == true) {
-	    		// Checa se o personagem está movendo na diagonal e recalcula o vetor de velocidade.
-	    		if(key.leftHold || key.rightHold) {
-	    			speed = 4;
-	    		}
 	    		facing = "down";
-	    		worldY += speed;
 	    	}
 	    	if(key.leftHold == true) {
-	    		// Checa se o personagem está movendo na diagonal e recalcula o vetor de velocidade.
-	    		if(key.upHold || key.downHold) {
-	    			speed = 4;
-	    		}
 	    		facing = "left";
-	    		worldX -= speed;
 	    	}
 	    	if(key.rightHold == true) {
-	    		// Checa se o personagem está movendo na diagonal e recalcula o vetor de velocidade.
-	    		if(key.upHold || key.downHold) {
-	    			speed = 4;
-	    		}
 	    		facing = "right";
-	    		worldX += speed;
 	    	}
-	    	speed = 5;
-	    	spriteCounter++;
+	    	
+	    	collision = false;
+	    	screen.colCheck.checkTile(this);
+	    	
+	    	if(collision == false) {
+	    		switch(facing) {
+	    		case "up":
+		    		// Checa se o personagem está movendo na diagonal e recalcula o vetor de velocidade.
+		    		if(key.leftHold) {
+		    			speed = 4;
+		    			worldX -=speed;
+		    			
+		    		} else if (key.rightHold) {
+		    			speed = 4;
+		    			worldX +=speed;
+		    		}
+		    		
+		    		worldY -= speed;
+	    			break;
+	    			
+	    		case "down":
+		    		// Checa se o personagem está movendo na diagonal e recalcula o vetor de velocidade.
+		    		if(key.leftHold) {
+		    			speed = 4;
+		    			worldX -=speed;
+		    			
+		    		} else if (key.rightHold) {
+		    			speed = 4;
+		    			worldX +=speed;
+		    		}
+		    		
+		    		worldY += speed;
+	    			break;
+	    			
+	    		case "left":
+		    		// Checa se o personagem está movendo na diagonal e recalcula o vetor de velocidade.
+		    		if(key.upHold) {
+		    			speed = 4;
+		    			worldY -=speed;
+		    			
+		    		} else if (key.downHold) {
+		    			speed = 4;
+		    			worldY +=speed;
+		    		}
+		    		
+		    		worldX -= speed;
+	    			break;
+	    			
+	    		case "right":
+		    		// Checa se o personagem está movendo na diagonal e recalcula o vetor de velocidade.
+	    			if(key.upHold) {
+		    			speed = 4;
+		    			worldY -=speed;
+		    			
+		    		} else if (key.downHold) {
+		    			speed = 4;
+		    			worldY +=speed;
+		    		}
+	    			
+		    		worldX += speed;
+	    			break;
+	    		}
+	    		speed = 5;
+	    	}
+	    	
+	    	if(collision == true) {
+	    		spriteNum = 2;
+	    	} else {
+	    		spriteCounter++;
+	    	}
 	    	
 	    	if(spriteCounter > 6) {
 	    		if(spriteNum == 1) {

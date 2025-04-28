@@ -26,14 +26,15 @@ public class Screen extends JPanel implements Runnable{
 	public final int horizontalTiles = 22; // Quantos tiles horizontais cabem na tela.
 	public final int verticalTiles = 12; // Quantos tiles verticais cabem na tela.
 	
-	public final int maxWorldCol = 50;
-	public final int maxWorldRow = 50;
+	public final int maxWorldCol = 100;
+	public final int maxWorldRow = 100;
 	public final int worldWidth = tileSize * maxWorldCol;
 	public final int worldHeight = tileSize * maxWorldRow;
 	
 	TileOrganizer tileM = new TileOrganizer(this);
 	KeyInput key = new KeyInput();
 	Thread gameThread; // Cria uma linha de execução secundária para executar um código em segundo plano por cima do clock base.
+	public CollisionChecker colCheck = new CollisionChecker(this);
 	public Player player = new Player(this,key);
 	
 	int fps = 60; // Quantas vezes a tela vai ser atualizada por segundo.
