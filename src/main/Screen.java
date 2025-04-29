@@ -9,6 +9,7 @@ import java.awt.Toolkit;
 import javax.swing.JPanel; // Importa as propriedades da classe JPanel. (Interface da janela).
 
 import entity.Player;
+import object.SuperObject;
 import tile.TileOrganizer;
 
 
@@ -35,7 +36,10 @@ public class Screen extends JPanel implements Runnable{
 	KeyInput key = new KeyInput();
 	Thread gameThread; // Cria uma linha de execução secundária para executar um código em segundo plano por cima do clock base.
 	public CollisionChecker colCheck = new CollisionChecker(this);
+	public ObjPlacer objPlacer = new ObjPlacer(this);
 	public Player player = new Player(this,key);
+	public SuperObject obj[] = new SuperObject[10]; // new Object[x]. x é a quantidade de objetos que podem ser renderizados na tela ao mesmo tempo.
+	
 	
 	int fps = 60; // Quantas vezes a tela vai ser atualizada por segundo.
 	
@@ -45,6 +49,10 @@ public class Screen extends JPanel implements Runnable{
 		this.addKeyListener(key); // Implementação da classe KeyInput.
 		this.setFocusable(true); // Indica se é possivel focar na janela do jogo.
 		
+	}
+	
+	public void setupObjects() {
+		objPlacer.placeObject();
 	}
 	
     public void startGameThread() {
@@ -64,6 +72,12 @@ public class Screen extends JPanel implements Runnable{
     	Graphics2D g2 = (Graphics2D)g; // Faz um casting para Graphics2D para poder manipular x, y e outros atributos mais avançados.
     	
     	tileM.draw(g2); // mapa
+    	
+    	for(int i = 0; i < obj.length; i++) {
+    		if(obj[i] != null) {
+    			obj[i].draw(g2, this);
+    		}
+    	}
     	
     	player.drawn(g2); // Função que renderiza o player.
     	g2.dispose(); // Liberando memória após função gráfica.	

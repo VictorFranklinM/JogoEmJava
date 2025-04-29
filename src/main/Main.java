@@ -21,6 +21,7 @@ public class Main {
 		window.setExtendedState(JFrame.MAXIMIZED_BOTH); // Renderiza em fullscreen.
 		window.setVisible(true); // Se é vísivel.
 		
+		screen.setupObjects(); // Posiciona os objetos no jogo.
 		screen.startGameThread(); // Começa a rodar a linha de processamento para atualizar a tela do jogo.
 	}
 }
