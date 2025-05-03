@@ -5,7 +5,7 @@ import java.awt.event.KeyListener; // Biblioteca para reagir ao estado das tecla
 
 // Esta classe serve para receber os dados inputs do teclado.
 public class KeyInput implements KeyListener {
-	public boolean upHold, downHold, leftHold , rightHold; // Lógica booleana pra estados de movimento, indo pro lado, cima, etc.
+	public boolean upHold, downHold, leftHold , rightHold, ePressed; // Lógica booleana pra estados de movimento, indo pro lado, cima, etc.
 	@Override
 	// Método padrão java para receber se a tecla foi pressionada ou não.
 	public void keyTyped(KeyEvent e) {
@@ -18,23 +18,27 @@ public class KeyInput implements KeyListener {
 		int code = e.getKeyCode(); // Identifica a tecla pressionada.
 		
 		// Caso o a tecla seja "W" ou a seta para cima das teclas direcionais a lógica diz que o personagem deve se mover para cima.
-		if(code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
+		if(code == KeyEvent.VK_W) {
 			upHold = true;
 		}
 		
 		// Caso o a tecla seja "A" ou a seta para a esquerda das teclas direcionais a lógica diz que o personagem deve se mover para esquerda.
-		if(code == KeyEvent.VK_A || code == KeyEvent.VK_LEFT) {
+		if(code == KeyEvent.VK_A) {
 			leftHold = true;
 		}
 		
 		// Caso o a tecla seja "S" ou a seta para baixo das teclas direcionais a lógica diz que o personagem deve se mover para baixo.
-		if(code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) {
+		if(code == KeyEvent.VK_S) {
 			downHold = true;
 		}
 		
 		// Caso o a tecla seja "D" ou a seta para a direita das teclas direcionais a lógica diz que o personagem deve se mover para direita.
-		if(code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT) {
+		if(code == KeyEvent.VK_D) {
 			rightHold = true;
+		}
+		
+		if(code == KeyEvent.VK_E) {
+			ePressed = true;
 		}
 	}
 	
@@ -44,25 +48,24 @@ public class KeyInput implements KeyListener {
 		int code = e.getKeyCode();
 		
 		// Lógica idêntica a de quando for pressionado, porém a lógica de movimento será falsa.
-		if(code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
+		if(code == KeyEvent.VK_W) {
 			upHold = false;
 		}
 		
 		// Lógica idêntica a de quando for pressionado, porém a lógica de movimento será falsa.
-		if(code == KeyEvent.VK_A || code == KeyEvent.VK_LEFT) {
+		if(code == KeyEvent.VK_A) {
 			leftHold = false;
 		}
 		
 		// Lógica idêntica a de quando for pressionado, porém a lógica de movimento será falsa.
-		if(code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) {
+		if(code == KeyEvent.VK_S) {
 			downHold = false;
 		}
 		
 		// Lógica idêntica a de quando for pressionado, porém a lógica de movimento será falsa.
-		if(code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT) {
+		if(code == KeyEvent.VK_D) {
 			rightHold = false;
 		}
-		
 	}
 		
 }

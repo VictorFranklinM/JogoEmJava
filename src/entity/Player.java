@@ -17,6 +17,7 @@ public class Player extends Entity{
 	
 	public final int screenX;
 	public final int screenY;
+	int hasMaga = 0;
 	
 	public Player(Screen screen, KeyInput keyInput) {
 		this.screen = screen;
@@ -27,8 +28,14 @@ public class Player extends Entity{
 		screenX = (screen.screenWidth / 2) - (screen.tileSize/2);
 		screenY = (screen.screenHeight / 2) - (screen.tileSize/2);
 		
-		collisionArea = new Rectangle((4 * screen.scale), (8 * screen.scale), (8 * screen.scale), (8 * screen.scale));
-		// X do retângulo (começa no canto esquerdo), Y (começa no canto superior), largura do retângulo, altura.
+		collisionArea = new Rectangle();
+		collisionArea.x = (4 * screen.scale); // X do retângulo (começa no canto esquerdo).
+		collisionArea.y = (8 * screen.scale); // Y (começa no canto superior).
+		collisionArea.width = (8 * screen.scale); // Largura do retângulo.
+		collisionArea.height = (7 * screen.scale); // Altura.
+		
+		collisionAreaDefaultX = collisionArea.x;
+		collisionAreaDefaultY = collisionArea.y;
 		
 		setDefaultValues();
 		renderPlayer();
@@ -85,6 +92,8 @@ public class Player extends Entity{
 	    	
 	    	collision = false;
 	    	screen.colCheck.checkTile(this);
+	    	int objIndex = screen.colCheck.checkObject(this, true);
+	    	interact(objIndex);
 	    	
 	    	if(collision == false) {
 	    		switch(facing) {
@@ -169,6 +178,34 @@ public class Player extends Entity{
 		else {
 			spriteNum = 2;
 		}
+	}
+	
+	public void interact(int index) {
+		if(index != 999) {
+			String objName = screen.obj[index].name;
+			
+			if(key.ePressed == true) {
+				switch(objName) {
+				case "Magatama":
+					hasMaga++;
+					screen.obj[index] = null;
+					System.out.println(+hasMaga+" Magatamas.");
+					break;
+					
+				case "Portal":
+					if(hasMaga > 0) {
+					screen.obj[index] = null;
+					}
+					break;
+				
+				case "Cache Cube":
+					screen.obj[index] = null;
+					System.out.println("Ganhou item (ainda a implementar).");
+					break;
+				}
+			}
+		}
+		key.ePressed = false;
 	}
 	
 	public void drawn(Graphics2D g2) {

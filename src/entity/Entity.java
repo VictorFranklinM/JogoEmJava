@@ -13,6 +13,8 @@ public class Entity {
 	public int spriteCounter = 0;
 	public int spriteNum = 1;
 	
-	public boolean collision = false;
 	public Rectangle collisionArea;
+	public int collisionAreaDefaultX, collisionAreaDefaultY;
+	
+	public boolean collision = false;
 }

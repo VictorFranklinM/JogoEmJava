@@ -1,16 +1,18 @@
 package object;
 
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import main.Screen;
 
 public class SuperObject {
-	
 	public BufferedImage image;
 	public String name;
 	public boolean collision = false;
 	public int worldX, worldY;
+	public Rectangle collisionArea = new Rectangle();
+	public int collisionAreaDefaultX, collisionAreaDefaultY;
 	
 	public void draw(Graphics2D g2, Screen screen) {
 		int screenX = worldX - screen.player.worldX + screen.player.screenX;
