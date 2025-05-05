@@ -13,7 +13,7 @@ public class Main {
 		window.add(screen); /* Adicionando as features do objeto screen dentro do objeto window. 
 			Window é apenas a janela do aplicativo, enquanto screen é a interface. */
 		
-		window.setTitle("Nome do Jogo"); // Nome da Janela.
+		window.setTitle("Shin Megami Tensei: Persona VI"); // Nome da Janela.
 		window.setUndecorated(true); // Tira as bordas da janela.
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // A operação padrão ao clicar no "X" será fechar o jogo.
 		window.setResizable(false); // Se é possível mudar o tamanho da janela.

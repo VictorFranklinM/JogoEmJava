@@ -117,7 +117,7 @@ public class TileOrganizer {
 			int screenY = worldY - screen.player.worldY + screen.player.screenY;
 			
 			// Checa se o tile é visível na câmera antes de renderizar.
-			if(((worldX + screen.tileSize) > (screen.player.worldX - screen.player.screenX))
+			if(((worldX + screen.tileSize) > (screen.player.worldX /*- screen.player.screenX*/))
 				&& ((worldX - screen.tileSize) < (screen.player.worldX + screen.player.screenX))
 				&& ((worldY + screen.tileSize) > (screen.player.worldY - screen.player.screenY))
 				&& ((worldY - screen.tileSize) < (screen.player.worldY + screen.player.screenY))) {
