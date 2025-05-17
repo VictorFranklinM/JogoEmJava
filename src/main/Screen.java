@@ -32,13 +32,15 @@ public class Screen extends JPanel implements Runnable{
 	public final int worldWidth = tileSize * maxWorldCol;
 	public final int worldHeight = tileSize * maxWorldRow;
 	
+	public final int objPerScreen = 10;
+	
 	TileOrganizer tileM = new TileOrganizer(this);
 	KeyInput key = new KeyInput();
 	Thread gameThread; // Cria uma linha de execução secundária para executar um código em segundo plano por cima do clock base.
 	public CollisionChecker colCheck = new CollisionChecker(this);
 	public ObjPlacer objPlacer = new ObjPlacer(this);
 	public Player player = new Player(this,key);
-	public SuperObject obj[] = new SuperObject[10]; // new Object[x]. x é a quantidade de objetos que podem ser renderizados na tela ao mesmo tempo.
+	public SuperObject obj[] = new SuperObject[objPerScreen]; // new Object[x]. x é a quantidade de objetos que podem ser renderizados na tela ao mesmo tempo.
 	
 	
 	int fps = 60; // Quantas vezes a tela vai ser atualizada por segundo.

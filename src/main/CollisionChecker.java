@@ -68,7 +68,7 @@ public class CollisionChecker {
 	
 	public int checkObject (Entity entity, boolean player) {
 		
-		int index = 999; // (Pode ser qualquer número maior que o tamanho do array de objetos).
+		int index = screen.objPerScreen; // (Pode ser qualquer número maior que o tamanho do array de objetos).
 		
 		for(int i = 0; i < screen.obj.length; i++) {
 			

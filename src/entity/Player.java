@@ -182,7 +182,7 @@ public class Player extends Entity{
 	}
 	
 	public void interact(int index) {
-		if(index != (screen.obj.length * 100)) {
+		if(index != (screen.objPerScreen)) {
 			String objName = screen.obj[index].name;
 			
 			if(key.ePressed == true) {
