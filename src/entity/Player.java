@@ -17,6 +17,7 @@ public class Player extends Entity{
 	
 	public final int screenX;
 	public final int screenY;
+	public final int defaultSpeed = 5;
 	int hasMaga = 0;
 	
 	public Player(Screen screen, KeyInput keyInput) {
@@ -45,7 +46,7 @@ public class Player extends Entity{
 		// World X e Y são onde o personagem do player aparecerá no mapa inicialmente.
 		worldX = screen.tileSize * 47;
 		worldY = screen.tileSize * 29;
-		speed = 5;
+		speed = defaultSpeed;
 		facing = "down";
 	}
 	
@@ -100,11 +101,11 @@ public class Player extends Entity{
 	    		case "up":
 		    		// Checa se o personagem está movendo na diagonal e recalcula o vetor de velocidade.
 		    		if(key.leftHold) {
-		    			speed = 4;
+		    			speed--;
 		    			worldX -=speed;
 		    			
 		    		} else if (key.rightHold) {
-		    			speed = 4;
+		    			speed--;
 		    			worldX +=speed;
 		    		}
 		    		
@@ -114,11 +115,11 @@ public class Player extends Entity{
 	    		case "down":
 		    		// Checa se o personagem está movendo na diagonal e recalcula o vetor de velocidade.
 		    		if(key.leftHold) {
-		    			speed = 4;
+		    			speed--;
 		    			worldX -=speed;
 		    			
 		    		} else if (key.rightHold) {
-		    			speed = 4;
+		    			speed--;
 		    			worldX +=speed;
 		    		}
 		    		
@@ -128,11 +129,11 @@ public class Player extends Entity{
 	    		case "left":
 		    		// Checa se o personagem está movendo na diagonal e recalcula o vetor de velocidade.
 		    		if(key.upHold) {
-		    			speed = 4;
+		    			speed--;
 		    			worldY -=speed;
 		    			
 		    		} else if (key.downHold) {
-		    			speed = 4;
+		    			speed--;
 		    			worldY +=speed;
 		    		}
 		    		
@@ -142,18 +143,18 @@ public class Player extends Entity{
 	    		case "right":
 		    		// Checa se o personagem está movendo na diagonal e recalcula o vetor de velocidade.
 	    			if(key.upHold) {
-		    			speed = 4;
+	    				speed--;
 		    			worldY -=speed;
 		    			
 		    		} else if (key.downHold) {
-		    			speed = 4;
+		    			speed--;
 		    			worldY +=speed;
 		    		}
 	    			
 		    		worldX += speed;
 	    			break;
 	    		}
-	    		speed = 5;
+	    		speed = defaultSpeed;
 	    	}
 	    	
 	    	if(collision == true) {
@@ -181,7 +182,7 @@ public class Player extends Entity{
 	}
 	
 	public void interact(int index) {
-		if(index != 999) {
+		if(index != (screen.obj.length * 100)) {
 			String objName = screen.obj[index].name;
 			
 			if(key.ePressed == true) {
