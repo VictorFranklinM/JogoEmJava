@@ -3,10 +3,10 @@ package entity;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
-import main.Som;
+import main.Sound;
 
 public class Entity {
-	Som som = new Som();
+	Sound sound = new Sound();
 	public int worldX, worldY;
 	public int speed;
 	
@@ -21,19 +21,19 @@ public class Entity {
 	
 	public boolean collision = false;
 	
-	public void TocarMusica(int i) {
-		som.setFile(i);
-		som.play();
-		som.loop();
-
+	public void playMusic(int i) {
+		sound.setFile(i);
+		sound.play();
+		sound.loop();
 	}
-	public void PararMusica() {
-		som.stop();
+	
+	public void stopMusic() {
+		sound.stop();
 	}
 
-	public void TocarEfeito(int i) {
-		som.setFile(i);
-		som.play();
+	public void playSFX(int i) {
+		sound.setFile(i);
+		sound.play();
 	}
 }
 

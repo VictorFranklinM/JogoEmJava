@@ -27,6 +27,7 @@ public class OBJ_Chest extends SuperObject{
 			
 		} catch (IOException e) {
 			e.printStackTrace();
+			System.out.println("Invalid image path.");
 		}
 		collision = true;
 	}

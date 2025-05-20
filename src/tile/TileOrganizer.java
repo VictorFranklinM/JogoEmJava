@@ -62,6 +62,7 @@ public class TileOrganizer {
 			
 		}catch(IOException e) {
 			e.printStackTrace(); // Exibe erro caso ocorra problema ao carregar as imagens
+			System.out.println("Invalid image path.");
 		}
 	}
 	
@@ -98,6 +99,7 @@ public class TileOrganizer {
 			br.close();
 		}catch(Exception e) {
 			e.printStackTrace(); // Exibe erro caso ocorra problema ao carregar o mapa
+			System.out.println("Invalid map path.");
 		}
 	}
 	
