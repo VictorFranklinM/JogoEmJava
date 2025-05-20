@@ -204,7 +204,7 @@ public class Player extends Entity{
 					screen.obj[index] = null;
 					System.out.println(+hasMaga+" Magatamas.");
 				 speed += 10;
-				 TocarEfeito(1);
+				 TocarEfeito(2);
 					break;
 					
 				case "Portal":
