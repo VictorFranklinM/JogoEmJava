@@ -19,11 +19,11 @@ public class ObjPlacer {
 		screen.obj[0].worldX = 48 * screen.tileSize;
 		screen.obj[0].worldY = 29 * screen.tileSize;
 			
-		screen.obj[1] = new OBJ_MagaGreen(screen);
+		screen.obj[1] = new OBJ_Portal(screen);
 		screen.obj[1].worldX = 48 * screen.tileSize;
 		screen.obj[1].worldY = 33 * screen.tileSize;
 			
-		screen.obj[2] = new OBJ_MagaBlue(screen);
+		screen.obj[2] = new OBJ_CacheCube(screen);
 		screen.obj[2].worldX = 44 * screen.tileSize;
 		screen.obj[2].worldY = 29 * screen.tileSize;
 	}

@@ -17,7 +17,6 @@ public class Player extends Entity{
 	
 	public final int screenX;
 	public final int screenY;
-	public final int defaultSpeed = 5;
 	int hasMaga = 0;
 	
 	public Player(Screen screen, KeyInput keyInput) {
@@ -46,7 +45,7 @@ public class Player extends Entity{
 		// World X e Y são onde o personagem do player aparecerá no mapa inicialmente.
 		worldX = screen.tileSize * 47;
 		worldY = screen.tileSize * 29;
-		speed = defaultSpeed;
+		speed = 5;
 		facing = "down";
 	}
 	
@@ -101,12 +100,15 @@ public class Player extends Entity{
 	    		case "up":
 		    		// Checa se o personagem está movendo na diagonal e recalcula o vetor de velocidade.
 		    		if(key.leftHold) {
-		    			speed--;
+		    			speed = speed -1;
 		    			worldX -=speed;
+		    			speed = speed +1;
+
 		    			
 		    		} else if (key.rightHold) {
-		    			speed--;
+		    			speed = speed + 1;
 		    			worldX +=speed;
+		    			speed = speed +1;
 		    		}
 		    		
 		    		worldY -= speed;
@@ -115,12 +117,14 @@ public class Player extends Entity{
 	    		case "down":
 		    		// Checa se o personagem está movendo na diagonal e recalcula o vetor de velocidade.
 		    		if(key.leftHold) {
-		    			speed--;
+		    			speed = speed -1;
 		    			worldX -=speed;
 		    			
 		    		} else if (key.rightHold) {
-		    			speed--;
+		    			speed = speed -1;
 		    			worldX +=speed;
+		    			speed = speed +1;
+
 		    		}
 		    		
 		    		worldY += speed;
@@ -129,12 +133,16 @@ public class Player extends Entity{
 	    		case "left":
 		    		// Checa se o personagem está movendo na diagonal e recalcula o vetor de velocidade.
 		    		if(key.upHold) {
-		    			speed--;
+		    			speed = (speed -1);
 		    			worldY -=speed;
+		    			speed = speed +1;
+
 		    			
 		    		} else if (key.downHold) {
-		    			speed--;
+		    			speed = (speed -1);
 		    			worldY +=speed;
+		    			speed = speed +1;
+
 		    		}
 		    		
 		    		worldX -= speed;
@@ -143,18 +151,22 @@ public class Player extends Entity{
 	    		case "right":
 		    		// Checa se o personagem está movendo na diagonal e recalcula o vetor de velocidade.
 	    			if(key.upHold) {
-	    				speed--;
+		    			speed = (speed -1) ;
 		    			worldY -=speed;
+		    			speed = speed +1;
+
 		    			
 		    		} else if (key.downHold) {
-		    			speed--;
+		    			speed = (speed -1) ;
 		    			worldY +=speed;
+		    			speed = speed +1;
+
 		    		}
 	    			
 		    		worldX += speed;
 	    			break;
 	    		}
-	    		speed = defaultSpeed;
+	    	
 	    	}
 	    	
 	    	if(collision == true) {
@@ -182,7 +194,7 @@ public class Player extends Entity{
 	}
 	
 	public void interact(int index) {
-		if(index != (screen.objPerScreen)) {
+		if(index != 999) {
 			String objName = screen.obj[index].name;
 			
 			if(key.ePressed == true) {
@@ -191,6 +203,8 @@ public class Player extends Entity{
 					hasMaga++;
 					screen.obj[index] = null;
 					System.out.println(+hasMaga+" Magatamas.");
+				 speed += 10;
+				 TocarEfeito(1);
 					break;
 					
 				case "Portal":
@@ -202,6 +216,7 @@ public class Player extends Entity{
 				case "Cache Cube":
 					screen.obj[index] = null;
 					System.out.println("Ganhou item (ainda a implementar).");
+					TocarEfeito(0);
 					break;
 				}
 			}

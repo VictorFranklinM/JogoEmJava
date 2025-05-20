@@ -3,7 +3,10 @@ package entity;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
+import main.Som;
+
 public class Entity {
+	Som som = new Som();
 	public int worldX, worldY;
 	public int speed;
 	
@@ -17,4 +20,20 @@ public class Entity {
 	public int collisionAreaDefaultX, collisionAreaDefaultY;
 	
 	public boolean collision = false;
+	
+	public void TocarMusica(int i) {
+		som.setFile(i);
+		som.play();
+		som.loop();
+
+	}
+	public void PararMusica() {
+		som.stop();
+	}
+
+	public void TocarEfeito(int i) {
+		som.setFile(i);
+		som.play();
+	}
 }
+

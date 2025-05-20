@@ -1,4 +1,9 @@
-/main/
-/object/
-/tile/
 /entity/
+/main/
+/maps/
+/object/
+/objects/
+/player/
+/sound/
+/tile/
+/tiles/
