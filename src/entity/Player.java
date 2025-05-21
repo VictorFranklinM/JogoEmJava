@@ -191,6 +191,7 @@ public class Player extends Entity{
 	}
 	
 	public void interact(int index) {
+		// OBS: Pra aumentar a speed do player, tirar o "final" de defaultSpeed e colocar defaultSpeed += (speed a ser incrementada).
 		if(index != (screen.objPerScreen)) {
 			String objName = screen.obj[index].name;
 			

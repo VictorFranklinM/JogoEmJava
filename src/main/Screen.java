@@ -35,7 +35,8 @@ public class Screen extends JPanel implements Runnable{
 	public final int objPerScreen = 10;
 	
 	//SOM
-	Sound sound = new Sound();
+	Sound music = new Sound();
+	Sound sfx = new Sound();
 	
 	TileOrganizer tileM = new TileOrganizer(this);
 	KeyInput key = new KeyInput();
@@ -62,7 +63,7 @@ public class Screen extends JPanel implements Runnable{
     public void startGameThread() {
     	gameThread = new Thread(this);
     	gameThread.start();
-    	TocarMusica(2);
+    	playMusic(2);
 
     }
     
@@ -114,19 +115,19 @@ public class Screen extends JPanel implements Runnable{
 		
 	}
 	
-	public void TocarMusica(int i) {
-		sound.setFile(i);
-		sound.loop();
-		sound.play();
+	public void playMusic(int i) {
+		music.setFile(i);
+		music.loop();
+		music.play();
 
 	}
 	
-	public void PararMusica() {
-		sound.stop();
+	public void stopMusic() {
+		music.stop();
 	}
 
-	public void TocarEfeito(int i) {
-		sound.setFile(i);
-		sound.play();
+	public void playSFX(int i) {
+		sfx.setFile(i);
+		sfx.play();
 	}
 }
