@@ -17,7 +17,8 @@ public class Player extends Entity{
 	
 	public final int screenX;
 	public final int screenY;
-	public final int defaultSpeed = 5;
+	private final int defaultSpeed = 5;
+	
 	int hasMaga = 0;
 	
 	public Player(Screen screen, KeyInput keyInput) {
@@ -190,7 +191,7 @@ public class Player extends Entity{
 	}
 	
 	public void interact(int index) {
-		if(index != (screen.objPerScreen)	) {
+		if(index != (screen.objPerScreen)) {
 			String objName = screen.obj[index].name;
 			
 			if(key.ePressed == true) {
@@ -199,8 +200,7 @@ public class Player extends Entity{
 					hasMaga++;
 					screen.obj[index] = null;
 					System.out.println(+hasMaga+" Magatamas.");
-				 speed += 10;
-				 playSFX(2);
+				 playSFX(1);
 					break;
 					
 				case "Portal":
