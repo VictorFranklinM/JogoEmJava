@@ -11,57 +11,58 @@ public class KeyInput implements KeyListener {
 	public void keyTyped(KeyEvent e) {
 		
 	}
-
+	public boolean IsDebugging = false;
 	@Override
 	// Função que processa quando uma tecla é pressionada.
 	public void keyPressed(KeyEvent e) {
 		int code = e.getKeyCode(); // Identifica a tecla pressionada.
-		
 		// Caso o a tecla seja "W" ou a seta para cima das teclas direcionais a lógica diz que o personagem deve se mover para cima.
 		if(code == KeyEvent.VK_W) {
 			upHold = true;
 		}
-		
 		// Caso o a tecla seja "A" ou a seta para a esquerda das teclas direcionais a lógica diz que o personagem deve se mover para esquerda.
 		if(code == KeyEvent.VK_A) {
 			leftHold = true;
 		}
-		
 		// Caso o a tecla seja "S" ou a seta para baixo das teclas direcionais a lógica diz que o personagem deve se mover para baixo.
 		if(code == KeyEvent.VK_S) {
 			downHold = true;
 		}
-		
 		// Caso o a tecla seja "D" ou a seta para a direita das teclas direcionais a lógica diz que o personagem deve se mover para direita.
 		if(code == KeyEvent.VK_D) {
 			rightHold = true;
 		}
-		
 		if(code == KeyEvent.VK_E) {
 			ePressed = true;
 		}
-	}
+		if(code == KeyEvent.VK_T) {
+			IsDebugging = true;
+			}
+		if(code == KeyEvent.VK_Y) {
+			IsDebugging = false;
+		}
+	
+		}
+		
+
+	
 	
 	@Override
 	// Quando a tecla for solta, teremos a lógica de desligar o comando de movimento.
 	public void keyReleased(KeyEvent e) {
 		int code = e.getKeyCode();
-		
 		// Lógica idêntica a de quando for pressionado, porém a lógica de movimento será falsa.
 		if(code == KeyEvent.VK_W) {
 			upHold = false;
 		}
-		
 		// Lógica idêntica a de quando for pressionado, porém a lógica de movimento será falsa.
 		if(code == KeyEvent.VK_A) {
 			leftHold = false;
 		}
-		
 		// Lógica idêntica a de quando for pressionado, porém a lógica de movimento será falsa.
 		if(code == KeyEvent.VK_S) {
 			downHold = false;
 		}
-		
 		// Lógica idêntica a de quando for pressionado, porém a lógica de movimento será falsa.
 		if(code == KeyEvent.VK_D) {
 			rightHold = false;

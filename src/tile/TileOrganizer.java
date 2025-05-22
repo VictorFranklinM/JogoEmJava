@@ -9,6 +9,7 @@ import java.io.InputStreamReader;
 
 import javax.imageio.ImageIO;
 
+import main.PerformanceTool;
 import main.Screen;
 
 public class TileOrganizer {
@@ -31,38 +32,28 @@ public class TileOrganizer {
 	
 	// Método para carregar as imagens dos tiles
 	public void getTileImage() {
-		
-		try {
-			
 			// Carregando diferentes tipos de tiles, quantidade máxima definida acima em tile
-			tile[0] = new Tile();
-			tile[0].image = ImageIO.read(getClass().getResourceAsStream("/tiles/barrel.png"));
-			tile[0].collision = true;
+			setup(0,"barrel",true);
+			setup(1,"cactus",true);
+			setup(2,"grass",false);
+			setup(3,"sand",false);
+			setup(4,"stone",false);
+			setup(5,"wall",true);
+			setup(6,"water",true);
+		
 			
-			tile[1] = new Tile();
-			tile[1].image = ImageIO.read(getClass().getResourceAsStream("/tiles/cactus.png"));
-			tile[1].collision = true;
-			
-			tile[2] = new Tile();
-			tile[2].image = ImageIO.read(getClass().getResourceAsStream("/tiles/grass.png"));
-			
-			tile[3] = new Tile();
-			tile[3].image = ImageIO.read(getClass().getResourceAsStream("/tiles/sand.png"));
-			
-			tile[4] = new Tile();
-			tile[4].image = ImageIO.read(getClass().getResourceAsStream("/tiles/stone.png"));
-			
-			tile[5] = new Tile();
-			tile[5].image = ImageIO.read(getClass().getResourceAsStream("/tiles/wall.png"));
-			tile[5].collision = true;
-			
-			tile[6] = new Tile();
-			tile[6].image = ImageIO.read(getClass().getResourceAsStream("/tiles/water.png"));
-			tile[6].collision = true;
-			
+	
+	}
+	public void setup(int index,String imagePath,boolean collision) {
+		PerformanceTool performance = new PerformanceTool();
+		try {
+			tile[index] = new Tile();
+			tile[index].image = ImageIO.read(getClass().getResourceAsStream("/tiles/"+imagePath+".png"));
+			tile[index].image = performance.scaleImage(tile[index].image,screen.tileSize ,screen.tileSize);
+			tile[index].collision = collision;
 		}catch(IOException e) {
-			e.printStackTrace(); // Exibe erro caso ocorra problema ao carregar as imagens
-			System.out.println("Invalid image path.");
+			e.printStackTrace();
+			System.out.println("Invalid Path/Invalid Image Format(Must be PNG)");
 		}
 	}
 	
@@ -124,7 +115,7 @@ public class TileOrganizer {
 				&& ((worldY + screen.tileSize) > (screen.player.worldY - screen.player.screenY))
 				&& ((worldY - screen.tileSize) < (screen.player.worldY + screen.player.screenY))) {
 				
-				g2.drawImage(tile[tileNum].image, screenX, screenY, screen.tileSize, screen.tileSize, null); // Desenha o tile
+				g2.drawImage(tile[tileNum].image, screenX, screenY, null); // Desenha o tile
 			}
 			
 			worldCol++;

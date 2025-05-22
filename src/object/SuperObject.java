@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
+import main.PerformanceTool;
 import main.Screen;
 
 public class SuperObject {
@@ -13,7 +14,7 @@ public class SuperObject {
 	public int worldX, worldY;
 	public Rectangle collisionArea = new Rectangle();
 	public int collisionAreaDefaultX, collisionAreaDefaultY;
-	
+	PerformanceTool performanceObj = new PerformanceTool();
 	public void draw(Graphics2D g2, Screen screen) {
 		int screenX = worldX - screen.player.worldX + screen.player.screenX;
 		int screenY = worldY - screen.player.worldY + screen.player.screenY;
@@ -26,4 +27,5 @@ public class SuperObject {
 			g2.drawImage(image, screenX, screenY, screen.tileSize, screen.tileSize, null); // Desenha o tile
 		}
 	}
+
 }

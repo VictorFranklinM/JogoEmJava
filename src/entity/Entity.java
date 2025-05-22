@@ -3,9 +3,12 @@ package entity;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
+import javax.imageio.ImageIO;
+
+import main.PerformanceTool;
 import main.Sound;
 
-public class Entity {
+public abstract class Entity {
 	Sound sound = new Sound();
 	public int worldX, worldY;
 	public int speed;
@@ -35,5 +38,8 @@ public class Entity {
 		sound.setFile(i);
 		sound.play();
 	}
+
+	
+	public abstract BufferedImage setup(String imageName);
 }
 

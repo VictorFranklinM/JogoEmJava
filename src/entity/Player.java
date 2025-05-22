@@ -9,6 +9,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import main.KeyInput;
+import main.PerformanceTool;
 import main.Screen;
 
 public class Player extends Entity{
@@ -52,29 +53,34 @@ public class Player extends Entity{
 	}
 	
 	public void renderPlayer() {
-		try {
-			up1 = ImageIO.read(getClass().getResourceAsStream("/player/Up-1.png"));
-			up2 = ImageIO.read(getClass().getResourceAsStream("/player/Up-2.png"));
-			up3 = ImageIO.read(getClass().getResourceAsStream("/player/Up-3.png"));
-			
-			down1 = ImageIO.read(getClass().getResourceAsStream("/player/Down-1.png"));
-			down2 = ImageIO.read(getClass().getResourceAsStream("/player/Down-2.png"));
-			down3 = ImageIO.read(getClass().getResourceAsStream("/player/Down-3.png"));
-			
-			left1 = ImageIO.read(getClass().getResourceAsStream("/player/Left-1.png"));
-			left2 = ImageIO.read(getClass().getResourceAsStream("/player/Left-2.png"));
-			left3 = ImageIO.read(getClass().getResourceAsStream("/player/Left-3.png"));
-			
-			right1 = ImageIO.read(getClass().getResourceAsStream("/player/Right-1.png"));
-			right2 = ImageIO.read(getClass().getResourceAsStream("/player/Right-2.png"));
-			right3 = ImageIO.read(getClass().getResourceAsStream("/player/Right-3.png"));
-			}
-		
-		catch (IOException e) {
-			e.printStackTrace();
-			System.out.println("Invalid character sprite path.");
-		}
+		up1 = setup("Up-1");
+		up2 = setup("Up-2");
+		up3 = setup("Up-3");
+		down1 = setup("Down-1");
+		down2 = setup("Down-2");
+		down3 = setup("Down-3");
+		left1 = setup("Left-1");
+		left2 = setup("Left-2");
+		left3 = setup("Left-3");
+		right1 = setup("Right-1");
+		right2 = setup("Right-2");
+		right3 = setup("Right-3");
+
 	}
+	public BufferedImage setup(String imageName) {
+		PerformanceTool performancePlayer = new PerformanceTool();
+		BufferedImage image = null;
+		
+		try {
+			image = ImageIO.read(getClass().getResourceAsStream("/player/"+imageName+".png"));
+			image = performancePlayer.scaleImage(image, screen.tileSize, screen.tileSize);
+		}catch(IOException e) {
+			e.printStackTrace();
+			System.out.println("sprite Path invalid for Player sprite");
+		}
+		return image;
+	}
+
 	
 	
 	// NOTA: tentar fazer com switch case pra ver se fica mais fluido.
@@ -273,6 +279,6 @@ public class Player extends Entity{
 			}
 			break;
 		}
-		g2.drawImage(image, screenX, screenY, screen.tileSize, screen.tileSize, null);
+		g2.drawImage(image, screenX, screenY, null);
 	}
 }

@@ -24,7 +24,7 @@ public class OBJ_MagaGreen extends SuperObject{
 				
 		try {
 			image = ImageIO.read(getClass().getResourceAsStream("/objects/greenmaga.png"));
-			
+			this.performanceObj.scaleImage(image, screen.tileSize, screen.tileSize);
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.out.println("Invalid image path.");

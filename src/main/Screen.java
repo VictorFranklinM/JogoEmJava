@@ -77,7 +77,11 @@ public class Screen extends JPanel implements Runnable{
     public void paintComponent(Graphics g) {
     	super.paintComponent(g); // Limpa o desenho anterior antes de renderizar novamente.
     	Graphics2D g2 = (Graphics2D)g; // Faz um casting para Graphics2D para poder manipular x, y e outros atributos mais avançados.
-    	
+    	//DEBUG (TESTADOR DE VELOCIDADE DE RENDERIZAÇÃO
+    	long drawBegin = 0;
+    	if(key.IsDebugging == true) {
+    	drawBegin = System.nanoTime();
+    	}
     	tileM.draw(g2); // mapa
     	
     	for(int i = 0; i < obj.length; i++) {
@@ -85,10 +89,20 @@ public class Screen extends JPanel implements Runnable{
     			obj[i].draw(g2, this);
     		}
     	}
+    	// DESENHAR PLAYER
     	
     	player.drawn(g2); // Função que renderiza o player.
-    	g2.dispose(); // Liberando memória após função gráfica.	
     	
+    	long drawStop = System.nanoTime();
+    	if(key.IsDebugging == true) {
+    	long elapsedTime = drawStop - drawBegin;
+    	g2.setColor(Color.white);
+    	g2.drawString("Render Time: "+ elapsedTime, 10, 400);
+    	System.out.println("Render Time = "+ elapsedTime);
+    	
+    	}
+    	//liberar memória
+    	g2.dispose();
     }
 
     // Linha de execução secundária do jogo, onde ocorrem as coisas na tela.
