@@ -15,6 +15,7 @@ public class SuperObject {
 	public Rectangle collisionArea = new Rectangle();
 	public int collisionAreaDefaultX, collisionAreaDefaultY;
 	PerformanceTool performanceObj = new PerformanceTool();
+	
 	public void draw(Graphics2D g2, Screen screen) {
 		int screenX = worldX - screen.player.worldX + screen.player.screenX;
 		int screenY = worldY - screen.player.worldY + screen.player.screenY;

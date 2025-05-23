@@ -20,7 +20,7 @@ public class Player extends Entity{
 	public final int screenY;
 	private final int defaultSpeed = 5;
 	
-	int hasMaga = 0;
+	public int hasMaga = 0;
 	
 	public Player(Screen screen, KeyInput keyInput) {
 		this.screen = screen;
@@ -206,19 +206,23 @@ public class Player extends Entity{
 				case "Magatama":
 					hasMaga++;
 					screen.obj[index] = null;
-					System.out.println(+hasMaga+" Magatamas.");
-				 playSFX(1);
+					screen.ui.displayMessage("Got a magatama!");
+					playSFX(1);
 					break;
 					
 				case "Portal":
 					if(hasMaga > 0) {
-					screen.obj[index] = null;
+						screen.obj[index] = null;
+						screen.ui.displayMessage("Opened the portal with the Magatama!");
+					}
+					else {
+						screen.ui.displayMessage("You need a Magatama to open the portal.");
 					}
 					break;
 				
 				case "Cache Cube":
 					screen.obj[index] = null;
-					System.out.println("Ganhou item (ainda a implementar).");
+					screen.ui.displayMessage("Got an item! (W.I.P.)");
 					playSFX(0);
 					break;
 				}

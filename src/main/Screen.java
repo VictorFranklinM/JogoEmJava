@@ -41,8 +41,11 @@ public class Screen extends JPanel implements Runnable{
 	TileOrganizer tileM = new TileOrganizer(this);
 	KeyInput key = new KeyInput();
 	Thread gameThread; // Cria uma linha de execução secundária para executar um código em segundo plano por cima do clock base.
+	
+	public UI ui = new UI(this);
 	public CollisionChecker colCheck = new CollisionChecker(this);
 	public ObjPlacer objPlacer = new ObjPlacer(this);
+	
 	public Player player = new Player(this,key);
 	public SuperObject obj[] = new SuperObject[objPerScreen]; // new Object[x]. x é a quantidade de objetos que podem ser renderizados na tela ao mesmo tempo.
 	
@@ -90,8 +93,10 @@ public class Screen extends JPanel implements Runnable{
     		}
     	}
     	// DESENHAR PLAYER
-    	
     	player.drawn(g2); // Função que renderiza o player.
+    	
+    	//UI
+    	ui.drawn(g2);
     	
     	long drawStop = System.nanoTime();
     	if(key.IsDebugging == true) {
