@@ -6,12 +6,22 @@ import java.awt.event.KeyListener; // Biblioteca para reagir ao estado das tecla
 // Esta classe serve para receber os dados inputs do teclado.
 public class KeyInput implements KeyListener {
 	public boolean upHold, downHold, leftHold , rightHold, ePressed; // Lógica booleana pra estados de movimento, indo pro lado, cima, etc.
+	
+	private Screen screen;
+	
+	public boolean isDebugging = false;
+
+	
+	public KeyInput(Screen screen) {
+		this.screen = screen;
+	}
+	
 	@Override
 	// Método padrão java para receber se a tecla foi pressionada ou não.
 	public void keyTyped(KeyEvent e) {
 		
 	}
-	public boolean IsDebugging = false;
+	
 	@Override
 	// Função que processa quando uma tecla é pressionada.
 	public void keyPressed(KeyEvent e) {
@@ -35,14 +45,23 @@ public class KeyInput implements KeyListener {
 		if(code == KeyEvent.VK_E) {
 			ePressed = true;
 		}
-		if(code == KeyEvent.VK_T) {
-			IsDebugging = true;
+		if(code == KeyEvent.VK_ESCAPE) {
+			if(screen.gameState == screen.playState) {
+				screen.gameState = screen.pauseState;
 			}
-		if(code == KeyEvent.VK_Y) {
-			IsDebugging = false;
+			else if(screen.gameState == screen.pauseState) {
+				screen.gameState = screen.playState;
+			}
 		}
-	
+		if(code == KeyEvent.VK_T) {
+			if(isDebugging == false) {
+				isDebugging = true;
+			}
+			else {
+				isDebugging = false;
+			}
 		}
+	}
 		
 
 	

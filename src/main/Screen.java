@@ -39,7 +39,7 @@ public class Screen extends JPanel implements Runnable{
 	Sound sfx = new Sound();
 	
 	TileOrganizer tileM = new TileOrganizer(this);
-	KeyInput key = new KeyInput();
+	KeyInput key = new KeyInput(this);
 	Thread gameThread; // Cria uma linha de execução secundária para executar um código em segundo plano por cima do clock base.
 	
 	public UI ui = new UI(this);
@@ -48,6 +48,10 @@ public class Screen extends JPanel implements Runnable{
 	
 	public Player player = new Player(this,key);
 	public SuperObject obj[] = new SuperObject[objPerScreen]; // new Object[x]. x é a quantidade de objetos que podem ser renderizados na tela ao mesmo tempo.
+	
+	public int gameState;
+	public final int playState = 0;
+	public final int pauseState = 1;
 	
 	int fps = 60; // Quantas vezes a tela vai ser atualizada por segundo.
 	
@@ -59,32 +63,39 @@ public class Screen extends JPanel implements Runnable{
 		
 	}
 	
-	public void setupObjects() {
+	public void setupGame() {
 		objPlacer.placeObject();
+		playMusic(2);
+		gameState = playState;
 	}
 	
     public void startGameThread() {
     	gameThread = new Thread(this);
     	gameThread.start();
-    	playMusic(2);
 
     }
     
     // Função que atualiza a posição do jogador quando a tecla de movimento é pressionada.
     public void update() {
-    	player.update();
-    	
+    	if(gameState==playState) {
+    		player.update();
+    	}
+    	if(gameState==pauseState) {
+    		
+    	}
     }
     
     // Função que renderiza os gráficos do jogo.
     public void paintComponent(Graphics g) {
     	super.paintComponent(g); // Limpa o desenho anterior antes de renderizar novamente.
     	Graphics2D g2 = (Graphics2D)g; // Faz um casting para Graphics2D para poder manipular x, y e outros atributos mais avançados.
+    	
     	//DEBUG (TESTADOR DE VELOCIDADE DE RENDERIZAÇÃO
     	long drawBegin = 0;
-    	if(key.IsDebugging == true) {
-    	drawBegin = System.nanoTime();
+    	if(key.isDebugging == true) {
+    		drawBegin = System.nanoTime();
     	}
+    	
     	tileM.draw(g2); // mapa
     	
     	for(int i = 0; i < obj.length; i++) {
@@ -93,13 +104,13 @@ public class Screen extends JPanel implements Runnable{
     		}
     	}
     	// DESENHAR PLAYER
-    	player.drawn(g2); // Função que renderiza o player.
+    	player.draw(g2); // Função que renderiza o player.
     	
     	//UI
-    	ui.drawn(g2);
+    	ui.draw(g2);
     	
     	long drawStop = System.nanoTime();
-    	if(key.IsDebugging == true) {
+    	if(key.isDebugging == true) {
     	long elapsedTime = drawStop - drawBegin;
     	g2.setColor(Color.white);
     	g2.drawString("Render Time: "+ elapsedTime, 10, 400);

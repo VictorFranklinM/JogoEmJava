@@ -10,8 +10,10 @@ import object.OBJ_MagaGreen;
 public class UI {
 
 	Screen screen;
+	Graphics2D g2;
+	
 	private Font arial_40;
-	private BufferedImage magaIMG;
+	
 	private boolean messageOn = false;
 	private String message = "";
 	private int messageCounter = 0;
@@ -21,8 +23,6 @@ public class UI {
 		this.screen = screen;
 		
 		arial_40 = new Font("Arial", Font.PLAIN, 40);
-		OBJ_MagaGreen maga = new OBJ_MagaGreen(screen);
-		magaIMG = maga.image;
 	}
 	
 	public void displayMessage(String message) {
@@ -31,16 +31,37 @@ public class UI {
 		messageCounter++;
 	}
 	
-	public void drawn(Graphics2D g2) {
+	public void draw(Graphics2D g2) {
+		this.g2 = g2;
 		g2.setFont(arial_40);
 		g2.setColor(Color.black);
-		g2.drawImage(magaIMG, screen.tileSize/2, screen.tileSize/2, screen.tileSize, screen.tileSize, null);
-		g2.drawString("x "+ screen.player.hasMaga, (int) (screen.tileSize*1.5), (int) (screen.tileSize*1.2));
 		
-		// Message
+		if(screen.gameState == screen.playState) {
+			drawMessage();
+		}
+		if(screen.gameState == screen.pauseState) {
+			drawMenu();
+		}
+	}
+	
+	private void drawMenu() {
+		String text = "PAUSED";
+		int x = getCenteredX(text);
+		int y = (int) (screen.tileSize*1.5);
+		
+		g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 80F));
+		g2.drawString(text, x, y);
+	}
+	
+	private void drawMessage() {
+		int x = screen.tileSize/2;
+		int y = screen.screenHeight/2;
+		
+		int framesPerMessage = 90; // 1 segundo = 60 frames.
+		
 		if(messageOn==true) {
 			g2.setFont(g2.getFont().deriveFont(30F));
-			g2.drawString(message, screen.tileSize/8, screen.screenHeight/3);
+			g2.drawString(message, x, y);
 			
 			if(messageCounter > 1) {
 				messageTimer = 0;
@@ -49,11 +70,18 @@ public class UI {
 			
 			messageTimer++;
 			
-			if(messageTimer > 90) {
+			if(messageTimer > framesPerMessage) {
 				messageTimer = 0;
 				messageCounter = 0;
 				messageOn = false;
 			}
 		}
 	}
+	
+	private int getCenteredX(String text) {
+		int length = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
+		int x = (screen.screenWidth/2) - (length/2);
+		return x;
+	}
 }
+

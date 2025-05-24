@@ -22,6 +22,8 @@ public class Player extends Entity{
 	
 	public int hasMaga = 0;
 	
+	private int standingCounter = 0;
+	
 	public Player(Screen screen, KeyInput keyInput) {
 		this.screen = screen;
 		this.key = keyInput;
@@ -46,7 +48,7 @@ public class Player extends Entity{
 	
 	public void setDefaultValues() {
 		// World X e Y são onde o personagem do player aparecerá no mapa inicialmente.
-		worldX = screen.tileSize * 47;
+		worldX = screen.tileSize * 46;
 		worldY = screen.tileSize * 29;
 		speed = defaultSpeed;
 		facing = "down";
@@ -192,7 +194,11 @@ public class Player extends Entity{
 	    	}
 		}
 		else {
-			spriteNum = 2;
+			standingCounter++;
+			if(standingCounter == 15) {
+				spriteNum = 2;
+				standingCounter = 0;
+			}
 		}
 	}
 	
@@ -231,7 +237,7 @@ public class Player extends Entity{
 		key.ePressed = false;
 	}
 	
-	public void drawn(Graphics2D g2) {
+	public void draw(Graphics2D g2) {
 		BufferedImage image = null;
 		
 		switch(facing) {
