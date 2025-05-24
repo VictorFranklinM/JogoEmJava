@@ -18,10 +18,24 @@
 *.zip
 *.tar.gz
 *.rar
+/bin/
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
 
-# Binaries
-/bin/
+# Eclipse
+target
+.metadata
+.settings
+.classpath
+.project
+*.class
+tmp/
+*.tmp
+*.bak
+*~.nib
+local.properties
+.loadpath
+.recommenders
+.DS_Store
