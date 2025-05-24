@@ -80,7 +80,7 @@ public class UI {
 	
 	private int getCenteredX(String text) {
 		int length = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
-		int x = (screen.screenWidth/2) - (length/2);
+		int x = (screen.screenWidth/2) - (length);
 		return x;
 	}
 }
