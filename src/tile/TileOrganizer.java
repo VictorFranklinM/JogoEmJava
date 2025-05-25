@@ -33,28 +33,29 @@ public class TileOrganizer {
 	// Método para carregar as imagens dos tiles
 	public void getTileImage() {
 			// Carregando diferentes tipos de tiles, quantidade máxima definida acima em tile
-			setup(0,"barrel",true);
-			setup(1,"cactus",true);
-			setup(2,"grass",false);
-			setup(3,"sand",false);
-			setup(4,"stone",false);
-			setup(5,"wall",true);
-			setup(6,"water",true);
+			setup(0,"barrel",true,-1);
+			setup(1,"cactus",true,-1);
+			setup(2,"grass",false,3);
+			setup(3,"sand",false,-1);
+			setup(4,"stone",false,-1);
+			setup(5,"wall",true,-1);
+			setup(6,"water",true,-1);
 		
 			
 	
 	}
-	public void setup(int index,String imagePath,boolean collision) {
-		PerformanceTool performance = new PerformanceTool();
-		try {
-			tile[index] = new Tile();
-			tile[index].image = ImageIO.read(getClass().getResourceAsStream("/tiles/"+imagePath+".png"));
-			tile[index].image = performance.scaleImage(tile[index].image,screen.tileSize ,screen.tileSize);
-			tile[index].collision = collision;
-		}catch(IOException e) {
-			e.printStackTrace();
-			System.out.println("Invalid Path/Invalid Image Format(Must be PNG)");
-		}
+	public void setup(int index, String imagePath, boolean collision, int soundIndex) {
+	    PerformanceTool performance = new PerformanceTool();
+	    try {
+	        tile[index] = new Tile();
+	        tile[index].image = ImageIO.read(getClass().getResourceAsStream("/tiles/" + imagePath + ".png"));
+	        tile[index].image = performance.scaleImage(tile[index].image, screen.tileSize, screen.tileSize);
+	        tile[index].collision = collision;
+	        tile[index].soundIndex = soundIndex; // Aqui associa o som.
+	    } catch(IOException e) {
+	        e.printStackTrace();
+	        System.out.println("Invalid Path/Invalid Image Format (Must be PNG)");
+	    }
 	}
 	
 	// Método para carregar o mapa a partir de um arquivo de texto

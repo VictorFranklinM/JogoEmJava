@@ -14,7 +14,8 @@ public class Sound {
 	public Sound() {
 		soundURL[0] = getClass().getResource("/sound/coin.wav");
 		soundURL[1] = getClass().getResource("/sound/powerup.wav");	
-		soundURL[2] = getClass().getResource("/sound/TrilhaPlaceholder.wav");
+		soundURL[2] = getClass().getResource("/sound/Field_GreysandDesert.wav");
+		soundURL[3] = getClass().getResource("/sound/grass.wav");
 	}
 	
 	public void setFile(int url) {
@@ -29,14 +30,38 @@ public class Sound {
 	}
 	
 	public void play() {
-		clip.start();
-	}
-	
-	public void loop() {
-		clip.loop(clip.LOOP_CONTINUOUSLY);
-	}
+        if (clip != null) {
+            clip.start();
+        }
+    }
 	
 	public void stop() {
-		clip.stop();
+	    if (clip != null && clip.isRunning()) {
+	        clip.stop();
+	    }
+	}
+	
+	private boolean looping = false;
+
+	public void loop() {
+	    if (clip != null) {
+	        clip.loop(Clip.LOOP_CONTINUOUSLY);
+	        looping = true;
+	    }
+	}
+
+	public void stopLoop() {
+	    if (clip != null && looping) {
+	        clip.loop(0);
+	        looping = false;
+	    }
+	}
+
+	public boolean isLooping() {
+	    return looping;
+	}
+	
+	public boolean isPlaying() {
+	    return clip != null && clip.isRunning();
 	}
 }

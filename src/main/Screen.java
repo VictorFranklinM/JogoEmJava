@@ -37,6 +37,7 @@ public class Screen extends JPanel implements Runnable{
 	//SOM
 	Sound music = new Sound();
 	Sound sfx = new Sound();
+	Sound tileSound = new Sound();
 	
 	TileOrganizer tileM = new TileOrganizer(this);
 	KeyInput key = new KeyInput(this);
@@ -79,6 +80,7 @@ public class Screen extends JPanel implements Runnable{
     public void update() {
     	if(gameState==playState) {
     		player.update();
+    		playTileSound();
     	}
     	if(gameState==pauseState) {
     		
@@ -159,5 +161,69 @@ public class Screen extends JPanel implements Runnable{
 	public void playSFX(int i) {
 		sfx.setFile(i);
 		sfx.play();
+	}
+
+	private int lastTileCol = -1;
+	private int lastTileRow = -1;
+	private int lastTileSoundIndex = -1;
+
+	private boolean wasMoving = false;
+
+	public void playTileSound() {
+	    int footX = player.worldX + player.collisionArea.x + player.collisionArea.width / 2;
+	    int footY = player.worldY + player.collisionArea.y + player.collisionArea.height;
+
+	    int col = footX / tileSize;
+	    int row = footY / tileSize;
+
+	    boolean movedTile = col != lastTileCol || row != lastTileRow;
+
+	    if (player.isMoving == false) {
+	        if (tileSound.isPlaying()) {
+	            tileSound.stop();
+	        }
+	        wasMoving = false;
+	        return;
+	    }
+
+	    if (wasMoving == false) {
+	        wasMoving = true;
+
+	        if (col >= 0 && col < maxWorldCol && row >= 0 && row < maxWorldRow) {
+	            int tileNum = tileM.mapTileNum[col][row];
+	            int soundIndex = tileM.tile[tileNum].soundIndex;
+
+	            if (soundIndex != -1) {
+	                if (!tileSound.isPlaying()) {
+	                    tileSound.setFile(soundIndex);
+	                    tileSound.loop();
+	                }
+	                lastTileSoundIndex = soundIndex;
+	            }
+	            lastTileCol = col;
+	            lastTileRow = row;
+	        }
+	        return;
+	    }
+
+	    if (movedTile) {
+	        if (col >= 0 && col < maxWorldCol && row >= 0 && row < maxWorldRow) {
+	            int tileNum = tileM.mapTileNum[col][row];
+	            int soundIndex = tileM.tile[tileNum].soundIndex;
+
+	            if (soundIndex != lastTileSoundIndex) {
+	                if (tileSound.isPlaying()) {
+	                    tileSound.stop();
+	                }
+	                if (soundIndex != -1) {
+	                    tileSound.setFile(soundIndex);
+	                    tileSound.loop();
+	                }
+	                lastTileSoundIndex = soundIndex;
+	            }
+	            lastTileCol = col;
+	            lastTileRow = row;
+	        }
+	    }
 	}
 }

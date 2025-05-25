@@ -22,6 +22,8 @@ public class Player extends Entity{
 	
 	public int hasMaga = 0;
 	
+	public boolean isMoving = false;
+	
 	private int standingCounter = 0;
 	
 	public Player(Screen screen, KeyInput keyInput) {
@@ -87,19 +89,21 @@ public class Player extends Entity{
 	
 	// NOTA: tentar fazer com switch case pra ver se fica mais fluido.
 	public void update() {
-		if(key.upHold == true || key.downHold == true || key.leftHold == true || key.rightHold == true) {
-			if(key.upHold == true) {
-	    		facing = "up";
-	    	}
-	    	if(key.downHold == true) {
-	    		facing = "down";
-	    	}
-	    	if(key.leftHold == true) {
-	    		facing = "left";
-	    	}
-	    	if(key.rightHold == true) {
-	    		facing = "right";
-	    	}
+		isMoving = key.upHold || key.downHold || key.leftHold || key.rightHold;
+
+	    if(isMoving) {
+	        if(key.upHold) {
+	            facing = "up";
+	        }
+	        if(key.downHold) {
+	            facing = "down";
+	        }
+	        if(key.leftHold) {
+	            facing = "left";
+	        }
+	        if(key.rightHold) {
+	            facing = "right";
+	        }
 	    	
 	    	collision = false;
 	    	screen.colCheck.checkTile(this);
