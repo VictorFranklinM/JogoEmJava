@@ -14,15 +14,15 @@ import main.Screen;
 
 public class TileOrganizer {
 	
-	Screen screen; // Referência à tela principal
+	Screen screen; // Referencia a tela principal
 	public Tile[] tile; // Array de tiles
-	public int mapTileNum[][]; // Matriz que armazena os números dos tiles do mapa
+	public int mapTileNum[][]; // Matriz que armazena os numeros dos tiles do mapa
 	
 	public TileOrganizer(Screen sc) {
 		
 		this.screen = sc;
 		
-		tile = new Tile[10]; //Quantidade máxima de tiles que podem ser usados, alterar conforme necessidade;
+		tile = new Tile[10]; //Quantidade maxima de tiles que podem ser usados, alterar conforme necessidade;
 		
 		mapTileNum = new int [sc.maxWorldCol][sc.maxWorldRow]; // Inicializa a matriz do mapa
 		
@@ -30,16 +30,16 @@ public class TileOrganizer {
 		loadMap("/maps/world01.txt");
 	}
 	
-	// Método para carregar as imagens dos tiles
+	// Metodo para carregar as imagens dos tiles
 	public void getTileImage() {
-			// Carregando diferentes tipos de tiles, quantidade máxima definida acima em tile
-			setup(0,"barrel",true,-1);
-			setup(1,"cactus",true,-1);
-			setup(2,"grass",false,3);
-			setup(3,"sand",false,-1);
-			setup(4,"stone",false,-1);
-			setup(5,"wall",true,-1);
-			setup(6,"water",true,-1);
+			// Carregando diferentes tipos de tiles, quantidade maxima definida acima em tile
+			setup(0,"barrel", true, Tile.noSoundIndex);
+			setup(1,"cactus", true, Tile.noSoundIndex);
+			setup(2,"grass", false, 3);
+			setup(3,"sand", false, Tile.noSoundIndex);
+			setup(4,"stone", false, Tile.noSoundIndex);
+			setup(5,"wall", true, Tile.noSoundIndex);
+			setup(6,"water", true, Tile.noSoundIndex);
 		
 			
 	
@@ -58,7 +58,7 @@ public class TileOrganizer {
 	    }
 	}
 	
-	// Método para carregar o mapa a partir de um arquivo de texto
+	// Metodo para carregar o mapa a partir de um arquivo de texto
 	public void loadMap(String mapPath) {
 		try {
 			
@@ -71,18 +71,18 @@ public class TileOrganizer {
 			
 			while(col < screen.maxWorldCol && row < screen.maxWorldRow) {	
 				
-				String line = br.readLine(); // Lê uma linha do arquivo
+				String line = br.readLine(); // Le uma linha do arquivo
 				
 				while (col < screen.maxWorldCol) {
 					
-					String numbers[] = line.split(" "); // Divide a linha em números
+					String numbers[] = line.split(" "); // Divide a linha em numeros
 					
-					int num = Integer.parseInt(numbers[col]); // Converte a string em número inteiro
+					int num = Integer.parseInt(numbers[col]); // Converte a string em numero inteiro
 					
-					mapTileNum[col][row] = num; // Armazena o número na matriz
+					mapTileNum[col][row] = num; // Armazena o numero na matriz
 					col++;
 				}
-				if(col == screen.maxWorldCol) {	// Se a linha foi completamente lida, passa para a próxima
+				if(col == screen.maxWorldCol) {	// Se a linha foi completamente lida, passa para a proxima
 					
 					col = 0;
 					row++;					
@@ -95,7 +95,7 @@ public class TileOrganizer {
 		}
 	}
 	
-	// Método para desenhar os tiles na tela
+	// Metodo para desenhar os tiles na tela
 	public void draw(Graphics2D g2) {
 		
 		int worldCol = 0;
@@ -103,14 +103,14 @@ public class TileOrganizer {
 		
 		while(worldCol < screen.maxWorldCol && worldRow < screen.maxWorldRow) {
 			
-			int tileNum = mapTileNum[worldCol][worldRow]; // Obtém o número do tile
+			int tileNum = mapTileNum[worldCol][worldRow]; // Obtem o numero do tile
 			
 			int worldX = worldCol * screen.tileSize;
 			int worldY = worldRow * screen.tileSize;
 			int screenX = worldX - screen.player.worldX + screen.player.screenX;
 			int screenY = worldY - screen.player.worldY + screen.player.screenY;
 			
-			// Checa se o tile é visível na câmera antes de renderizar.
+			// Checa se o tile e visivel na camera antes de renderizar.
 			if(((worldX + screen.tileSize) > (screen.player.worldX - screen.player.screenX))
 				&& ((worldX - screen.tileSize) < (screen.player.worldX + screen.player.screenX))
 				&& ((worldY + screen.tileSize) > (screen.player.worldY - screen.player.screenY))
@@ -121,7 +121,7 @@ public class TileOrganizer {
 			
 			worldCol++;
 
-			if (worldCol == screen.maxWorldCol) { // Move para a próxima linha ao atingir o limite de colunas
+			if (worldCol == screen.maxWorldCol) { // Move para a proxima linha ao atingir o limite de colunas
 				worldCol = 0;
 				worldRow++;
 			}	

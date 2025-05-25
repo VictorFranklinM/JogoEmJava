@@ -4,7 +4,8 @@ import java.awt.image.BufferedImage;
 
 public class Tile {
 	
+	public static final int noSoundIndex = -1;
 	public BufferedImage image;
 	public boolean collision = false;
-	public int soundIndex = -1; // -1 significa que não há som associado.
+	public int soundIndex = noSoundIndex;
 }

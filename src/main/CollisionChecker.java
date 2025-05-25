@@ -68,7 +68,7 @@ public class CollisionChecker {
 	
 	public int checkObject (Entity entity, boolean player) {
 		
-		int index = screen.objPerScreen; // (Pode ser qualquer número maior que o tamanho do array de objetos).
+		int index = screen.objPerScreen; // (Pode ser qualquer numero maior que o tamanho do array de objetos).
 		
 		for(int i = 0; i < screen.obj.length; i++) {
 			
@@ -138,5 +138,68 @@ public class CollisionChecker {
 		}
 		
 		return index;
+	}
+	
+	// Colisao de NPC e inimigos
+	public int checkEntity (Entity entity, Entity[] target) {
+		int index = 999;
+		
+		for(int i = 0; i < target.length; i++) {
+	        if(target[i] != null && target[i] != entity) {
+
+	            entity.collisionArea.x = entity.worldX + entity.collisionArea.x;
+	            entity.collisionArea.y = entity.worldY + entity.collisionArea.y;
+
+	            target[i].collisionArea.x = target[i].worldX + target[i].collisionArea.x;
+	            target[i].collisionArea.y = target[i].worldY + target[i].collisionArea.y;
+
+	            switch(entity.facing) {
+				case "up":
+					entity.collisionArea.y -= entity.speed;
+					if(entity.collisionArea.intersects(target[i].collisionArea)) {
+							entity.collision = true;
+							index = i;
+					}
+					break;
+					
+				case "down":
+					entity.collisionArea.y += entity.speed;
+					if(entity.collisionArea.intersects(target[i].collisionArea)) {
+							entity.collision = true;
+							index = i;
+					}
+					
+					break;
+					
+				case "left":
+					entity.collisionArea.x -= entity.speed;
+					if(entity.collisionArea.intersects(target[i].collisionArea)) {
+							entity.collision = true;
+							index = i;
+					}
+					break;
+					
+				case "right":
+					entity.collisionArea.x += entity.speed;
+					if(entity.collisionArea.intersects(target[i].collisionArea)) {
+							entity.collision = true;
+							index = i;
+					}
+					break;
+				}
+
+	            if(entity.collisionArea.intersects(target[i].collisionArea)) {
+	                entity.collision = true;
+	                index = i;
+	            }
+
+	            entity.collisionArea.x = entity.collisionAreaDefaultX;
+	            entity.collisionArea.y = entity.collisionAreaDefaultY;
+
+	            target[i].collisionArea.x = target[i].collisionAreaDefaultX;
+	            target[i].collisionArea.y = target[i].collisionAreaDefaultY;
+	        }
+	    }
+	    return index;
 	}
 }

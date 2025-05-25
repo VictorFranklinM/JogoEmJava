@@ -2,12 +2,13 @@ package main;
 
 import java.awt.Color; // Biblioteca para gerenciamento de cores.
 import java.awt.Dimension;
-import java.awt.Graphics; // Biblioteca para renderizações gráficas.
-import java.awt.Graphics2D; // Biblioteca para renderizações de formas geométricas.
+import java.awt.Graphics; // Biblioteca para renderizacoes graficas.
+import java.awt.Graphics2D; // Biblioteca para renderizacoes de formas geometricas.
 import java.awt.Toolkit;
 
 import javax.swing.JPanel; // Importa as propriedades da classe JPanel. (Interface da janela).
 
+import entity.Entity;
 import entity.Player;
 import object.SuperObject;
 import tile.TileOrganizer;
@@ -16,7 +17,7 @@ import tile.TileOrganizer;
 // Sub-Classe da Classe JPanel.
 public class Screen extends JPanel implements Runnable{
 	
-	private final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); // Pega as proporções da tela.
+	private final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); // Pega as proporcoes da tela.
 	public final int screenWidth = (int) screenSize.getWidth(); // Pega apenas a largura.
 	public final int screenHeight = (int) screenSize.getHeight(); // Pega apenas a altura.
 	
@@ -33,6 +34,7 @@ public class Screen extends JPanel implements Runnable{
 	public final int worldHeight = tileSize * maxWorldRow;
 	
 	public final int objPerScreen = 10;
+	public final int npcPerScreen = 5;
 	
 	//SOM
 	Sound music = new Sound();
@@ -41,14 +43,16 @@ public class Screen extends JPanel implements Runnable{
 	
 	TileOrganizer tileM = new TileOrganizer(this);
 	KeyInput key = new KeyInput(this);
-	Thread gameThread; // Cria uma linha de execução secundária para executar um código em segundo plano por cima do clock base.
+	Thread gameThread; // Cria uma linha de execucao secundaria para executar um codigo em segundo plano por cima do clock base.
 	
 	public UI ui = new UI(this);
 	public CollisionChecker colCheck = new CollisionChecker(this);
 	public ObjPlacer objPlacer = new ObjPlacer(this);
+	public NpcPlacer npcPlacer = new NpcPlacer(this);
 	
 	public Player player = new Player(this,key);
-	public SuperObject obj[] = new SuperObject[objPerScreen]; // new Object[x]. x é a quantidade de objetos que podem ser renderizados na tela ao mesmo tempo.
+	public SuperObject obj[] = new SuperObject[objPerScreen]; // new Object[x]. x e a quantidade de objetos que podem ser renderizados na tela ao mesmo tempo.
+	public Entity npc[] = new Entity[npcPerScreen];
 	
 	public int gameState;
 	public final int playState = 0;
@@ -58,14 +62,15 @@ public class Screen extends JPanel implements Runnable{
 	
 	public Screen() {
 		this.setBackground(Color.DARK_GRAY); // Define o plano de fundo da janela como a cor preta.
-		this.setDoubleBuffered(true); // Vai renderizar os componentes gráficos em segundo plano em uma memória temporária.
-		this.addKeyListener(key); // Implementação da classe KeyInput.
-		this.setFocusable(true); // Indica se é possivel focar na janela do jogo.
+		this.setDoubleBuffered(true); // Vai renderizar os componentes graficos em segundo plano em uma memoria temporaria.
+		this.addKeyListener(key); // Implementacao da classe KeyInput.
+		this.setFocusable(true); // Indica se e possivel focar na janela do jogo.
 		
 	}
 	
 	public void setupGame() {
 		objPlacer.placeObject();
+		npcPlacer.placeNPC();
 		playMusic(2);
 		gameState = playState;
 	}
@@ -76,12 +81,18 @@ public class Screen extends JPanel implements Runnable{
 
     }
     
-    // Função que atualiza a posição do jogador quando a tecla de movimento é pressionada.
+    // Funcao que atualiza a posicao do jogador quando a tecla de movimento e pressionada.
     public void update() {
     	//PLAY STATE
     	if(gameState==playState) {
     		player.update();
     		tsm.playTileSound();
+    		//NPC
+    		for (int i = 0; i < npc.length; i++) {
+    			if(npc[i] != null) {
+    				npc[i].update();
+    			}
+    		}
     	}
     	// PAUSE STATE
     	if(gameState==pauseState) {
@@ -89,12 +100,12 @@ public class Screen extends JPanel implements Runnable{
     	}
     }
     
-    // Função que renderiza os gráficos do jogo.
+    // Funcao que renderiza os graficos do jogo.
     public void paintComponent(Graphics g) {
     	super.paintComponent(g); // Limpa o desenho anterior antes de renderizar novamente.
-    	Graphics2D g2 = (Graphics2D)g; // Faz um casting para Graphics2D para poder manipular x, y e outros atributos mais avançados.
+    	Graphics2D g2 = (Graphics2D)g; // Faz um casting para Graphics2D para poder manipular x, y e outros atributos mais avancados.
     	
-    	//DEBUG (TESTADOR DE VELOCIDADE DE RENDERIZAÇÃO
+    	//DEBUG (TESTADOR DE VELOCIDADE DE RENDERIZACAO
     	long drawBegin = 0;
     	if(key.isDebugging == true) {
     		drawBegin = System.nanoTime();
@@ -107,8 +118,16 @@ public class Screen extends JPanel implements Runnable{
     			obj[i].draw(g2, this);
     		}
     	}
+    	
+    	// DESENHAR NPC
+    	for (int i = 0; i < npc.length; i++) {
+    		if(npc[i] != null) {
+    			npc[i].draw(g2, this);
+    		}
+    	}
+    	
     	// DESENHAR PLAYER
-    	player.draw(g2); // Função que renderiza o player.
+    	player.draw(g2); // Funcao que renderiza o player.
     	
     	//UI
     	ui.draw(g2);
@@ -121,26 +140,26 @@ public class Screen extends JPanel implements Runnable{
     	System.out.println("Render Time = "+ elapsedTime);
     	
     	}
-    	//liberar memória
+    	//liberar memoria
     	g2.dispose();
     }
 
-    // Linha de execução secundária do jogo, onde ocorrem as coisas na tela.
+    // Linha de execucao secundaria do jogo, onde ocorrem as coisas na tela.
 	public void run() {
-		double drawInterval = 1000000000/fps; // Nosso intervalo de atualizações necessárias(1 nano segundo convertido para segundo/fps.
-		double delta = 0; // Nossa variável de controle, ela servirá como um contador de segundos.
-		long lastTime = System.nanoTime(); // Armazenamos nosso tempo atual (que será trocado, então ele é nosso ultimo tempo).
-		long currentTime; // Tempo atual, este será contado na hora de pintar e desenhar.
+		double drawInterval = 1000000000/fps; // Nosso intervalo de atualizacoes necessarias(1 nano segundo convertido para segundo/fps.
+		double delta = 0; // Nossa variavel de controle, ela servira como um contador de segundos.
+		long lastTime = System.nanoTime(); // Armazenamos nosso tempo atual (que sera trocado, entao ele e nosso ultimo tempo).
+		long currentTime; // Tempo atual, este sera contado na hora de pintar e desenhar.
 		
-		// Enquanto o thread do jogo (tempo) está rodando, ele irá contar o tempo.
+		// Enquanto o thread do jogo (tempo) esta rodando, ele ira contar o tempo.
 		while (gameThread != null) {
 			currentTime = System.nanoTime(); // Nosso tempo atual na thread recebe o tempo em nano segundos.
-			delta += (currentTime - lastTime) / drawInterval; // Nosso delta vai receber o resto da diferença entre o tempo passado e o atual, dividido pelo fps. E quando der 1 segundo, irá aplicar.
-			lastTime = currentTime; // Resetamos nosso tempo passado, para atualizar o loop, já que o cálculo ja foi feito.
+			delta += (currentTime - lastTime) / drawInterval; // Nosso delta vai receber o resto da diferenca entre o tempo passado e o atual, dividido pelo fps. E quando der 1 segundo, ira aplicar.
+			lastTime = currentTime; // Resetamos nosso tempo passado, para atualizar o loop, ja que o calculo ja foi feito.
 			
-			//Quando delta der o tempo de 1/60 frames por segundo, ele irá atualizar um frame.
+			//Quando delta der o tempo de 1/60 frames por segundo, ele ira atualizar um frame.
 			if(delta >= 1) { 
-				update(); // Chama a função de atualizar a posição do jogador.
+				update(); // Chama a funcao de atualizar a posicao do jogador.
 				repaint(); // Redesenha o objeto.
 				delta --; // Reduz o delta para recalcular no nosso loop.
 			}

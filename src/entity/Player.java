@@ -13,7 +13,7 @@ import main.PerformanceTool;
 import main.Screen;
 
 public class Player extends Entity{
-	Screen screen;
+	
 	KeyInput key;
 	
 	public final int screenX;
@@ -27,17 +27,17 @@ public class Player extends Entity{
 	private int standingCounter = 0;
 	
 	public Player(Screen screen, KeyInput keyInput) {
-		this.screen = screen;
+		super(screen);
 		this.key = keyInput;
 		
-		/* Como o personagem é renderizado a partir do pixel superior esquerdo, subtraimos meio tile de X e Y para que ele
+		/* Como o personagem e renderizado a partir do pixel superior esquerdo, subtraimos meio tile de X e Y para que ele
 		 * seja renderizado corretamente no meio da tela. */
 		screenX = (screen.screenWidth / 2) - (screen.tileSize/2);
 		screenY = (screen.screenHeight / 2) - (screen.tileSize/2);
 		
 		collisionArea = new Rectangle();
-		collisionArea.x = (4 * screen.scale); // X do retângulo (começa no canto esquerdo).
-		collisionArea.y = (8 * screen.scale); // Y (começa no canto superior).
+		collisionArea.x = (4 * screen.scale); // X do retângulo (comeca no canto esquerdo).
+		collisionArea.y = (8 * screen.scale); // Y (comeca no canto superior).
 		collisionArea.width = (8 * screen.scale); // Largura do retângulo.
 		collisionArea.height = (7 * screen.scale); // Altura.
 		
@@ -49,7 +49,7 @@ public class Player extends Entity{
 	}
 	
 	public void setDefaultValues() {
-		// World X e Y são onde o personagem do player aparecerá no mapa inicialmente.
+		// World X e Y sao onde o personagem do player aparecera no mapa inicialmente.
 		worldX = screen.tileSize * 46;
 		worldY = screen.tileSize * 29;
 		speed = defaultSpeed;
@@ -57,35 +57,20 @@ public class Player extends Entity{
 	}
 	
 	public void renderPlayer() {
-		up1 = setup("Up-1");
-		up2 = setup("Up-2");
-		up3 = setup("Up-3");
-		down1 = setup("Down-1");
-		down2 = setup("Down-2");
-		down3 = setup("Down-3");
-		left1 = setup("Left-1");
-		left2 = setup("Left-2");
-		left3 = setup("Left-3");
-		right1 = setup("Right-1");
-		right2 = setup("Right-2");
-		right3 = setup("Right-3");
+		up1 = setup("/player/Up-1");
+		up2 = setup("/player/Up-2");
+		up3 = setup("/player/Up-3");
+		down1 = setup("/player/Down-1");
+		down2 = setup("/player/Down-2");
+		down3 = setup("/player/Down-3");
+		left1 = setup("/player/Left-1");
+		left2 = setup("/player/Left-2");
+		left3 = setup("/player/Left-3");
+		right1 = setup("/player/Right-1");
+		right2 = setup("/player/Right-2");
+		right3 = setup("/player/Right-3");
 
-	}
-	public BufferedImage setup(String imageName) {
-		PerformanceTool performancePlayer = new PerformanceTool();
-		BufferedImage image = null;
-		
-		try {
-			image = ImageIO.read(getClass().getResourceAsStream("/player/"+imageName+".png"));
-			image = performancePlayer.scaleImage(image, screen.tileSize, screen.tileSize);
-		}catch(IOException e) {
-			e.printStackTrace();
-			System.out.println("sprite Path invalid for Player sprite");
-		}
-		return image;
-	}
-
-	
+	}	
 	
 	// NOTA: tentar fazer com switch case pra ver se fica mais fluido.
 	public void update() {
@@ -110,10 +95,13 @@ public class Player extends Entity{
 	    	int objIndex = screen.colCheck.checkObject(this, true);
 	    	interact(objIndex);
 	    	
+	    	int npcIndex = screen.colCheck.checkEntity(this, screen.npc);
+	    	interactNPC(npcIndex);
+	    	
 	    	if(collision == false) {
 	    		switch(facing) {
 	    		case "up":
-		    		// Checa se o personagem está movendo na diagonal e recalcula o vetor de velocidade.
+		    		// Checa se o personagem esta movendo na diagonal e recalcula o vetor de velocidade.
 		    		if(key.leftHold) {
 		    			speed--;
 		    			worldX -=speed;
@@ -128,7 +116,7 @@ public class Player extends Entity{
 	    			break;
 	    			
 	    		case "down":
-		    		// Checa se o personagem está movendo na diagonal e recalcula o vetor de velocidade.
+		    		// Checa se o personagem esta movendo na diagonal e recalcula o vetor de velocidade.
 		    		if(key.leftHold) {
 		    			speed--;
 		    			worldX -=speed;
@@ -143,7 +131,7 @@ public class Player extends Entity{
 	    			break;
 	    			
 	    		case "left":
-		    		// Checa se o personagem está movendo na diagonal e recalcula o vetor de velocidade.
+		    		// Checa se o personagem esta movendo na diagonal e recalcula o vetor de velocidade.
 		    		if(key.upHold) {
 		    			speed--;
 		    			worldY -=speed;
@@ -158,7 +146,7 @@ public class Player extends Entity{
 	    			break;
 	    			
 	    		case "right":
-		    		// Checa se o personagem está movendo na diagonal e recalcula o vetor de velocidade.
+		    		// Checa se o personagem esta movendo na diagonal e recalcula o vetor de velocidade.
 	    			if(key.upHold) {
 	    				speed--;
 		    			worldY -=speed;
@@ -240,6 +228,12 @@ public class Player extends Entity{
 			}
 		}
 		key.ePressed = false;
+	}
+	
+	public void interactNPC (int i) {
+		if (i != 999) {
+			System.out.println("Stop hitting the poor guy, Hitoshura!");
+		}
 	}
 	
 	public void draw(Graphics2D g2) {
