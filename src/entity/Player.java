@@ -179,6 +179,7 @@ public class Player extends Entity{
 	    	}
 	    	
 	    	if(collision == true) {
+	    		isMoving = false;
 	    		spriteNum = 2;
 	    	} else {
 	    		spriteCounter++;

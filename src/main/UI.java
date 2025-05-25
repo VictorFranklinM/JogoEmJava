@@ -36,9 +36,11 @@ public class UI {
 		g2.setFont(arial_40);
 		g2.setColor(Color.black);
 		
+		// PLAY STATE
 		if(screen.gameState == screen.playState) {
 			drawMessage();
 		}
+		// PAUSE STATE
 		if(screen.gameState == screen.pauseState) {
 			drawMenu();
 		}
