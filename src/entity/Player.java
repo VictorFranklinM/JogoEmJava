@@ -232,9 +232,11 @@ public class Player extends Entity{
 	
 	public void interactNPC (int i) {
 		if (i != 999) {
-			System.out.println("Stop hitting the poor guy, Hitoshura!");
+			screen.gameState = screen.dialogueState;
+			screen.npc[i].speak();
+			}
 		}
-	}
+	
 	
 	public void draw(Graphics2D g2) {
 		BufferedImage image = null;

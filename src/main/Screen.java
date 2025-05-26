@@ -40,9 +40,9 @@ public class Screen extends JPanel implements Runnable{
 	Sound music = new Sound();
 	Sound sfx = new Sound();
 	TileSoundManager tsm = new TileSoundManager(this);
-	
+
 	TileOrganizer tileM = new TileOrganizer(this);
-	KeyInput key = new KeyInput(this);
+	public KeyInput key = new KeyInput(this);
 	Thread gameThread; // Cria uma linha de execucao secundaria para executar um codigo em segundo plano por cima do clock base.
 	
 	public UI ui = new UI(this);
@@ -57,7 +57,7 @@ public class Screen extends JPanel implements Runnable{
 	public int gameState;
 	public final int playState = 0;
 	public final int pauseState = 1;
-	
+	public final int dialogueState = 2;
 	int fps = 60; // Quantas vezes a tela vai ser atualizada por segundo.
 	
 	public Screen() {
@@ -98,6 +98,8 @@ public class Screen extends JPanel implements Runnable{
     	if(gameState==pauseState) {
     		tsm.stopTileSound();
     	}
+    	
+    
     }
     
     // Funcao que renderiza os graficos do jogo.

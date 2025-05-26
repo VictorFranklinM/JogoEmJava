@@ -1,5 +1,6 @@
 package main;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
@@ -18,6 +19,9 @@ public class UI {
 	private String message = "";
 	private int messageCounter = 0;
 	private int messageTimer = 0;
+	private int dialogueBoxSize = 20;
+	private int dialogueBoxSubcolorSize = 5;
+	public String currentSpeechLine = "";
 	
 	public UI(Screen screen) {
 		this.screen = screen;
@@ -44,6 +48,9 @@ public class UI {
 		if(screen.gameState == screen.pauseState) {
 			drawMenu();
 		}
+		if(screen.gameState==screen.dialogueState) {
+    		drawDialogueScreen();
+    	}
 	}
 	
 	private void drawMenu() {
@@ -78,6 +85,30 @@ public class UI {
 				messageOn = false;
 			}
 		}
+	}
+	
+	public void drawDialogueScreen() {
+		int x = screen.tileSize * 2;
+		int y = screen.tileSize / 2;
+		int width = screen.screenWidth - (screen.tileSize * 4);
+		int height = screen.tileSize * 5;
+		drawSubWindow(x, y, width, height);
+		g2.setFont(g2.getFont().deriveFont(Font.PLAIN));
+		x += screen.tileSize;
+		y += screen.tileSize;
+		g2.drawString(currentSpeechLine, x, y);
+	}
+
+	public void drawSubWindow(int x,int y,int width,int height) {
+		Color c = new Color(0,0,0,250);
+		g2.setColor(c);
+		g2.fillRoundRect(x, y, width, height,dialogueBoxSize,dialogueBoxSize);
+		c = new Color(255,0,0);
+		g2.setColor(c);
+		g2.setStroke(new BasicStroke(3));
+		g2.drawRoundRect(x+5 , y+5, width-10, height-10, dialogueBoxSize - dialogueBoxSubcolorSize, dialogueBoxSize - dialogueBoxSubcolorSize);
+		c = new Color(255,255,255);
+		g2.setColor(c);
 	}
 	
 	private int getCenteredX(String text) {

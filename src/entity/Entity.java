@@ -28,9 +28,10 @@ public abstract class Entity {
 	public int collisionAreaDefaultX, collisionAreaDefaultY;
 	
 	public boolean collision = false;
-	
-	public int actionLockCounter = 0; // Para movimentação dos NPC
-	
+	public int tamanhoFalas = 20;
+	public int actionLockCounter = 0; // Para movimentaï¿½ï¿½o dos NPC
+	String dialogues[] = new String[tamanhoFalas]; 
+	int dialogueIndex = 0;
 	public Entity(Screen screen) {
 		this.screen = screen;
 	}
@@ -168,10 +169,14 @@ public abstract class Entity {
 			image = performancePlayer.scaleImage(image, screen.tileSize, screen.tileSize);
 		}catch(IOException e) {
 			e.printStackTrace();
-			System.out.println("sprite Path invalid for Player sprite");
+			System.out.println("Sprite Path invalid for Player sprite");
 		}
 		return image;
 	}
 
-}
 
+	public void speak() {
+	
+	}
+	
+}

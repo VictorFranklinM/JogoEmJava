@@ -14,6 +14,7 @@ public class NPC_JackFrost extends Entity{
 		facing = "down";
 		speed = defaultSpeed;
 		renderNPC();
+		setTextLines();
 		collisionArea = new Rectangle();
 		collisionArea.x = (4 * screen.scale);
 		collisionArea.y = (8 * screen.scale);
@@ -23,6 +24,14 @@ public class NPC_JackFrost extends Entity{
 		collisionAreaDefaultX = collisionArea.x;
 		collisionAreaDefaultY = collisionArea.y;
 	}
+	
+	public void speak() {
+		if(dialogues[dialogueIndex] == null) {
+			dialogueIndex = 0;
+		}
+		screen.ui.currentSpeechLine = dialogues[dialogueIndex];
+		dialogueIndex++;
+		}
 	
 	public void renderNPC() {
 		up1 = setup("/npc/JF-Up-1");
@@ -40,13 +49,19 @@ public class NPC_JackFrost extends Entity{
 
 	}
 	
+	public void setTextLines() {
+		dialogues[0] = "Welcome, Hitoshura";
+		dialogues[1] = "I will teach you about this world";
+		dialogues[2] = "Get magatamas so you can unlock new areas";
+	}
+	
 	@Override
 	public void setAction() {
 		actionLockCounter++;
 		
 		if(actionLockCounter == 45) {
 			Random random = new Random();
-			int i = random.nextInt(100)+1; // escolhe um numero de 1–100
+			int i = random.nextInt(100)+1; // escolhe um numero de 1ï¿½100
 			
 			if (i <= 25) {
 				facing = "up";
