@@ -231,11 +231,14 @@ public class Player extends Entity{
 	}
 	
 	public void interactNPC (int i) {
-		if (i != 999) {
-			screen.gameState = screen.dialogueState;
+		if (i != screen.npcPerScreen) {
+			if(screen.key.enterPressed == true) {
+				screen.gameState = screen.dialogueState;
 			screen.npc[i].speak();
 			}
 		}
+		screen.key.enterPressed = false;
+	}
 	
 	
 	public void draw(Graphics2D g2) {

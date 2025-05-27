@@ -26,13 +26,9 @@ public class NPC_BlackFrost extends Entity{
 	}
 	
 	public void speak() {
-		if(dialogues[dialogueIndex] == null) {
-			dialogueIndex = 0;
-		}
-		screen.ui.currentSpeechLine = dialogues[dialogueIndex];
-		dialogueIndex++;
-		
-}
+		super.speak();
+	}
+	
 	public void setTextLines() {
 		dialogues[0] = "Welcome!";
 		dialogues[1] = "I will teach you about this world";

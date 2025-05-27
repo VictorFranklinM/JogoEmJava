@@ -142,7 +142,7 @@ public class CollisionChecker {
 	
 	// Colisao de NPC e inimigos
 	public int checkEntity (Entity entity, Entity[] target) {
-		int index = 999;
+		int index = screen.npcPerScreen;
 		
 		for(int i = 0; i < target.length; i++) {
 	        if(target[i] != null && target[i] != entity) {

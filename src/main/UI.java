@@ -88,21 +88,27 @@ public class UI {
 	}
 	
 	public void drawDialogueScreen() {
-		int x = screen.tileSize * 2;
-		int y = screen.tileSize / 2;
-		int width = screen.screenWidth - (screen.tileSize * 4);
-		int height = screen.tileSize * 5;
+		int x = screen.tileSize * 3;
+		int y = screen.tileSize / 3;
+		int width = screen.screenWidth - (screen.tileSize * 6);
+		int height = screen.tileSize * 3;
 		drawSubWindow(x, y, width, height);
-		g2.setFont(g2.getFont().deriveFont(Font.PLAIN));
+		
+		g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 28F));
 		x += screen.tileSize;
 		y += screen.tileSize;
-		g2.drawString(currentSpeechLine, x, y);
+		
+		for(String line : currentSpeechLine.split("\n")) {
+			g2.drawString(line, x, y);
+			y += screen.tileSize/1.5;
+		}
 	}
 
-	public void drawSubWindow(int x,int y,int width,int height) {
-		Color c = new Color(0,0,0,250);
+	public void drawSubWindow(int x, int y, int width, int height) {
+		Color c = new Color(0,0,0,200);
 		g2.setColor(c);
-		g2.fillRoundRect(x, y, width, height,dialogueBoxSize,dialogueBoxSize);
+		g2.fillRoundRect(x, y, width, height, dialogueBoxSize, dialogueBoxSize);
+		
 		c = new Color(255,0,0);
 		g2.setColor(c);
 		g2.setStroke(new BasicStroke(3));

@@ -176,7 +176,26 @@ public abstract class Entity {
 
 
 	public void speak() {
-	
+		if(dialogues[dialogueIndex] == null) {
+			dialogueIndex = 0;
+		}
+		screen.ui.currentSpeechLine = dialogues[dialogueIndex];
+		dialogueIndex++;
+		
+		switch(screen.player.facing) {
+		case "up":
+			facing = "down";
+			break;
+		case "down":
+			facing = "up";
+			break;
+		case "left":
+			facing = "right";
+			break;
+		case "right":
+			facing = "left";
+			break;
+		}
 	}
 	
 }
