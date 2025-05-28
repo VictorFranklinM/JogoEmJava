@@ -118,7 +118,7 @@ public class UI {
 		y += screen.tileSize*3;
 		g2.drawString(text, x, y);
 		if(commandNum == 0) {
-			 g2.drawString(">", x-screen.tileSize, y);
+			 g2.drawString(".", x-(screen.tileSize/2), y);
 			 }
 		 
 		 
@@ -127,7 +127,7 @@ public class UI {
 		 y += screen.tileSize;
 		 g2.drawString(text, x, y);
 		 if(commandNum == 1) {
-			 g2.drawString(">", x-screen.tileSize, y);
+			 g2.drawString(".", x-(screen.tileSize/2), y);
 				 
 			 }
 		
@@ -137,7 +137,7 @@ public class UI {
 		 y += screen.tileSize;
 		 g2.drawString(text, x, y);
 		 if(commandNum == 2) {
-			 g2.drawString(">", x-screen.tileSize, y);
+			 g2.drawString(".", x-(screen.tileSize/2), y);
 				 
 			 }
 		
