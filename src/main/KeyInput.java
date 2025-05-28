@@ -47,6 +47,8 @@ public class KeyInput implements KeyListener {
 		    	if(screen.ui.commandNum == 0) {
 		    		screen.gameState = screen.playState;
 		    		screen.playSFX(1);
+		    		screen.stopMusic();
+		    		screen.playMusic(2);
 		    	}
 		    	if(screen.ui.commandNum == 1) {
 		    		//add later

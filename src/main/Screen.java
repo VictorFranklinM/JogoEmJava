@@ -72,7 +72,7 @@ public class Screen extends JPanel implements Runnable{
 	public void setupGame() {
 		objPlacer.placeObject();
 		npcPlacer.placeNPC();
-		playMusic(2);
+		playMusic(4);
 		gameState = titleState;
 	}
 	

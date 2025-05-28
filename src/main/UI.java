@@ -9,7 +9,9 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 
-import object.OBJ_MagaGreen;
+import object.OBJ_HP;
+import object.OBJ_Mana;
+import object.SuperObject;
 
 public class UI {
 
@@ -17,6 +19,8 @@ public class UI {
 	Graphics2D g2;
 	
 	private Font megaten;
+	
+	BufferedImage hpFull, hpNone, manaFull, manaNone;
 	
 	private boolean messageOn = false;
 	private String message = "";
@@ -42,6 +46,15 @@ public class UI {
 			e.printStackTrace();
 			System.out.println("Invalid font path.");
 		}
+		
+		// Render HUD
+		SuperObject hp = new OBJ_HP(screen);
+		SuperObject mana = new OBJ_Mana(screen);
+		
+		hpFull = hp.image;
+		hpNone = hp.image2;
+		manaFull = mana.image;
+		manaNone = mana.image2;
 	}
 	
 	public void displayMessage(String message) {
@@ -62,16 +75,65 @@ public class UI {
 		}
 		// PLAY STATE
 		if(screen.gameState == screen.playState) {
+			drawPlayerUI();
 			drawMessage();
 		}
 		// PAUSE STATE
 		if(screen.gameState == screen.pauseState) {
+			drawPlayerUI();
 			drawMenu();
 		}
 		if(screen.gameState==screen.dialogueState) {
     		drawDialogueScreen();
     	}
 	}
+	
+	public void drawPlayerUI() {
+		int x = screen.tileSize;
+		int y = screen.tileSize/2;
+		int count = 0;
+		
+		// Renderizar HP MAX.
+		while(count < screen.player.maxHP) {
+			g2.drawImage(hpNone, x, y, null);
+			count++;
+			x += (8*screen.scale);
+		}
+		
+		// Reset
+		x = screen.tileSize;
+		y = screen.tileSize/2;
+		count = 0;
+		
+		// Renderizar HP atual.
+		while(count < screen.player.hp) {
+			g2.drawImage(hpFull, x, y, null);
+			count++;
+			x += (8*screen.scale);
+		}
+		
+		// Renderizar Mana.
+		x = screen.tileSize/2 + screen.scale;
+		y = (int) (screen.tileSize*1.5) - screen.scale;
+		count = 0;
+		while(count <screen.player.maxMana) {
+			g2.drawImage(manaNone, x, y, null);
+			count++;
+			x += (8*screen.scale);
+		}
+		
+		x = screen.tileSize/2 + screen.scale;
+		y = (int) (screen.tileSize*1.5) - screen.scale;
+		count = 0;
+		
+		// Renderizar Mana atual.
+		while(count < screen.player.mana) {
+			g2.drawImage(manaFull, x, y, null);
+			count++;
+			x += (8*screen.scale);
+		}
+	}
+	
 	public void drawTitleScreen() {
 		
 		g2.setColor(new Color(0, 0, 0));

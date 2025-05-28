@@ -8,7 +8,7 @@ import main.PerformanceTool;
 import main.Screen;
 
 public class SuperObject {
-	public BufferedImage image;
+	public BufferedImage image, image2;
 	public String name;
 	public boolean collision = false;
 	public int worldX, worldY;

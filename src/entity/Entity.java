@@ -32,6 +32,13 @@ public abstract class Entity {
 	public int actionLockCounter = 0; // Para movimenta��o dos NPC
 	String dialogues[] = new String[tamanhoFalas]; 
 	int dialogueIndex = 0;
+	
+	// Status
+	public int maxHP;
+	public int hp;
+	public int maxMana;
+	public int mana;
+	
 	public Entity(Screen screen) {
 		this.screen = screen;
 	}

@@ -54,6 +54,12 @@ public class Player extends Entity{
 		worldY = screen.tileSize * 29;
 		speed = defaultSpeed;
 		facing = "down";
+		
+		// Status
+		maxHP = 3;
+		hp = maxHP;
+		maxMana = 3;
+		mana = maxMana;
 	}
 	
 	public void renderPlayer() {
