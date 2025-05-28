@@ -46,7 +46,7 @@ public class NPC_JackFrost extends Entity{
 	}
 	
 	public void setTextLines() {
-		dialogues[0] = "Welcome, Hitoshura";
+		dialogues[0] = "Welcome Hitoshura";
 		dialogues[1] = "I will teach you about this world aaaaaaaaaaaaaa \naaaaaaaaaaaaaaaaaaaa";
 		dialogues[2] = "Get magatamas so you can unlock new areas";
 	}

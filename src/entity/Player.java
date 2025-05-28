@@ -226,18 +226,18 @@ public class Player extends Entity{
 					break;
 				}
 			}
+			key.ePressed = false;
 		}
-		key.ePressed = false;
 	}
 	
 	public void interactNPC (int i) {
 		if (i != screen.npcPerScreen) {
-			if(screen.key.enterPressed == true) {
+			if(screen.key.ePressed == true) {
 				screen.gameState = screen.dialogueState;
 			screen.npc[i].speak();
 			}
 		}
-		screen.key.enterPressed = false;
+		screen.key.ePressed = false;
 	}
 	
 	

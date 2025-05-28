@@ -55,9 +55,10 @@ public class Screen extends JPanel implements Runnable{
 	public Entity npc[] = new Entity[npcPerScreen];
 	
 	public int gameState;
-	public final int playState = 0;
-	public final int pauseState = 1;
-	public final int dialogueState = 2;
+	public final int titleState = 0;
+	public final int playState = 1;
+	public final int pauseState = 2;
+	public final int dialogueState = 3;
 	int fps = 60; // Quantas vezes a tela vai ser atualizada por segundo.
 	
 	public Screen() {
@@ -72,7 +73,7 @@ public class Screen extends JPanel implements Runnable{
 		objPlacer.placeObject();
 		npcPlacer.placeNPC();
 		playMusic(2);
-		gameState = playState;
+		gameState = titleState;
 	}
 	
     public void startGameThread() {
@@ -113,38 +114,46 @@ public class Screen extends JPanel implements Runnable{
     		drawBegin = System.nanoTime();
     	}
     	
-    	tileM.draw(g2); // mapa
-    	
-    	for(int i = 0; i < obj.length; i++) {
-    		if(obj[i] != null) {
-    			obj[i].draw(g2, this);
-    		}
+    	// TITULO
+    	if(gameState == titleState) {
+    		ui.draw(g2);
     	}
-    	
-    	// DESENHAR NPC
-    	for (int i = 0; i < npc.length; i++) {
-    		if(npc[i] != null) {
-    			npc[i].draw(g2, this);
-    		}
-    	}
-    	
-    	// DESENHAR PLAYER
-    	player.draw(g2); // Funcao que renderiza o player.
-    	
-    	//UI
-    	ui.draw(g2);
-    	
-    	long drawStop = System.nanoTime();
-    	if(key.isDebugging == true) {
-    	long elapsedTime = drawStop - drawBegin;
-    	g2.setColor(Color.white);
-    	g2.drawString("Render Time: "+ elapsedTime, 10, 400);
-    	System.out.println("Render Time = "+ elapsedTime);
-    	
-    	}
-    	//liberar memoria
-    	g2.dispose();
+    	//OTHERS
+    	else {
+    		tileM.draw(g2); // mapa
+        
+    		//OBJECT
+        	for(int i = 0; i < obj.length; i++) {
+        		if(obj[i] != null) {
+        			obj[i].draw(g2, this);
+        		}
+        	}
+    		// DESENHAR NPC
+        	for (int i = 0; i < npc.length; i++) {
+        		if(npc[i] != null) {
+        			npc[i].draw(g2, this);
+        		}
+        	}
+        	
+        	// DESENHAR PLAYER
+        	player.draw(g2); // Funcao que renderiza o player.
+        	
+        	//UI
+        	ui.draw(g2);
+        	
+        	long drawStop = System.nanoTime();
+        	if(key.isDebugging == true) {
+        	long elapsedTime = drawStop - drawBegin;
+        	g2.setColor(Color.white);
+        	g2.drawString("Render Time: "+ elapsedTime, 10, 400);
+        	System.out.println("Render Time = "+ elapsedTime);
+        	
+        	}
+        	//liberar memoria
+        	g2.dispose();
+        }
     }
+
 
     // Linha de execucao secundaria do jogo, onde ocorrem as coisas na tela.
 	public void run() {

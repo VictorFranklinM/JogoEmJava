@@ -28,6 +28,35 @@ public class KeyInput implements KeyListener {
 		int code = e.getKeyCode(); // Identifica a tecla pressionada.
 		// Caso o a tecla seja "W" ou a seta para cima das teclas direcionais a lógica diz que o personagem deve se mover para cima.
 		
+		//TITLE STATE
+		if(screen.gameState == screen.titleState) {
+			
+			if(code == KeyEvent.VK_W) {
+				screen.ui.commandNum--;
+				if(screen.ui.commandNum < 0) {
+					screen.ui.commandNum = 2;
+				}
+			}
+			if (code == KeyEvent.VK_S) {
+				screen.ui.commandNum++;
+				if(screen.ui.commandNum > 2) {
+					screen.ui.commandNum = 0;
+				}
+			}
+		    if(code == KeyEvent.VK_ENTER) {
+		    	if(screen.ui.commandNum == 0) {
+		    		screen.gameState = screen.playState;
+		    		screen.playSFX(1);
+		    	}
+		    	if(screen.ui.commandNum == 1) {
+		    		//add later
+		    	}
+		    	if(screen.ui.commandNum == 2) {
+		    		System.exit(0);
+		    	}
+		    }
+		}
+		
 		//ESTADO DE JOGO
 		if(screen.gameState == screen.playState) {
 			if(code == KeyEvent.VK_W) {
@@ -74,7 +103,7 @@ public class KeyInput implements KeyListener {
 		
 		//DIALOGUE STATE
 		else if(screen.gameState == screen.dialogueState) {
-			if(code == KeyEvent.VK_ENTER) {
+			if(code == KeyEvent.VK_E) {
 				screen.gameState = screen.playState;
 			}
 		}
