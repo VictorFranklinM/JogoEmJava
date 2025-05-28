@@ -22,11 +22,6 @@ public class UI {
 	
 	BufferedImage hpFull, hpNone, manaFull, manaNone;
 	
-	private boolean messageOn = false;
-	private String message = "";
-	private int messageCounter = 0;
-	private int messageTimer = 0;
-	
 	private int dialogueBoxSize = 20;
 	private int dialogueBoxSubcolorSize = 5;
 	
@@ -57,12 +52,6 @@ public class UI {
 		manaNone = mana.image2;
 	}
 	
-	public void displayMessage(String message) {
-		this.message = message;
-		messageOn = true;
-		messageCounter++;
-	}
-	
 	public void draw(Graphics2D g2) {
 		this.g2 = g2;
 		g2.setFont(megaten);
@@ -76,7 +65,6 @@ public class UI {
 		// PLAY STATE
 		if(screen.gameState == screen.playState) {
 			drawPlayerUI();
-			drawMessage();
 		}
 		// PAUSE STATE
 		if(screen.gameState == screen.pauseState) {
@@ -212,31 +200,6 @@ public class UI {
 		int x = getCenteredX(text);
 		int y = screen.tileSize*2;
 		g2.drawString(text, x, y);
-	}
-	
-	private void drawMessage() {
-		int x = screen.tileSize/2;
-		int y = screen.screenHeight/2;
-		
-		int framesPerMessage = 90; // 1 segundo = 60 frames.
-		
-		if(messageOn==true) {
-			g2.setFont(g2.getFont().deriveFont(60F));
-			g2.drawString(message, x, y);
-			
-			if(messageCounter > 1) {
-				messageTimer = 0;
-				messageCounter = 1;
-			}
-			
-			messageTimer++;
-			
-			if(messageTimer > framesPerMessage) {
-				messageTimer = 0;
-				messageCounter = 0;
-				messageOn = false;
-			}
-		}
 	}
 	
 	public void drawDialogueScreen() {

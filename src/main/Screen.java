@@ -47,6 +47,7 @@ public class Screen extends JPanel implements Runnable{
 	
 	public UI ui = new UI(this);
 	public CollisionChecker colCheck = new CollisionChecker(this);
+	public EventManager eventManager = new EventManager(this);
 	public ObjPlacer objPlacer = new ObjPlacer(this);
 	public NpcPlacer npcPlacer = new NpcPlacer(this);
 	

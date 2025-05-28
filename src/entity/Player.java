@@ -98,11 +98,16 @@ public class Player extends Entity{
 	    	
 	    	collision = false;
 	    	screen.colCheck.checkTile(this);
+	    	
 	    	int objIndex = screen.colCheck.checkObject(this, true);
 	    	interact(objIndex);
 	    	
 	    	int npcIndex = screen.colCheck.checkEntity(this, screen.npc);
 	    	interactNPC(npcIndex);
+	    	
+	    	screen.eventManager.checkEvent();
+	    	
+	    	screen.key.ePressed = false;
 	    	
 	    	if(collision == false) {
 	    		switch(facing) {
@@ -207,32 +212,32 @@ public class Player extends Entity{
 			String objName = screen.obj[index].name;
 			
 			if(key.ePressed == true) {
+				screen.gameState = screen.dialogueState;
 				switch(objName) {
 				case "Magatama":
 					hasMaga++;
 					screen.obj[index] = null;
-					screen.ui.displayMessage("Got a magatama!");
+					screen.ui.currentSpeechLine = "You got a magatama!";
 					playSFX(1);
 					break;
 					
 				case "Portal":
 					if(hasMaga > 0) {
 						screen.obj[index] = null;
-						screen.ui.displayMessage("Opened the portal with the Magatama!");
+						screen.ui.currentSpeechLine = "Opened the portal with the Magatama!";
 					}
 					else {
-						screen.ui.displayMessage("You need a Magatama to open the portal.");
+						screen.ui.currentSpeechLine = "You need a Magatama to open the portal!";
 					}
 					break;
 				
 				case "Cache Cube":
 					screen.obj[index] = null;
-					screen.ui.displayMessage("Got an item! (W.I.P.)");
+					screen.ui.currentSpeechLine = "Got an item! Work In Progress";
 					playSFX(0);
 					break;
 				}
 			}
-			key.ePressed = false;
 		}
 	}
 	
@@ -243,7 +248,6 @@ public class Player extends Entity{
 			screen.npc[i].speak();
 			}
 		}
-		screen.key.ePressed = false;
 	}
 	
 	

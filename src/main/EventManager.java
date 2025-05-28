@@ -1,0 +1,105 @@
+package main;
+
+import java.awt.Rectangle;
+
+public class EventManager {
+	Screen screen;
+	EventArea eventArea[][];
+	
+	int lastEventX, lastEventY;
+	boolean canTouchEvent = true;
+	
+	public EventManager(Screen screen) {
+		this.screen = screen;
+		
+		eventArea = new EventArea[screen.maxWorldCol][screen.maxWorldRow];
+		
+		int col = 0;
+		int row = 0;
+		
+		while(col < screen.maxWorldCol && row < screen.maxWorldRow) {
+		
+			eventArea[col][row] = new EventArea();
+			eventArea[col][row].x = 23;
+			eventArea[col][row].y  = 23;
+			eventArea[col][row].width = 2;
+			eventArea[col][row].height = 2;
+			eventArea[col][row].eventAreaDefaultX = eventArea[col][row].x;
+			eventArea[col][row].eventAreaDefaultY = eventArea[col][row].y;
+			
+			col++;
+			if(col == screen.maxWorldCol) {
+				col = 0;
+				row++;
+			}
+		}
+	}
+	
+	public void checkEvent() {
+		int xDistance = Math.abs(screen.player.worldX - lastEventX);
+		int yDistance = Math.abs(screen.player.worldY - lastEventY);
+		int distance = Math.max(xDistance, yDistance);
+		
+		if(distance > screen.tileSize) {
+			canTouchEvent = true;
+		}
+		
+		if(canTouchEvent == true) {
+			if(hit(46, 28, "any") == true) {damagePit(46, 28, screen.dialogueState);}
+			if(hit(46, 27, "any") == true) {teleportPoint(46, 27, screen.dialogueState);}
+			if(hit(46, 26, "any") == true) {healingPoint(46, 26, screen.dialogueState);}
+		}
+		
+		
+	}
+	
+	public boolean hit(int col, int row, String direction) {
+		boolean hit = false;
+		
+		screen.player.collisionArea.x = screen.player.worldX + screen.player.collisionArea.x;
+		screen.player.collisionArea.y = screen.player.worldY + screen.player.collisionArea.y;
+		
+		eventArea[col][row].x = col*screen.tileSize + eventArea[col][row].x;
+		eventArea[col][row].y = row*screen.tileSize + eventArea[col][row].y;
+		
+		if(screen.player.collisionArea.intersects(eventArea[col][row]) && eventArea[col][row].eventDone == false) {
+			if(screen.player.facing.contentEquals(direction) || direction.contentEquals("any")) {
+				hit = true;
+				
+				lastEventX = screen.player.worldX;
+				lastEventY = screen.player.worldY;
+			}
+		}
+		
+		screen.player.collisionArea.x = screen.player.collisionAreaDefaultX;
+		screen.player.collisionArea.y = screen.player.collisionAreaDefaultY;
+		
+		eventArea[col][row].x = eventArea[col][row].eventAreaDefaultX;
+		eventArea[col][row].y = eventArea[col][row].eventAreaDefaultY;
+		
+		return hit;
+	}
+	
+	public void damagePit(int col, int row, int gameState) {
+		screen.gameState = gameState;
+		screen.ui.currentSpeechLine = "You fall into a pit!";
+		screen.player.hp -= 1;
+		
+		canTouchEvent = false;
+	}
+	
+	public void healingPoint(int col, int row, int gameState) {
+		if(screen.key.ePressed == true) {
+			screen.gameState = gameState;
+			screen.ui.currentSpeechLine = "You heal yourself!";
+			screen.player.hp = screen.player.maxHP;
+		}
+	}
+	
+	public void teleportPoint(int col, int row, int gameState) {
+		screen.gameState = gameState;
+		screen.ui.currentSpeechLine = "You have been teleported!";
+		screen.player.worldX = screen.tileSize*50;
+		screen.player.worldY = screen.tileSize*32;
+	}
+}
