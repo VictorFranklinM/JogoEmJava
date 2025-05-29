@@ -9,18 +9,22 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 
+import javax.imageio.ImageIO;
+
 import object.OBJ_HP;
 import object.OBJ_Mana;
 import object.SuperObject;
 
 public class UI {
-
+	Color greenGreen = new Color(64, 152, 94);
+	Color brightGreen = new Color(185, 219, 149);
+	
 	Screen screen;
 	Graphics2D g2;
 	
 	private Font megaten;
 	
-	BufferedImage hpFull, hpNone, manaFull, manaNone;
+	BufferedImage titleBG, hpFull, hpNone, manaFull, manaNone;
 	
 	private int dialogueBoxSize = 20;
 	private int dialogueBoxSubcolorSize = 5;
@@ -123,9 +127,14 @@ public class UI {
 	}
 	
 	public void drawTitleScreen() {
-		
-		g2.setColor(new Color(0, 0, 0));
-		g2.fillRect(0, 0, screen.screenWidth, screen.screenHeight);
+		// Title BG
+		try {
+			titleBG = ImageIO.read(getClass().getResourceAsStream("/ui/titleBG.png"));	
+			} catch (IOException e) {
+				e.printStackTrace();
+				System.out.println("Invalid image path.");
+			}
+		g2.drawImage(titleBG, 0, 0, screen.screenWidth, screen.screenHeight, null);
 		
 		//Título Principal
 		g2.setFont(g2.getFont().deriveFont(Font.BOLD,80F));
@@ -134,11 +143,11 @@ public class UI {
 		int y = screen.tileSize*2;
 		
 		//SHADOW
-		g2.setColor(Color.gray);
+		g2.setColor(greenGreen);
 		g2.drawString(text, x+5, y+5);
 		
 		//MAIN COLOR
-		g2.setColor (Color.white);
+		g2.setColor(brightGreen);
 		g2.drawString(text, x, y);
 		
 		// Sub-titulo
@@ -148,24 +157,19 @@ public class UI {
 		y = (screen.tileSize*3);
 		
 		//Sombra
-		g2.setColor(Color.gray);
+		g2.setColor(greenGreen);
 		g2.drawString(text, x+5, y+5);
 		
 		//Texto
-		g2.setColor (Color.white);
+		g2.setColor(brightGreen);
 		g2.drawString(text, x, y);
-	
-		// HITOSHURA IMAGEM
-		x = screen.screenWidth/2 - screen.tileSize;
-		y += screen.tileSize;
-		g2.drawImage(screen.player.down2, x, y, screen.tileSize*2, screen.tileSize*2, null);
 		
 		//MENU
 		g2.setFont(g2.getFont().deriveFont(Font.BOLD,48F));
 		
 		text = "NEW GAME";
 		x = getCenteredX (text);
-		y += screen.tileSize*3;
+		y += screen.tileSize*4;
 		g2.drawString(text, x, y);
 		if(commandNum == 0) {
 			 g2.drawString(".", x-(screen.tileSize/2), y);
@@ -220,16 +224,14 @@ public class UI {
 	}
 
 	public void drawSubWindow(int x, int y, int width, int height) {
-		Color c = new Color(0,0,0,200);
-		g2.setColor(c);
+		Color hudBG = new Color(0,0,0,200);
+		g2.setColor(hudBG);
 		g2.fillRoundRect(x, y, width, height, dialogueBoxSize, dialogueBoxSize);
 		
-		c = new Color(255,0,0);
-		g2.setColor(c);
+		g2.setColor(greenGreen);
 		g2.setStroke(new BasicStroke(3));
 		g2.drawRoundRect(x+5 , y+5, width-10, height-10, dialogueBoxSize - dialogueBoxSubcolorSize, dialogueBoxSize - dialogueBoxSubcolorSize);
-		c = new Color(255,255,255);
-		g2.setColor(c);
+		g2.setColor(brightGreen);
 	}
 	
 	private int getCenteredX(String text) {
