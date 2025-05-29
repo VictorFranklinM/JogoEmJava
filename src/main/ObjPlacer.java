@@ -1,18 +1,18 @@
 package main;
 
+import entity.Entity;
 import object.OBJ_CacheCube;
 import object.OBJ_MagaBlue;
 import object.OBJ_MagaGreen;
 import object.OBJ_MagaRed;
 import object.OBJ_Portal;
 
-public class ObjPlacer {
+public class ObjPlacer extends Entity {
 
-	Screen screen;
 	
 	public ObjPlacer(Screen screen) {
-		this.screen = screen;
-	}
+		super(screen);
+}
 	
 	public void placeObject() {
 		screen.obj[0] = new OBJ_MagaGreen(screen);

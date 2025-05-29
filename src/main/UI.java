@@ -11,9 +11,9 @@ import java.io.InputStream;
 
 import javax.imageio.ImageIO;
 
+import entity.Entity;
 import object.OBJ_HP;
 import object.OBJ_Mana;
-import object.SuperObject;
 
 public class UI {
 	Color greenGreen = new Color(64, 152, 94);
@@ -47,8 +47,8 @@ public class UI {
 		}
 		
 		// Render HUD
-		SuperObject hp = new OBJ_HP(screen);
-		SuperObject mana = new OBJ_Mana(screen);
+		Entity hp = new OBJ_HP(screen);
+		Entity mana = new OBJ_Mana(screen);
 		
 		hpFull = hp.image;
 		hpNone = hp.image2;

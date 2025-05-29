@@ -4,16 +4,16 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import entity.Entity;
 import main.Screen;
 
-public class OBJ_MagaRed extends SuperObject{
-	Screen screen;
+public class OBJ_MagaRed extends Entity{
 	
 	public OBJ_MagaRed(Screen screen) {
-		this.screen = screen;
+		super(screen);
 		
 		name = "Magatama";
-		
+		down1 = setup("/objects/redmaga");
 		collisionArea.x = (2 * screen.scale);
 		collisionArea.y = (2 * screen.scale);
 		collisionArea.width = (12 * screen.scale);
@@ -22,14 +22,6 @@ public class OBJ_MagaRed extends SuperObject{
 		collisionAreaDefaultX = collisionArea.x;
 		collisionAreaDefaultY = collisionArea.y;
 		
-		try {
-			image = ImageIO.read(getClass().getResourceAsStream("/objects/redmaga.png"));
-			this.performanceObj.scaleImage(image, screen.tileSize, screen.tileSize);	
-			} catch (IOException e) {
-				
-			e.printStackTrace();
-			System.out.println("Invalid image path.");
-		}
 		collision = true;
 	}
 }

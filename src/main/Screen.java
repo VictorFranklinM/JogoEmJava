@@ -5,12 +5,14 @@ import java.awt.Dimension;
 import java.awt.Graphics; // Biblioteca para renderizacoes graficas.
 import java.awt.Graphics2D; // Biblioteca para renderizacoes de formas geometricas.
 import java.awt.Toolkit;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import javax.swing.JPanel; // Importa as propriedades da classe JPanel. (Interface da janela).
 
 import entity.Entity;
 import entity.Player;
-import object.SuperObject;
 import tile.TileOrganizer;
 
 
@@ -52,9 +54,9 @@ public class Screen extends JPanel implements Runnable{
 	public NpcPlacer npcPlacer = new NpcPlacer(this);
 	
 	public Player player = new Player(this,key);
-	public SuperObject obj[] = new SuperObject[objPerScreen]; // new Object[x]. x e a quantidade de objetos que podem ser renderizados na tela ao mesmo tempo.
+	public Entity obj[] = new Entity[objPerScreen]; // new Object[x]. x e a quantidade de objetos que podem ser renderizados na tela ao mesmo tempo.
 	public Entity npc[] = new Entity[npcPerScreen];
-	
+	ArrayList<Entity> entityList = new ArrayList<>();
 	public int gameState;
 	public final int titleState = 0;
 	public final int playState = 1;
@@ -122,24 +124,36 @@ public class Screen extends JPanel implements Runnable{
     	//OTHERS
     	else {
     		tileM.draw(g2); // mapa
-        
-    		//OBJECT
-        	for(int i = 0; i < obj.length; i++) {
-        		if(obj[i] != null) {
-        			obj[i].draw(g2, this);
-        		}
-        	}
-    		// DESENHAR NPC
-        	for (int i = 0; i < npc.length; i++) {
-        		if(npc[i] != null) {
-        			npc[i].draw(g2, this);
-        		}
-        	}
-        	
-        	// DESENHAR PLAYER
-        	player.draw(g2); // Funcao que renderiza o player.
-        	
-        	//UI
+    		//ADD ENTITY TO THE ENTITY LIST
+    		entityList.add(player);
+    		for(int i = 0;i < npc.length; i++) {
+    			if (npc[i] != null) {
+    				entityList.add(npc[i]);
+    			}
+    		}
+    		
+    		for(int i = 0; i < obj.length; i++) {
+    			if(obj[i] != null) {
+    				entityList.add(obj[i]);
+    			}
+    		}
+    		//SORT
+    		Collections.sort(entityList, new Comparator<Entity>() {
+
+				@Override
+				public int compare(Entity o1, Entity o2) {
+					int result = Integer.compare(o1.worldY, o2.worldY);
+					return result;
+				}
+				
+			});
+    		//DRAW ENTITIES
+    		for(int i = 0;i< entityList.size(); i++) {
+    			entityList.get(i).draw(g2);
+    		}
+    		for(int i = 0; i< entityList.size(); i++) {
+    			entityList.remove(i);
+    		}
         	ui.draw(g2);
         	
         	long drawStop = System.nanoTime();
