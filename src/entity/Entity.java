@@ -72,7 +72,7 @@ public abstract class Entity   {
 		screen.colCheck.checkObject(this, false); // NPC nao pega objetos
 		screen.colCheck.checkEntity(this, screen.npc); // Checa com outros NPCs
 		screen.colCheck.checkEntity(this, new Entity[]{screen.player}); // Checa com o player
-		screen.colCheck.checkEntity(this, screen.monster);
+		screen.colCheck.checkEntity(this, screen.enemy);
 		boolean contactPlayer = screen.colCheck.checkPlayer(this);
 		
 		if(this.type == 2 && contactPlayer == true) {

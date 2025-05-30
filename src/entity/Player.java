@@ -106,7 +106,7 @@ public class Player extends Entity{
 	    	
 	    	int npcIndex = screen.colCheck.checkEntity(this, screen.npc);
 	    	interactNPC(npcIndex);
-	    	int monsterIndex = screen.colCheck.checkEntity(this,screen.monster);
+	    	int monsterIndex = screen.colCheck.checkEntity(this,screen.enemy);
 	    	contactMonster(monsterIndex);
 	    	screen.eventManager.checkEvent();
 	    	

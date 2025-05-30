@@ -1,4 +1,4 @@
-package monster;
+package enemy;
 
 import java.awt.Rectangle;
 import java.util.Random;
@@ -6,8 +6,8 @@ import java.util.Random;
 import entity.Entity;
 import main.Screen;
 
-public class Mon_Matador extends Entity{
-	public Mon_Matador(Screen screen) {
+public class En_Matador extends Entity{
+	public En_Matador(Screen screen) {
 		super(screen);
 		type = 2;
 		name = "Matador de muriçoca";
@@ -27,18 +27,18 @@ public class Mon_Matador extends Entity{
 	}
 	
 	public void getImage() {
-		up1 = setup("/monsters/matador");
-		up2 = setup("/monsters/matador");
-		up3 = setup("/monsters/matador");
-		down1 = setup("/monsters/matador");
-		down2 = setup("/monsters/matador");
-		down3 = setup("/monsters/matador");
-		left1 = setup("/monsters/matador");
-		left2 = setup("/monsters/matador");
-		left3 = setup("/monsters/matador");
-		right1 = setup("/monsters/matador");
-		right2 = setup("/monsters/matador");
-		right3 = setup("/monsters/matador");
+		up1 = setup("/enemies/matador");
+		up2 = setup("/enemies/matador");
+		up3 = setup("/enemies/matador");
+		down1 = setup("/enemies/matador");
+		down2 = setup("/enemies/matador");
+		down3 = setup("/enemies/matador");
+		left1 = setup("/enemies/matador");
+		left2 = setup("/enemies/matador");
+		left3 = setup("/enemies/matador");
+		right1 = setup("/enemies/matador");
+		right2 = setup("/enemies/matador");
+		right3 = setup("/enemies/matador");
 
 	}
 	
