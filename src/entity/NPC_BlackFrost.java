@@ -13,7 +13,7 @@ public class NPC_BlackFrost extends Entity{
 		super(screen);
 		facing = "down";
 		speed = defaultSpeed;
-		renderNPC();
+		getImage();
 		setTextLines();
 		collisionArea = new Rectangle();
 		collisionArea.x = (4 * screen.scale);
@@ -35,7 +35,7 @@ public class NPC_BlackFrost extends Entity{
 		dialogues[2] = "Get magatamas so you can unlock new areas";
 	}
 	
-	public void renderNPC() {
+	public void getImage() {
 		up1 = setup("/npc/BF-Up-1");
 		up2 = setup("/npc/BF-Up-2");
 		up3 = setup("/npc/BF-Up-3");

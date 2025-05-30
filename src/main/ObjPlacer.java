@@ -27,4 +27,10 @@ public class ObjPlacer extends Entity {
 		screen.obj[2].worldX = 44 * screen.tileSize;
 		screen.obj[2].worldY = 29 * screen.tileSize;
 	}
+	public void getImage(){
+		
+	}
+	public void setAction() {
+		
+	}
 }

@@ -13,7 +13,7 @@ public class NPC_JackFrost extends Entity{
 		super(screen);
 		facing = "down";
 		speed = defaultSpeed;
-		renderNPC();
+		getImage();
 		setTextLines();
 		collisionArea = new Rectangle();
 		collisionArea.x = (4 * screen.scale);
@@ -29,7 +29,7 @@ public class NPC_JackFrost extends Entity{
 		super.speak();
 	}
 	
-	public void renderNPC() {
+	public void getImage() {
 		up1 = setup("/npc/JF-Up-1");
 		up2 = setup("/npc/JF-Up-2");
 		up3 = setup("/npc/JF-Up-3");

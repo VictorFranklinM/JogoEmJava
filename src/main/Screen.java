@@ -57,6 +57,7 @@ public class Screen extends JPanel implements Runnable{
 	public Entity obj[] = new Entity[objPerScreen]; // new Object[x]. x e a quantidade de objetos que podem ser renderizados na tela ao mesmo tempo.
 	public Entity npc[] = new Entity[npcPerScreen];
 	ArrayList<Entity> entityList = new ArrayList<>();
+	public Entity monster[] = new Entity[20];
 	public int gameState;
 	public final int titleState = 0;
 	public final int playState = 1;
@@ -75,6 +76,7 @@ public class Screen extends JPanel implements Runnable{
 	public void setupGame() {
 		objPlacer.placeObject();
 		npcPlacer.placeNPC();
+		npcPlacer.placeMonster();
 		playMusic(4);
 		gameState = titleState;
 	}
@@ -95,6 +97,11 @@ public class Screen extends JPanel implements Runnable{
     		for (int i = 0; i < npc.length; i++) {
     			if(npc[i] != null) {
     				npc[i].update();
+    			}
+    		}
+    		for (int i = 0; i < npc.length; i++) {
+    			if(monster[i] != null) {
+    				monster[i].update();
     			}
     		}
     	}
@@ -131,7 +138,11 @@ public class Screen extends JPanel implements Runnable{
     				entityList.add(npc[i]);
     			}
     		}
-    		
+    		for(int i = 0; i < monster.length; i++) {
+    			if(monster[i] != null) {
+    				entityList.add(monster[i]);
+    			}
+    		}
     		for(int i = 0; i < obj.length; i++) {
     			if(obj[i] != null) {
     				entityList.add(obj[i]);

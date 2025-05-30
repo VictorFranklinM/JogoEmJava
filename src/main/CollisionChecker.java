@@ -156,43 +156,32 @@ public class CollisionChecker {
 	            switch(entity.facing) {
 				case "up":
 					entity.collisionArea.y -= entity.speed;
-					if(entity.collisionArea.intersects(target[i].collisionArea)) {
-							entity.collision = true;
-							index = i;
-					}
+					
 					break;
 					
 				case "down":
 					entity.collisionArea.y += entity.speed;
-					if(entity.collisionArea.intersects(target[i].collisionArea)) {
-							entity.collision = true;
-							index = i;
-					}
+					
 					
 					break;
 					
 				case "left":
 					entity.collisionArea.x -= entity.speed;
-					if(entity.collisionArea.intersects(target[i].collisionArea)) {
-							entity.collision = true;
-							index = i;
-					}
+					
 					break;
 					
 				case "right":
 					entity.collisionArea.x += entity.speed;
-					if(entity.collisionArea.intersects(target[i].collisionArea)) {
-							entity.collision = true;
-							index = i;
-					}
+				
 					break;
+					
 				}
 
 	            if(entity.collisionArea.intersects(target[i].collisionArea)) {
 	                entity.collision = true;
 	                index = i;
 	            }
-
+	            
 	            entity.collisionArea.x = entity.collisionAreaDefaultX;
 	            entity.collisionArea.y = entity.collisionAreaDefaultY;
 
@@ -202,4 +191,53 @@ public class CollisionChecker {
 	    }
 	    return index;
 	}
-}
+	
+	public boolean checkPlayer(Entity entity) {
+		boolean contactPlayer = false;
+
+	            entity.collisionArea.x = entity.worldX + entity.collisionArea.x;
+	            entity.collisionArea.y = entity.worldY + entity.collisionArea.y;
+
+	            screen.player.collisionArea.x = screen.player.worldX + screen.player.collisionArea.x;
+	            screen.player.collisionArea.y = screen.player.worldY + screen.player.collisionArea.y;
+
+	            switch(entity.facing) {
+				case "up":
+					entity.collisionArea.y -= entity.speed;
+					
+					break;
+					
+				case "down":
+					entity.collisionArea.y += entity.speed;
+					
+					
+					break;
+					
+				case "left":
+					entity.collisionArea.x -= entity.speed;
+					
+					break;
+					
+				case "right":
+					entity.collisionArea.x += entity.speed;
+				
+					break;
+					
+				}
+
+	            if(entity.collisionArea.intersects(screen.player.collisionArea)) {
+	                entity.collision = true;
+	                contactPlayer = true;
+	            }
+	            
+	            entity.collisionArea.x = entity.collisionAreaDefaultX;
+	            entity.collisionArea.y = entity.collisionAreaDefaultY;
+
+	            screen.player.collisionArea.x = screen.player.collisionAreaDefaultX;
+	            screen.player.collisionArea.y = screen.player.collisionAreaDefaultY;
+	            
+				return contactPlayer;
+	        }
+		
+		}
+	

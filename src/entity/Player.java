@@ -1,6 +1,8 @@
 package entity;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -45,7 +47,7 @@ public class Player extends Entity{
 		collisionAreaDefaultY = collisionArea.y;
 		
 		setDefaultValues();
-		renderPlayer();
+		getImage();
 	}
 	
 	public void setDefaultValues() {
@@ -62,7 +64,7 @@ public class Player extends Entity{
 		mana = maxMana;
 	}
 	
-	public void renderPlayer() {
+	public void getImage() {
 		up1 = setup("/player/Up-1");
 		up2 = setup("/player/Up-2");
 		up3 = setup("/player/Up-3");
@@ -104,7 +106,8 @@ public class Player extends Entity{
 	    	
 	    	int npcIndex = screen.colCheck.checkEntity(this, screen.npc);
 	    	interactNPC(npcIndex);
-	    	
+	    	int monsterIndex = screen.colCheck.checkEntity(this,screen.monster);
+	    	contactMonster(monsterIndex);
 	    	screen.eventManager.checkEvent();
 	    	
 	    	screen.key.ePressed = false;
@@ -204,8 +207,21 @@ public class Player extends Entity{
 				standingCounter = 0;
 			}
 		}
+	    
+	    if(isInvincible == true) {
+	    	invincibilityTimer++;
+	    	if(invincibilityTimer > 60) {
+	    		isInvincible = false;
+	    		invincibilityTimer = 0;
+	    	}
+	    	
+	    }
+	    
+	   
 	}
 	
+	
+
 	public void interact(int index) {
 		// OBS: Pra aumentar a speed do player, tirar o "final" de defaultSpeed e colocar defaultSpeed += (speed a ser incrementada).
 		if(index != (screen.objPerScreen)) {
@@ -249,7 +265,15 @@ public class Player extends Entity{
 			}
 		}
 	}
-	
+	private void contactMonster(int i) {
+		
+		if(i != screen.npcPerScreen) {
+			if(isInvincible == false) {
+			hp -= 1;
+			isInvincible = true;
+			}
+		}
+	}
 	
 	public void draw(Graphics2D g2) {
 		BufferedImage image = null;
@@ -302,7 +326,17 @@ public class Player extends Entity{
 				image = right3;
 			}
 			break;
+		
+		}
+		if(isInvincible == true) {
+			 g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,0.3f));
 		}
 		g2.drawImage(image, screenX, screenY, null);
+		
+		g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,1f));
+		
+		g2.setFont(new Font("Arial",Font.PLAIN,10));
+		g2.setColor(Color.WHITE);
+		g2.drawString("Invincibility Frames: "+invincibilityTimer,10,30);
 	}
 }

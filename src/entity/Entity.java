@@ -11,7 +11,7 @@ import main.PerformanceTool;
 import main.Screen;
 import main.Sound;
 
-public abstract class Entity {
+public abstract class Entity   {
 	public Screen screen;
 	Sound sound = new Sound();
 	public int worldX, worldY;
@@ -27,12 +27,14 @@ public abstract class Entity {
 	
 	public Rectangle collisionArea =  new Rectangle();
 	public int collisionAreaDefaultX, collisionAreaDefaultY;
-	
+	public boolean isInvincible = false;
+	public int invincibilityTimer = 0;
 	public boolean collision = false;
-	public int tamanhoFalas = 20;
+	public int dialoguesQuantity = 20;
 	public int actionLockCounter = 0; // Para movimenta��o dos NPC
-	String dialogues[] = new String[tamanhoFalas]; 
+	String dialogues[] = new String[dialoguesQuantity]; 
 	int dialogueIndex = 0;
+	public int type; // 0 player, 2 monster, 1 npc
 	
 	// Status
 	public int maxHP;
@@ -70,6 +72,15 @@ public abstract class Entity {
 		screen.colCheck.checkObject(this, false); // NPC nao pega objetos
 		screen.colCheck.checkEntity(this, screen.npc); // Checa com outros NPCs
 		screen.colCheck.checkEntity(this, new Entity[]{screen.player}); // Checa com o player
+		screen.colCheck.checkEntity(this, screen.monster);
+		boolean contactPlayer = screen.colCheck.checkPlayer(this);
+		
+		if(this.type == 2 && contactPlayer == true) {
+			if(screen.player.isInvincible == false) {
+				screen.player.hp -= 1;
+				screen.player.isInvincible = true;
+			}
+		}
 		if(collision == false) {
 			switch(facing) {
 			case "up": worldY -= speed;
@@ -164,6 +175,8 @@ public abstract class Entity {
 				}
 				break;
 			}			
+			
+			
 			g2.drawImage(image, screenX, screenY, screen.tileSize, screen.tileSize, null);
 		}
 	}
