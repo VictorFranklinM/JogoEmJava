@@ -22,6 +22,6 @@ public class OBJ_CacheCube extends Entity{
         collisionAreaDefaultY = collisionArea.y;
 
         collision = true;
-
+        
 	}
 }
