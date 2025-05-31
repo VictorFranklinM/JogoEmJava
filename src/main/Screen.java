@@ -103,7 +103,12 @@ public class Screen extends JPanel implements Runnable{
     		}
     		for (int i = 0; i < npc.length; i++) {
     			if(enemy[i] != null) {
-    				enemy[i].update();
+    				if(enemy[i].alive && !enemy[i].dying) {
+    					enemy[i].update();
+    				}
+    				if(!enemy[i].alive) {
+    					enemy[i] = null;
+    				}
     			}
     		}
     	}

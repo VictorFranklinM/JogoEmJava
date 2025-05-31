@@ -127,8 +127,8 @@ public class Player extends Entity{
 	    	
 	    	int npcIndex = screen.colCheck.checkEntity(this, screen.npc);
 	    	interactNPC(npcIndex);
-	    	int monsterIndex = screen.colCheck.checkEntity(this,screen.enemy);
-	    	contactMonster(monsterIndex);
+	    	int enemyIndex = screen.colCheck.checkEntity(this,screen.enemy);
+	    	contactEnemy(enemyIndex);
 	    	screen.eventManager.checkEvent();
 	    	
 	    	
@@ -324,17 +324,18 @@ public class Player extends Entity{
 				screen.npc[i].speak();
 			}
 			else {
+				screen.playSFX(7);
 				attacking = true;
 			}
 		}	
 	}
 	
-	private void contactMonster(int i) {
-		
+	private void contactEnemy(int i) {
 		if(i != screen.npcPerScreen) {
 			if(isInvincible == false) {
-			hp -= 1;
-			isInvincible = true;
+				playSFX(6);
+				hp -= 1;
+				isInvincible = true;
 			}
 		}
 	}
@@ -344,11 +345,13 @@ public class Player extends Entity{
 			
 			if(!screen.enemy[i].isInvincible) {
 				
+				playSFX(5);
 				screen.enemy[i].hp -=1;
 				screen.enemy[i].isInvincible = true;
+				screen.enemy[i].damageReaction();
 				
 				if (screen.enemy[i].hp <= 0) {
-					screen.enemy[i] = null;
+					screen.enemy[i].dying = true;
 				}
 			}
 		}
@@ -413,11 +416,11 @@ public class Player extends Entity{
 		
 		
 		if(isInvincible == true) {
-			 g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,0.4f));
+			 changeSpriteOpacity(g2, 0.4f);
 		}
 		g2.drawImage(image, tempScreenX, tempScreenY, null);
 		
-		g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,1f));
+		changeSpriteOpacity(g2, 1f);
 	
 		g2.setFont(new Font("Arial",Font.PLAIN,10));
 		g2.setColor(Color.WHITE);

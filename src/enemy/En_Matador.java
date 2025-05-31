@@ -13,7 +13,6 @@ public class En_Matador extends Entity{
 	
 	public En_Matador(Screen screen) {
 		super(screen);
-	
 		type = 2;
 		name = "Matador de muriçoca";
 		speed = 2;
@@ -70,6 +69,12 @@ public class En_Matador extends Entity{
 			
 			actionLockCounter = 0;
 		}
+	}
+	
+	public void damageReaction() {
+		// Correr do jogador
+		actionLockCounter = 0;
+		facing = screen.player.facing;
 	}
 }
 

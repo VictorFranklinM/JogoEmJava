@@ -1,6 +1,7 @@
 package entity;
 
 import java.awt.AlphaComposite;
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -15,10 +16,13 @@ import main.Sound;
 public abstract class Entity   {
 	public Screen screen;
 	Sound sound = new Sound();
+	
 	public int worldX, worldY;
 	public int speed;
 	public boolean isMoving = false;
+	
 	public String name;
+	
 	public BufferedImage up1, up2, up3, left1, left2, left3, right1, right2, right3, down1, down2, down3; // Sprites do personagem.
 	public BufferedImage attackUp1, attackUp2, attackLeft1, attackLeft2, attackRight1, attackRight2, attackDown1, attackDown2;
 	public BufferedImage image, image2;
@@ -30,14 +34,25 @@ public abstract class Entity   {
 	public Rectangle collisionArea =  new Rectangle();
 	public Rectangle attackArea = new Rectangle(0, 0, 0, 0);
 	public int collisionAreaDefaultX, collisionAreaDefaultY;
-	public boolean isInvincible = false;
-	boolean attacking = false;
-	public int invincibilityTimer = 0;
 	public boolean collision = false;
+	
+	public boolean isInvincible = false;
+	public int invincibilityTimer = 0;
+	public int deathCounter = 0;
+	
+	boolean attacking = false;
+	public boolean alive = true;
+	public boolean dying = false;
+	
+	boolean hpBarOn = false;
+	int hpBarCounter = 0;
+	
 	public int dialoguesQuantity = 20;
 	public int actionLockCounter = 0; // Para movimenta��o dos NPC
+	
 	String dialogues[] = new String[dialoguesQuantity]; 
 	int dialogueIndex = 0;
+	
 	public int type; // 0 player, 2 monster, 1 npc
 	
 	// Status
@@ -65,9 +80,7 @@ public abstract class Entity   {
 		sound.play();
 	}
 	
-	public void setAction() {
-		
-	}
+	public void setAction() {}
 	
 	public void update() {
 		setAction();
@@ -81,6 +94,7 @@ public abstract class Entity   {
 		
 		if(this.type == 2 && contactPlayer == true) {
 			if(screen.player.isInvincible == false) {
+				screen.playSFX(6);
 				screen.player.hp -= 1;
 				screen.player.isInvincible = true;
 			}
@@ -161,20 +175,72 @@ public abstract class Entity   {
 				if(spriteNum == 1) {image = right1;}
 				if(spriteNum == 2) {image = right2;}
 				if(spriteNum == 3) {image = right3;}
-				
 				break;
-			}			
+			}
+			
+			// Hp inimigo
+			if(type == 2 && hpBarOn) {
+				double hpScale = (double) screen.tileSize/maxHP;
+				double hpBarValue = hpScale*hp;
+				
+				Color greenGreen = new Color(64, 152, 94);
+				Color darkGreen = new Color(4, 55, 59);
+				Color blackGreen = new Color(10, 26, 47);
+				
+				g2.setColor(blackGreen);
+				g2.fillRect(screenX-screen.scale/2, screenY-18, screen.tileSize+screen.scale, 10 + screen.scale);
+				g2.setColor(darkGreen);
+				g2.fillRect(screenX, screenY-16, screen.tileSize, 10);
+				g2.setColor(greenGreen);
+				g2.fillRect(screenX, screenY-16, (int) hpBarValue, 10);
+				
+				hpBarCounter++;
+				
+				if(hpBarCounter > 600) {
+					hpBarCounter = 0;
+					hpBarOn = false;
+				}
+			}
+			
+			
 			
 			if(isInvincible == true) {
-				 g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,0.4f));
+				hpBarOn = true;
+				hpBarCounter = 0;
+				changeSpriteOpacity(g2, 0.4f);
+			}
+			if(dying == true) {
+				deathAnimation(g2);
 			}
 			
 			g2.drawImage(image, screenX, screenY, screen.tileSize, screen.tileSize, null);
-			
-			g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,1f));
+			changeSpriteOpacity(g2, 1f);
 		}
 	}
 
+	public void deathAnimation(Graphics2D g2) {
+		collision = false;
+		deathCounter++;
+		int frameDifferance = 5;
+		
+		if(deathCounter <= frameDifferance) {changeSpriteOpacity(g2, 0f);}
+		if(deathCounter > frameDifferance && deathCounter >= frameDifferance*2) {changeSpriteOpacity(g2, 1f);}
+		if(deathCounter > frameDifferance*2 && deathCounter >= frameDifferance*3) {changeSpriteOpacity(g2, 0f);}
+		if(deathCounter > frameDifferance*3 && deathCounter >= frameDifferance*4) {changeSpriteOpacity(g2, 1f);}
+		if(deathCounter > frameDifferance*4 && deathCounter >= frameDifferance*5) {changeSpriteOpacity(g2, 0f);}
+		if(deathCounter > frameDifferance*5 && deathCounter >= frameDifferance*6) {changeSpriteOpacity(g2, 1f);}
+		if(deathCounter > frameDifferance*6 && deathCounter >= frameDifferance*7) {changeSpriteOpacity(g2, 0f);}
+		if(deathCounter > frameDifferance*7 && deathCounter >= frameDifferance*8) {changeSpriteOpacity(g2, 1f);}
+		if(deathCounter > frameDifferance*8) {
+			dying = false;
+			alive = false;
+		}
+	}
+	
+	public void changeSpriteOpacity(Graphics2D g2, float opacity) {
+		g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,opacity));
+	}
+	
 	public BufferedImage setup(String imagePath, int width, int height) {
 		PerformanceTool performancePlayer = new PerformanceTool();
 		BufferedImage image = null;
@@ -212,5 +278,7 @@ public abstract class Entity   {
 			break;
 		}
 	}
+	
+	public void damageReaction() {}
 	
 }
