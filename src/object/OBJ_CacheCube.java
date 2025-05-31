@@ -10,7 +10,7 @@ public class OBJ_CacheCube extends Entity{
 	
 	public OBJ_CacheCube(Screen screen) {
 		super(screen);
-		down1 = setup("/objects/cacheCube");
+		down1 = setup("/objects/cacheCube",screen.tileSize, screen.tileSize);
 		name = "Cache Cube";
 		
 		collisionArea.x = (3 * screen.scale);

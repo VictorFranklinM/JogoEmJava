@@ -6,9 +6,14 @@ import java.util.Random;
 import entity.Entity;
 import main.Screen;
 
+
+
 public class En_Matador extends Entity{
+	
+	
 	public En_Matador(Screen screen) {
 		super(screen);
+	
 		type = 2;
 		name = "Matador de muriçoca";
 		speed = 2;
@@ -26,19 +31,20 @@ public class En_Matador extends Entity{
         getImage();
 	}
 	
+	
 	public void getImage() {
-		up1 = setup("/enemies/matador");
-		up2 = setup("/enemies/matador");
-		up3 = setup("/enemies/matador");
-		down1 = setup("/enemies/matador");
-		down2 = setup("/enemies/matador");
-		down3 = setup("/enemies/matador");
-		left1 = setup("/enemies/matador");
-		left2 = setup("/enemies/matador");
-		left3 = setup("/enemies/matador");
-		right1 = setup("/enemies/matador");
-		right2 = setup("/enemies/matador");
-		right3 = setup("/enemies/matador");
+		up1 = setup("/enemies/matador",screen.tileSize, screen.tileSize);
+		up2 = setup("/enemies/matador",screen.tileSize, screen.tileSize);
+		up3 = setup("/enemies/matador",screen.tileSize, screen.tileSize);
+		down1 = setup("/enemies/matador",screen.tileSize, screen.tileSize);
+		down2 = setup("/enemies/matador",screen.tileSize, screen.tileSize);
+		down3 = setup("/enemies/matador",screen.tileSize, screen.tileSize);
+		left1 = setup("/enemies/matador",screen.tileSize, screen.tileSize);
+		left2 = setup("/enemies/matador",screen.tileSize, screen.tileSize);
+		left3 = setup("/enemies/matador",screen.tileSize, screen.tileSize);
+		right1 = setup("/enemies/matador",screen.tileSize, screen.tileSize);
+		right2 = setup("/enemies/matador",screen.tileSize, screen.tileSize);
+		right3 = setup("/enemies/matador",screen.tileSize, screen.tileSize);
 
 	}
 	

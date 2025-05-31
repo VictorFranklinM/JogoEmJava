@@ -12,7 +12,7 @@ public class OBJ_Chest extends Entity{
 		super(screen);
 		
 		name = "Chest";
-		down1 = setup("/objects/chest");
+		down1 = setup("/objects/chest",screen.tileSize, screen.tileSize);
 		collisionArea.x = (1 * screen.scale);
 		collisionArea.y = (3 * screen.scale);
 		collisionArea.width = (14 * screen.scale);

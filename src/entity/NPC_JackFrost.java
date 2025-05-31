@@ -30,18 +30,18 @@ public class NPC_JackFrost extends Entity{
 	}
 	
 	public void getImage() {
-		up1 = setup("/npc/JF-Up-1");
-		up2 = setup("/npc/JF-Up-2");
-		up3 = setup("/npc/JF-Up-3");
-		down1 = setup("/npc/JF-Down-1");
-		down2 = setup("/npc/JF-Down-2");
-		down3 = setup("/npc/JF-Down-3");
-		left1 = setup("/npc/JF-Left-1");
-		left2 = setup("/npc/JF-Left-2");
-		left3 = setup("/npc/JF-Left-3");
-		right1 = setup("/npc/JF-Right-1");
-		right2 = setup("/npc/JF-Right-2");
-		right3 = setup("/npc/JF-Right-3");
+		up1 = setup("/npc/JF-Up-1",screen.tileSize, screen.tileSize);
+		up2 = setup("/npc/JF-Up-2",screen.tileSize, screen.tileSize);
+		up3 = setup("/npc/JF-Up-3",screen.tileSize, screen.tileSize);
+		down1 = setup("/npc/JF-Down-1",screen.tileSize, screen.tileSize);
+		down2 = setup("/npc/JF-Down-2",screen.tileSize, screen.tileSize);
+		down3 = setup("/npc/JF-Down-3",screen.tileSize, screen.tileSize);
+		left1 = setup("/npc/JF-Left-1",screen.tileSize, screen.tileSize);
+		left2 = setup("/npc/JF-Left-2",screen.tileSize, screen.tileSize);
+		left3 = setup("/npc/JF-Left-3",screen.tileSize, screen.tileSize);
+		right1 = setup("/npc/JF-Right-1",screen.tileSize, screen.tileSize);
+		right2 = setup("/npc/JF-Right-2",screen.tileSize, screen.tileSize);
+		right3 = setup("/npc/JF-Right-3",screen.tileSize, screen.tileSize);
 
 	}
 	

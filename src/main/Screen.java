@@ -163,11 +163,11 @@ public class Screen extends JPanel implements Runnable{
     		for(int i = 0;i< entityList.size(); i++) {
     			entityList.get(i).draw(g2);
     		}
-    		for(int i = 0; i< entityList.size(); i++) {
-    			entityList.remove(i);
-    		}
+    		
+    		entityList.clear();
+    		
         	ui.draw(g2);
-        	
+    	
         	long drawStop = System.nanoTime();
         	if(key.isDebugging == true) {
         	long elapsedTime = drawStop - drawBegin;

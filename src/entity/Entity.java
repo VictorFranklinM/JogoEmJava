@@ -1,5 +1,6 @@
 package entity;
 
+import java.awt.AlphaComposite;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -17,17 +18,20 @@ public abstract class Entity   {
 	public int worldX, worldY;
 	public int speed;
 	public boolean isMoving = false;
-	public BufferedImage image, image2;
 	public String name;
 	public BufferedImage up1, up2, up3, left1, left2, left3, right1, right2, right3, down1, down2, down3; // Sprites do personagem.
+	public BufferedImage attackUp1, attackUp2, attackLeft1, attackLeft2, attackRight1, attackRight2, attackDown1, attackDown2;
+	public BufferedImage image, image2;
 	public String facing = "down"; // Direcao do personagem.
 	
 	public int spriteCounter = 0;
 	public int spriteNum = 1;
 	
 	public Rectangle collisionArea =  new Rectangle();
+	public Rectangle attackArea = new Rectangle(0, 0, 0, 0);
 	public int collisionAreaDefaultX, collisionAreaDefaultY;
 	public boolean isInvincible = false;
+	boolean attacking = false;
 	public int invincibilityTimer = 0;
 	public boolean collision = false;
 	public int dialoguesQuantity = 20;
@@ -111,7 +115,15 @@ public abstract class Entity   {
 	    			spriteNum = 1;
 	    		}
 	    		spriteCounter = 0;
-	    	}
+	    	}  
+	    	if(isInvincible == true) {
+		    	invincibilityTimer++;
+		    	if(invincibilityTimer > 40) {
+		    		isInvincible = false;
+		    		invincibilityTimer = 0;
+		    	}
+		    	
+		    }
 			
 		}
 	}
@@ -128,66 +140,46 @@ public abstract class Entity   {
 			
 			switch(facing) {
 			case "up":
-				if(spriteNum == 1) {
-					image = up1;
-				}
-				if(spriteNum == 2) {
-					image = up2;
-				}
-				if(spriteNum == 3) {
-					image = up3;
-				}
+				if(spriteNum == 1) {image = up1;}
+				if(spriteNum == 2) {image = up2;}
+				if(spriteNum == 3) {image = up3;}
 				break;
 				
 			case "down":
-				if(spriteNum == 1) {
-					image = down1;
-				}
-				if(spriteNum == 2) {
-					image = down2;
-				}
-				if(spriteNum == 3) {
-					image = down3;
-				}
+				if(spriteNum == 1) {image = down1;}
+				if(spriteNum == 2) {image = down2;}
+				if(spriteNum == 3) {image = down3;}
 				break;
 				
 			case "left":
-				if(spriteNum == 1) {
-					image = left1;
-				}
-				if(spriteNum == 2) {
-					image = left2;
-				}
-				if(spriteNum == 3) {
-					image = left3;
-				}
+				if(spriteNum == 1) {image = left1;}
+				if(spriteNum == 2) {image = left2;}
+				if(spriteNum == 3) {image = left3;}
 				break;
 				
 			case "right":
-				if(spriteNum == 1) {
-					image = right1;
-				}
-				if(spriteNum == 2) {
-					image = right2;
-				}
-				if(spriteNum == 3) {
-					image = right3;
-				}
+				if(spriteNum == 1) {image = right1;}
+				if(spriteNum == 2) {image = right2;}
+				if(spriteNum == 3) {image = right3;}
+				
 				break;
 			}			
 			
+			if(isInvincible == true) {
+				 g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,0.4f));
+			}
 			
 			g2.drawImage(image, screenX, screenY, screen.tileSize, screen.tileSize, null);
 		}
 	}
 
-	public BufferedImage setup(String imagePath) {
+	public BufferedImage setup(String imagePath, int width, int height) {
 		PerformanceTool performancePlayer = new PerformanceTool();
 		BufferedImage image = null;
 		
 		try {
 			image = ImageIO.read(getClass().getResourceAsStream(imagePath+".png"));
-			image = performancePlayer.scaleImage(image, screen.tileSize, screen.tileSize);
+			image = performancePlayer.scaleImage(image, width, height);
 		}catch(IOException e) {
 			e.printStackTrace();
 			System.out.println("Sprite Path invalid for Player sprite");

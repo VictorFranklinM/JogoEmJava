@@ -60,7 +60,7 @@ public class KeyInput implements KeyListener {
 		}
 		
 		//ESTADO DE JOGO
-		if(screen.gameState == screen.playState) {
+		else if(screen.gameState == screen.playState) {
 			if(code == KeyEvent.VK_W) {
 				upHold = true;
 			}

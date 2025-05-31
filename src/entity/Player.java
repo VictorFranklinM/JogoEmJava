@@ -15,6 +15,7 @@ import main.PerformanceTool;
 import main.Screen;
 
 public class Player extends Entity{
+	Screen screen;
 	
 	KeyInput key;
 	
@@ -30,6 +31,8 @@ public class Player extends Entity{
 	
 	public Player(Screen screen, KeyInput keyInput) {
 		super(screen);
+		this.screen = screen;
+		
 		this.key = keyInput;
 		
 		/* Como o personagem e renderizado a partir do pixel superior esquerdo, subtraimos meio tile de X e Y para que ele
@@ -43,11 +46,16 @@ public class Player extends Entity{
 		collisionArea.width = (8 * screen.scale); // Largura do retângulo.
 		collisionArea.height = (7 * screen.scale); // Altura.
 		
+		attackArea.width = 36;
+		attackArea.height = 36;
+		
+		
 		collisionAreaDefaultX = collisionArea.x;
 		collisionAreaDefaultY = collisionArea.y;
 		
 		setDefaultValues();
 		getImage();
+		getPlayerAttackImage();
 	}
 	
 	public void setDefaultValues() {
@@ -65,25 +73,43 @@ public class Player extends Entity{
 	}
 	
 	public void getImage() {
-		up1 = setup("/player/Up-1");
-		up2 = setup("/player/Up-2");
-		up3 = setup("/player/Up-3");
-		down1 = setup("/player/Down-1");
-		down2 = setup("/player/Down-2");
-		down3 = setup("/player/Down-3");
-		left1 = setup("/player/Left-1");
-		left2 = setup("/player/Left-2");
-		left3 = setup("/player/Left-3");
-		right1 = setup("/player/Right-1");
-		right2 = setup("/player/Right-2");
-		right3 = setup("/player/Right-3");
+		up1 = setup("/player/Up-1", screen.tileSize, screen.tileSize);
+		up2 = setup("/player/Up-2", screen.tileSize, screen.tileSize);
+		up3 = setup("/player/Up-3", screen.tileSize, screen.tileSize);
+		down1 = setup("/player/Down-1", screen.tileSize, screen.tileSize);
+		down2 = setup("/player/Down-2", screen.tileSize, screen.tileSize);
+		down3 = setup("/player/Down-3", screen.tileSize, screen.tileSize);
+		left1 = setup("/player/Left-1", screen.tileSize, screen.tileSize);
+		left2 = setup("/player/Left-2", screen.tileSize, screen.tileSize);
+		left3 = setup("/player/Left-3", screen.tileSize, screen.tileSize);
+		right1 = setup("/player/Right-1", screen.tileSize, screen.tileSize);
+		right2 = setup("/player/Right-2", screen.tileSize, screen.tileSize);
+		right3 = setup("/player/Right-3", screen.tileSize, screen.tileSize);
 
 	}	
-	
+	public void getPlayerAttackImage() {
+		
+		attackUp1 = setup("/player/AttackUp-1", screen.tileSize, screen.tileSize*2);
+		attackUp2 = setup("/player/AttackUp-2", screen.tileSize, screen.tileSize*2);
+		attackDown1 = setup("/player/AttackDown-1", screen.tileSize, screen.tileSize*2);
+		attackDown2 = setup("/player/AttackDown-2", screen.tileSize, screen.tileSize*2);
+		attackLeft1 = setup("/player/AttackLeft-1", screen.tileSize*2, screen.tileSize);
+		attackLeft2 = setup("/player/AttackLeft-2", screen.tileSize*2, screen.tileSize);
+		attackRight1 = setup("/player/AttackRight-1", screen.tileSize*2, screen.tileSize);
+		attackRight2 = setup("/player/AttackRight-2", screen.tileSize*2, screen.tileSize);
+	}
 	// NOTA: tentar fazer com switch case pra ver se fica mais fluido.
 	public void update() {
-		isMoving = key.upHold || key.downHold || key.leftHold || key.rightHold;
-
+		
+		if (attacking == true) {
+			
+			attacking();
+			
+		}
+		else if ( key.upHold || key.downHold || key.leftHold || key.rightHold || key.ePressed) {
+			isMoving = true;
+			
+		
 	    if(isMoving) {
 	        if(key.upHold) {
 	            facing = "up";
@@ -110,9 +136,9 @@ public class Player extends Entity{
 	    	contactMonster(monsterIndex);
 	    	screen.eventManager.checkEvent();
 	    	
-	    	screen.key.ePressed = false;
 	    	
-	    	if(collision == false) {
+	    	
+	    	if(collision == false && key.ePressed == false) {
 	    		switch(facing) {
 	    		case "up":
 		    		// Checa se o personagem esta movendo na diagonal e recalcula o vetor de velocidade.
@@ -180,6 +206,8 @@ public class Player extends Entity{
 	    	
 	    	}
 	    	
+	    	screen.key.ePressed = false;
+	    	
 	    	if(collision == true) {
 	    		isMoving = false;
 	    		spriteNum = 2;
@@ -216,10 +244,57 @@ public class Player extends Entity{
 	    	}
 	    	
 	    }
+		}
 	    
 	   
 	}
+	public void attacking () {
+		
+		spriteCounter++;
+		
+		if(spriteCounter <= 5) {
+			spriteNum = 1;
+		}
+		if(spriteCounter > 5 && spriteCounter <= 25) {
+			spriteNum = 2;
+			
+			int currenWorldX = worldX;
+			int currenWorldY = worldY;
+			int collisionAreaWidth = collisionArea.width;
+			int collisionAreaHeight = collisionArea.height;
+		
+		switch(facing){
+		case "up": worldY -= attackArea.height; break;
+		case "down": worldY += attackArea.height; break;
+		case "left": worldX -= attackArea.width; break;
+		case "right": worldX += attackArea.width; break;
+		}
+		collisionArea.width = attackArea.width;
+		collisionArea.height = attackArea.height;
+		
+		int enemyIndex = screen.colCheck.checkEntity(this, screen.enemy);
+		damageEnemy(enemyIndex);
+		
+		
+		
+		
+		worldX = currenWorldX;
+		worldY = currenWorldY;
+		collisionArea.width = collisionAreaWidth;
+		collisionArea.height = collisionAreaHeight;
+		
+		
+		}
+		
+		
 	
+		if(spriteCounter > 25) {
+			spriteNum = 1;
+			spriteCounter = 0;
+			attacking = false;
+			
+		}
+	}
 	
 
 	public void interact(int index) {
@@ -258,13 +333,22 @@ public class Player extends Entity{
 	}
 	
 	public void interactNPC (int i) {
-		if (i != screen.npcPerScreen) {
-			if(screen.key.ePressed == true) {
+		
+		if(screen.key.ePressed == true) {
+			
+			if (i != screen.npcPerScreen) {
+				
 				screen.gameState = screen.dialogueState;
-			screen.npc[i].speak();
+				screen.npc[i].speak();
+				
 			}
+			else {
+					attacking = true;
+		     }
 		}
+			
 	}
+	
 	private void contactMonster(int i) {
 		
 		if(i != screen.npcPerScreen) {
@@ -274,67 +358,85 @@ public class Player extends Entity{
 			}
 		}
 	}
-	
+	public void damageEnemy(int i) {
+		if(i != 999 && screen.enemy[i] !=null) {
+			
+			if(!screen.enemy[i].isInvincible) {
+				
+				screen.enemy[i].hp -=1;
+				screen.enemy[i].isInvincible = true;
+				
+				if (screen.enemy[i].hp <= 0) {
+					screen.enemy[i] = null;
+				}
+			}
+		}
+	}
 	public void draw(Graphics2D g2) {
 		BufferedImage image = null;
+		int tempScreenX = screenX;
+		int tempScreenY = screenY;
 		
 		switch(facing) {
 		case "up":
-			if(spriteNum == 1) {
-				image = up1;
+			if(attacking == false) {
+				if(spriteNum == 1) {image = up1;}
+				if(spriteNum == 2) {image = up2;}
+				if(spriteNum == 3) {image = up3;}
 			}
-			if(spriteNum == 2) {
-				image = up2;
-			}
-			if(spriteNum == 3) {
-				image = up3;
+			if(attacking == true) {
+				tempScreenY = screenY - screen.tileSize;
+				if(spriteNum == 1) {image = attackUp1;}
+				if(spriteNum == 2) {image = attackUp2;}
 			}
 			break;
-			
 		case "down":
-			if(spriteNum == 1) {
-				image = down1;
+			if(attacking == false) {
+			if(spriteNum == 1) {image = down1;}
+			if(spriteNum == 2) {image = down2;}
+			if(spriteNum == 3) {image = down3;}
 			}
-			if(spriteNum == 2) {
-				image = down2;
-			}
-			if(spriteNum == 3) {
-				image = down3;
+			if(attacking == true) {
+				if(spriteNum == 1) {image = attackDown1;}
+				if(spriteNum == 2) {image = attackDown2;}
 			}
 			break;
 			
 		case "left":
-			if(spriteNum == 1) {
-				image = left1;
+			if(attacking == false) {
+			if(spriteNum == 1) {image = left1;}
+			if(spriteNum == 2) {image = left2;}
+			if(spriteNum == 3) {image = left3;}
 			}
-			if(spriteNum == 2) {
-				image = left2;
-			}
-			if(spriteNum == 3) {
-				image = left3;
+			if(attacking == true) {
+				tempScreenX = screenX - screen.tileSize;
+				if(spriteNum == 1) {image = attackLeft1;}
+				if(spriteNum == 2) {image = attackLeft2;}
 			}
 			break;
 			
 		case "right":
-			if(spriteNum == 1) {
-				image = right1;
+			if(attacking == false) {
+			if(spriteNum == 1) {image = right1;}
+			if(spriteNum == 2) {image = right2;}
+			if(spriteNum == 3) {image = right3;}
 			}
-			if(spriteNum == 2) {
-				image = right2;
-			}
-			if(spriteNum == 3) {
-				image = right3;
+			if(attacking == true) {
+				if(spriteNum == 1) {image = attackRight1;}
+				if(spriteNum == 2) {image = attackRight2;}
 			}
 			break;
 		
 		}
+		
+		
 		if(isInvincible == true) {
-			 g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,0.3f));
+			 g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,0.4f));
 		}
-		g2.drawImage(image, screenX, screenY, null);
+		g2.drawImage(image, tempScreenX, tempScreenY, null);
 		
 		g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,1f));
-		
+	
 		g2.setFont(new Font("Arial",Font.PLAIN,10));
 		g2.setColor(Color.WHITE);
 		g2.drawString("Invincibility Frames: "+invincibilityTimer,10,30);
