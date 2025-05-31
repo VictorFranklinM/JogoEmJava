@@ -170,6 +170,8 @@ public abstract class Entity   {
 			}
 			
 			g2.drawImage(image, screenX, screenY, screen.tileSize, screen.tileSize, null);
+			
+			g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,1f));
 		}
 	}
 

@@ -46,8 +46,8 @@ public class Player extends Entity{
 		collisionArea.width = (8 * screen.scale); // Largura do retângulo.
 		collisionArea.height = (7 * screen.scale); // Altura.
 		
-		attackArea.width = 36;
-		attackArea.height = 36;
+		attackArea.width = screen.tileSize/2;
+		attackArea.height = screen.tileSize/2;
 		
 		
 		collisionAreaDefaultX = collisionArea.x;
@@ -100,17 +100,12 @@ public class Player extends Entity{
 	}
 	// NOTA: tentar fazer com switch case pra ver se fica mais fluido.
 	public void update() {
-		
 		if (attacking == true) {
-			
-			attacking();
-			
+			attack();
 		}
 		else if ( key.upHold || key.downHold || key.leftHold || key.rightHold || key.ePressed) {
 			isMoving = true;
-			
-		
-	    if(isMoving) {
+
 	        if(key.upHold) {
 	            facing = "up";
 	        }
@@ -210,7 +205,7 @@ public class Player extends Entity{
 	    	
 	    	if(collision == true) {
 	    		isMoving = false;
-	    		spriteNum = 2;
+	    		spriteNum = 1;
 	    	} else {
 	    		spriteCounter++;
 	    	}
@@ -228,10 +223,11 @@ public class Player extends Entity{
 	    		spriteCounter = 0;
 	    	}
 		}
-		else {
+		else if(!attacking && !key.upHold && !key.downHold && !key.leftHold && !key.rightHold){
+			isMoving = false;
 			standingCounter++;
 			if(standingCounter == 15) {
-				spriteNum = 2;
+				spriteNum = 1;
 				standingCounter = 0;
 			}
 		}
@@ -242,26 +238,22 @@ public class Player extends Entity{
 	    		isInvincible = false;
 	    		invincibilityTimer = 0;
 	    	}
-	    	
 	    }
-		}
-	    
-	   
 	}
-	public void attacking () {
-		
+	public void attack () {
 		spriteCounter++;
 		
 		if(spriteCounter <= 5) {
-			spriteNum = 1;
-		}
+	        spriteNum = 1;
+	    }
+		
 		if(spriteCounter > 5 && spriteCounter <= 25) {
 			spriteNum = 2;
 			
-			int currenWorldX = worldX;
-			int currenWorldY = worldY;
-			int collisionAreaWidth = collisionArea.width;
-			int collisionAreaHeight = collisionArea.height;
+		int currenWorldX = worldX;
+		int currenWorldY = worldY;
+		int collisionAreaWidth = collisionArea.width;
+		int collisionAreaHeight = collisionArea.height;
 		
 		switch(facing){
 		case "up": worldY -= attackArea.height; break;
@@ -269,30 +261,23 @@ public class Player extends Entity{
 		case "left": worldX -= attackArea.width; break;
 		case "right": worldX += attackArea.width; break;
 		}
+		
 		collisionArea.width = attackArea.width;
 		collisionArea.height = attackArea.height;
 		
 		int enemyIndex = screen.colCheck.checkEntity(this, screen.enemy);
 		damageEnemy(enemyIndex);
-		
-		
-		
-		
+
 		worldX = currenWorldX;
 		worldY = currenWorldY;
 		collisionArea.width = collisionAreaWidth;
 		collisionArea.height = collisionAreaHeight;
-		
-		
+
 		}
-		
-		
-	
 		if(spriteCounter > 25) {
 			spriteNum = 1;
 			spriteCounter = 0;
 			attacking = false;
-			
 		}
 	}
 	
@@ -333,20 +318,15 @@ public class Player extends Entity{
 	}
 	
 	public void interactNPC (int i) {
-		
 		if(screen.key.ePressed == true) {
-			
 			if (i != screen.npcPerScreen) {
-				
 				screen.gameState = screen.dialogueState;
 				screen.npc[i].speak();
-				
 			}
 			else {
-					attacking = true;
-		     }
-		}
-			
+				attacking = true;
+			}
+		}	
 	}
 	
 	private void contactMonster(int i) {
@@ -358,8 +338,9 @@ public class Player extends Entity{
 			}
 		}
 	}
+	
 	public void damageEnemy(int i) {
-		if(i != 999 && screen.enemy[i] !=null) {
+		if(i != screen.enemyPerScreen && screen.enemy[i] !=null) {
 			
 			if(!screen.enemy[i].isInvincible) {
 				
@@ -372,6 +353,7 @@ public class Player extends Entity{
 			}
 		}
 	}
+	
 	public void draw(Graphics2D g2) {
 		BufferedImage image = null;
 		int tempScreenX = screenX;

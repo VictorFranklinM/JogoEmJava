@@ -94,6 +94,7 @@ public class Screen extends JPanel implements Runnable{
     	if(gameState==playState) {
     		player.update();
     		tsm.playTileSound();
+    		
     		//NPC
     		for (int i = 0; i < npc.length; i++) {
     			if(npc[i] != null) {

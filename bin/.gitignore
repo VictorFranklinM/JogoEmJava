@@ -1,14 +1,4 @@
-/enemies/
-/enemy/
 /entity/
-/font/
 /main/
-/maps/
-/npc/
-/object/
-/objects/
 /player/
-/sound/
-/tile/
-/tiles/
-/ui/
+/npc/
