@@ -46,8 +46,8 @@ public class Player extends Entity{
 		collisionArea.width = (8 * screen.scale); // Largura do retângulo.
 		collisionArea.height = (7 * screen.scale); // Altura.
 		
-		attackArea.width = screen.tileSize/2;
-		attackArea.height = screen.tileSize/2;
+		attackArea.width = (int) (screen.tileSize/1.5);
+		attackArea.height = (int) (screen.tileSize/1.5);
 		
 		
 		collisionAreaDefaultX = collisionArea.x;
@@ -103,7 +103,7 @@ public class Player extends Entity{
 		if (attacking == true) {
 			attack();
 		}
-		else if ( key.upHold || key.downHold || key.leftHold || key.rightHold || key.ePressed) {
+		else if (key.upHold || key.downHold || key.leftHold || key.rightHold || key.ePressed) {
 			isMoving = true;
 
 	        if(key.upHold) {
