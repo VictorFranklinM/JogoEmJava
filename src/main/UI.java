@@ -74,9 +74,14 @@ public class UI {
 			drawPlayerUI();
 			drawMenu();
 		}
+		//Dialogue State
 		if(screen.gameState==screen.dialogueState) {
     		drawDialogueScreen();
     	}
+		//Status State
+		if(screen.gameState == screen.statusState) {
+			drawStatusScreen();
+		}
 	}
 	
 	public void drawPlayerUI() {
@@ -221,6 +226,103 @@ public class UI {
 			y += screen.tileSize/1.5;
 		}
 	}
+	
+	public void drawStatusScreen() {
+		final int frameX = screen.tileSize;
+		final int frameY = screen.tileSize;
+		final int frameWidth = screen.tileSize*5;
+		final int frameHeight = screen.tileSize*10;
+		
+		drawSubWindow(frameX, frameY, frameWidth, frameHeight);
+		
+		g2.setColor(brightGreen);
+		g2.setFont(g2.getFont().deriveFont(32F));
+		
+		int textX = frameX + screen.tileSize/3;
+		int textY = frameY + screen.tileSize;
+		final int lineHeight = (int) (screen.tileSize/1.2);
+		
+		g2.drawString("Level", textX, textY);
+		textY += lineHeight;
+		g2.drawString("Hp", textX, textY);
+		textY += lineHeight;
+		g2.drawString("Mana", textX, textY);
+		textY += lineHeight;
+		g2.drawString("Strenght", textX, textY);
+		textY += lineHeight;
+		g2.drawString("Dexterity", textX, textY);
+		textY += lineHeight;
+		g2.drawString("Attack", textX, textY);
+		textY += lineHeight;
+		g2.drawString("Defense", textX, textY);
+		textY += lineHeight;
+		g2.drawString("Exp", textX, textY);
+		textY += lineHeight;
+		g2.drawString("Next level", textX, textY);
+		textY += lineHeight;
+		g2.drawString("Macca", textX, textY);
+		textY += lineHeight;
+		g2.drawString("Magatama", textX, textY);
+		
+		int tailX = (frameX + frameWidth) - screen.tileSize/2;
+		textY = frameY + screen.tileSize;
+		String value;
+		
+		value = String.valueOf(screen.player.level);
+		textX = getAlignToRightX(value, tailX);
+		g2.drawString(value, textX, textY);
+		textY += lineHeight;
+		
+		value = String.valueOf(screen.player.hp+"/"+screen.player.maxHP);
+		textX = getAlignToRightX(value, tailX);
+		g2.drawString(value, textX, textY);
+		textY += lineHeight;
+		
+		value = String.valueOf(screen.player.mana+"/"+screen.player.maxMana);
+		textX = getAlignToRightX(value, tailX);
+		g2.drawString(value, textX, textY);
+		textY += lineHeight;
+		
+		value = String.valueOf(screen.player.strenght);
+		textX = getAlignToRightX(value, tailX);
+		g2.drawString(value, textX, textY);
+		textY += lineHeight;
+		
+		value = String.valueOf(screen.player.dexterity);
+		textX = getAlignToRightX(value, tailX);
+		g2.drawString(value, textX, textY);
+		textY += lineHeight;
+		
+		value = String.valueOf(screen.player.attack);
+		textX = getAlignToRightX(value, tailX);
+		g2.drawString(value, textX, textY);
+		textY += lineHeight;
+		
+		value = String.valueOf(screen.player.defense);
+		textX = getAlignToRightX(value, tailX);
+		g2.drawString(value, textX, textY);
+		textY += lineHeight;
+		
+		value = String.valueOf(screen.player.exp);
+		textX = getAlignToRightX(value, tailX);
+		g2.drawString(value, textX, textY);
+		textY += lineHeight;
+		
+		value = String.valueOf(screen.player.nextLevelExp);
+		textX = getAlignToRightX(value, tailX);
+		g2.drawString(value, textX, textY);
+		textY += lineHeight;
+		
+		value = String.valueOf(screen.player.macca);
+		textX = getAlignToRightX(value, tailX);
+		g2.drawString(value, textX, textY);
+		textY += lineHeight;
+		
+		if(screen.player.currentMagatama != null) {
+			g2.drawImage(screen.player.currentMagatama.down1, (int) (tailX - screen.tileSize/1.5), (int) (textY - screen.tileSize/1.5), null);
+		}
+		
+	}
 
 	public void drawSubWindow(int x, int y, int width, int height) {
 		Color hudBG = new Color(0,0,0,200);
@@ -236,6 +338,12 @@ public class UI {
 	private int getCenteredX(String text) {
 		int length = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
 		int x = (screen.screenWidth/2) - (length/2);
+		return x;
+	}
+	
+	private int getAlignToRightX(String text, int tailX) {
+		int length = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
+		int x = tailX - length;
 		return x;
 	}
 }

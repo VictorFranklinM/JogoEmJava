@@ -82,6 +82,7 @@ public class EventManager {
 	
 	public void damagePit(int col, int row, int gameState) {
 		screen.gameState = gameState;
+		screen.playSFX(6);
 		screen.ui.currentSpeechLine = "You fall into a pit!";
 		screen.player.hp -= 1;
 		
@@ -90,7 +91,9 @@ public class EventManager {
 	
 	public void healingPoint(int col, int row, int gameState) {
 		if(screen.key.ePressed == true) {
+			screen.player.canAttack = false;
 			screen.gameState = gameState;
+			screen.playSFX(1);
 			screen.ui.currentSpeechLine = "You heal yourself!";
 			screen.player.hp = screen.player.maxHP;
 		}
@@ -98,6 +101,7 @@ public class EventManager {
 	
 	public void teleportPoint(int col, int row, int gameState) {
 		screen.gameState = gameState;
+		screen.playSFX(7);
 		screen.ui.currentSpeechLine = "You have been teleported!";
 		screen.player.worldX = screen.tileSize*50;
 		screen.player.worldY = screen.tileSize*32;

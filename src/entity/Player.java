@@ -10,6 +10,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import item.Item_MagaGreen;
 import main.KeyInput;
 import main.PerformanceTool;
 import main.Screen;
@@ -26,6 +27,7 @@ public class Player extends Entity{
 	public int hasMaga = 0;
 	
 	public boolean isMoving = false;
+	public boolean canAttack = true;
 	
 	private int standingCounter = 0;
 	
@@ -70,6 +72,21 @@ public class Player extends Entity{
 		hp = maxHP;
 		maxMana = 3;
 		mana = maxMana;
+		level = 1;
+		strenght = 1;
+		dexterity = 1;
+		exp = 0;
+		nextLevelExp = 5;
+		macca = 0;
+		
+		if(currentMagatama != null) {
+			attack = getAttack();
+			defense = getDefense();
+		}
+		else {
+			attack = strenght;
+			defense = dexterity;
+		}
 	}
 	
 	public void getImage() {
@@ -127,8 +144,10 @@ public class Player extends Entity{
 	    	
 	    	int npcIndex = screen.colCheck.checkEntity(this, screen.npc);
 	    	interactNPC(npcIndex);
+	    	
 	    	int enemyIndex = screen.colCheck.checkEntity(this,screen.enemy);
 	    	contactEnemy(enemyIndex);
+	    	
 	    	screen.eventManager.checkEvent();
 	    	
 	    	
@@ -201,6 +220,13 @@ public class Player extends Entity{
 	    	
 	    	}
 	    	
+	    	if(key.ePressed && canAttack) {
+	    		screen.playSFX(7);
+	    		attacking = true;
+	    		spriteCounter = 0;
+	    	}
+	    	
+	    	canAttack = true;
 	    	screen.key.ePressed = false;
 	    	
 	    	if(collision == true) {
@@ -285,6 +311,7 @@ public class Player extends Entity{
 	public void interact(int index) {
 		// OBS: Pra aumentar a speed do player, tirar o "final" de defaultSpeed e colocar defaultSpeed += (speed a ser incrementada).
 		if(index != (screen.objPerScreen)) {
+			canAttack = false;
 			String objName = screen.obj[index].name;
 			
 			if(key.ePressed == true) {
@@ -320,21 +347,25 @@ public class Player extends Entity{
 	public void interactNPC (int i) {
 		if(screen.key.ePressed == true) {
 			if (i != screen.npcPerScreen) {
+				canAttack = false;
 				screen.gameState = screen.dialogueState;
 				screen.npc[i].speak();
-			}
-			else {
-				screen.playSFX(7);
-				attacking = true;
 			}
 		}	
 	}
 	
 	private void contactEnemy(int i) {
 		if(i != screen.npcPerScreen) {
+			
 			if(isInvincible == false) {
+				
 				playSFX(6);
-				hp -= 1;
+				
+				int damage = screen.enemy[i].attack - screen.player.defense;
+				if(damage < 0) {
+					damage = 0;
+				}
+				hp -= damage;
 				isInvincible = true;
 			}
 		}
@@ -346,7 +377,12 @@ public class Player extends Entity{
 			if(!screen.enemy[i].isInvincible) {
 				
 				playSFX(5);
-				screen.enemy[i].hp -=1;
+				
+				int damage = attack - screen.enemy[i].defense;
+				if(damage < 0) {
+					damage = 0;
+				}
+				screen.enemy[i].hp -= damage;
 				screen.enemy[i].isInvincible = true;
 				screen.enemy[i].damageReaction();
 				
@@ -421,9 +457,13 @@ public class Player extends Entity{
 		g2.drawImage(image, tempScreenX, tempScreenY, null);
 		
 		changeSpriteOpacity(g2, 1f);
+	}
 	
-		g2.setFont(new Font("Arial",Font.PLAIN,10));
-		g2.setColor(Color.WHITE);
-		g2.drawString("Invincibility Frames: "+invincibilityTimer,10,30);
+	public int getAttack() {
+		return attack = strenght*currentMagatama.attackValue;
+	}
+	
+	public int getDefense(){
+		return defense = dexterity*currentMagatama.defenseValue;
 	}
 }

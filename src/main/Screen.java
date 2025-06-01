@@ -49,21 +49,27 @@ public class Screen extends JPanel implements Runnable{
 	Thread gameThread; // Cria uma linha de execucao secundaria para executar um codigo em segundo plano por cima do clock base.
 	
 	public UI ui = new UI(this);
+	
 	public CollisionChecker colCheck = new CollisionChecker(this);
 	public EventManager eventManager = new EventManager(this);
+	
 	public ObjPlacer objPlacer = new ObjPlacer(this);
 	public NpcPlacer npcPlacer = new NpcPlacer(this);
 	
 	public Player player = new Player(this,key);
+	ArrayList<Entity> entityList = new ArrayList<>();
 	public Entity obj[] = new Entity[objPerScreen]; // new Object[x]. x e a quantidade de objetos que podem ser renderizados na tela ao mesmo tempo.
 	public Entity npc[] = new Entity[npcPerScreen];
-	ArrayList<Entity> entityList = new ArrayList<>();
 	public Entity enemy[] = new Entity[enemyPerScreen];
+	
+	
 	public int gameState;
 	public final int titleState = 0;
 	public final int playState = 1;
 	public final int pauseState = 2;
 	public final int dialogueState = 3;
+	public final int statusState = 4;
+	
 	int fps = 60; // Quantas vezes a tela vai ser atualizada por segundo.
 	
 	public Screen() {
@@ -125,12 +131,6 @@ public class Screen extends JPanel implements Runnable{
     	super.paintComponent(g); // Limpa o desenho anterior antes de renderizar novamente.
     	Graphics2D g2 = (Graphics2D)g; // Faz um casting para Graphics2D para poder manipular x, y e outros atributos mais avancados.
     	
-    	//DEBUG (TESTADOR DE VELOCIDADE DE RENDERIZACAO
-    	long drawBegin = 0;
-    	if(key.isDebugging == true) {
-    		drawBegin = System.nanoTime();
-    	}
-    	
     	// TITULO
     	if(gameState == titleState) {
     		ui.draw(g2);
@@ -163,7 +163,6 @@ public class Screen extends JPanel implements Runnable{
 					int result = Integer.compare(o1.worldY, o2.worldY);
 					return result;
 				}
-				
 			});
     		//DRAW ENTITIES
     		for(int i = 0;i< entityList.size(); i++) {
@@ -173,19 +172,11 @@ public class Screen extends JPanel implements Runnable{
     		entityList.clear();
     		
         	ui.draw(g2);
-    	
-        	long drawStop = System.nanoTime();
-        	if(key.isDebugging == true) {
-        	long elapsedTime = drawStop - drawBegin;
-        	g2.setColor(Color.white);
-        	g2.drawString("Render Time: "+ elapsedTime, 10, 400);
-        	System.out.println("Render Time = "+ elapsedTime);
         	
         	}
-        	//liberar memoria
-        	g2.dispose();
+        //liberar memoria
+        g2.dispose();
         }
-    }
 
 
     // Linha de execucao secundaria do jogo, onde ocorrem as coisas na tela.

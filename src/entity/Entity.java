@@ -18,10 +18,7 @@ public abstract class Entity   {
 	Sound sound = new Sound();
 	
 	public int worldX, worldY;
-	public int speed;
 	public boolean isMoving = false;
-	
-	public String name;
 	
 	public BufferedImage up1, up2, up3, left1, left2, left3, right1, right2, right3, down1, down2, down3; // Sprites do personagem.
 	public BufferedImage attackUp1, attackUp2, attackLeft1, attackLeft2, attackRight1, attackRight2, attackDown1, attackDown2;
@@ -56,10 +53,25 @@ public abstract class Entity   {
 	public int type; // 0 player, 2 monster, 1 npc
 	
 	// Status
+	public String name;
+	public int speed;
 	public int maxHP;
 	public int hp;
 	public int maxMana;
 	public int mana;
+	public int level;
+	public int strenght;
+	public int dexterity;
+	public int attack;
+	public int defense;
+	public int exp;
+	public int nextLevelExp;
+	public int macca;
+	public Entity currentMagatama;
+	
+	// Item status
+	public int attackValue;
+	public int defenseValue;
 	
 	public Entity(Screen screen) {
 		this.screen = screen;
@@ -95,7 +107,11 @@ public abstract class Entity   {
 		if(this.type == 2 && contactPlayer == true) {
 			if(screen.player.isInvincible == false) {
 				screen.playSFX(6);
-				screen.player.hp -= 1;
+				int damage = attack - screen.player.defense;
+				if(damage < 0) {
+					damage = 0;
+				}
+				screen.player.hp -= damage;
 				screen.player.isInvincible = true;
 			}
 		}

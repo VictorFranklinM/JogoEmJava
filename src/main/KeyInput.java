@@ -8,10 +8,7 @@ public class KeyInput implements KeyListener {
 	public boolean upHold, downHold, leftHold , rightHold, ePressed, enterPressed; // Lógica booleana pra estados de movimento, indo pro lado, cima, etc.
 	
 	private Screen screen;
-	
-	public boolean isDebugging = false;
 
-	
 	public KeyInput(Screen screen) {
 		this.screen = screen;
 	}
@@ -26,94 +23,106 @@ public class KeyInput implements KeyListener {
 	// Função que processa quando uma tecla é pressionada.
 	public void keyPressed(KeyEvent e) {
 		int code = e.getKeyCode(); // Identifica a tecla pressionada.
-		// Caso o a tecla seja "W" ou a seta para cima das teclas direcionais a lógica diz que o personagem deve se mover para cima.
 		
 		//TITLE STATE
 		if(screen.gameState == screen.titleState) {
-			
-			if(code == KeyEvent.VK_W) {
-				screen.ui.commandNum--;
-				if(screen.ui.commandNum < 0) {
-					screen.ui.commandNum = 2;
-				}
-			}
-			if (code == KeyEvent.VK_S) {
-				screen.ui.commandNum++;
-				if(screen.ui.commandNum > 2) {
-					screen.ui.commandNum = 0;
-				}
-			}
-		    if(code == KeyEvent.VK_ENTER) {
-		    	if(screen.ui.commandNum == 0) {
-		    		screen.gameState = screen.playState;
-		    		screen.playSFX(1);
-		    		screen.stopMusic();
-		    		screen.playMusic(2);
-		    	}
-		    	if(screen.ui.commandNum == 1) {
-		    		//add later
-		    	}
-		    	if(screen.ui.commandNum == 2) {
-		    		System.exit(0);
-		    	}
-		    }
+			titleState(code);
 		}
 		
-		//ESTADO DE JOGO
+		//PLAY STATE
 		else if(screen.gameState == screen.playState) {
-			if(code == KeyEvent.VK_W) {
-				upHold = true;
-			}
-			// Caso o a tecla seja "A" ou a seta para a esquerda das teclas direcionais a lógica diz que o personagem deve se mover para esquerda.
-			if(code == KeyEvent.VK_A) {
-				leftHold = true;
-			}
-			// Caso o a tecla seja "S" ou a seta para baixo das teclas direcionais a lógica diz que o personagem deve se mover para baixo.
-			if(code == KeyEvent.VK_S) {
-				downHold = true;
-			}
-			// Caso o a tecla seja "D" ou a seta para a direita das teclas direcionais a lógica diz que o personagem deve se mover para direita.
-			if(code == KeyEvent.VK_D) {
-				rightHold = true;
-			}
-			if(code == KeyEvent.VK_E) {
-				ePressed = true;
-			}
-			if(code == KeyEvent.VK_ESCAPE) {
-				screen.gameState = screen.pauseState;
-			}
-			if(code == KeyEvent.VK_ENTER) {
-				enterPressed = true;
-			}
-			if(code == KeyEvent.VK_T) {
-				if(isDebugging == false) {
-					isDebugging = true;
-				}
-				else {
-					isDebugging = false;
-				}
-			}
+			playState(code);
 		}
 		
 		//ESTADO DE PAUSA
 		else if(screen.gameState == screen.pauseState) {
-			if(code == KeyEvent.VK_ESCAPE) {
-				screen.gameState = screen.playState;
-			
-			}
+			pauseState(code);
 		}
 		
 		//DIALOGUE STATE
 		else if(screen.gameState == screen.dialogueState) {
-			if(code == KeyEvent.VK_E) {
-				screen.gameState = screen.playState;
+			dialogueState(code);
+		}
+		//Status State
+		else if(screen.gameState == screen.statusState) {
+			statusState(code);
+		}
+	}
+	
+	public void titleState(int code) {
+		if(code == KeyEvent.VK_W) {
+			screen.ui.commandNum--;
+			if(screen.ui.commandNum < 0) {
+				screen.ui.commandNum = 2;
 			}
+		}
+		if (code == KeyEvent.VK_S) {
+			screen.ui.commandNum++;
+			if(screen.ui.commandNum > 2) {
+				screen.ui.commandNum = 0;
+			}
+		}
+	    if(code == KeyEvent.VK_ENTER) {
+	    	if(screen.ui.commandNum == 0) {
+	    		screen.gameState = screen.playState;
+	    		screen.playSFX(1);
+	    		screen.stopMusic();
+	    		screen.playMusic(2);
+	    	}
+	    	if(screen.ui.commandNum == 1) {
+	    		//add later
+	    	}
+	    	if(screen.ui.commandNum == 2) {
+	    		System.exit(0);
+	    	}
+	    }
+	}
+
+	public void playState(int code) {
+		if(code == KeyEvent.VK_W) {
+			upHold = true;
+		}
+		// Caso o a tecla seja "A" ou a seta para a esquerda das teclas direcionais a lógica diz que o personagem deve se mover para esquerda.
+		if(code == KeyEvent.VK_A) {
+			leftHold = true;
+		}
+		// Caso o a tecla seja "S" ou a seta para baixo das teclas direcionais a lógica diz que o personagem deve se mover para baixo.
+		if(code == KeyEvent.VK_S) {
+			downHold = true;
+		}
+		// Caso o a tecla seja "D" ou a seta para a direita das teclas direcionais a lógica diz que o personagem deve se mover para direita.
+		if(code == KeyEvent.VK_D) {
+			rightHold = true;
+		}
+		if(code == KeyEvent.VK_E) {
+			ePressed = true;
+		}
+		if(code == KeyEvent.VK_ESCAPE) {
+			screen.gameState = screen.pauseState;
+		}
+		if(code == KeyEvent.VK_ENTER) {
+			screen.gameState = screen.statusState;
+		}
+	}
+
+	public void pauseState(int code) {
+		if(code == KeyEvent.VK_ESCAPE) {
+			screen.gameState = screen.playState;
+		}
+	}
+	
+	public void dialogueState(int code) {
+		if(code == KeyEvent.VK_E) {
+			screen.gameState = screen.playState;
+		}
+	}
+	
+	public void statusState(int code) {
+		if(code == KeyEvent.VK_ENTER) {
+			screen.gameState = screen.playState;
 		}
 	}
 		
-
-	
-	
 	@Override
 	// Quando a tecla for solta, teremos a lógica de desligar o comando de movimento.
 	public void keyReleased(KeyEvent e) {

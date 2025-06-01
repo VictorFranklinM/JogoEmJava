@@ -13,7 +13,8 @@ public class OBJ_MagaGreen extends Entity{
 	public OBJ_MagaGreen(Screen screen) {
 		super(screen);
 		
-		name = "Magatama";
+		name = "Green Magatama";
+		
 		down1 = setup("/objects/greenmaga",screen.tileSize, screen.tileSize);
 		collisionArea.x = (2 * screen.scale);
         collisionArea.y = (2 * screen.scale);
