@@ -21,15 +21,30 @@ public class NpcPlacer {
 		screen.npc[1].worldX = 51 * screen.tileSize;
 		screen.npc[1].worldY = 33 * screen.tileSize;
 	}
+	
 	public void placeEnemy() {
-		screen.enemy[0] = new En_Slime(screen);
-		screen.enemy[0].worldX = 52 * screen.tileSize;
-		screen.enemy[0].worldY = 33 * screen.tileSize;
+		int i = 0;
 		
-		screen.enemy[1] = new En_Slime(screen);
-		screen.enemy[1].worldX = 53 * screen.tileSize;
-		screen.enemy[1].worldY = 33 * screen.tileSize;
-
+		screen.enemy[i] = new En_Slime(screen);
+		screen.enemy[i].worldX = 52 * screen.tileSize;
+		screen.enemy[i].worldY = 33 * screen.tileSize;
+		i++;
+		screen.enemy[i] = new En_Slime(screen);
+		screen.enemy[i].worldX = 53 * screen.tileSize;
+		screen.enemy[i].worldY = 33 * screen.tileSize;
+		i++;
+		screen.enemy[i] = new En_Slime(screen);
+		screen.enemy[i].worldX = 52 * screen.tileSize;
+		screen.enemy[i].worldY = 34 * screen.tileSize;
+		i++;
+		screen.enemy[i] = new En_Slime(screen);
+		screen.enemy[i].worldX = 53 * screen.tileSize;
+		screen.enemy[i].worldY = 34 * screen.tileSize;
+		i++;
+		screen.enemy[i] = new En_Slime(screen);
+		screen.enemy[i].worldX = 53 * screen.tileSize;
+		screen.enemy[i].worldY = 35 * screen.tileSize;
+		i++;
 	}
 
 }

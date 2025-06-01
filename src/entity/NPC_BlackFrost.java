@@ -31,8 +31,8 @@ public class NPC_BlackFrost extends Entity{
 	
 	public void setTextLines() {
 		dialogues[0] = "Welcome!";
-		dialogues[1] = "I will teach you about this world";
-		dialogues[2] = "Get magatamas so you can unlock new areas";
+		dialogues[1] = "I  will  teach  you  about  this  world";
+		dialogues[2] = "Get  magatamas  so  you  can  unlock  new  areas";
 	}
 	
 	public void getImage() {

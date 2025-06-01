@@ -1,9 +1,4 @@
-/entity/
 /main/
-/player/
-/npc/
+/entity/
 /enemy/
 /object/
-/sound/
-/enemies/
-/item/

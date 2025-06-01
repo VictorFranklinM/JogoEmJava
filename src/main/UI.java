@@ -8,6 +8,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import entity.Entity;
@@ -17,6 +18,7 @@ import object.OBJ_Mana;
 public class UI {
 	Color greenGreen = new Color(64, 152, 94);
 	Color brightGreen = new Color(185, 219, 149);
+	Color blackGreen = new Color(10, 26, 47);
 	
 	Screen screen;
 	Graphics2D g2;
@@ -27,6 +29,9 @@ public class UI {
 	
 	private int dialogueBoxSize = 20;
 	private int dialogueBoxSubcolorSize = 5;
+	
+	ArrayList<String> message = new ArrayList<>();
+	ArrayList<Integer> messageCounter = new ArrayList<>();
 	
 	public String currentSpeechLine = "";
 	public int commandNum = 0;
@@ -55,6 +60,11 @@ public class UI {
 		manaNone = mana.image2;
 	}
 	
+	public void addMessage(String text) {
+		message.add(text);
+		messageCounter.add(0);
+	}
+	
 	public void draw(Graphics2D g2) {
 		this.g2 = g2;
 		g2.setFont(megaten);
@@ -68,6 +78,7 @@ public class UI {
 		// PLAY STATE
 		if(screen.gameState == screen.playState) {
 			drawPlayerUI();
+			drawMessage();
 		}
 		// PAUSE STATE
 		if(screen.gameState == screen.pauseState) {
@@ -76,14 +87,52 @@ public class UI {
 		}
 		//Dialogue State
 		if(screen.gameState==screen.dialogueState) {
+			screen.tsm.stopTileSound();
     		drawDialogueScreen();
     	}
 		//Status State
 		if(screen.gameState == screen.statusState) {
+			screen.tsm.stopTileSound();
 			drawStatusScreen();
 		}
 	}
 	
+	public void drawMessage() {
+		int messageX = screen.tileSize/2 + screen.scale;
+		int messageY = screen.screenHeight/2 - screen.screenHeight/6;
+		
+		for (int i = 0; i < message.size(); i++) {
+		    if (message.get(i) != null) {
+
+		        String text = message.get(i);
+		        int x = messageX;
+		        int y = messageY;
+
+		        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 32F));
+
+		        // Border
+		        g2.setColor(blackGreen);
+		        g2.drawString(text, x-2, y);
+		        g2.drawString(text, x+2, y);
+		        g2.drawString(text, x, y-2);
+		        g2.drawString(text, x, y+2);
+
+		        // Text
+		        g2.setColor(brightGreen);
+		        g2.drawString(text, x, y);
+
+		        int counter = messageCounter.get(i) + 1;
+		        messageCounter.set(i, counter);
+		        messageY += 50;
+
+		        if (counter > 120) {
+		            message.remove(i);
+		            messageCounter.remove(i);
+		        }
+		    }
+		}
+	}
+
 	public void drawPlayerUI() {
 		int x = screen.tileSize;
 		int y = screen.tileSize/2;
@@ -308,7 +357,7 @@ public class UI {
 		g2.drawString(value, textX, textY);
 		textY += lineHeight;
 		
-		value = String.valueOf(screen.player.nextLevelExp);
+		value = String.valueOf(screen.player.nextLevelExp - screen.player.exp);
 		textX = getAlignToRightX(value, tailX);
 		g2.drawString(value, textX, textY);
 		textY += lineHeight;

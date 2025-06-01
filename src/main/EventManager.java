@@ -96,6 +96,7 @@ public class EventManager {
 			screen.playSFX(1);
 			screen.ui.currentSpeechLine = "You heal yourself!";
 			screen.player.hp = screen.player.maxHP;
+			screen.npcPlacer.placeEnemy();
 		}
 	}
 	

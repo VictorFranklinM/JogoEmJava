@@ -145,16 +145,14 @@ public abstract class Entity   {
 	    			spriteNum = 1;
 	    		}
 	    		spriteCounter = 0;
-	    	}  
-	    	if(isInvincible == true) {
-		    	invincibilityTimer++;
-		    	if(invincibilityTimer > 40) {
-		    		isInvincible = false;
-		    		invincibilityTimer = 0;
-		    	}
-		    	
-		    }
-			
+	    	}  	
+		}
+		if(isInvincible == true) {
+	    	invincibilityTimer++;
+	    	if(invincibilityTimer > 40) {
+	    		isInvincible = false;
+	    		invincibilityTimer = 0;
+	    	}
 		}
 	}
 	
@@ -235,19 +233,18 @@ public abstract class Entity   {
 	}
 
 	public void deathAnimation(Graphics2D g2) {
-		collision = false;
 		deathCounter++;
-		int frameDifferance = 5;
+		int frameDifference = 5;
 		
-		if(deathCounter <= frameDifferance) {changeSpriteOpacity(g2, 0f);}
-		if(deathCounter > frameDifferance && deathCounter >= frameDifferance*2) {changeSpriteOpacity(g2, 1f);}
-		if(deathCounter > frameDifferance*2 && deathCounter >= frameDifferance*3) {changeSpriteOpacity(g2, 0f);}
-		if(deathCounter > frameDifferance*3 && deathCounter >= frameDifferance*4) {changeSpriteOpacity(g2, 1f);}
-		if(deathCounter > frameDifferance*4 && deathCounter >= frameDifferance*5) {changeSpriteOpacity(g2, 0f);}
-		if(deathCounter > frameDifferance*5 && deathCounter >= frameDifferance*6) {changeSpriteOpacity(g2, 1f);}
-		if(deathCounter > frameDifferance*6 && deathCounter >= frameDifferance*7) {changeSpriteOpacity(g2, 0f);}
-		if(deathCounter > frameDifferance*7 && deathCounter >= frameDifferance*8) {changeSpriteOpacity(g2, 1f);}
-		if(deathCounter > frameDifferance*8) {
+		if(deathCounter <= frameDifference) {changeSpriteOpacity(g2, 0f);}
+		if(deathCounter > frameDifference && deathCounter >= frameDifference*2) {changeSpriteOpacity(g2, 1f);}
+		if(deathCounter > frameDifference*2 && deathCounter >= frameDifference*3) {changeSpriteOpacity(g2, 0f);}
+		if(deathCounter > frameDifference*3 && deathCounter >= frameDifference*4) {changeSpriteOpacity(g2, 1f);}
+		if(deathCounter > frameDifference*4 && deathCounter >= frameDifference*5) {changeSpriteOpacity(g2, 0f);}
+		if(deathCounter > frameDifference*5 && deathCounter >= frameDifference*6) {changeSpriteOpacity(g2, 1f);}
+		if(deathCounter > frameDifference*6 && deathCounter >= frameDifference*7) {changeSpriteOpacity(g2, 0f);}
+		if(deathCounter > frameDifference*7 && deathCounter >= frameDifference*8) {changeSpriteOpacity(g2, 1f);}
+		if(deathCounter > frameDifference*8) {
 			dying = false;
 			alive = false;
 		}

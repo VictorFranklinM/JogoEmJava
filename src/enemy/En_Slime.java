@@ -14,12 +14,13 @@ public class En_Slime extends Entity{
 	public En_Slime(Screen screen) {
 		super(screen);
 		type = 2;
-		name = "Slime";
+		name = "slime";
 		speed = 2;
 		maxHP = 2;
 		hp = maxHP;
 		attack = 2;
 		defense = 0;
+		exp = 2;
 		
 		collisionArea = new Rectangle();
 		collisionArea.x = (0 * screen.scale);

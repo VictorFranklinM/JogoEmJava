@@ -320,23 +320,23 @@ public class Player extends Entity{
 				case "Magatama":
 					hasMaga++;
 					screen.obj[index] = null;
-					screen.ui.currentSpeechLine = "You got a magatama!";
+					screen.ui.currentSpeechLine = "You  got  a  Magatama!";
 					playSFX(1);
 					break;
 					
 				case "Portal":
 					if(hasMaga > 0) {
 						screen.obj[index] = null;
-						screen.ui.currentSpeechLine = "Opened the portal with the Magatama!";
+						screen.ui.currentSpeechLine = "Opened  the  portal  with  the  Magatama!";
 					}
 					else {
-						screen.ui.currentSpeechLine = "You need a Magatama to open the portal!";
+						screen.ui.currentSpeechLine = "You  need  a  Magatama  to  open  the  portal!";
 					}
 					break;
 				
 				case "Cache Cube":
 					screen.obj[index] = null;
-					screen.ui.currentSpeechLine = "Got an item! Work In Progress";
+					screen.ui.currentSpeechLine = "Got  an  item!  Work  In  Progress";
 					playSFX(0);
 					break;
 				}
@@ -383,16 +383,62 @@ public class Player extends Entity{
 					damage = 0;
 				}
 				screen.enemy[i].hp -= damage;
+				screen.ui.addMessage(damage+"  damage to  "+screen.enemy[i].name+"!");
+				
 				screen.enemy[i].isInvincible = true;
 				screen.enemy[i].damageReaction();
 				
 				if (screen.enemy[i].hp <= 0) {
 					screen.enemy[i].dying = true;
+					screen.ui.addMessage("Killed  the  "+screen.enemy[i].name+"!");
+					screen.ui.addMessage("Exp  +"+screen.enemy[i].exp+"!");
+					exp += screen.enemy[i].exp;
+					checkLevelUp();
 				}
 			}
 		}
 	}
 	
+	private void checkLevelUp() {
+		if(exp >= nextLevelExp) {
+			level++;
+			nextLevelExp *= 3;
+			
+			if(level%5 == 0) {
+				maxHP++;
+				maxMana++;
+				strenght++;
+				dexterity++;
+			}
+			else if(level%2 == 0 && level%3 == 0) {
+				maxHP++;
+				maxMana++;
+				strenght++;
+				dexterity++;
+			}
+			else if(level%2 == 0) {
+				maxHP++;
+				strenght++;
+			}
+			else if(level%3 == 0) {
+				maxMana++;
+				dexterity++;
+			}
+			if(currentMagatama != null) {
+				attack = getAttack();
+				defense = getDefense();
+			}
+			else {
+				attack = strenght;
+				defense = dexterity;
+			}
+		
+			screen.playSFX(1);
+			screen.gameState = screen.dialogueState;
+			screen.ui.currentSpeechLine = "You  are  now  at  level  "+level+"!\n"+"You  feel  stronger!";
+		}
+	}
+
 	public void draw(Graphics2D g2) {
 		BufferedImage image = null;
 		int tempScreenX = screenX;
