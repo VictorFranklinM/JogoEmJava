@@ -26,7 +26,7 @@ public class En_Slime extends Entity{
 		collisionArea.x = (0 * screen.scale);
 		collisionArea.y = (5 * screen.scale);
 		collisionArea.width = (16 * screen.scale);
-		collisionArea.height = (9 * screen.scale);
+		collisionArea.height = (10 * screen.scale);
 
 		collisionAreaDefaultX = collisionArea.x;
 		collisionAreaDefaultY = collisionArea.y;

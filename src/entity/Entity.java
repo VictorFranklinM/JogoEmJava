@@ -230,6 +230,14 @@ public abstract class Entity   {
 			g2.drawImage(image, screenX, screenY, screen.tileSize, screen.tileSize, null);
 			changeSpriteOpacity(g2, 1f);
 		}
+		
+		if(screen.key.isDebugging == true) {
+		    g2.setColor(new Color(255, 0, 0, 150));
+
+		    int collisionX = screenX + collisionArea.x;
+		    int collisionY = screenY + collisionArea.y;
+		    g2.fillRect(collisionX, collisionY, collisionArea.width, collisionArea.height);
+		}
 	}
 
 	public void deathAnimation(Graphics2D g2) {

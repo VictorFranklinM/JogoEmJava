@@ -8,6 +8,8 @@ public class KeyInput implements KeyListener {
 	public boolean upHold, downHold, leftHold , rightHold, ePressed, enterPressed; // Lógica booleana pra estados de movimento, indo pro lado, cima, etc.
 	
 	private Screen screen;
+	
+	public boolean isDebugging = false;
 
 	public KeyInput(Screen screen) {
 		this.screen = screen;
@@ -102,6 +104,15 @@ public class KeyInput implements KeyListener {
 		}
 		if(code == KeyEvent.VK_ENTER) {
 			screen.gameState = screen.statusState;
+		}
+		if(code == KeyEvent.VK_T) {
+			if(isDebugging == false) {
+				isDebugging = true;
+				screen.tileM.loadMap("/maps/world01.txt");
+			}
+			else {
+				isDebugging = false;
+			}
 		}
 	}
 

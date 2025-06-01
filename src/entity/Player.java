@@ -266,7 +266,7 @@ public class Player extends Entity{
 	    	}
 	    }
 	}
-	public void attack () {
+	public void attack() {
 		spriteCounter++;
 		
 		if(spriteCounter <= 5) {
@@ -503,6 +503,26 @@ public class Player extends Entity{
 		g2.drawImage(image, tempScreenX, tempScreenY, null);
 		
 		changeSpriteOpacity(g2, 1f);
+		
+		if(screen.key.isDebugging == true) {
+		    g2.setColor(new Color(255, 0, 0, 150));
+
+		    int collisionX = screenX + collisionArea.x;
+		    int collisionY = screenY + collisionArea.y;
+		    g2.fillRect(collisionX, collisionY, collisionArea.width, collisionArea.height);
+		    
+		    tempScreenX = screenX + collisionArea.x;
+			tempScreenY = screenY + collisionArea.y;	
+			
+			switch(facing) {
+			case "up": tempScreenY = screenY - attackArea.height; break;
+			case "down": tempScreenY = screenY + screen.tileSize; break; 
+			case "left": tempScreenX = screenX - attackArea.width; break;
+			case "right": tempScreenX = screenX + screen.tileSize; break;
+			}	
+			
+			g2.fillRect(tempScreenX, tempScreenY, attackArea.width, attackArea.height);
+		}
 	}
 	
 	public int getAttack() {

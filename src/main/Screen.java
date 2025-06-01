@@ -2,6 +2,7 @@ package main;
 
 import java.awt.Color; // Biblioteca para gerenciamento de cores.
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics; // Biblioteca para renderizacoes graficas.
 import java.awt.Graphics2D; // Biblioteca para renderizacoes de formas geometricas.
 import java.awt.Toolkit;
@@ -122,14 +123,19 @@ public class Screen extends JPanel implements Runnable{
     	if(gameState==pauseState) {
     		tsm.stopTileSound();
     	}
-    	
-    
     }
     
     // Funcao que renderiza os graficos do jogo.
     public void paintComponent(Graphics g) {
     	super.paintComponent(g); // Limpa o desenho anterior antes de renderizar novamente.
     	Graphics2D g2 = (Graphics2D)g; // Faz um casting para Graphics2D para poder manipular x, y e outros atributos mais avancados.
+    	
+    	
+    	//DEBUG (TESTADOR DE VELOCIDADE DE RENDERIZACAO
+    	long drawStart = 0;
+    	if(key.isDebugging == true) {
+    		drawStart = System.nanoTime();
+    	}
     	
     	// TITULO
     	if(gameState == titleState) {
@@ -173,7 +179,29 @@ public class Screen extends JPanel implements Runnable{
     		
         	ui.draw(g2);
         	
+        	//DEBUG
+        	if(key.isDebugging == true) {
+        		long drawEnd = System.nanoTime();
+        		long passed = drawEnd - drawStart;
+        		
+        		g2.setFont(new Font("Arial", Font.PLAIN,20));
+        		
+        		int x = 10;
+        		int y = 400;
+        		int lineHeight = 20;
+        		
+        		g2.drawRect(x-5, y-20, 200, 130);
+        		g2.setColor(Color.black);
+        		g2.fillRect(x-5, y-20, 200, 130);
+        		g2.setColor(Color.white);
+        		
+        		g2.drawString("World X: "+player.worldX, x, y); y += lineHeight;
+        		g2.drawString("World Y: "+player.worldY, x, y); y += lineHeight;
+        		g2.drawString("Col: "+(player.worldX+player.collisionArea.x)/tileSize, x, y); y += lineHeight;
+        		g2.drawString("Row: "+(player.worldY+player.collisionArea.y)/tileSize, x, y); y += lineHeight;
+        		g2.drawString("Draw Time: "+passed, x, y); y += lineHeight;
         	}
+    	}
         //liberar memoria
         g2.dispose();
         }
