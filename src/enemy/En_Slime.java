@@ -13,7 +13,7 @@ public class En_Slime extends Entity{
 	
 	public En_Slime(Screen screen) {
 		super(screen);
-		type = 2;
+		type = typeEnemy;
 		name = "slime";
 		speed = 2;
 		maxHP = 2;

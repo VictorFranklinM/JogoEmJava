@@ -50,7 +50,12 @@ public abstract class Entity   {
 	String dialogues[] = new String[dialoguesQuantity]; 
 	int dialogueIndex = 0;
 	
-	public int type; // 0 player, 2 monster, 1 npc
+	public int type;
+	public final int typePlayer = 0;
+	public final int typeNpc = 1;
+	public final int typeEnemy = 2;
+	public final int typeMaga = 3;
+	public final int typeConsumable = 4;
 	
 	// Status
 	public String name;
@@ -95,6 +100,8 @@ public abstract class Entity   {
 	
 	public void setAction() {}
 	
+	public void use(Entity entity) {}
+	
 	public void update() {
 		setAction();
 		collision = false;
@@ -105,7 +112,7 @@ public abstract class Entity   {
 		screen.colCheck.checkEntity(this, screen.enemy);
 		boolean contactPlayer = screen.colCheck.checkPlayer(this);
 		
-		if(this.type == 2 && contactPlayer == true) {
+		if(this.type == typeEnemy && contactPlayer == true) {
 			if(screen.player.isInvincible == false) {
 				screen.playSFX(6);
 				int damage = attack - screen.player.defense;

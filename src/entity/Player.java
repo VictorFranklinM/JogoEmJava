@@ -11,10 +11,10 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
-import item.Item_MagaGreen;
 import main.KeyInput;
 import main.PerformanceTool;
 import main.Screen;
+import object.OBJ_MagaGreen;
 
 public class Player extends Entity{
 	Screen screen;
@@ -145,7 +145,7 @@ public class Player extends Entity{
 	    	screen.colCheck.checkTile(this);
 	    	
 	    	int objIndex = screen.colCheck.checkObject(this, true);
-	    	interact(objIndex);
+	    	pickUpObject(objIndex);
 	    	
 	    	int npcIndex = screen.colCheck.checkEntity(this, screen.npc);
 	    	interactNPC(npcIndex);
@@ -313,38 +313,47 @@ public class Player extends Entity{
 		}
 	}
 	
-	public void interact(int index) {
-		// OBS: Pra aumentar a speed do player, tirar o "final" de defaultSpeed e colocar defaultSpeed += (speed a ser incrementada).
-		if(index != (screen.objPerScreen)) {
-			canAttack = false;
-			String objName = screen.obj[index].name;
+	public void pickUpObject(int index) {
+		if(index != screen.objPerScreen) {
+			if(!screen.obj[index].collision) {
+				pickUpObjectNoCol(index);
+			}
+			else if(screen.obj[index].collision) {
+				pickUpObjectWithCol(index);
+			}
+		}
+	}
+	
+	public void pickUpObjectNoCol(int index) {
+		if(index != screen.objPerScreen) {
+			String text;
 			
-			if(key.ePressed == true) {
-				screen.gameState = screen.dialogueState;
-				switch(objName) {
-				case "Magatama":
-					hasMaga++;
-					screen.obj[index] = null;
-					screen.ui.currentSpeechLine = "You  got  a  Magatama!";
-					playSFX(1);
-					break;
-					
-				case "Portal":
-					if(hasMaga > 0) {
-						screen.obj[index] = null;
-						screen.ui.currentSpeechLine = "Opened  the  portal  with  the  Magatama!";
-					}
-					else {
-						screen.ui.currentSpeechLine = "You  need  a  Magatama  to  open  the  portal!";
-					}
-					break;
-				
-				case "Cache Cube":
-					screen.obj[index] = null;
-					screen.ui.currentSpeechLine = "Got  an  item!  Work  In  Progress";
-					playSFX(0);
-					break;
-				}
+			if(inventory.size() != inventorySize) {
+				inventory.add(screen.obj[index]);
+				screen.playSFX(1);
+				text = "Got " + screen.obj[index].name + "!\"";
+				screen.obj[index] = null;
+			}
+			else {
+				text = "Your  inventory  is  full!";
+			}
+			screen.ui.addMessage(text);
+		}
+	}
+	
+	public void pickUpObjectWithCol(int index) {
+		if(index != (screen.objPerScreen) && screen.key.ePressed) {
+			screen.gameState = screen.dialogueState;
+			canAttack = false;
+			
+			if(inventory.size() != inventorySize) {
+				inventory.add(screen.obj[index]);
+				screen.playSFX(1);
+				screen.ui.currentSpeechLine = "Got " + screen.obj[index].name + "!\"";
+				screen.obj[index] = null;
+			}
+			else {
+				screen.ui.currentSpeechLine = "Your  inventory  is  full!";
 			}
 		}
 	}
@@ -394,6 +403,7 @@ public class Player extends Entity{
 				screen.enemy[i].damageReaction();
 				
 				if (screen.enemy[i].hp <= 0) {
+					screen.enemy[i].hp = 0;
 					screen.enemy[i].dying = true;
 					screen.ui.addMessage("Killed  the  "+screen.enemy[i].name+"!");
 					screen.ui.addMessage("Exp  +"+screen.enemy[i].exp+"!");
@@ -441,6 +451,23 @@ public class Player extends Entity{
 			screen.playSFX(1);
 			screen.gameState = screen.dialogueState;
 			screen.ui.currentSpeechLine = "You  are  now  at  level  "+level+"!\n"+"You  feel  stronger!";
+		}
+	}
+	
+	public void selectItem() {
+		int itemIndex = screen.ui.getItemIndexOnSlot();
+		if(itemIndex < inventory.size()) {
+			Entity selectedItem = inventory.get(itemIndex);
+			
+			if(selectedItem.type == typeMaga) {
+				currentMagatama = selectedItem;
+				attack = getAttack();
+				defense = getDefense();
+			}
+			if(selectedItem.type == typeConsumable) {
+				selectedItem.use(this);
+				inventory.remove(itemIndex);
+			}
 		}
 	}
 	
@@ -539,6 +566,6 @@ public class Player extends Entity{
 	}
 	
 	public void setItems() {
-		inventory.add(new Item_MagaGreen(screen));
+		
 	}
 }

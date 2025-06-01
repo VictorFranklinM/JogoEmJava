@@ -158,6 +158,9 @@ public class KeyInput implements KeyListener {
 				screen.playSFX(8);
 			}
 		}
+		if(code == KeyEvent.VK_E) {
+			screen.player.selectItem();
+		}
 	}
 		
 	@Override

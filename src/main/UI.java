@@ -390,7 +390,12 @@ public class UI {
 		if(screen.player.currentMagatama != null) {
 			g2.drawImage(screen.player.currentMagatama.down1, (int) (tailX - screen.tileSize/1.5), (int) (textY - screen.tileSize/1.5), null);
 		}
-		
+		else {
+			value = "None";
+			textX = getAlignToRightX(value, tailX);
+			g2.drawString(value, textX, textY);
+			textY += lineHeight;
+		}
 	}
 
 	public void drawInventory() {
@@ -407,9 +412,16 @@ public class UI {
 		int slotX = slotXStart;
 		int slotY = slotYStart;
 		
-		for(int i = 0; i < screen.player.inventorySize; i++) {
-			g2.setColor(darkGreen);
-			g2.drawRoundRect(slotX, slotY, screen.tileSize, screen.tileSize, 9, 9);
+		// Draw Itens
+		for(int i = 0; i < screen.player.inventory.size(); i++) {
+			
+			//Equip Cursor
+			if(screen.player.inventory.get(i) == screen.player.currentMagatama) {
+				g2.setColor(greenGreen);
+				g2.fillRoundRect(slotX, slotY, screen.tileSize, screen.tileSize, 9, 9);;
+			}
+			
+			g2.drawImage(screen.player.inventory.get(i).down1, slotX, slotY, null);
 			slotX += screen.tileSize;
 			if(i == 5 || i == 11 || i == 17 || i == 23) {
 				slotX = slotXStart;
@@ -420,9 +432,10 @@ public class UI {
 		slotX = slotXStart;
 		slotY = slotYStart;
 		
-		// Draw Itens
-		for(int i = 0; i < screen.player.inventory.size(); i++) {
-			g2.drawImage(screen.player.inventory.get(i).down1, slotX, slotY, null);
+		// Draw Slot Border
+		for(int i = 0; i < screen.player.inventorySize; i++) {
+			g2.setColor(darkGreen);
+			g2.drawRoundRect(slotX, slotY, screen.tileSize, screen.tileSize, 9, 9);
 			slotX += screen.tileSize;
 			if(i == 5 || i == 11 || i == 17 || i == 23) {
 				slotX = slotXStart;
@@ -444,16 +457,17 @@ public class UI {
 		int dFrameY = screen.tileSize+frameHeight;
 		int dFrameWidth = frameWidth;
 		int dFrameHeight = screen.tileSize*10 - frameHeight;
-		drawSubWindow(dFrameX, dFrameY, dFrameWidth, dFrameHeight);
 		
 		// Draw Description Text
 		int textX = dFrameX+20;
 		int textY = (int) (dFrameY+screen.tileSize*0.75);	
-		g2.setFont(g2.getFont().deriveFont(28F));
+		g2.setFont(g2.getFont().deriveFont(27F));
 		
 		int itemIndex = getItemIndexOnSlot();
 		
 		if(itemIndex < screen.player.inventory.size()) {
+			
+			drawSubWindow(dFrameX, dFrameY, dFrameWidth, dFrameHeight);
 			
 			for(String line: screen.player.inventory.get(itemIndex).description.split("\n")) {
 				g2.drawString(line, textX, textY);
