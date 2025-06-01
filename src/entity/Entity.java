@@ -22,7 +22,7 @@ public abstract class Entity   {
 	
 	public BufferedImage up1, up2, up3, left1, left2, left3, right1, right2, right3, down1, down2, down3; // Sprites do personagem.
 	public BufferedImage attackUp1, attackUp2, attackLeft1, attackLeft2, attackRight1, attackRight2, attackDown1, attackDown2;
-	public BufferedImage image, image2;
+	public BufferedImage image, image2, face;
 	public String facing = "down"; // Direcao do personagem.
 	
 	public int spriteCounter = 0;
@@ -72,6 +72,7 @@ public abstract class Entity   {
 	// Item status
 	public int attackValue;
 	public int defenseValue;
+	public String description = "";
 	
 	public Entity(Screen screen) {
 		this.screen = screen;

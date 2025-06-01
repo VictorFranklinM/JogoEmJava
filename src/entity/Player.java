@@ -7,6 +7,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
@@ -25,6 +26,8 @@ public class Player extends Entity{
 	private final int defaultSpeed = 5;
 	
 	public int hasMaga = 0;
+	public ArrayList<Entity> inventory = new ArrayList<>();
+	public final int inventorySize = 30;
 	
 	public boolean isMoving = false;
 	public boolean canAttack = true;
@@ -58,6 +61,7 @@ public class Player extends Entity{
 		setDefaultValues();
 		getImage();
 		getPlayerAttackImage();
+		setItems();
 	}
 	
 	public void setDefaultValues() {
@@ -104,6 +108,7 @@ public class Player extends Entity{
 		right3 = setup("/player/Right-3", screen.tileSize, screen.tileSize);
 
 	}	
+	
 	public void getPlayerAttackImage() {
 		
 		attackUp1 = setup("/player/AttackUp-1", screen.tileSize, screen.tileSize*2);
@@ -115,7 +120,7 @@ public class Player extends Entity{
 		attackRight1 = setup("/player/AttackRight-1", screen.tileSize*2, screen.tileSize);
 		attackRight2 = setup("/player/AttackRight-2", screen.tileSize*2, screen.tileSize);
 	}
-	// NOTA: tentar fazer com switch case pra ver se fica mais fluido.
+	
 	public void update() {
 		if (attacking == true) {
 			attack();
@@ -266,6 +271,7 @@ public class Player extends Entity{
 	    	}
 	    }
 	}
+	
 	public void attack() {
 		spriteCounter++;
 		
@@ -307,7 +313,6 @@ public class Player extends Entity{
 		}
 	}
 	
-
 	public void interact(int index) {
 		// OBS: Pra aumentar a speed do player, tirar o "final" de defaultSpeed e colocar defaultSpeed += (speed a ser incrementada).
 		if(index != (screen.objPerScreen)) {
@@ -438,7 +443,7 @@ public class Player extends Entity{
 			screen.ui.currentSpeechLine = "You  are  now  at  level  "+level+"!\n"+"You  feel  stronger!";
 		}
 	}
-
+	
 	public void draw(Graphics2D g2) {
 		BufferedImage image = null;
 		int tempScreenX = screenX;
@@ -526,10 +531,14 @@ public class Player extends Entity{
 	}
 	
 	public int getAttack() {
-		return attack = strenght*currentMagatama.attackValue;
+		return attack = strenght+currentMagatama.attackValue;
 	}
 	
 	public int getDefense(){
-		return defense = dexterity*currentMagatama.defenseValue;
+		return defense = dexterity+currentMagatama.defenseValue;
+	}
+	
+	public void setItems() {
+		inventory.add(new Item_MagaGreen(screen));
 	}
 }

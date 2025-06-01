@@ -26,10 +26,12 @@ public class NPC_JackFrost extends Entity{
 	}
 	
 	public void speak() {
+		screen.ui.setFace(face);
 		super.speak();
 	}
 	
 	public void getImage() {
+		face = setup("/npc/JF-Face",screen.tileSize, screen.tileSize);
 		up1 = setup("/npc/JF-Up-1",screen.tileSize, screen.tileSize);
 		up2 = setup("/npc/JF-Up-2",screen.tileSize, screen.tileSize);
 		up3 = setup("/npc/JF-Up-3",screen.tileSize, screen.tileSize);
@@ -42,13 +44,13 @@ public class NPC_JackFrost extends Entity{
 		right1 = setup("/npc/JF-Right-1",screen.tileSize, screen.tileSize);
 		right2 = setup("/npc/JF-Right-2",screen.tileSize, screen.tileSize);
 		right3 = setup("/npc/JF-Right-3",screen.tileSize, screen.tileSize);
-
 	}
 	
 	public void setTextLines() {
-		dialogues[0] = "Welcome  Hitoshura";
-		dialogues[1] = "I  will  teach  you  about  this  world  aaaaaaaaaaaaaa  \naaaaaaaaaaaaaaaaaaaa";
-		dialogues[2] = "Get  magatamas  so  you  can  unlock  new  areas";
+		dialogues[0] = "Hee-llo!\nMy  name  is  Jack Frost!";
+		dialogues[1] = "I  wanna  tell  you  something  -ho";
+		dialogues[2] = "I  heard  that  if  you  collect  some  magatamas  you\n can  go  to  another  areas  -ho!";
+		dialogues[3] = "What  is  a  Magatama  you  say?\nHow  could  I  possibily  hee-know!";
 	}
 	
 	@Override

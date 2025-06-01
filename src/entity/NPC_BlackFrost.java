@@ -26,16 +26,19 @@ public class NPC_BlackFrost extends Entity{
 	}
 	
 	public void speak() {
+		screen.ui.setFace(face);
 		super.speak();
 	}
 	
 	public void setTextLines() {
-		dialogues[0] = "Welcome!";
-		dialogues[1] = "I  will  teach  you  about  this  world";
-		dialogues[2] = "Get  magatamas  so  you  can  unlock  new  areas";
+		dialogues[0] = "My  name  is  Black Frost -Hoo!";
+		dialogues[1] = "Have  you  hee-ard  about  the  Magatas?";
+		dialogues[2] = "They  look  like  spirals!";
+		dialogues[3] = "I  some  people  saying  they  can  even  let  you  use\nmagic-hoo!";
 	}
 	
 	public void getImage() {
+		face = setup("/npc/BF-Face",screen.tileSize, screen.tileSize);
 		up1 = setup("/npc/BF-Up-1",screen.tileSize, screen.tileSize);
 		up2 = setup("/npc/BF-Up-2",screen.tileSize, screen.tileSize);
 		up3 = setup("/npc/BF-Up-3",screen.tileSize, screen.tileSize);

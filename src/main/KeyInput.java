@@ -57,12 +57,14 @@ public class KeyInput implements KeyListener {
 			if(screen.ui.commandNum < 0) {
 				screen.ui.commandNum = 2;
 			}
+			screen.playSFX(8);
 		}
 		if (code == KeyEvent.VK_S) {
 			screen.ui.commandNum++;
 			if(screen.ui.commandNum > 2) {
 				screen.ui.commandNum = 0;
 			}
+			screen.playSFX(8);
 		}
 	    if(code == KeyEvent.VK_ENTER) {
 	    	if(screen.ui.commandNum == 0) {
@@ -131,6 +133,30 @@ public class KeyInput implements KeyListener {
 	public void statusState(int code) {
 		if(code == KeyEvent.VK_ENTER) {
 			screen.gameState = screen.playState;
+		}
+		if(code == KeyEvent.VK_W) {
+			if(screen.ui.slotRow != 0) {
+				screen.ui.slotRow--;
+				screen.playSFX(8);
+			}
+		}
+		if(code == KeyEvent.VK_A) {
+			if(screen.ui.slotCol != 0) {
+				screen.ui.slotCol--;
+				screen.playSFX(8);
+			}
+		}
+		if(code == KeyEvent.VK_S) {
+			if(screen.ui.slotRow != 4) {
+				screen.ui.slotRow++;
+				screen.playSFX(8);
+			}
+		}
+		if(code == KeyEvent.VK_D) {
+			if(screen.ui.slotCol != 5) {
+				screen.ui.slotCol++;
+				screen.playSFX(8);
+			}
 		}
 	}
 		
