@@ -6,21 +6,19 @@ import java.util.Random;
 import entity.Entity;
 import main.Screen;
 
-
-
-public class En_Slime extends Entity{
+public class En_Decarabia extends Entity{
 	
 	
-	public En_Slime(Screen screen) {
+	public En_Decarabia(Screen screen) {
 		super(screen);
 		type = typeEnemy;
-		name = "slime";
-		speed = 2;
-		maxHP = 2;
+		name = "decarabia";
+		speed = 3;
+		maxHP = 7;
 		hp = maxHP;
 		attack = 2;
-		defense = 0;
-		exp = 2;
+		defense = 2;
+		exp = 20;
 		
 		collisionArea = new Rectangle();
 		collisionArea.x = (2 * screen.scale);
@@ -36,18 +34,18 @@ public class En_Slime extends Entity{
 	
 	
 	public void getImage() {
-		up1 = setup("/enemies/GSlime-Up-1",screen.tileSize, screen.tileSize);
-		up2 = setup("/enemies/GSlime-Up-2",screen.tileSize, screen.tileSize);
-		up3 = setup("/enemies/GSlime-Up-2",screen.tileSize, screen.tileSize);
-		down1 = setup("/enemies/GSlime-Down-1",screen.tileSize, screen.tileSize);
-		down2 = setup("/enemies/GSlime-Down-2",screen.tileSize, screen.tileSize);
-		down3 = setup("/enemies/GSlime-Down-2",screen.tileSize, screen.tileSize);
-		left1 = setup("/enemies/GSlime-Left-1",screen.tileSize, screen.tileSize);
-		left2 = setup("/enemies/GSlime-Left-2",screen.tileSize, screen.tileSize);
-		left3 = setup("/enemies/GSlime-Left-2",screen.tileSize, screen.tileSize);
-		right1 = setup("/enemies/GSlime-Right-1",screen.tileSize, screen.tileSize);
-		right2 = setup("/enemies/GSlime-Right-2",screen.tileSize, screen.tileSize);
-		right3 = setup("/enemies/GSlime-Right-2",screen.tileSize, screen.tileSize);
+		up1 = setup("/enemies/Decarabia-Down-1",screen.tileSize, screen.tileSize);
+		up2 = setup("/enemies/Decarabia-Down-1",screen.tileSize, screen.tileSize);
+		up3 = setup("/enemies/Decarabia-Down-1",screen.tileSize, screen.tileSize);
+		down1 = setup("/enemies/Decarabia-Down-1",screen.tileSize, screen.tileSize);
+		down2 = setup("/enemies/Decarabia-Down-1",screen.tileSize, screen.tileSize);
+		down3 = setup("/enemies/Decarabia-Down-1",screen.tileSize, screen.tileSize);
+		left1 = setup("/enemies/Decarabia-Down-1",screen.tileSize, screen.tileSize);
+		left2 = setup("/enemies/Decarabia-Down-1",screen.tileSize, screen.tileSize);
+		left3 = setup("/enemies/Decarabia-Down-1",screen.tileSize, screen.tileSize);
+		right1 = setup("/enemies/Decarabia-Down-1",screen.tileSize, screen.tileSize);
+		right2 = setup("/enemies/Decarabia-Down-1",screen.tileSize, screen.tileSize);
+		right3 = setup("/enemies/Decarabia-Down-1",screen.tileSize, screen.tileSize);
 
 	}
 	

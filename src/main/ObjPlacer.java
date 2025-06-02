@@ -6,6 +6,7 @@ import object.OBJ_MagaBlue;
 import object.OBJ_MagaGreen;
 import object.OBJ_MagaRed;
 import object.OBJ_Medicine;
+import object.OBJ_Mushroom;
 import object.OBJ_Portal;
 
 public class ObjPlacer extends Entity {
@@ -31,6 +32,10 @@ public class ObjPlacer extends Entity {
 		screen.obj[3] = new OBJ_Medicine(screen);
 		screen.obj[3].worldX = 42 * screen.tileSize;
 		screen.obj[3].worldY = 34 * screen.tileSize;
+		
+		screen.obj[4] = new OBJ_Mushroom(screen);
+		screen.obj[4].worldX = 45 * screen.tileSize;
+		screen.obj[4].worldY = 30 * screen.tileSize;
 	}
 	public void getImage(){
 		

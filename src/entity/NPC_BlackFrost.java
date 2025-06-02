@@ -31,10 +31,10 @@ public class NPC_BlackFrost extends Entity{
 	}
 	
 	public void setTextLines() {
-		dialogues[0] = "My  name  is  Black Frost -Hoo!";
-		dialogues[1] = "Have  you  hee-ard  about  the  Magatas?";
-		dialogues[2] = "They  look  like  spirals!";
-		dialogues[3] = "I  some  people  saying  they  can  even  let  you  use\nmagic-hoo!";
+		dialogues[0] = "My name is Black Frost -hoo!";
+		dialogues[1] = "Have you heard about the Magatamas?";
+		dialogues[2] = "They look like spirals -ho!";
+		dialogues[3] = "Some people are saying they can even let you\nuse magic-hoo!";
 	}
 	
 	public void getImage() {

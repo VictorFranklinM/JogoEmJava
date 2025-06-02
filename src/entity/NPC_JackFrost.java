@@ -47,10 +47,10 @@ public class NPC_JackFrost extends Entity{
 	}
 	
 	public void setTextLines() {
-		dialogues[0] = "Hee-llo!\nMy  name  is  Jack Frost!";
-		dialogues[1] = "I  wanna  tell  you  something  -ho";
-		dialogues[2] = "I  heard  that  if  you  collect  some  magatamas  you\n can  go  to  another  areas  -ho!";
-		dialogues[3] = "What  is  a  Magatama  you  say?\nHow  could  I  possibily  hee-know!";
+		dialogues[0] = "Hee-llo!\nMy name is Jack Frost!";
+		dialogues[1] = "I wanna tell you something -ho!";
+		dialogues[2] = "I heard that if you collect some magatamas, you\ncan go to another areas -ho!";
+		dialogues[3] = "What is a Magatama you say?\nHow could I possibily hee-know!";
 	}
 	
 	@Override

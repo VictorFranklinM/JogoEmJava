@@ -2,6 +2,9 @@ package main;
 
 import entity.NPC_BlackFrost;
 import entity.NPC_JackFrost;
+import enemy.En_Decarabia;
+import enemy.En_Fomorian;
+import enemy.En_Katakirauwa;
 import enemy.En_Slime;
 
 public class NpcPlacer {
@@ -33,15 +36,15 @@ public class NpcPlacer {
 		screen.enemy[i].worldX = 53 * screen.tileSize;
 		screen.enemy[i].worldY = 33 * screen.tileSize;
 		i++;
-		screen.enemy[i] = new En_Slime(screen);
+		screen.enemy[i] = new En_Fomorian(screen);
 		screen.enemy[i].worldX = 52 * screen.tileSize;
 		screen.enemy[i].worldY = 34 * screen.tileSize;
 		i++;
-		screen.enemy[i] = new En_Slime(screen);
+		screen.enemy[i] = new En_Decarabia(screen);
 		screen.enemy[i].worldX = 53 * screen.tileSize;
 		screen.enemy[i].worldY = 34 * screen.tileSize;
 		i++;
-		screen.enemy[i] = new En_Slime(screen);
+		screen.enemy[i] = new En_Katakirauwa(screen);
 		screen.enemy[i].worldX = 53 * screen.tileSize;
 		screen.enemy[i].worldY = 35 * screen.tileSize;
 		i++;
