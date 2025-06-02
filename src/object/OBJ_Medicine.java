@@ -16,7 +16,7 @@ public class OBJ_Medicine extends Entity{
 		
 		name = "Medicine";
 		description = "[" +name+ "]\n"
-					+ "An item that may be used to heal you\non difficult situations.\nIt's wise to always keep one with you.\n"
+					+ "An item that may be used to heal\nyou on difficult situations.\nIt's wise to always keep one.\n"
 					+ "+"+value+" hp!";
 		
 		down1 = setup("/objects/medicine",screen.tileSize, screen.tileSize);

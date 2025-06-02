@@ -8,7 +8,7 @@ import main.Screen;
 
 public class OBJ_Mushroom extends Entity{
 
-	int value = 3;
+	int value = 1;
 	
 	public OBJ_Mushroom(Screen screen) {
 		super(screen);
@@ -17,7 +17,7 @@ public class OBJ_Mushroom extends Entity{
 		
 		name = "Mushroom";
 		description = "[" +name+ "]\n"
-					+ "An item that may be used to heal you\non difficult situations.\nIt's wise to always keep one with you.\n"
+					+ "An item that may be used to heal\nyou.\nNot as useful as medicine, but it \nstill can save your skin.\n"
 					+ "+"+value+" hp!";
 		
 		down1 = setup("/objects/mushroom",screen.tileSize, screen.tileSize);

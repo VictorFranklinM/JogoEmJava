@@ -331,11 +331,11 @@ public class Player extends Entity{
 			if(inventory.size() != inventorySize) {
 				inventory.add(screen.obj[index]);
 				screen.playSFX(1);
-				text = "Got " + screen.obj[index].name + "!\"";
+				text = "Got " + screen.obj[index].name + "!";
 				screen.obj[index] = null;
 			}
 			else {
-				text = "Your  inventory  is  full!";
+				text = "Your inventory is full!";
 			}
 			screen.ui.addMessage(text);
 		}
@@ -349,11 +349,11 @@ public class Player extends Entity{
 			if(inventory.size() != inventorySize) {
 				inventory.add(screen.obj[index]);
 				screen.playSFX(1);
-				screen.ui.currentSpeechLine = "Got " + screen.obj[index].name + "!\"";
+				screen.ui.currentSpeechLine = "Got " + screen.obj[index].name + "!";
 				screen.obj[index] = null;
 			}
 			else {
-				screen.ui.currentSpeechLine = "Your  inventory  is  full!";
+				screen.ui.currentSpeechLine = "Your inventory is full!";
 			}
 		}
 	}
@@ -397,7 +397,7 @@ public class Player extends Entity{
 					damage = 0;
 				}
 				screen.enemy[i].hp -= damage;
-				screen.ui.addMessage(damage+"  damage to  "+screen.enemy[i].name+"!");
+				screen.ui.addMessage(damage+" damage to "+screen.enemy[i].name+"!");
 				
 				screen.enemy[i].isInvincible = true;
 				screen.enemy[i].damageReaction();
@@ -405,8 +405,8 @@ public class Player extends Entity{
 				if (screen.enemy[i].hp <= 0) {
 					screen.enemy[i].hp = 0;
 					screen.enemy[i].dying = true;
-					screen.ui.addMessage("Killed  the  "+screen.enemy[i].name+"!");
-					screen.ui.addMessage("Exp  +"+screen.enemy[i].exp+"!");
+					screen.ui.addMessage("Killed the "+screen.enemy[i].name+"!");
+					screen.ui.addMessage("Exp +"+screen.enemy[i].exp+"!");
 					exp += screen.enemy[i].exp;
 					checkLevelUp();
 				}
@@ -450,7 +450,7 @@ public class Player extends Entity{
 		
 			screen.playSFX(1);
 			screen.gameState = screen.dialogueState;
-			screen.ui.currentSpeechLine = "You  are  now  at  level  "+level+"!\n"+"You  feel  stronger!";
+			screen.ui.currentSpeechLine = "You are now at level "+level+"!\n"+"You feel stronger!";
 		}
 	}
 	
@@ -460,6 +460,7 @@ public class Player extends Entity{
 			Entity selectedItem = inventory.get(itemIndex);
 			
 			if(selectedItem.type == typeMaga) {
+				screen.playSFX(1);
 				currentMagatama = selectedItem;
 				attack = getAttack();
 				defense = getDefense();
