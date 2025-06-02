@@ -15,6 +15,8 @@ import main.KeyInput;
 import main.PerformanceTool;
 import main.Screen;
 import object.Magic_Fireball;
+import object.Magic_Icicle;
+import object.Magic_WindBlast;
 import object.OBJ_MagaGreen;
 
 public class Player extends Entity{
@@ -83,7 +85,6 @@ public class Player extends Entity{
 		exp = 0;
 		nextLevelExp = 5;
 		macca = 0;
-		projectile = new Magic_Fireball(screen);
 		
 		if(currentMagatama != null) {
 			attack = getAttack();
@@ -267,7 +268,7 @@ public class Player extends Entity{
 		
 		if(screen.key.shootKeyPressed == true && projectile.alive == false) {
 			
-			projectile.set(worldX,worldY,facing,true,this);
+			projectile.set(worldX, worldY, facing, true, this);
 			
 			screen.spellList.add(projectile);
 			
@@ -358,6 +359,10 @@ public class Player extends Entity{
 			canAttack = false;
 			
 			if(inventory.size() != inventorySize) {
+				if(screen.obj[index].name.contains("Magatama")) {
+					hasMaga++;
+					System.out.println(hasMaga);
+				}
 				inventory.add(screen.obj[index]);
 				screen.playSFX(1);
 				screen.ui.currentSpeechLine = "Got " + screen.obj[index].name + "!";
@@ -382,7 +387,7 @@ public class Player extends Entity{
 	private void contactEnemy(int i) {
 		if(i != screen.npcPerScreen) {
 			
-			if(isInvincible == false) {
+			if(isInvincible == false && screen.enemy[i].dying == false) {
 				
 				playSFX(6);
 				
@@ -475,6 +480,20 @@ public class Player extends Entity{
 				currentMagatama = selectedItem;
 				attack = getAttack();
 				defense = getDefense();
+				
+				switch(screen.player.inventory.get(itemIndex).name) {
+				case "Force Magatama":
+					projectile = new Magic_WindBlast(screen);
+					break;
+					
+				case "Fire Magatama":
+					projectile = new Magic_Fireball(screen);
+					break;
+					
+				case "Ice Magatama":
+					projectile = new Magic_Icicle(screen);
+					break;
+				}
 			}
 			if(selectedItem.type == typeConsumable) {
 				selectedItem.use(this);

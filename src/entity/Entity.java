@@ -56,7 +56,6 @@ public abstract class Entity   {
 	public final int typeEnemy = 2;
 	public final int typeMaga = 3;
 	public final int typeConsumable = 4;
-	public Projectile projectile;
 	
 	// Status
 	public String name;
@@ -65,7 +64,6 @@ public abstract class Entity   {
 	public int hp;
 	public int maxMana;
 	public int mana;
-	public int manaCost;
 	public int level;
 	public int strenght;
 	public int dexterity;
@@ -75,8 +73,10 @@ public abstract class Entity   {
 	public int nextLevelExp;
 	public int macca;
 	public Entity currentMagatama;
+	public Projectile projectile;
 	
 	// Item status
+	public int manaCost;
 	public int attackValue;
 	public int defenseValue;
 	public String description = "";
@@ -263,7 +263,6 @@ public abstract class Entity   {
 		if(deathCounter > frameDifference*6 && deathCounter >= frameDifference*7) {changeSpriteOpacity(g2, 0f);}
 		if(deathCounter > frameDifference*7 && deathCounter >= frameDifference*8) {changeSpriteOpacity(g2, 1f);}
 		if(deathCounter > frameDifference*8) {
-			dying = false;
 			alive = false;
 		}
 	}

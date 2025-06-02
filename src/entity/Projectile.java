@@ -9,23 +9,23 @@ public class Projectile extends Entity{
 		super(screen);
 	}
 	
-	public void set(int worldX,int worldY,String facing,boolean alive,Entity user) {
+	public void set(int worldX, int worldY, String facing, boolean alive, Entity user) {
 		this.worldX = worldX;
 		this.worldY = worldY;
 		this.facing = facing;
 		this.alive = alive;
 		this.user = user;
+		this.hp = this.maxHP;
 		
 	}
 	
 	public void update() {
 		
-		
 		switch(facing) {
-			case "up": worldY -= speed;break;
-			case "down":worldY += speed;break;
-			case "left": worldX -= speed;break;
-			case "right":worldX += speed;break;
+			case "up": worldY -= speed; break;
+			case "down":worldY += speed; break;
+			case "left": worldX -= speed; break;
+			case "right":worldX += speed; break;
 		}
 		
 		hp--;
@@ -39,6 +39,9 @@ public class Projectile extends Entity{
 				spriteNum = 2;
 			}
 			else if(spriteNum == 2) {
+				spriteNum = 3;
+			}
+			else if(spriteNum == 3) {
 				spriteNum = 1;
 			}
 			spriteCounter = 0;
