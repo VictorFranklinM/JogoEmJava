@@ -270,6 +270,8 @@ public class Player extends Entity{
 			projectile.set(worldX,worldY,facing,true,this);
 			
 			screen.spellList.add(projectile);
+			
+			screen.playSFX(9);
 		}
 	    
 	    if(isInvincible == true) {
