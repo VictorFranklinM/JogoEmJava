@@ -14,16 +14,16 @@ public class OBJ_MagaBlue extends Entity{
 		super(screen);
 		type = typeMaga;
 		
-		name = "Ice  Magatama";
+		name = "Ice Magatama";
 		
 		attackValue = 3;
 		defenseValue = 6;
 		description = "[" +name+ "]\n"
-					+ "A  Magatama  of  the  ice  attribute!\n+"
-					+ attackValue + "  attack!\n+"
-					+ defenseValue + "  defense!\n"
-					+ "Let's  you  enter  the  electric  realm!\n"
-					+ "Let's  you  use  ice  magic!";
+					+ "A Magatama of the ice attribute!\n+"
+					+ attackValue+" attack!\n+"
+					+ defenseValue+" defense!\n"
+					+ "Lets you enter the electric realm!\n"
+					+ "Lets you use ice magic!";
 		
 		down1 = setup("/objects/bluemaga",screen.tileSize, screen.tileSize);
 		collisionArea.x = (2 * screen.scale);
