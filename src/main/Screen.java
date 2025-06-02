@@ -121,10 +121,10 @@ public class Screen extends JPanel implements Runnable{
     	
     		for (int i = 0; i < spellList.size(); i++) {
     			if(spellList.get(i) != null) {
-    				if(spellList.get(i).alive == true) {
+    				if(spellList.get(i).alive) {
     					spellList.get(i).update();
     				}
-    				if(!spellList.get(i).alive == false) {
+    				if(!spellList.get(i).alive) {
     					spellList.remove(i);
     				}
     			}
