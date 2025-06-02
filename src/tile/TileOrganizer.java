@@ -32,15 +32,15 @@ public class TileOrganizer {
 	
 	// Metodo para carregar as imagens dos tiles
 	public void getTileImage() {
-			// Carregando diferentes tipos de tiles, quantidade maxima definida acima em tile
-			setup(0,"barrel", true, Tile.noSoundIndex);
-			setup(1,"cactus", true, Tile.noSoundIndex);
-			setup(2,"grass", false, 3);
-			setup(3,"sand", false, Tile.noSoundIndex);
-			setup(4,"stone", false, Tile.noSoundIndex);
-			setup(5,"wall", true, Tile.noSoundIndex);
-			setup(6,"water", true, Tile.noSoundIndex);
-		
+		// Carregando diferentes tipos de tiles, quantidade maxima definida acima em tile
+		setup(0,"magma", false, Tile.noSoundIndex);
+		setup(1,"snow", false, Tile.noSoundIndex);
+		setup(2,"grass", false, 3);
+		setup(3,"sand", false, Tile.noSoundIndex);
+		setup(4,"stone", false, Tile.noSoundIndex);
+		setup(5,"wall", true, Tile.noSoundIndex);
+		setup(6,"water", true, Tile.noSoundIndex);
+		setup(7,"grassTosnow", false, Tile.noSoundIndex);
 			
 	
 	}

@@ -35,7 +35,7 @@ public class OBJ_Mushroom extends Entity{
 	public void use(Entity entity) {
 		screen.playSFX(1);
 		screen.gameState = screen.dialogueState;
-		screen.ui.currentSpeechLine = "You use the "+name+"!\n"
+		screen.ui.currentSpeechLine = "You eat the "+name+"!\n"
 									+"You recovered "+value+" hp!";
 		entity.hp += value;
 		if(screen.player.hp > screen.player.maxHP) {
