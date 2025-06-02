@@ -56,6 +56,7 @@ public abstract class Entity   {
 	public final int typeEnemy = 2;
 	public final int typeMaga = 3;
 	public final int typeConsumable = 4;
+	public Projectile projectile;
 	
 	// Status
 	public String name;
@@ -64,6 +65,7 @@ public abstract class Entity   {
 	public int hp;
 	public int maxMana;
 	public int mana;
+	public int manaCost;
 	public int level;
 	public int strenght;
 	public int dexterity;

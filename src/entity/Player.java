@@ -14,6 +14,7 @@ import javax.imageio.ImageIO;
 import main.KeyInput;
 import main.PerformanceTool;
 import main.Screen;
+import object.Magic_Fireball;
 import object.OBJ_MagaGreen;
 
 public class Player extends Entity{
@@ -82,6 +83,7 @@ public class Player extends Entity{
 		exp = 0;
 		nextLevelExp = 5;
 		macca = 0;
+		projectile = new Magic_Fireball(screen);
 		
 		if(currentMagatama != null) {
 			attack = getAttack();
@@ -261,6 +263,13 @@ public class Player extends Entity{
 				spriteNum = 1;
 				standingCounter = 0;
 			}
+		}
+		
+		if(screen.key.shootKeyPressed == true && projectile.alive == false) {
+			
+			projectile.set(worldX,worldY,facing,true,this);
+			
+			screen.spellList.add(projectile);
 		}
 	    
 	    if(isInvincible == true) {

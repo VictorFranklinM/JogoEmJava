@@ -35,7 +35,8 @@ public class OBJ_Medicine extends Entity{
 		screen.gameState = screen.dialogueState;
 		screen.ui.currentSpeechLine = "You use the "+name+"!\n"
 									+"You recovered "+value+" hp!";
-		entity.hp += value;
+				screen.player.hp += value;
+		
 		if(screen.player.hp > screen.player.maxHP) {
 			screen.player.hp = screen.player.maxHP;
 		}

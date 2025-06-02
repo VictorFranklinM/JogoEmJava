@@ -58,11 +58,11 @@ public class Screen extends JPanel implements Runnable{
 	public NpcPlacer npcPlacer = new NpcPlacer(this);
 	
 	public Player player = new Player(this,key);
-	ArrayList<Entity> entityList = new ArrayList<>();
+	public ArrayList<Entity> entityList = new ArrayList<>();
 	public Entity obj[] = new Entity[objPerScreen]; // new Object[x]. x e a quantidade de objetos que podem ser renderizados na tela ao mesmo tempo.
 	public Entity npc[] = new Entity[npcPerScreen];
 	public Entity enemy[] = new Entity[enemyPerScreen];
-	
+	public ArrayList<Entity> spellList = new ArrayList<>();
 	
 	public int gameState;
 	public final int titleState = 0;
@@ -118,6 +118,18 @@ public class Screen extends JPanel implements Runnable{
     				}
     			}
     		}
+    	
+    		for (int i = 0; i < spellList.size(); i++) {
+    			if(spellList.get(i) != null) {
+    				if(spellList.get(i).alive == true) {
+    					spellList.get(i).update();
+    				}
+    				if(!spellList.get(i).alive == false) {
+    					spellList.remove(i);
+    				}
+    			}
+    		}
+
     	}
     	// PAUSE STATE
     	if(gameState==pauseState) {
@@ -161,6 +173,13 @@ public class Screen extends JPanel implements Runnable{
     				entityList.add(obj[i]);
     			}
     		}
+    		
+    		for(int i = 0; i < spellList.size(); i++) {
+    			if(spellList.get(i) != null) {
+    				entityList.add(spellList.get(i));
+    			}
+    		}
+    		
     		//SORT
     		Collections.sort(entityList, new Comparator<Entity>() {
 
