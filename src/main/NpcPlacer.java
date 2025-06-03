@@ -17,36 +17,36 @@ public class NpcPlacer {
 	
 	public void placeNPC() {
 		screen.npc[0] = new NPC_JackFrost(screen);
-		screen.npc[0].worldX = 50 * screen.tileSize;
-		screen.npc[0].worldY = 33 * screen.tileSize;
+		screen.npc[0].worldX = 50 * Screen.tileSize;
+		screen.npc[0].worldY = 33 * Screen.tileSize;
 		
 		screen.npc[1] = new NPC_BlackFrost(screen);
-		screen.npc[1].worldX = 51 * screen.tileSize;
-		screen.npc[1].worldY = 33 * screen.tileSize;
+		screen.npc[1].worldX = 51 * Screen.tileSize;
+		screen.npc[1].worldY = 33 * Screen.tileSize;
 	}
 	
 	public void placeEnemy() {
 		int i = 0;
 		
 		screen.enemy[i] = new En_Slime(screen);
-		screen.enemy[i].worldX = 52 * screen.tileSize;
-		screen.enemy[i].worldY = 33 * screen.tileSize;
+		screen.enemy[i].worldX = 52 * Screen.tileSize;
+		screen.enemy[i].worldY = 33 * Screen.tileSize;
 		i++;
 		screen.enemy[i] = new En_Slime(screen);
-		screen.enemy[i].worldX = 53 * screen.tileSize;
-		screen.enemy[i].worldY = 33 * screen.tileSize;
+		screen.enemy[i].worldX = 53 * Screen.tileSize;
+		screen.enemy[i].worldY = 33 * Screen.tileSize;
 		i++;
 		screen.enemy[i] = new En_Fomorian(screen);
-		screen.enemy[i].worldX = 52 * screen.tileSize;
-		screen.enemy[i].worldY = 34 * screen.tileSize;
+		screen.enemy[i].worldX = 52 * Screen.tileSize;
+		screen.enemy[i].worldY = 34 * Screen.tileSize;
 		i++;
 		screen.enemy[i] = new En_Decarabia(screen);
-		screen.enemy[i].worldX = 53 * screen.tileSize;
-		screen.enemy[i].worldY = 34 * screen.tileSize;
+		screen.enemy[i].worldX = 53 * Screen.tileSize;
+		screen.enemy[i].worldY = 34 * Screen.tileSize;
 		i++;
 		screen.enemy[i] = new En_Katakirauwa(screen);
-		screen.enemy[i].worldX = 53 * screen.tileSize;
-		screen.enemy[i].worldY = 35 * screen.tileSize;
+		screen.enemy[i].worldX = 53 * Screen.tileSize;
+		screen.enemy[i].worldY = 35 * Screen.tileSize;
 		i++;
 	}
 

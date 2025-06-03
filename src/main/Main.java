@@ -1,11 +1,9 @@
 package main;
 
 import javax.swing.JFrame; // Importa as propriedades da classe JFrame. (Cria apenas a janela)
-import java.awt.Graphics2D; // Importa as propriedades da classe JFrame. [Gerenciamento dos gráficos do jogo (eixos x e y, cor, texto, etc)]
 public class Main {
 	
 	public static void main(String[] args) {
-		Graphics2D g2;
 		
 		JFrame window = new JFrame(); // Cria a janela do jogo com a classe JFrame.
 		Screen screen = new Screen(); // Instanciando nossa classe Screen na main.

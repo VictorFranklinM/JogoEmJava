@@ -20,8 +20,8 @@ public class TileSoundManager {
 	    int footX = screen.player.worldX + screen.player.collisionArea.x + screen.player.collisionArea.width / 2;
 	    int footY = screen.player.worldY + screen.player.collisionArea.y + screen.player.collisionArea.height;
 
-	    int col = footX / screen.tileSize;
-	    int row = footY / screen.tileSize;
+	    int col = footX / Screen.tileSize;
+	    int row = footY / Screen.tileSize;
 
 	    boolean movedTile = col != lastTileCol || row != lastTileRow;
 
@@ -36,7 +36,7 @@ public class TileSoundManager {
 	    if (wasMoving == false) {
 	        wasMoving = true;
 
-	        if (col >= 0 && col < screen.maxWorldCol && row >= 0 && row < screen.maxWorldRow) {
+	        if (col >= 0 && col < Screen.maxWorldCol && row >= 0 && row < Screen.maxWorldRow) {
 	            int tileNum = screen.tileM.mapTileNum[col][row];
 	            int soundIndex = screen.tileM.tile[tileNum].soundIndex;
 
@@ -54,7 +54,7 @@ public class TileSoundManager {
 	    }
 
 	    if (movedTile) {
-	        if (col >= 0 && col < screen.maxWorldCol && row >= 0 && row < screen.maxWorldRow) {
+	        if (col >= 0 && col < Screen.maxWorldCol && row >= 0 && row < Screen.maxWorldRow) {
 	            int tileNum = screen.tileM.mapTileNum[col][row];
 	            int soundIndex = screen.tileM.tile[tileNum].soundIndex;
 

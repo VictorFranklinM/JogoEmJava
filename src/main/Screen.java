@@ -18,27 +18,28 @@ import tile.TileOrganizer;
 
 
 // Sub-Classe da Classe JPanel.
+@SuppressWarnings("serial")
 public class Screen extends JPanel implements Runnable{
 	
-	private final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); // Pega as proporcoes da tela.
-	public final int screenWidth = (int) screenSize.getWidth(); // Pega apenas a largura.
-	public final int screenHeight = (int) screenSize.getHeight(); // Pega apenas a altura.
+	private static final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); // Pega as proporcoes da tela.
+	public static final int screenWidth = (int) screenSize.getWidth(); // Pega apenas a largura.
+	public static final int screenHeight = (int) screenSize.getHeight(); // Pega apenas a altura.
 	
-	public final int originalTileSize = 16; // Tamanho dos Tiles do jogo. (16x16).
-	public final int scale = 4; // Escala dos pixels.
-	public final int tileSize = originalTileSize * scale; // Tile redimensionado.
+	public static final int originalTileSize = 16; // Tamanho dos Tiles do jogo. (16x16).
+	public static final int scale = 4; // Escala dos pixels.
+	public static final int tileSize = originalTileSize * scale; // Tile redimensionado.
 	
-	public final int horizontalTiles = 22; // Quantos tiles horizontais cabem na tela.
-	public final int verticalTiles = 12; // Quantos tiles verticais cabem na tela.
+	public static final int horizontalTiles = 22; // Quantos tiles horizontais cabem na tela.
+	public static final int verticalTiles = 12; // Quantos tiles verticais cabem na tela.
 	
-	public final int maxWorldCol = 100;
-	public final int maxWorldRow = 100;
-	public final int worldWidth = tileSize * maxWorldCol;
-	public final int worldHeight = tileSize * maxWorldRow;
+	public static final int maxWorldCol = 100;
+	public static final int maxWorldRow = 100;
+	public static final int worldWidth = tileSize * maxWorldCol;
+	public static final int worldHeight = tileSize * maxWorldRow;
 	
-	public final int objPerScreen = 10;
-	public final int npcPerScreen = 5;
-	public final int enemyPerScreen = 10;
+	public static final int objPerScreen = 10;
+	public static final int npcPerScreen = 10;
+	public static final int enemyPerScreen = 20;
 	
 	//SOM
 	Sound music = new Sound();
@@ -123,9 +124,9 @@ public class Screen extends JPanel implements Runnable{
     			if(spellList.get(i) != null) {
     				if(spellList.get(i).alive) {
     					spellList.get(i).update();
-    				}
-    				if(!spellList.get(i).alive) {
+    				} else {
     					spellList.remove(i);
+    					i--;
     				}
     			}
     		}

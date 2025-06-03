@@ -14,7 +14,7 @@ public class En_Fomorian extends Entity{
 	public En_Fomorian(Screen screen) {
 		super(screen);
 		type = typeEnemy;
-		name = "fomorian";
+		name = "Fomorian";
 		speed = 1;
 		maxHP = 15;
 		hp = maxHP;
@@ -23,10 +23,10 @@ public class En_Fomorian extends Entity{
 		exp = 70;
 		
 		collisionArea = new Rectangle();
-		collisionArea.x = (2 * screen.scale);
-		collisionArea.y = (5 * screen.scale);
-		collisionArea.width = (12 * screen.scale);
-		collisionArea.height = (10 * screen.scale);
+		collisionArea.x = (2 * Screen.scale);
+		collisionArea.y = (5 * Screen.scale);
+		collisionArea.width = (12 * Screen.scale);
+		collisionArea.height = (10 * Screen.scale);
 
 		collisionAreaDefaultX = collisionArea.x;
 		collisionAreaDefaultY = collisionArea.y;
@@ -36,18 +36,18 @@ public class En_Fomorian extends Entity{
 	
 	
 	public void getImage() {
-		up1 = setup("/enemies/Fomorian-Down-1",screen.tileSize, screen.tileSize);
-		up2 = setup("/enemies/Fomorian-Down-1",screen.tileSize, screen.tileSize);
-		up3 = setup("/enemies/Fomorian-Down-1",screen.tileSize, screen.tileSize);
-		down1 = setup("/enemies/Fomorian-Down-1",screen.tileSize, screen.tileSize);
-		down2 = setup("/enemies/Fomorian-Down-1",screen.tileSize, screen.tileSize);
-		down3 = setup("/enemies/Fomorian-Down-1",screen.tileSize, screen.tileSize);
-		left1 = setup("/enemies/Fomorian-Down-1",screen.tileSize, screen.tileSize);
-		left2 = setup("/enemies/Fomorian-Down-1",screen.tileSize, screen.tileSize);
-		left3 = setup("/enemies/Fomorian-Down-1",screen.tileSize, screen.tileSize);
-		right1 = setup("/enemies/Fomorian-Down-1",screen.tileSize, screen.tileSize);
-		right2 = setup("/enemies/Fomorian-Down-1",screen.tileSize, screen.tileSize);
-		right3 = setup("/enemies/Fomorian-Down-1",screen.tileSize, screen.tileSize);
+		up1 = setup("/enemies/Fomorian-Down-1",Screen.tileSize, Screen.tileSize);
+		up2 = setup("/enemies/Fomorian-Down-1",Screen.tileSize, Screen.tileSize);
+		up3 = setup("/enemies/Fomorian-Down-1",Screen.tileSize, Screen.tileSize);
+		down1 = setup("/enemies/Fomorian-Down-1",Screen.tileSize, Screen.tileSize);
+		down2 = setup("/enemies/Fomorian-Down-1",Screen.tileSize, Screen.tileSize);
+		down3 = setup("/enemies/Fomorian-Down-1",Screen.tileSize, Screen.tileSize);
+		left1 = setup("/enemies/Fomorian-Down-1",Screen.tileSize, Screen.tileSize);
+		left2 = setup("/enemies/Fomorian-Down-1",Screen.tileSize, Screen.tileSize);
+		left3 = setup("/enemies/Fomorian-Down-1",Screen.tileSize, Screen.tileSize);
+		right1 = setup("/enemies/Fomorian-Down-1",Screen.tileSize, Screen.tileSize);
+		right2 = setup("/enemies/Fomorian-Down-1",Screen.tileSize, Screen.tileSize);
+		right3 = setup("/enemies/Fomorian-Down-1",Screen.tileSize, Screen.tileSize);
 
 	}
 	

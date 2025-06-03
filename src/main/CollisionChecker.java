@@ -16,16 +16,16 @@ public class CollisionChecker {
 		int entityTopY = entity.worldY + entity.collisionArea.y;
 		int entityBottomY = entity.worldY + entity.collisionArea.y + entity.collisionArea.height;
 		
-		int entityLeftCol = entityLeftX / screen.tileSize;
-		int entityRightCol = entityRightX / screen.tileSize;
-		int entityTopRow = entityTopY / screen.tileSize;
-		int entityBottomRow = entityBottomY / screen.tileSize;
+		int entityLeftCol = entityLeftX / Screen.tileSize;
+		int entityRightCol = entityRightX / Screen.tileSize;
+		int entityTopRow = entityTopY / Screen.tileSize;
+		int entityBottomRow = entityBottomY / Screen.tileSize;
 		
 		int tileNum1, tileNum2;
 		
 		switch(entity.facing) {
 		case "up":
-			entityTopRow = (entityTopY - entity.speed) / screen.tileSize;
+			entityTopRow = (entityTopY - entity.speed) / Screen.tileSize;
 			tileNum1 = screen.tileM.mapTileNum[entityLeftCol][entityTopRow];
 			tileNum2 = screen.tileM.mapTileNum[entityRightCol][entityTopRow];
 			
@@ -35,7 +35,7 @@ public class CollisionChecker {
 			break;
 			
 		case "down":
-			entityBottomRow = (entityBottomY + entity.speed) / screen.tileSize;
+			entityBottomRow = (entityBottomY + entity.speed) / Screen.tileSize;
 			tileNum1 = screen.tileM.mapTileNum[entityLeftCol][entityBottomRow];
 			tileNum2 = screen.tileM.mapTileNum[entityRightCol][entityBottomRow];
 			
@@ -45,7 +45,7 @@ public class CollisionChecker {
 			break;
 			
 		case "left":
-			entityLeftCol = (entityLeftX - entity.speed) / screen.tileSize;
+			entityLeftCol = (entityLeftX - entity.speed) / Screen.tileSize;
 			tileNum1 = screen.tileM.mapTileNum[entityLeftCol][entityTopRow];
 			tileNum2 = screen.tileM.mapTileNum[entityLeftCol][entityBottomRow];
 			
@@ -55,7 +55,7 @@ public class CollisionChecker {
 			break;
 			
 		case "right":
-			entityRightCol = (entityRightX + entity.speed) / screen.tileSize;
+			entityRightCol = (entityRightX + entity.speed) / Screen.tileSize;
 			tileNum1 = screen.tileM.mapTileNum[entityRightCol][entityTopRow];
 			tileNum2 = screen.tileM.mapTileNum[entityRightCol][entityBottomRow];
 			
@@ -68,7 +68,7 @@ public class CollisionChecker {
 	
 	public int checkObject (Entity entity, boolean player) {
 		
-		int index = screen.objPerScreen; // (Pode ser qualquer numero maior que o tamanho do array de objetos).
+		int index = 999; // (Pode ser qualquer numero maior que o tamanho do array de objetos).
 		
 		for(int i = 0; i < screen.obj.length; i++) {
 			
@@ -142,10 +142,10 @@ public class CollisionChecker {
 	
 	// Colisao de NPC e inimigos
 	public int checkEntity (Entity entity, Entity[] target) {
-		int index = screen.npcPerScreen;
+		int index = 999;
 		
 		for(int i = 0; i < target.length; i++) {
-	        if(target[i] != null && target[i] != entity) {
+	        if(target[i] != null && target[i] != entity && !target[i].dying) {
 
 	            entity.collisionArea.x = entity.worldX + entity.collisionArea.x;
 	            entity.collisionArea.y = entity.worldY + entity.collisionArea.y;

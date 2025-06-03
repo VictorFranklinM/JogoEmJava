@@ -16,10 +16,10 @@ public class NPC_BlackFrost extends Entity{
 		getImage();
 		setTextLines();
 		collisionArea = new Rectangle();
-		collisionArea.x = (4 * screen.scale);
-		collisionArea.y = (8 * screen.scale);
-		collisionArea.width = (8 * screen.scale);
-		collisionArea.height = (7 * screen.scale);
+		collisionArea.x = (4 * Screen.scale);
+		collisionArea.y = (8 * Screen.scale);
+		collisionArea.width = (8 * Screen.scale);
+		collisionArea.height = (7 * Screen.scale);
 
 		collisionAreaDefaultX = collisionArea.x;
 		collisionAreaDefaultY = collisionArea.y;
@@ -38,19 +38,19 @@ public class NPC_BlackFrost extends Entity{
 	}
 	
 	public void getImage() {
-		face = setup("/npc/BF-Face",screen.tileSize, screen.tileSize);
-		up1 = setup("/npc/BF-Up-1",screen.tileSize, screen.tileSize);
-		up2 = setup("/npc/BF-Up-2",screen.tileSize, screen.tileSize);
-		up3 = setup("/npc/BF-Up-3",screen.tileSize, screen.tileSize);
-		down1 = setup("/npc/BF-Down-1",screen.tileSize, screen.tileSize);
-		down2 = setup("/npc/BF-Down-2",screen.tileSize, screen.tileSize);
-		down3 = setup("/npc/BF-Down-3",screen.tileSize, screen.tileSize);
-		left1 = setup("/npc/BF-Left-1",screen.tileSize, screen.tileSize);
-		left2 = setup("/npc/BF-Left-2",screen.tileSize, screen.tileSize);
-		left3 = setup("/npc/BF-Left-3",screen.tileSize, screen.tileSize);
-		right1 = setup("/npc/BF-Right-1",screen.tileSize, screen.tileSize);
-		right2 = setup("/npc/BF-Right-2",screen.tileSize, screen.tileSize);
-		right3 = setup("/npc/BF-Right-3",screen.tileSize, screen.tileSize);
+		face = setup("/npc/BF-Face",Screen.tileSize, Screen.tileSize);
+		up1 = setup("/npc/BF-Up-1",Screen.tileSize, Screen.tileSize);
+		up2 = setup("/npc/BF-Up-2",Screen.tileSize, Screen.tileSize);
+		up3 = setup("/npc/BF-Up-3",Screen.tileSize, Screen.tileSize);
+		down1 = setup("/npc/BF-Down-1",Screen.tileSize, Screen.tileSize);
+		down2 = setup("/npc/BF-Down-2",Screen.tileSize, Screen.tileSize);
+		down3 = setup("/npc/BF-Down-3",Screen.tileSize, Screen.tileSize);
+		left1 = setup("/npc/BF-Left-1",Screen.tileSize, Screen.tileSize);
+		left2 = setup("/npc/BF-Left-2",Screen.tileSize, Screen.tileSize);
+		left3 = setup("/npc/BF-Left-3",Screen.tileSize, Screen.tileSize);
+		right1 = setup("/npc/BF-Right-1",Screen.tileSize, Screen.tileSize);
+		right2 = setup("/npc/BF-Right-2",Screen.tileSize, Screen.tileSize);
+		right3 = setup("/npc/BF-Right-3",Screen.tileSize, Screen.tileSize);
 
 	}
 	

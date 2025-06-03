@@ -18,13 +18,13 @@ public class TileOrganizer {
 	public Tile[] tile; // Array de tiles
 	public int mapTileNum[][]; // Matriz que armazena os numeros dos tiles do mapa
 	
-	public TileOrganizer(Screen sc) {
+	public TileOrganizer(Screen screen) {
 		
-		this.screen = sc;
+		this.screen = screen;
 		
 		tile = new Tile[10]; //Quantidade maxima de tiles que podem ser usados, alterar conforme necessidade;
 		
-		mapTileNum = new int [sc.maxWorldCol][sc.maxWorldRow]; // Inicializa a matriz do mapa
+		mapTileNum = new int [Screen.maxWorldCol][Screen.maxWorldRow]; // Inicializa a matriz do mapa
 		
 		getTileImage();
 		loadMap("/maps/world01.txt");
@@ -49,7 +49,7 @@ public class TileOrganizer {
 	    try {
 	        tile[index] = new Tile();
 	        tile[index].image = ImageIO.read(getClass().getResourceAsStream("/tiles/" + imagePath + ".png"));
-	        tile[index].image = performance.scaleImage(tile[index].image, screen.tileSize, screen.tileSize);
+	        tile[index].image = performance.scaleImage(tile[index].image, Screen.tileSize, Screen.tileSize);
 	        tile[index].collision = collision;
 	        tile[index].soundIndex = soundIndex; // Aqui associa o som.
 	    } catch(IOException e) {
@@ -69,11 +69,11 @@ public class TileOrganizer {
 			int col = 0;
 			int row = 0;
 			
-			while(col < screen.maxWorldCol && row < screen.maxWorldRow) {	
+			while(col < Screen.maxWorldCol && row < Screen.maxWorldRow) {	
 				
 				String line = br.readLine(); // Le uma linha do arquivo
 				
-				while (col < screen.maxWorldCol) {
+				while (col < Screen.maxWorldCol) {
 					
 					String numbers[] = line.split(" "); // Divide a linha em numeros
 					
@@ -82,7 +82,7 @@ public class TileOrganizer {
 					mapTileNum[col][row] = num; // Armazena o numero na matriz
 					col++;
 				}
-				if(col == screen.maxWorldCol) {	// Se a linha foi completamente lida, passa para a proxima
+				if(col == Screen.maxWorldCol) {	// Se a linha foi completamente lida, passa para a proxima
 					
 					col = 0;
 					row++;					
@@ -101,27 +101,27 @@ public class TileOrganizer {
 		int worldCol = 0;
 		int worldRow = 0;
 		
-		while(worldCol < screen.maxWorldCol && worldRow < screen.maxWorldRow) {
+		while(worldCol < Screen.maxWorldCol && worldRow < Screen.maxWorldRow) {
 			
 			int tileNum = mapTileNum[worldCol][worldRow]; // Obtem o numero do tile
 			
-			int worldX = worldCol * screen.tileSize;
-			int worldY = worldRow * screen.tileSize;
+			int worldX = worldCol * Screen.tileSize;
+			int worldY = worldRow * Screen.tileSize;
 			int screenX = worldX - screen.player.worldX + screen.player.screenX;
 			int screenY = worldY - screen.player.worldY + screen.player.screenY;
 			
 			// Checa se o tile e visivel na camera antes de renderizar.
-			if(((worldX + screen.tileSize) > (screen.player.worldX - screen.player.screenX))
-				&& ((worldX - screen.tileSize) < (screen.player.worldX + screen.player.screenX))
-				&& ((worldY + screen.tileSize) > (screen.player.worldY - screen.player.screenY))
-				&& ((worldY - screen.tileSize) < (screen.player.worldY + screen.player.screenY))) {
+			if(((worldX + Screen.tileSize) > (screen.player.worldX - screen.player.screenX))
+				&& ((worldX - Screen.tileSize) < (screen.player.worldX + screen.player.screenX))
+				&& ((worldY + Screen.tileSize) > (screen.player.worldY - screen.player.screenY))
+				&& ((worldY - Screen.tileSize) < (screen.player.worldY + screen.player.screenY))) {
 				
 				g2.drawImage(tile[tileNum].image, screenX, screenY, null); // Desenha o tile
 			}
 			
 			worldCol++;
 
-			if (worldCol == screen.maxWorldCol) { // Move para a proxima linha ao atingir o limite de colunas
+			if (worldCol == Screen.maxWorldCol) { // Move para a proxima linha ao atingir o limite de colunas
 				worldCol = 0;
 				worldRow++;
 			}	

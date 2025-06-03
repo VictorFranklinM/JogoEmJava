@@ -1,8 +1,5 @@
 package object;
 
-import java.io.IOException;
-import javax.imageio.ImageIO;
-
 import entity.Entity;
 import main.Screen;
 
@@ -20,13 +17,13 @@ public class OBJ_Mushroom extends Entity{
 					+ "An item that may be used to heal\nyou.\nNot as useful as medicine, but it \nstill can save your skin.\n"
 					+ "+"+value+" hp!";
 		
-		down1 = setup("/objects/mushroom",screen.tileSize, screen.tileSize);
-		down2 = setup("/objects/mushrooms",screen.tileSize, screen.tileSize);
+		down1 = setup("/objects/mushroom",Screen.tileSize, Screen.tileSize);
+		down2 = setup("/objects/mushrooms",Screen.tileSize, Screen.tileSize);
 		
-		collisionArea.x = (2 * screen.scale);
-        collisionArea.y = (0 * screen.scale);
-        collisionArea.width = (13 * screen.scale);
-        collisionArea.height = (14 * screen.scale);
+		collisionArea.x = (2 * Screen.scale);
+        collisionArea.y = (0 * Screen.scale);
+        collisionArea.width = (13 * Screen.scale);
+        collisionArea.height = (14 * Screen.scale);
 
         collisionAreaDefaultX = collisionArea.x;
         collisionAreaDefaultY = collisionArea.y;

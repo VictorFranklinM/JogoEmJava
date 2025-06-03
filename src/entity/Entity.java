@@ -37,6 +37,8 @@ public abstract class Entity   {
 	public int invincibilityTimer = 0;
 	public int deathCounter = 0;
 	
+	public int spellCooldown = 60;
+	
 	boolean attacking = false;
 	public boolean alive = true;
 	public boolean dying = false;
@@ -115,15 +117,7 @@ public abstract class Entity   {
 		boolean contactPlayer = screen.colCheck.checkPlayer(this);
 		
 		if(this.type == typeEnemy && contactPlayer == true) {
-			if(screen.player.isInvincible == false) {
-				screen.playSFX(6);
-				int damage = attack - screen.player.defense;
-				if(damage < 0) {
-					damage = 0;
-				}
-				screen.player.hp -= damage;
-				screen.player.isInvincible = true;
-			}
+			damagePlayer(attack);
 		}
 		if(collision == false) {
 			switch(facing) {
@@ -164,6 +158,21 @@ public abstract class Entity   {
 	    		invincibilityTimer = 0;
 	    	}
 		}
+		if(spellCooldown > 0) {
+		    	spellCooldown--;
+		}
+	}
+	
+	public void damagePlayer(int attack) {
+		if(screen.player.isInvincible == false) {
+			screen.playSFX(6);
+			int damage = attack - screen.player.defense;
+			if(damage < 0) {
+				damage = 0;
+			}
+			screen.player.hp -= damage;
+			screen.player.isInvincible = true;
+		}
 	}
 	
 	public void draw(Graphics2D g2) {
@@ -171,10 +180,10 @@ public abstract class Entity   {
 		int screenX = worldX - screen.player.worldX + screen.player.screenX;
 		int screenY = worldY - screen.player.worldY + screen.player.screenY;
 		
-		if(((worldX + screen.tileSize) > (screen.player.worldX - screen.player.screenX))
-			&& ((worldX - screen.tileSize) < (screen.player.worldX + screen.player.screenX))
-			&& ((worldY + screen.tileSize) > (screen.player.worldY - screen.player.screenY))
-			&& ((worldY - screen.tileSize) < (screen.player.worldY + screen.player.screenY))) {
+		if(((worldX + Screen.tileSize) > (screen.player.worldX - screen.player.screenX))
+			&& ((worldX - Screen.tileSize) < (screen.player.worldX + screen.player.screenX))
+			&& ((worldY + Screen.tileSize) > (screen.player.worldY - screen.player.screenY))
+			&& ((worldY - Screen.tileSize) < (screen.player.worldY + screen.player.screenY))) {
 			
 			switch(facing) {
 			case "up":
@@ -204,7 +213,7 @@ public abstract class Entity   {
 			
 			// Hp inimigo
 			if(type == 2 && hpBarOn) {
-				double hpScale = (double) screen.tileSize/maxHP;
+				double hpScale = (double) Screen.tileSize/maxHP;
 				double hpBarValue = hpScale*hp;
 				
 				Color greenGreen = new Color(64, 152, 94);
@@ -212,9 +221,9 @@ public abstract class Entity   {
 				Color blackGreen = new Color(10, 26, 47);
 				
 				g2.setColor(blackGreen);
-				g2.fillRect(screenX-screen.scale/2, screenY-18, screen.tileSize+screen.scale, 10 + screen.scale);
+				g2.fillRect(screenX-Screen.scale/2, screenY-18, Screen.tileSize+Screen.scale, 10 + Screen.scale);
 				g2.setColor(darkGreen);
-				g2.fillRect(screenX, screenY-16, screen.tileSize, 10);
+				g2.fillRect(screenX, screenY-16, Screen.tileSize, 10);
 				g2.setColor(greenGreen);
 				g2.fillRect(screenX, screenY-16, (int) hpBarValue, 10);
 				
@@ -237,7 +246,7 @@ public abstract class Entity   {
 				deathAnimation(g2);
 			}
 			
-			g2.drawImage(image, screenX, screenY, screen.tileSize, screen.tileSize, null);
+			g2.drawImage(image, screenX, screenY, Screen.tileSize, Screen.tileSize, null);
 			changeSpriteOpacity(g2, 1f);
 		}
 		

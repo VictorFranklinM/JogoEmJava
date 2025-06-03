@@ -1,23 +1,16 @@
 package entity;
 
-import java.awt.AlphaComposite;
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.imageio.ImageIO;
-
 import main.KeyInput;
-import main.PerformanceTool;
 import main.Screen;
 import object.Magic_Fireball;
 import object.Magic_Icicle;
 import object.Magic_WindBlast;
-import object.OBJ_MagaGreen;
 
 public class Player extends Entity{
 	Screen screen;
@@ -45,17 +38,17 @@ public class Player extends Entity{
 		
 		/* Como o personagem e renderizado a partir do pixel superior esquerdo, subtraimos meio tile de X e Y para que ele
 		 * seja renderizado corretamente no meio da tela. */
-		screenX = (screen.screenWidth / 2) - (screen.tileSize/2);
-		screenY = (screen.screenHeight / 2) - (screen.tileSize/2);
+		screenX = (Screen.screenWidth / 2) - (Screen.tileSize/2);
+		screenY = (Screen.screenHeight / 2) - (Screen.tileSize/2);
 		
 		collisionArea = new Rectangle();
-		collisionArea.x = (4 * screen.scale); // X do retângulo (comeca no canto esquerdo).
-		collisionArea.y = (8 * screen.scale); // Y (comeca no canto superior).
-		collisionArea.width = (8 * screen.scale); // Largura do retângulo.
-		collisionArea.height = (7 * screen.scale); // Altura.
+		collisionArea.x = (4 * Screen.scale); // X do retângulo (comeca no canto esquerdo).
+		collisionArea.y = (8 * Screen.scale); // Y (comeca no canto superior).
+		collisionArea.width = (8 * Screen.scale); // Largura do retângulo.
+		collisionArea.height = (7 * Screen.scale); // Altura.
 		
-		attackArea.width = (int) (screen.tileSize/1.5);
-		attackArea.height = (int) (screen.tileSize/1.5);
+		attackArea.width = (int) (Screen.tileSize/1.5);
+		attackArea.height = (int) (Screen.tileSize/1.5);
 		
 		
 		collisionAreaDefaultX = collisionArea.x;
@@ -69,8 +62,8 @@ public class Player extends Entity{
 	
 	public void setDefaultValues() {
 		// World X e Y sao onde o personagem do player aparecera no mapa inicialmente.
-		worldX = screen.tileSize * 46;
-		worldY = screen.tileSize * 29;
+		worldX = Screen.tileSize * 46;
+		worldY = Screen.tileSize * 29;
 		speed = defaultSpeed;
 		facing = "down";
 		
@@ -97,31 +90,31 @@ public class Player extends Entity{
 	}
 	
 	public void getImage() {
-		up1 = setup("/player/Up-1", screen.tileSize, screen.tileSize);
-		up2 = setup("/player/Up-2", screen.tileSize, screen.tileSize);
-		up3 = setup("/player/Up-3", screen.tileSize, screen.tileSize);
-		down1 = setup("/player/Down-1", screen.tileSize, screen.tileSize);
-		down2 = setup("/player/Down-2", screen.tileSize, screen.tileSize);
-		down3 = setup("/player/Down-3", screen.tileSize, screen.tileSize);
-		left1 = setup("/player/Left-1", screen.tileSize, screen.tileSize);
-		left2 = setup("/player/Left-2", screen.tileSize, screen.tileSize);
-		left3 = setup("/player/Left-3", screen.tileSize, screen.tileSize);
-		right1 = setup("/player/Right-1", screen.tileSize, screen.tileSize);
-		right2 = setup("/player/Right-2", screen.tileSize, screen.tileSize);
-		right3 = setup("/player/Right-3", screen.tileSize, screen.tileSize);
+		up1 = setup("/player/Up-1", Screen.tileSize, Screen.tileSize);
+		up2 = setup("/player/Up-2", Screen.tileSize, Screen.tileSize);
+		up3 = setup("/player/Up-3", Screen.tileSize, Screen.tileSize);
+		down1 = setup("/player/Down-1", Screen.tileSize, Screen.tileSize);
+		down2 = setup("/player/Down-2", Screen.tileSize, Screen.tileSize);
+		down3 = setup("/player/Down-3", Screen.tileSize, Screen.tileSize);
+		left1 = setup("/player/Left-1", Screen.tileSize, Screen.tileSize);
+		left2 = setup("/player/Left-2", Screen.tileSize, Screen.tileSize);
+		left3 = setup("/player/Left-3", Screen.tileSize, Screen.tileSize);
+		right1 = setup("/player/Right-1", Screen.tileSize, Screen.tileSize);
+		right2 = setup("/player/Right-2", Screen.tileSize, Screen.tileSize);
+		right3 = setup("/player/Right-3", Screen.tileSize, Screen.tileSize);
 
 	}	
 	
 	public void getPlayerAttackImage() {
 		
-		attackUp1 = setup("/player/AttackUp-1", screen.tileSize, screen.tileSize*2);
-		attackUp2 = setup("/player/AttackUp-2", screen.tileSize, screen.tileSize*2);
-		attackDown1 = setup("/player/AttackDown-1", screen.tileSize, screen.tileSize*2);
-		attackDown2 = setup("/player/AttackDown-2", screen.tileSize, screen.tileSize*2);
-		attackLeft1 = setup("/player/AttackLeft-1", screen.tileSize*2, screen.tileSize);
-		attackLeft2 = setup("/player/AttackLeft-2", screen.tileSize*2, screen.tileSize);
-		attackRight1 = setup("/player/AttackRight-1", screen.tileSize*2, screen.tileSize);
-		attackRight2 = setup("/player/AttackRight-2", screen.tileSize*2, screen.tileSize);
+		attackUp1 = setup("/player/AttackUp-1", Screen.tileSize, Screen.tileSize*2);
+		attackUp2 = setup("/player/AttackUp-2", Screen.tileSize, Screen.tileSize*2);
+		attackDown1 = setup("/player/AttackDown-1", Screen.tileSize, Screen.tileSize*2);
+		attackDown2 = setup("/player/AttackDown-2", Screen.tileSize, Screen.tileSize*2);
+		attackLeft1 = setup("/player/AttackLeft-1", Screen.tileSize*2, Screen.tileSize);
+		attackLeft2 = setup("/player/AttackLeft-2", Screen.tileSize*2, Screen.tileSize);
+		attackRight1 = setup("/player/AttackRight-1", Screen.tileSize*2, Screen.tileSize);
+		attackRight2 = setup("/player/AttackRight-2", Screen.tileSize*2, Screen.tileSize);
 	}
 	
 	public void update() {
@@ -266,11 +259,15 @@ public class Player extends Entity{
 			}
 		}
 		
-		if(screen.key.shootKeyPressed == true && projectile.alive == false) {
+		if(screen.key.shootKeyPressed && !projectile.alive && spellCooldown == 0 && projectile.haveResource(this)) {
 			
 			projectile.set(worldX, worldY, facing, true, this);
 			
+			projectile.subtractResource(this);
+			
 			screen.spellList.add(projectile);
+			
+			spellCooldown = 60;
 			
 			screen.playSFX(9);
 		}
@@ -281,6 +278,9 @@ public class Player extends Entity{
 	    		isInvincible = false;
 	    		invincibilityTimer = 0;
 	    	}
+	    }
+	    if(spellCooldown > 0) {
+	    	spellCooldown--;
 	    }
 	}
 	
@@ -310,7 +310,7 @@ public class Player extends Entity{
 		collisionArea.height = attackArea.height;
 		
 		int enemyIndex = screen.colCheck.checkEntity(this, screen.enemy);
-		damageEnemy(enemyIndex);
+		damageEnemy(enemyIndex, attack);
 
 		worldX = currenWorldX;
 		worldY = currenWorldY;
@@ -326,7 +326,7 @@ public class Player extends Entity{
 	}
 	
 	public void pickUpObject(int index) {
-		if(index != screen.objPerScreen) {
+		if(index != 999) {
 			if(!screen.obj[index].collision) {
 				pickUpObjectNoCol(index);
 			}
@@ -337,7 +337,7 @@ public class Player extends Entity{
 	}
 	
 	public void pickUpObjectNoCol(int index) {
-		if(index != screen.objPerScreen) {
+		if(index != 999) {
 			String text;
 			
 			if(inventory.size() != inventorySize) {
@@ -354,7 +354,7 @@ public class Player extends Entity{
 	}
 	
 	public void pickUpObjectWithCol(int index) {
-		if(index != (screen.objPerScreen) && screen.key.ePressed) {
+		if(index != 999 && screen.key.ePressed) {
 			screen.gameState = screen.dialogueState;
 			canAttack = false;
 			
@@ -376,7 +376,7 @@ public class Player extends Entity{
 	
 	public void interactNPC (int i) {
 		if(screen.key.ePressed == true) {
-			if (i != screen.npcPerScreen) {
+			if (i != 999) {
 				canAttack = false;
 				screen.gameState = screen.dialogueState;
 				screen.npc[i].speak();
@@ -385,7 +385,7 @@ public class Player extends Entity{
 	}
 	
 	private void contactEnemy(int i) {
-		if(i != screen.npcPerScreen) {
+		if(i != 999) {
 			
 			if(isInvincible == false && screen.enemy[i].dying == false) {
 				
@@ -401,8 +401,8 @@ public class Player extends Entity{
 		}
 	}
 	
-	public void damageEnemy(int i) {
-		if(i != screen.enemyPerScreen && screen.enemy[i] !=null) {
+	public void damageEnemy(int i, int attack) {
+		if(i != 999) {
 			
 			if(!screen.enemy[i].isInvincible) {
 				
@@ -515,7 +515,7 @@ public class Player extends Entity{
 				if(spriteNum == 3) {image = up3;}
 			}
 			if(attacking == true) {
-				tempScreenY = screenY - screen.tileSize;
+				tempScreenY = screenY - Screen.tileSize;
 				if(spriteNum == 1) {image = attackUp1;}
 				if(spriteNum == 2) {image = attackUp2;}
 			}
@@ -539,7 +539,7 @@ public class Player extends Entity{
 			if(spriteNum == 3) {image = left3;}
 			}
 			if(attacking == true) {
-				tempScreenX = screenX - screen.tileSize;
+				tempScreenX = screenX - Screen.tileSize;
 				if(spriteNum == 1) {image = attackLeft1;}
 				if(spriteNum == 2) {image = attackLeft2;}
 			}
@@ -579,9 +579,9 @@ public class Player extends Entity{
 			
 			switch(facing) {
 			case "up": tempScreenY = screenY - attackArea.height; break;
-			case "down": tempScreenY = screenY + screen.tileSize; break; 
+			case "down": tempScreenY = screenY + Screen.tileSize; break; 
 			case "left": tempScreenX = screenX - attackArea.width; break;
-			case "right": tempScreenX = screenX + screen.tileSize; break;
+			case "right": tempScreenX = screenX + Screen.tileSize; break;
 			}	
 			
 			g2.fillRect(tempScreenX, tempScreenY, attackArea.width, attackArea.height);

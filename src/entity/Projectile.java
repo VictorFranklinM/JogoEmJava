@@ -21,6 +21,18 @@ public class Projectile extends Entity{
 	
 	public void update() {
 		
+		if(user == screen.player && alive) {
+	        int enemyIndex = screen.colCheck.checkEntity(this, screen.enemy);
+	        if(enemyIndex != 999) {
+	            screen.player.damageEnemy(enemyIndex, attack);
+	            alive = false;
+				return;
+			}
+		}
+		if(user != screen.player) {
+			
+		}
+		
 		switch(facing) {
 			case "up": worldY -= speed; break;
 			case "down":worldY += speed; break;
@@ -48,4 +60,11 @@ public class Projectile extends Entity{
 		}
 	}
 
+	public boolean haveResource(Entity user) {
+		boolean haveResource = false;
+		return haveResource;
+	}
+	
+	public void subtractResource(Entity user) {}
+	
 }

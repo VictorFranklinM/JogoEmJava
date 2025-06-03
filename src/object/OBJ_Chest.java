@@ -1,9 +1,5 @@
 package object;
 
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-
 import entity.Entity;
 import main.Screen;
 public class OBJ_Chest extends Entity{
@@ -12,11 +8,11 @@ public class OBJ_Chest extends Entity{
 		super(screen);
 		
 		name = "Chest";
-		down1 = setup("/objects/chest",screen.tileSize, screen.tileSize);
-		collisionArea.x = (1 * screen.scale);
-		collisionArea.y = (3 * screen.scale);
-		collisionArea.width = (14 * screen.scale);
-		collisionArea.height = (13 * screen.scale);
+		down1 = setup("/objects/chest",Screen.tileSize, Screen.tileSize);
+		collisionArea.x = (1 * Screen.scale);
+		collisionArea.y = (3 * Screen.scale);
+		collisionArea.width = (14 * Screen.scale);
+		collisionArea.height = (13 * Screen.scale);
 		
 		collisionAreaDefaultX = collisionArea.x;
 		collisionAreaDefaultY = collisionArea.y;

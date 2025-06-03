@@ -16,10 +16,10 @@ public class NPC_JackFrost extends Entity{
 		getImage();
 		setTextLines();
 		collisionArea = new Rectangle();
-		collisionArea.x = (4 * screen.scale);
-		collisionArea.y = (8 * screen.scale);
-		collisionArea.width = (8 * screen.scale);
-		collisionArea.height = (7 * screen.scale);
+		collisionArea.x = (4 * Screen.scale);
+		collisionArea.y = (8 * Screen.scale);
+		collisionArea.width = (8 * Screen.scale);
+		collisionArea.height = (7 * Screen.scale);
 
 		collisionAreaDefaultX = collisionArea.x;
 		collisionAreaDefaultY = collisionArea.y;
@@ -31,19 +31,19 @@ public class NPC_JackFrost extends Entity{
 	}
 	
 	public void getImage() {
-		face = setup("/npc/JF-Face",screen.tileSize, screen.tileSize);
-		up1 = setup("/npc/JF-Up-1",screen.tileSize, screen.tileSize);
-		up2 = setup("/npc/JF-Up-2",screen.tileSize, screen.tileSize);
-		up3 = setup("/npc/JF-Up-3",screen.tileSize, screen.tileSize);
-		down1 = setup("/npc/JF-Down-1",screen.tileSize, screen.tileSize);
-		down2 = setup("/npc/JF-Down-2",screen.tileSize, screen.tileSize);
-		down3 = setup("/npc/JF-Down-3",screen.tileSize, screen.tileSize);
-		left1 = setup("/npc/JF-Left-1",screen.tileSize, screen.tileSize);
-		left2 = setup("/npc/JF-Left-2",screen.tileSize, screen.tileSize);
-		left3 = setup("/npc/JF-Left-3",screen.tileSize, screen.tileSize);
-		right1 = setup("/npc/JF-Right-1",screen.tileSize, screen.tileSize);
-		right2 = setup("/npc/JF-Right-2",screen.tileSize, screen.tileSize);
-		right3 = setup("/npc/JF-Right-3",screen.tileSize, screen.tileSize);
+		face = setup("/npc/JF-Face",Screen.tileSize, Screen.tileSize);
+		up1 = setup("/npc/JF-Up-1",Screen.tileSize, Screen.tileSize);
+		up2 = setup("/npc/JF-Up-2",Screen.tileSize, Screen.tileSize);
+		up3 = setup("/npc/JF-Up-3",Screen.tileSize, Screen.tileSize);
+		down1 = setup("/npc/JF-Down-1",Screen.tileSize, Screen.tileSize);
+		down2 = setup("/npc/JF-Down-2",Screen.tileSize, Screen.tileSize);
+		down3 = setup("/npc/JF-Down-3",Screen.tileSize, Screen.tileSize);
+		left1 = setup("/npc/JF-Left-1",Screen.tileSize, Screen.tileSize);
+		left2 = setup("/npc/JF-Left-2",Screen.tileSize, Screen.tileSize);
+		left3 = setup("/npc/JF-Left-3",Screen.tileSize, Screen.tileSize);
+		right1 = setup("/npc/JF-Right-1",Screen.tileSize, Screen.tileSize);
+		right2 = setup("/npc/JF-Right-2",Screen.tileSize, Screen.tileSize);
+		right3 = setup("/npc/JF-Right-3",Screen.tileSize, Screen.tileSize);
 	}
 	
 	public void setTextLines() {

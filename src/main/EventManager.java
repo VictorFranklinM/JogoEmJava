@@ -1,7 +1,5 @@
 package main;
 
-import java.awt.Rectangle;
-
 public class EventManager {
 	Screen screen;
 	EventArea eventArea[][];
@@ -12,12 +10,12 @@ public class EventManager {
 	public EventManager(Screen screen) {
 		this.screen = screen;
 		
-		eventArea = new EventArea[screen.maxWorldCol][screen.maxWorldRow];
+		eventArea = new EventArea[Screen.maxWorldCol][Screen.maxWorldRow];
 		
 		int col = 0;
 		int row = 0;
 		
-		while(col < screen.maxWorldCol && row < screen.maxWorldRow) {
+		while(col < Screen.maxWorldCol && row < Screen.maxWorldRow) {
 		
 			eventArea[col][row] = new EventArea();
 			eventArea[col][row].x = 23;
@@ -28,7 +26,7 @@ public class EventManager {
 			eventArea[col][row].eventAreaDefaultY = eventArea[col][row].y;
 			
 			col++;
-			if(col == screen.maxWorldCol) {
+			if(col == Screen.maxWorldCol) {
 				col = 0;
 				row++;
 			}
@@ -40,7 +38,7 @@ public class EventManager {
 		int yDistance = Math.abs(screen.player.worldY - lastEventY);
 		int distance = Math.max(xDistance, yDistance);
 		
-		if(distance > screen.tileSize) {
+		if(distance > Screen.tileSize) {
 			canTouchEvent = true;
 		}
 		
@@ -59,8 +57,8 @@ public class EventManager {
 		screen.player.collisionArea.x = screen.player.worldX + screen.player.collisionArea.x;
 		screen.player.collisionArea.y = screen.player.worldY + screen.player.collisionArea.y;
 		
-		eventArea[col][row].x = col*screen.tileSize + eventArea[col][row].x;
-		eventArea[col][row].y = row*screen.tileSize + eventArea[col][row].y;
+		eventArea[col][row].x = col*Screen.tileSize + eventArea[col][row].x;
+		eventArea[col][row].y = row*Screen.tileSize + eventArea[col][row].y;
 		
 		if(screen.player.collisionArea.intersects(eventArea[col][row]) && eventArea[col][row].eventDone == false) {
 			if(screen.player.facing.contentEquals(direction) || direction.contentEquals("any")) {
@@ -96,6 +94,7 @@ public class EventManager {
 			screen.playSFX(1);
 			screen.ui.currentSpeechLine = "You heal yourself!";
 			screen.player.hp = screen.player.maxHP;
+			screen.player.mana = screen.player.maxMana;
 			screen.npcPlacer.placeEnemy();
 		}
 	}
@@ -104,7 +103,7 @@ public class EventManager {
 		screen.gameState = gameState;
 		screen.playSFX(7);
 		screen.ui.currentSpeechLine = "You have been teleported!";
-		screen.player.worldX = screen.tileSize*50;
-		screen.player.worldY = screen.tileSize*32;
+		screen.player.worldX = Screen.tileSize*50;
+		screen.player.worldY = Screen.tileSize*32;
 	}
 }

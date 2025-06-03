@@ -1,4 +1,6 @@
-/entity/
 /object/
-/main/
 /spells/
+/entity/
+/main/
+/enemy/
+/tile/
