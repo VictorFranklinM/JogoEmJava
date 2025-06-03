@@ -332,4 +332,40 @@ public abstract class Entity   {
 			}
 		}
 	}
+	
+	public Color getParticleColor() {
+		Color color = null;
+		return color;
+	}
+	
+	public int getParticleSize() {
+		int size = 0;
+		return size;
+	}
+	
+	public int getParticleSpeed() {
+		int speed = 0;
+		return speed;
+	}
+	
+	public int getParticleMaxHp() {
+		int maxHP = 0;
+		return maxHP;
+	}
+	
+	public void generateParticle(Entity generator, Entity target) {
+		Color color = generator.getParticleColor();
+		int size = generator.getParticleSize();
+		int speed = generator.getParticleSpeed();
+		int maxHp = generator.getParticleMaxHp();
+		
+		Particle p1 = new Particle(screen, generator, color, size, speed, maxHp, -2, -1);
+		Particle p2 = new Particle(screen, generator, color, size, speed, maxHp, 2, 1);
+		Particle p3 = new Particle(screen, generator, color, size, speed, maxHp, -2, 1);
+		Particle p4 = new Particle(screen, generator, color, size, speed, maxHp, 2, -1);
+		screen.particleList.add(p1);
+		screen.particleList.add(p2);
+		screen.particleList.add(p3);
+		screen.particleList.add(p4);
+	}
 }

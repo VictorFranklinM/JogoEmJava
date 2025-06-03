@@ -41,6 +41,7 @@ public class TileOrganizer {
 		setup(5,"wall", true, Tile.noSoundIndex);
 		setup(6,"water", true, Tile.noSoundIndex);
 		setup(7,"grassTosnow", false, Tile.noSoundIndex);
+		setup(8,"tree", true, Tile.noSoundIndex);
 			
 	
 	}

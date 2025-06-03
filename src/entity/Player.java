@@ -264,13 +264,9 @@ public class Player extends Entity{
 		if(screen.key.shootKeyPressed && !projectile.alive && spellCooldown == 0 && projectile.haveResource(this)) {
 			
 			projectile.set(worldX, worldY, facing, true, this);
-			
 			projectile.subtractResource(this);
-			
 			screen.spellList.add(projectile);
-			
 			spellCooldown = 60;
-			
 			screen.playSFX(9);
 		}
 	    

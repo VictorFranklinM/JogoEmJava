@@ -1,5 +1,6 @@
 package object;
 
+import java.awt.Color;
 import java.awt.Rectangle;
 
 import entity.Entity;
@@ -61,4 +62,23 @@ public class Magic_WindBlast extends Projectile{
 		user.mana -= manaCost;
 	}
 
+	public Color getParticleColor() {
+		Color color = new Color(185, 219, 149);
+		return color;
+	}
+	
+	public int getParticleSize() {
+		int size = 6;
+		return size;
+	}
+	
+	public int getParticleSpeed() {
+		int speed = 1;
+		return speed;
+	}
+	
+	public int getParticleMaxHp() {
+		int maxHP = 20;
+		return maxHP;
+	}
 }
