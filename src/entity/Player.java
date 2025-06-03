@@ -327,31 +327,53 @@ public class Player extends Entity{
 	
 	public void pickUpObject(int index) {
 		if(index != 999) {
-			if(!screen.obj[index].collision) {
-				pickUpObjectNoCol(index);
-			}
-			else if(screen.obj[index].collision) {
-				pickUpObjectWithCol(index);
-			}
+			  if(screen.obj[index].type == typePickupOnly) {
+				  
+				  screen.obj[index].use(this);
+				  screen.obj[index] = null;  
+				  
+			  }
+			  else {
+				  
+				  if(!screen.obj[index].collision) {
+						pickUpObjectNoCol(index);
+					}
+					else if(screen.obj[index].collision) {
+						pickUpObjectWithCol(index);
+					  
+				}
+				  
+			  }
+	
 		}
 	}
+			
+
+			
+	
 	
 	public void pickUpObjectNoCol(int index) {
 		if(index != 999) {
-			String text;
 			
-			if(inventory.size() != inventorySize) {
-				inventory.add(screen.obj[index]);
-				screen.playSFX(1);
-				text = "Got " + screen.obj[index].name + "!";
-				screen.obj[index] = null;
+			
+				String text;
+				
+				if(inventory.size() != inventorySize) {
+					inventory.add(screen.obj[index]);
+					screen.playSFX(1);
+					text = "Got " + screen.obj[index].name + "!";
+					screen.obj[index] = null;
+				}
+				else {
+					text = "Your inventory is full!";
+				}
+				screen.ui.addMessage(text);
+			}	
+				
 			}
-			else {
-				text = "Your inventory is full!";
-			}
-			screen.ui.addMessage(text);
-		}
-	}
+			
+			
+	
 	
 	public void pickUpObjectWithCol(int index) {
 		if(index != 999 && screen.key.ePressed) {

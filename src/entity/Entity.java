@@ -58,6 +58,7 @@ public abstract class Entity   {
 	public final int typeEnemy = 2;
 	public final int typeMaga = 3;
 	public final int typeConsumable = 4;
+	public final int typePickupOnly =7;
 	
 	// Status
 	public String name;
@@ -78,6 +79,7 @@ public abstract class Entity   {
 	public Projectile projectile;
 	
 	// Item status
+	public int value;
 	public int manaCost;
 	public int attackValue;
 	public int defenseValue;
@@ -246,7 +248,7 @@ public abstract class Entity   {
 				deathAnimation(g2);
 			}
 			
-			g2.drawImage(image, screenX, screenY, Screen.tileSize, Screen.tileSize, null);
+			g2.drawImage(image, screenX, screenY, null);
 			changeSpriteOpacity(g2, 1f);
 		}
 		
