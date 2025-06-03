@@ -23,11 +23,13 @@ public class Magic_Fireball extends Projectile{
 		alive = false;
 		getImage();
 		
-	    collisionArea = new Rectangle();
 		collisionArea.x = (0 * Screen.scale);
-		collisionArea.y = (0 * Screen.scale);
-		collisionArea.width = (16 * Screen.scale);
-		collisionArea.height = (16 * Screen.scale);
+        collisionArea.y = (0 * Screen.scale);
+        collisionArea.width = (16 * Screen.scale);
+        collisionArea.height = (16 * Screen.scale);
+
+        collisionAreaDefaultX = collisionArea.x;
+        collisionAreaDefaultY = collisionArea.y;
 	}
 	
 	public void getImage() {

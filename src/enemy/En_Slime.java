@@ -5,6 +5,9 @@ import java.util.Random;
 
 import entity.Entity;
 import main.Screen;
+import object.OBJ_GreenMacca;
+import object.OBJ_ManaBottle;
+import object.OBJ_Medicine;
 
 
 
@@ -79,6 +82,23 @@ public class En_Slime extends Entity{
 		// Correr do jogador
 		actionLockCounter = 0;
 		facing = screen.player.facing;
+	}
+	
+	public void checkDrop() {
+		
+		// Chance
+		int i = new Random().nextInt(100)+1;
+		
+		// Set drops
+		if(i < 50) {
+			dropItem(new OBJ_GreenMacca(screen));
+		}
+		if(i >= 50 && i < 75) {
+			dropItem(new OBJ_Medicine(screen));
+		}
+		if(i >= 75 && i < 100) {
+			dropItem(new OBJ_ManaBottle(screen));
+		}
 	}
 }
 

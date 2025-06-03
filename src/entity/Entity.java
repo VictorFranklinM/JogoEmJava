@@ -58,7 +58,7 @@ public abstract class Entity   {
 	public final int typeEnemy = 2;
 	public final int typeMaga = 3;
 	public final int typeConsumable = 4;
-	public final int typePickupOnly =7;
+	public final int typePickupOnly = 5;
 	
 	// Status
 	public String name;
@@ -237,8 +237,6 @@ public abstract class Entity   {
 				}
 			}
 			
-			
-			
 			if(isInvincible == true) {
 				hpBarOn = true;
 				hpBarCounter = 0;
@@ -322,4 +320,16 @@ public abstract class Entity   {
 	
 	public void damageReaction() {}
 	
+	public void checkDrop() {}
+	
+	public void dropItem(Entity droppedItem) {
+		for(int i = 0; i < Screen.objPerScreen; i++) {
+			if(screen.obj[i] == null) {
+				screen.obj[i] = droppedItem;
+				screen.obj[i].worldX = worldX;
+				screen.obj[i].worldY = worldY;
+				break;
+			}
+		}
+	}
 }

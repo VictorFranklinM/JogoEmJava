@@ -1,10 +1,11 @@
 package main;
 
 import entity.Entity;
-import object.OBJ_Macca;
+import object.OBJ_GreenMacca;
 import object.OBJ_MagaBlue;
 import object.OBJ_MagaGreen;
 import object.OBJ_MagaRed;
+import object.OBJ_ManaBottle;
 import object.OBJ_Medicine;
 import object.OBJ_Mushroom;
 
@@ -32,11 +33,11 @@ public class ObjPlacer extends Entity {
 		screen.obj[3].worldX = 42 * Screen.tileSize;
 		screen.obj[3].worldY = 34 * Screen.tileSize;
 		
-		screen.obj[4] = new OBJ_Mushroom(screen);
+		screen.obj[4] = new OBJ_ManaBottle(screen);
 		screen.obj[4].worldX = 45 * Screen.tileSize;
 		screen.obj[4].worldY = 30 * Screen.tileSize;
 		
-		screen.obj[5] = new OBJ_Macca(screen);
+		screen.obj[5] = new OBJ_ManaBottle(screen);
 		screen.obj[5].worldX = 49 * Screen.tileSize;
 		screen.obj[5].worldY = 30 * Screen.tileSize;
 	}

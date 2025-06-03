@@ -4,14 +4,13 @@ import entity.Entity;
 import main.Screen;
 
 public class OBJ_Medicine extends Entity{
-
-	int value = 3;
 	
 	public OBJ_Medicine(Screen screen) {
 		super(screen);
 		type = typeConsumable;
 		
 		name = "Medicine";
+		value = 3;
 		description = "[" +name+ "]\n"
 					+ "An item that may be used to heal\nyou on difficult situations.\nIt's wise to always keep one.\n"
 					+ "+"+value+" hp!";

@@ -141,7 +141,9 @@ public class Player extends Entity{
 	    	screen.colCheck.checkTile(this);
 	    	
 	    	int objIndex = screen.colCheck.checkObject(this, true);
-	    	pickUpObject(objIndex);
+	    	if(objIndex < Screen.objPerScreen) {
+	    		pickUpObject(objIndex);
+	    	}
 	    	
 	    	int npcIndex = screen.colCheck.checkEntity(this, screen.npc);
 	    	interactNPC(npcIndex);
@@ -326,38 +328,23 @@ public class Player extends Entity{
 	}
 	
 	public void pickUpObject(int index) {
-		if(index != 999) {
-			  if(screen.obj[index].type == typePickupOnly) {
-				  
-				  screen.obj[index].use(this);
-				  screen.obj[index] = null;  
-				  
-			  }
-			  else {
-				  
-				  if(!screen.obj[index].collision) {
-						pickUpObjectNoCol(index);
-					}
-					else if(screen.obj[index].collision) {
-						pickUpObjectWithCol(index);
-					  
-				}
-				  
-			  }
-	
+		if(!screen.obj[index].collision) {
+			pickUpObjectNoCol(index);
+		}
+		else if(screen.obj[index].collision) {
+			pickUpObjectWithCol(index);
 		}
 	}
 			
-
-			
-	
-	
 	public void pickUpObjectNoCol(int index) {
 		if(index != 999) {
-			
-			
+			if(screen.obj[index].type == typePickupOnly) {
+				screen.obj[index].use(this);
+				screen.obj[index] = null;
+			}
+			else {
 				String text;
-				
+
 				if(inventory.size() != inventorySize) {
 					inventory.add(screen.obj[index]);
 					screen.playSFX(1);
@@ -368,9 +355,9 @@ public class Player extends Entity{
 					text = "Your inventory is full!";
 				}
 				screen.ui.addMessage(text);
-			}	
-				
 			}
+		}
+	}
 			
 			
 	

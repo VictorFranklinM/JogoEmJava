@@ -115,6 +115,7 @@ public class Screen extends JPanel implements Runnable{
     					enemy[i].update();
     				}
     				if(!enemy[i].alive) {
+    					enemy[i].checkDrop();
     					enemy[i] = null;
     				}
     			}

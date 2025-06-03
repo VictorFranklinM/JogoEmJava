@@ -18,10 +18,10 @@ public class EventManager {
 		while(col < Screen.maxWorldCol && row < Screen.maxWorldRow) {
 		
 			eventArea[col][row] = new EventArea();
-			eventArea[col][row].x = 23;
-			eventArea[col][row].y  = 23;
-			eventArea[col][row].width = 2;
-			eventArea[col][row].height = 2;
+			eventArea[col][row].x = 7*Screen.scale;
+			eventArea[col][row].y = 7*Screen.scale;
+			eventArea[col][row].width = 2*Screen.scale;
+			eventArea[col][row].height = 2*Screen.scale;
 			eventArea[col][row].eventAreaDefaultX = eventArea[col][row].x;
 			eventArea[col][row].eventAreaDefaultY = eventArea[col][row].y;
 			
@@ -83,6 +83,9 @@ public class EventManager {
 		screen.playSFX(6);
 		screen.ui.currentSpeechLine = "You fall into a pit!";
 		screen.player.hp -= 1;
+		
+		// eventArea[col][row].eventDone = true;
+		// Para eventos que só ocorrem 1 vez.
 		
 		canTouchEvent = false;
 	}
