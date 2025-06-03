@@ -4,6 +4,7 @@ import entity.NPC_BlackFrost;
 import entity.NPC_JackFrost;
 import enemy.En_Decarabia;
 import enemy.En_Fomorian;
+import enemy.En_Goblin;
 import enemy.En_Katakirauwa;
 import enemy.En_Slime;
 
@@ -32,7 +33,7 @@ public class NpcPlacer {
 		screen.enemy[i].worldX = 52 * Screen.tileSize;
 		screen.enemy[i].worldY = 33 * Screen.tileSize;
 		i++;
-		screen.enemy[i] = new En_Slime(screen);
+		screen.enemy[i] = new En_Goblin(screen);
 		screen.enemy[i].worldX = 53 * Screen.tileSize;
 		screen.enemy[i].worldY = 33 * Screen.tileSize;
 		i++;

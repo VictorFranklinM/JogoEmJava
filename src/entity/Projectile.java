@@ -30,7 +30,12 @@ public class Projectile extends Entity{
 			}
 		}
 		if(user != screen.player) {
-			
+			boolean contactPlayer = screen.colCheck.checkPlayer(this);
+			if(!screen.player.isInvincible && contactPlayer) {
+				damagePlayer(attack);
+				alive = false;
+				return;
+			}
 		}
 		
 		switch(facing) {
