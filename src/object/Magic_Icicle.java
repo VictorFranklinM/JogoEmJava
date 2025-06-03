@@ -19,7 +19,7 @@ public class Magic_Icicle extends Projectile{
 		maxHP = 100;
 		hp = maxHP;
 		manaCost = 1;
-		attack = (int) (screen.player.dexterity*1.5);
+		attack = (int) (screen.player.dexterity*2.5);
 		alive = false;
 		getImage();
 		

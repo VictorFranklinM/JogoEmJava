@@ -10,16 +10,18 @@ public class OBJ_MagaGreen extends Entity{
 		super(screen);
 		type = typeMaga;
 		
+		Magic_WindBlast wind = new Magic_WindBlast(screen);
+		
 		name = "Force Magatama";
 		
 		attackValue = 1;
 		defenseValue = 1;
 		description = "[" +name+ "]\n"
 					+ "A  Magatama of the force attribute!\n+"
-					+ attackValue + " attack!\n+"
+					+ attackValue + " physical attack!\n+"
 					+ defenseValue + " defense!\n"
-					+ "Lets you enter the fire realm!\n"
-					+ "Lets you use force magic!";
+					+ "[Force Spell]\n"+wind.attack+" attack!\n"+wind.manaCost+" MP!";
+					
 		
 		down1 = setup("/objects/greenmaga",Screen.tileSize, Screen.tileSize);
 		collisionArea.x = (2 * Screen.scale);
