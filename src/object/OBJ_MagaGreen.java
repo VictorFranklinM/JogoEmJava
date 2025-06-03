@@ -17,7 +17,7 @@ public class OBJ_MagaGreen extends Entity{
 		attackValue = 1;
 		defenseValue = 1;
 		description = "[" +name+ "]\n"
-					+ "A  Magatama of the force attribute!\n+"
+					+ "A Magatama of the force attribute!\n+"
 					+ attackValue + " physical attack!\n+"
 					+ defenseValue + " defense!\n"
 					+ "[Force Spell]\n"+wind.attack+" attack!\n"+wind.manaCost+" MP!";

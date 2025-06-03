@@ -14,7 +14,7 @@ public class OBJ_Mushroom extends Entity{
 		
 		name = "Mushroom";
 		description = "[" +name+ "]\n"
-					+ "An item that may be used to heal\nyou.\nNot as useful as medicine, but it \nstill can save your skin.\n"
+					+ "An item that may be used to heal\nyou. Not as useful as medicine, but\nit still can save your skin.\n"
 					+ "+"+value+" hp!";
 		
 		down1 = setup("/objects/mushroom",Screen.tileSize, Screen.tileSize);
