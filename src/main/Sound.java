@@ -14,9 +14,7 @@ public class Sound {
 	FloatControl fc;
 	int volumeScale = 3;
 	float volume;
-	
-	
-	
+
 	public Sound() {
 		soundURL[0] = getClass().getResource("/sound/coin.wav");
 		soundURL[1] = getClass().getResource("/sound/powerup.wav");	
@@ -38,8 +36,6 @@ public class Sound {
 			
 			fc = (FloatControl)clip.getControl(FloatControl.Type.MASTER_GAIN);
 			checkVolume();
-			
-			
 			
 		} catch (Exception e) {
 			System.out.println("Invalid music path.");
@@ -92,7 +88,5 @@ public class Sound {
 		case 5: volume = 6F;  break;
 		}
 		fc.setValue(volume);
-		
-		
 	}
 }

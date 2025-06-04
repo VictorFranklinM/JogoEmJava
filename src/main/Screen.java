@@ -69,10 +69,9 @@ public class Screen extends JPanel implements Runnable{
 	public int gameState;
 	public final int titleState = 0;
 	public final int playState = 1;
-	public final int pauseState = 2;
-	public final int dialogueState = 3;
-	public final int statusState = 4;
-	public final int optionsState =5;
+	public final int dialogueState = 2;
+	public final int statusState = 3;
+	public final int optionsState = 4;
 	
 	int fps = 60; // Quantas vezes a tela vai ser atualizada por segundo.
 	
@@ -145,10 +144,6 @@ public class Screen extends JPanel implements Runnable{
     			}
     		}
 
-    	}
-    	// PAUSE STATE
-    	if(gameState==pauseState) {
-    		tsm.stopTileSound();
     	}
     }
     

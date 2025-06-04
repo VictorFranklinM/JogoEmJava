@@ -36,11 +36,6 @@ public class KeyInput implements KeyListener {
 			playState(code);
 		}
 		
-		//ESTADO DE PAUSA
-		else if(screen.gameState == screen.pauseState) {
-			pauseState(code);
-		}
-		
 		//DIALOGUE STATE
 		else if(screen.gameState == screen.dialogueState) {
 			dialogueState(code);
@@ -76,7 +71,7 @@ public class KeyInput implements KeyListener {
 	    		
 	    		screen.playSFX(1);
 	    		screen.stopMusic();
-	    		screen.playMusic(4);
+	    		screen.playMusic(2);
 	    	}
 	    	if(screen.ui.commandNum == 1) {
 	    		//add later
@@ -85,14 +80,10 @@ public class KeyInput implements KeyListener {
 	    		System.exit(0);
 	    	}
 	    }
-	    }
+	}
 	   
-    			  
-    	   
-	
 	public void optionsState(int code) {
-	    if(code == KeyEvent.VK_G) {
-	        
+	    if(code == KeyEvent.VK_ESCAPE) {
 	            screen.gameState = screen.playState; 
 	        }
 	    
@@ -102,12 +93,13 @@ public class KeyInput implements KeyListener {
 
 	    int maxCommandNum = 0;
 	    switch(screen.ui.subState) {
-	        case 0: maxCommandNum = 5;
+	        case 0: maxCommandNum = 4; break;
+	        case 2: maxCommandNum = 1; break;
 	    }
 
 	    if(code == KeyEvent.VK_W) {
 	        screen.ui.commandNum--;
-	        screen.playSFX(1);
+	        screen.playSFX(8);
 	        if(screen.ui.commandNum < 0) {
 	            screen.ui.commandNum = maxCommandNum;
 	        }
@@ -115,7 +107,7 @@ public class KeyInput implements KeyListener {
 
 	    if(code == KeyEvent.VK_S) {
 	        screen.ui.commandNum++;
-	        screen.playSFX(1);
+	        screen.playSFX(8);
 	        if(screen.ui.commandNum > maxCommandNum) {
 	            screen.ui.commandNum = 0;
 	        }
@@ -123,38 +115,36 @@ public class KeyInput implements KeyListener {
 
 	  
 	    if(code == KeyEvent.VK_A) {
-	        if(screen.ui.commandNum == 0 && screen.music.volumeScale > 0) {
-	            screen.music.volumeScale--;
-	            screen.music.checkVolume();
-	            screen.playSFX(1);
-	        }
-	        if(screen.ui.commandNum == 1 && screen.sfx.volumeScale > 0) {
-	            screen.sfx.volumeScale--;
-	            screen.playSFX(1);
-	            
-	           
+	    	if(screen.ui.subState == 0) {
+	    		if(screen.ui.commandNum == 0 && screen.music.volumeScale > 0) {
+	    			screen.music.volumeScale--;
+	    			screen.music.checkVolume();
+	    			screen.playSFX(8);
+	    		}
+	    		if(screen.ui.commandNum == 1 && screen.sfx.volumeScale > 0) {
+	    			screen.sfx.volumeScale--;
+	    			screen.playSFX(8);
+	    		}
 	        }
 	    }
 
 	    if(code == KeyEvent.VK_D) {
-	        if(screen.ui.commandNum == 0 && screen.music.volumeScale < 5) {
+	    	if(screen.ui.subState == 0) {
+	    		if(screen.ui.commandNum == 0 && screen.music.volumeScale < 5) {
 	            screen.music.volumeScale++;
 	            screen.music.checkVolume();
-	            screen.playSFX(1);
-	        }
-	        if(screen.ui.commandNum == 1 && screen.sfx.volumeScale < 5) {
-	            screen.sfx.volumeScale++;
-	            screen.playSFX(1);
-	            
-	            
-	        }
+	            screen.playSFX(8);
+	    		}
+	    		if(screen.ui.commandNum == 1 && screen.sfx.volumeScale < 5) {
+	    			screen.sfx.volumeScale++;
+	    			screen.playSFX(8);
+	    		}
+	    	}
+	        
 	        
 	    }
 	}
 
-  	
-	    	
-	    
 	public void playState(int code) {
 		if(code == KeyEvent.VK_W) {
 			upHold = true;
@@ -175,9 +165,6 @@ public class KeyInput implements KeyListener {
 			ePressed = true;
 		}
 		
-		if(code == KeyEvent.VK_ESCAPE) {
-			screen.gameState = screen.pauseState;
-		}
 		if(code == KeyEvent.VK_ENTER) {
 			screen.gameState = screen.statusState;
 		}
@@ -193,14 +180,8 @@ public class KeyInput implements KeyListener {
 		if(code == KeyEvent.VK_F && screen.player.currentMagatama != null) {
 			shootKeyPressed = true;
 		}
-		if(code == KeyEvent.VK_G) {
-			screen.gameState = screen.optionsState;
-		}
-	}
-	
-	public void pauseState(int code) {
 		if(code == KeyEvent.VK_ESCAPE) {
-			screen.gameState = screen.playState;
+			screen.gameState = screen.optionsState;
 		}
 	}
 	
@@ -265,6 +246,12 @@ public class KeyInput implements KeyListener {
 		}
 		if(code == KeyEvent.VK_F && shootKeyPressed) {
 			shootKeyPressed = false;
+		}
+		if(code == KeyEvent.VK_ENTER) {
+			enterPressed = false;
+		}
+		if(code == KeyEvent.VK_E) {
+			ePressed = false;
 		}
 	}
 		
