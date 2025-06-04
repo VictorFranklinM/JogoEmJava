@@ -256,9 +256,7 @@ public class UI {
 			 g2.drawString(">", x-(Screen.tileSize/2), y);
 				 
 			 }
-		
-	
-	
+
 	}
 	
 	public void drawDialogueScreen() {
@@ -519,9 +517,10 @@ public class UI {
 		g2.drawString("Controls", textX, textY);
 		if (commandNum == 2) {
 			g2.drawString(">", textX-25, textY);
-			if(screen.key.enterPressed) {
+			if(screen.key.enterPressed && !screen.key.enterProcessed) {
 				subState = 1;
 				commandNum = 0;
+				screen.key.enterProcessed = true;
 			}
 		}
 		//END GAME
@@ -529,9 +528,10 @@ public class UI {
 		g2.drawString("End Game ", textX, textY);
 		if (commandNum == 3) {
 			g2.drawString(">", textX-25, textY);
-			if(screen.key.enterPressed) {
+			if(screen.key.enterPressed && !screen.key.enterProcessed) {
 				subState = 2;
 				commandNum = 0;
+				screen.key.enterProcessed = true;
 			}
 		}
 		//BACK
@@ -539,9 +539,10 @@ public class UI {
 		g2.drawString("Back ", textX, textY);
 		if (commandNum == 4) {
 			g2.drawString(">", textX-25, textY);
-			if(screen.key.enterPressed) {
+			if(screen.key.enterPressed && !screen.key.enterProcessed) {
 				screen.gameState = screen.playState;
 				commandNum = 0;
+				screen.key.enterProcessed = true;
 			}
 		}
 		
@@ -594,16 +595,17 @@ public class UI {
 		g2.drawString("Back", textX, textY);
 		if(commandNum == 0) {
 			g2.drawString(">", textX-25, textY);
-			if(screen.key.enterPressed) {
+			if(screen.key.enterPressed && !screen.key.enterProcessed) {
 				subState = 0;
 				commandNum = 2;
+				screen.key.enterProcessed = true;
 			}
 		}
 	}
 	
 	public void optionsEndGame(int frameX, int frameY) {
 		int textX = frameX + Screen.tileSize;;
-		int textY = Screen.tileSize*3;;
+		int textY = Screen.tileSize*2;;
 		
 		currentSpeechLine = "Quit the game and return to\nthe title screen?";
 		for(String line: currentSpeechLine.split("\n")) {
@@ -618,9 +620,10 @@ public class UI {
 		g2.drawString(text, textX, textY);
 		if(commandNum == 0) {
 			g2.drawString(">", textX-25, textY);
-			if(screen.key.enterPressed) {
+			if(screen.key.enterPressed && !screen.key.enterProcessed) {
 				subState = 0;
 				screen.gameState = screen.titleState;
+				screen.key.enterProcessed = true;
 			}
 		}
 		
@@ -630,9 +633,10 @@ public class UI {
 		g2.drawString(text, textX, textY);
 		if(commandNum == 1) {
 			g2.drawString(">", textX-25, textY);
-			if(screen.key.enterPressed) {
+			if(screen.key.enterPressed && !screen.key.enterProcessed) {
 				subState = 0;
 				commandNum = 3;
+				screen.key.enterProcessed = true;
 			}
 		}
 	}
