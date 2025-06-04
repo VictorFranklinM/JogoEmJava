@@ -92,10 +92,10 @@ public class KeyInput implements KeyListener {
 	
 	public void optionsState(int code) {
 	    if(code == KeyEvent.VK_G) {
-	        if (screen.ui.commandNum == 0) {
+	        
 	            screen.gameState = screen.playState; 
 	        }
-	    }
+	    
 	    if(code == KeyEvent.VK_ENTER) {
 	        enterPressed = true;
 	    }
@@ -131,6 +131,8 @@ public class KeyInput implements KeyListener {
 	        if(screen.ui.commandNum == 1 && screen.sfx.volumeScale > 0) {
 	            screen.sfx.volumeScale--;
 	            screen.playSFX(1);
+	            
+	           
 	        }
 	    }
 
@@ -143,7 +145,10 @@ public class KeyInput implements KeyListener {
 	        if(screen.ui.commandNum == 1 && screen.sfx.volumeScale < 5) {
 	            screen.sfx.volumeScale++;
 	            screen.playSFX(1);
+	            
+	            
 	        }
+	        
 	    }
 	}
 
