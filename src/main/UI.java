@@ -40,6 +40,7 @@ public class UI {
 	
 	public int slotCol = 0;
 	public int slotRow = 0;
+	int subState = 0;
 	
 	public UI(Screen screen) {
 		this.screen = screen;
@@ -102,7 +103,14 @@ public class UI {
 			drawStatusScreen();
 			drawInventory();
 		}
+		//OPTIONS STATE
+		if(screen.gameState == screen.optionsState) {
+			drawOptionsScreen();
+			
+		}
+		
 	}
+	
 
 	public void drawMessage() {
 		int messageX = Screen.tileSize/2 + Screen.scale;
@@ -475,6 +483,91 @@ public class UI {
 			}
 		}
 	}
+	public void drawOptionsScreen () {
+		
+		g2.setColor(Color.white);
+		g2.setFont(g2.getFont().deriveFont(32F));
+		
+		// SUB WINDOW
+		int dFrameX = Screen.tileSize*10;
+		int dFrameY = Screen.tileSize*4;
+		int dFrameWidth = Screen.tileSize*10;
+		int dFrameHeight = Screen.tileSize*10;
+		drawSubWindow(dFrameX, dFrameY, dFrameWidth, dFrameHeight);
+		
+		switch (subState) {
+		case 0: options_top (dFrameX, dFrameY); break;
+		case 1: break;
+		case 2: break;
+		
+		}
+	}
+	public void options_top (int dframeX, int dFrameY) {
+		
+		int textX;
+		int textY;
+		
+		//TITLE
+		String text = "Options";
+		textX = getCenteredX(text);
+		textY = dFrameY + Screen.tileSize;
+		g2.drawString(text, textX, textY);
+		
+		// MUSIC
+		textY += Screen.tileSize;
+		g2.drawString("Music", textX, textY);
+		if (commandNum == 0) {
+			g2.drawString(">", textX-25, textY);
+		}
+		
+		//SE
+		textY += Screen.tileSize;
+		g2.drawString("SFX", textX, textY);
+		if (commandNum == 1) {
+			g2.drawString(">", textX-25, textY);
+		}
+		//CONTROL
+		textY += Screen.tileSize;
+		g2.drawString("Control", textX, textY);
+		if (commandNum == 2) {
+			g2.drawString(">", textX-25, textY);
+		}
+		//ENT GAME
+		textY += Screen.tileSize;
+		g2.drawString("End Game ", textX, textY);
+		if (commandNum == 3) {
+			g2.drawString(">", textX-25, textY);
+		}
+		//BACK
+		textY += Screen.tileSize*4;
+		g2.drawString("Back ", textX, textY);
+		if (commandNum == 4) {
+			g2.drawString(">", textX-25, textY);
+		}
+		
+		//MUSIC VOLUME
+		textX = dframeX + (int) (Screen.tileSize*6.0);
+		textY = dFrameY +(int) (Screen.tileSize*1.4 + 24);
+		g2.setStroke(new BasicStroke(3));
+		g2.drawRect(textX, textY, 120, 24);
+		int volumeWidth = 24 * screen.music.volumeScale;
+		g2.fillRect(textX, textY, volumeWidth, 24);
+		
+		
+		//SE VOLUME
+		textY += Screen.tileSize;
+		g2.drawRect(textX, textY, 120, 24);
+		volumeWidth = 24* screen.sfx.volumeScale;
+		g2.fillRect(textX, textY, volumeWidth, 24);
+
+	    
+			
+		
+		}
+		
+
+	
+	
 	
 	public int getItemIndexOnSlot() {
 		int itemIndex = slotCol + (slotRow*6);
@@ -513,4 +606,3 @@ public class UI {
 		return face;
 	}
 }
-

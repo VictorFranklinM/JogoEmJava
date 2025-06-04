@@ -49,6 +49,10 @@ public class KeyInput implements KeyListener {
 		else if(screen.gameState == screen.statusState) {
 			statusState(code);
 		}
+		//OPTIONS STATE
+		else if(screen.gameState == screen.optionsState) {
+			optionsState(code);
+		}
 	}
 	
 	public void titleState(int code) {
@@ -69,9 +73,10 @@ public class KeyInput implements KeyListener {
 	    if(code == KeyEvent.VK_ENTER) {
 	    	if(screen.ui.commandNum == 0) {
 	    		screen.gameState = screen.playState;
+	    		
 	    		screen.playSFX(1);
 	    		screen.stopMusic();
-	    		screen.playMusic(2);
+	    		screen.playMusic(4);
 	    	}
 	    	if(screen.ui.commandNum == 1) {
 	    		//add later
@@ -80,8 +85,71 @@ public class KeyInput implements KeyListener {
 	    		System.exit(0);
 	    	}
 	    }
+	    }
+	   
+    			  
+    	   
+	
+	public void optionsState(int code) {
+	    if(code == KeyEvent.VK_G) {
+	        if (screen.ui.commandNum == 0) {
+	            screen.gameState = screen.playState; 
+	        }
+	    }
+	    if(code == KeyEvent.VK_ENTER) {
+	        enterPressed = true;
+	    }
+
+	    int maxCommandNum = 0;
+	    switch(screen.ui.subState) {
+	        case 0: maxCommandNum = 5;
+	    }
+
+	    if(code == KeyEvent.VK_W) {
+	        screen.ui.commandNum--;
+	        screen.playSFX(1);
+	        if(screen.ui.commandNum < 0) {
+	            screen.ui.commandNum = maxCommandNum;
+	        }
+	    }
+
+	    if(code == KeyEvent.VK_S) {
+	        screen.ui.commandNum++;
+	        screen.playSFX(1);
+	        if(screen.ui.commandNum > maxCommandNum) {
+	            screen.ui.commandNum = 0;
+	        }
+	    }
+
+	  
+	    if(code == KeyEvent.VK_A) {
+	        if(screen.ui.commandNum == 0 && screen.music.volumeScale > 0) {
+	            screen.music.volumeScale--;
+	            screen.music.checkVolume();
+	            screen.playSFX(1);
+	        }
+	        if(screen.ui.commandNum == 1 && screen.sfx.volumeScale > 0) {
+	            screen.sfx.volumeScale--;
+	            screen.playSFX(1);
+	        }
+	    }
+
+	    if(code == KeyEvent.VK_D) {
+	        if(screen.ui.commandNum == 0 && screen.music.volumeScale < 5) {
+	            screen.music.volumeScale++;
+	            screen.music.checkVolume();
+	            screen.playSFX(1);
+	        }
+	        if(screen.ui.commandNum == 1 && screen.sfx.volumeScale < 5) {
+	            screen.sfx.volumeScale++;
+	            screen.playSFX(1);
+	        }
+	    }
 	}
 
+  	
+	    	
+	    
 	public void playState(int code) {
 		if(code == KeyEvent.VK_W) {
 			upHold = true;
@@ -120,8 +188,11 @@ public class KeyInput implements KeyListener {
 		if(code == KeyEvent.VK_F && screen.player.currentMagatama != null) {
 			shootKeyPressed = true;
 		}
+		if(code == KeyEvent.VK_G) {
+			screen.gameState = screen.optionsState;
+		}
 	}
-
+	
 	public void pauseState(int code) {
 		if(code == KeyEvent.VK_ESCAPE) {
 			screen.gameState = screen.playState;
@@ -193,5 +264,4 @@ public class KeyInput implements KeyListener {
 	}
 		
 }
-
 

@@ -72,6 +72,7 @@ public class Screen extends JPanel implements Runnable{
 	public final int pauseState = 2;
 	public final int dialogueState = 3;
 	public final int statusState = 4;
+	public final int optionsState =5;
 	
 	int fps = 60; // Quantas vezes a tela vai ser atualizada por segundo.
 	
