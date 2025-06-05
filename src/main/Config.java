@@ -44,6 +44,7 @@ public class Config {
 			// SFX
 			s = br.readLine();
 			screen.sfx.volumeScale = Integer.parseInt(s);
+			screen.tsm.updateVolume(screen.sfx);
 			
 			br.close();
 			

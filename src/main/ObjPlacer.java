@@ -18,28 +18,28 @@ public class ObjPlacer extends Entity {
 	
 	public void placeObject() {
 		screen.obj[0] = new OBJ_MagaGreen(screen);
-		screen.obj[0].worldX = 48 * Screen.tileSize;
-		screen.obj[0].worldY = 29 * Screen.tileSize;
+		screen.obj[0].worldX = 17 * Screen.tileSize;
+		screen.obj[0].worldY = 34 * Screen.tileSize;
 			
 		screen.obj[1] = new OBJ_MagaRed(screen);
-		screen.obj[1].worldX = 48 * Screen.tileSize;
-		screen.obj[1].worldY = 33 * Screen.tileSize;
+		screen.obj[1].worldX = 18 * Screen.tileSize;
+		screen.obj[1].worldY = 34 * Screen.tileSize;
 			
 		screen.obj[2] = new OBJ_MagaBlue(screen);
-		screen.obj[2].worldX = 44 * Screen.tileSize;
-		screen.obj[2].worldY = 29 * Screen.tileSize;
+		screen.obj[2].worldX = 19 * Screen.tileSize;
+		screen.obj[2].worldY = 34 * Screen.tileSize;
 		
 		screen.obj[3] = new OBJ_Medicine(screen);
-		screen.obj[3].worldX = 42 * Screen.tileSize;
+		screen.obj[3].worldX = 20 * Screen.tileSize;
 		screen.obj[3].worldY = 34 * Screen.tileSize;
 		
-		screen.obj[4] = new OBJ_ManaBottle(screen);
-		screen.obj[4].worldX = 45 * Screen.tileSize;
-		screen.obj[4].worldY = 30 * Screen.tileSize;
+		screen.obj[4] = new OBJ_Mushroom(screen);
+		screen.obj[4].worldX = 21 * Screen.tileSize;
+		screen.obj[4].worldY = 34 * Screen.tileSize;
 		
 		screen.obj[5] = new OBJ_ManaBottle(screen);
-		screen.obj[5].worldX = 49 * Screen.tileSize;
-		screen.obj[5].worldY = 30 * Screen.tileSize;
+		screen.obj[5].worldX = 22 * Screen.tileSize;
+		screen.obj[5].worldY = 34 * Screen.tileSize;
 	}
 	public void getImage(){
 		

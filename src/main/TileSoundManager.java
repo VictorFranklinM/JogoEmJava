@@ -1,5 +1,7 @@
 package main;
 
+import javax.sound.sampled.FloatControl;
+
 public class TileSoundManager {
     Screen screen;
     Sound tileSound = new Sound();
@@ -9,6 +11,10 @@ public class TileSoundManager {
     private int lastTileCol = -1;
 	private int lastTileRow = -1;
 	private int lastTileSoundIndex = -1;
+	
+	FloatControl fc;
+	int volumeScale = 3;
+	float volume;
 
 	private boolean wasMoving = false;
 	
@@ -76,5 +82,9 @@ public class TileSoundManager {
 	
 	public void stopTileSound() {
 		tileSound.stop();
+	}
+	
+	public void updateVolume(Sound sfx) {
+	    this.tileSound.volumeScale = sfx.volumeScale;
 	}
 }

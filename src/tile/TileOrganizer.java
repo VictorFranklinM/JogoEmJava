@@ -22,7 +22,7 @@ public class TileOrganizer {
 		
 		this.screen = screen;
 		
-		tile = new Tile[10]; //Quantidade maxima de tiles que podem ser usados, alterar conforme necessidade;
+		tile = new Tile[20]; //Quantidade maxima de tiles que podem ser usados, alterar conforme necessidade;
 		
 		mapTileNum = new int [Screen.maxWorldCol][Screen.maxWorldRow]; // Inicializa a matriz do mapa
 		
@@ -32,16 +32,34 @@ public class TileOrganizer {
 	
 	// Metodo para carregar as imagens dos tiles
 	public void getTileImage() {
-		// Carregando diferentes tipos de tiles, quantidade maxima definida acima em tile
-		setup(0,"magma", false, Tile.noSoundIndex);
-		setup(1,"snow", false, Tile.noSoundIndex);
-		setup(2,"grass", false, 3);
-		setup(3,"sand", false, Tile.noSoundIndex);
-		setup(4,"stone", false, Tile.noSoundIndex);
-		setup(5,"wall", true, Tile.noSoundIndex);
-		setup(6,"water", true, Tile.noSoundIndex);
-		setup(7,"grassTosnow", false, Tile.noSoundIndex);
-		setup(8,"tree", true, Tile.noSoundIndex);
+		int i = 0;
+		
+		setup(i,"dungeonBG", false, Tile.noSoundIndex);
+		i++;
+		setup(i,"dungeonEntrance", true, Tile.noSoundIndex);
+		i++;
+		setup(i,"dungeonRoof", true, Tile.noSoundIndex);
+		i++;
+		setup(i,"grass", false, 3);
+		i++;
+		setup(i,"grassTosnow", false, Tile.noSoundIndex);
+		i++;
+		setup(i,"magma", false, Tile.noSoundIndex);
+		i++;
+		setup(i,"sand", false, Tile.noSoundIndex);
+		i++;
+		setup(i,"snow", false, Tile.noSoundIndex);
+		i++;
+		setup(i,"stone", false, Tile.noSoundIndex);
+		i++;
+		setup(i,"tree", true, Tile.noSoundIndex);
+		i++;
+		setup(i,"treeTrunk", true, Tile.noSoundIndex);
+		i++;
+		setup(i,"wall", true, Tile.noSoundIndex);
+		i++;
+		setup(i,"water", true, Tile.noSoundIndex);
+		i++;
 			
 	
 	}

@@ -128,6 +128,7 @@ public class KeyInput implements KeyListener {
 	    		}
 	    		if(screen.ui.commandNum == 1 && screen.sfx.volumeScale > 0) {
 	    			screen.sfx.volumeScale--;
+	    			screen.tsm.updateVolume(screen.sfx);
 	    			screen.playSFX(8);
 	    		}
 	        }
@@ -142,6 +143,7 @@ public class KeyInput implements KeyListener {
 	    		}
 	    		if(screen.ui.commandNum == 1 && screen.sfx.volumeScale < 5) {
 	    			screen.sfx.volumeScale++;
+	    			screen.tsm.updateVolume(screen.sfx);
 	    			screen.playSFX(8);
 	    		}
 	    	}

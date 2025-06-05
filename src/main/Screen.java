@@ -29,13 +29,13 @@ public class Screen extends JPanel implements Runnable{
 	public static final int scale = 4; // Escala dos pixels.
 	public static final int tileSize = originalTileSize * scale; // Tile redimensionado.
 	
-	public static final int horizontalTiles = 22; // Quantos tiles horizontais cabem na tela.
+	public static final int horizontalTiles = 20; // Quantos tiles horizontais cabem na tela.
 	public static final int verticalTiles = 12; // Quantos tiles verticais cabem na tela.
 	
-	public static final int maxWorldCol = 100;
-	public static final int maxWorldRow = 100;
-	public static final int worldWidth = tileSize * maxWorldCol;
-	public static final int worldHeight = tileSize * maxWorldRow;
+	public static final int maxWorldCol = 250;
+	public static final int maxWorldRow = 250;
+	public static final int maxMap = 10;
+	public static int currentMap = 0;
 	
 	public static final int objPerScreen = 10;
 	public static final int npcPerScreen = 10;

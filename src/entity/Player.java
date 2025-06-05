@@ -62,8 +62,8 @@ public class Player extends Entity{
 	
 	public void setDefaultValues() {
 		// World X e Y sao onde o personagem do player aparecera no mapa inicialmente.
-		worldX = Screen.tileSize * 46; // LEMBRAR DE MUDAR SETDEFAULTPOSITIONS()
-		worldY = Screen.tileSize * 29;
+		worldX = Screen.tileSize * 25; // LEMBRAR DE MUDAR SETDEFAULTPOSITIONS()
+		worldY = Screen.tileSize * 37;
 		speed = defaultSpeed;
 		facing = "down";
 		
@@ -90,8 +90,8 @@ public class Player extends Entity{
 	}
 	
 	public void setDefaultPositions() {
-		worldX = Screen.tileSize * 46; // MUDAR NA VERSÃO FINAL DO JOGO
-		worldY = Screen.tileSize * 29;
+		worldX = Screen.tileSize * 25; // MUDAR NA VERSÃO FINAL DO JOGO
+		worldY = Screen.tileSize * 37;
 		facing = "down";
 	}
 	

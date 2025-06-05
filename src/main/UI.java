@@ -263,6 +263,13 @@ public class UI {
 			count++;
 			x += (8*Screen.scale);
 		}
+		if(screen.player.currentMagatama != null) {
+			x = Screen.tileSize/2 + Screen.scale;
+			y = (int) (Screen.tileSize*2.5);
+			drawSubWindow(x-1, y-1, Screen.tileSize+2, Screen.tileSize+2);
+			g2.drawImage(screen.player.currentMagatama.down1, x, y, null);
+		}
+		
 	}
 	
 	public void drawTitleScreen() {

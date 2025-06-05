@@ -43,9 +43,9 @@ public class EventManager {
 		}
 		
 		if(canTouchEvent == true) {
-			if(hit(46, 28, "any") == true) {damagePit(46, 28, screen.dialogueState);}
-			if(hit(46, 27, "any") == true) {teleportPoint(46, 27, screen.dialogueState);}
-			if(hit(46, 26, "any") == true) {healingPoint(46, 26, screen.dialogueState);}
+			//if(hit(46, 28, "any") == true) {damagePit(46, 28, screen.dialogueState);}
+			//if(hit(46, 27, "any") == true) {teleportPoint(46, 27, screen.dialogueState);}
+			//if(hit(46, 26, "any") == true) {healingPoint(46, 26, screen.dialogueState);}
 		}
 		
 		
