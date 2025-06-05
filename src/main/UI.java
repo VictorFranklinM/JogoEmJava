@@ -520,6 +520,7 @@ public class UI {
 			if(screen.key.enterPressed && !screen.key.enterProcessed) {
 				subState = 1;
 				commandNum = 0;
+				screen.playSFX(1);
 				screen.key.enterProcessed = true;
 			}
 		}
@@ -531,6 +532,7 @@ public class UI {
 			if(screen.key.enterPressed && !screen.key.enterProcessed) {
 				subState = 2;
 				commandNum = 0;
+				screen.playSFX(1);
 				screen.key.enterProcessed = true;
 			}
 		}
@@ -542,6 +544,7 @@ public class UI {
 			if(screen.key.enterPressed && !screen.key.enterProcessed) {
 				screen.gameState = screen.playState;
 				commandNum = 0;
+				screen.playSFX(1);
 				screen.key.enterProcessed = true;
 			}
 		}
@@ -559,7 +562,8 @@ public class UI {
 		g2.drawRect(textX, textY, 250, 24);
 		volumeWidth = 50 * screen.sfx.volumeScale;
 		g2.fillRect(textX, textY, volumeWidth, 24);
-
+		
+		screen.config.saveConfig();
 		}
 	
 	public void optionsControl(int frameX, int frameY) {
@@ -598,6 +602,7 @@ public class UI {
 			if(screen.key.enterPressed && !screen.key.enterProcessed) {
 				subState = 0;
 				commandNum = 2;
+				screen.playSFX(1);
 				screen.key.enterProcessed = true;
 			}
 		}
@@ -623,6 +628,7 @@ public class UI {
 			if(screen.key.enterPressed && !screen.key.enterProcessed) {
 				subState = 0;
 				screen.gameState = screen.titleState;
+				screen.playSFX(1);
 				screen.key.enterProcessed = true;
 			}
 		}
@@ -636,6 +642,7 @@ public class UI {
 			if(screen.key.enterPressed && !screen.key.enterProcessed) {
 				subState = 0;
 				commandNum = 3;
+				screen.playSFX(1);
 				screen.key.enterProcessed = true;
 			}
 		}

@@ -49,6 +49,7 @@ public class Screen extends JPanel implements Runnable{
 	TileOrganizer tileM = new TileOrganizer(this);
 	public KeyInput key = new KeyInput(this);
 	Thread gameThread; // Cria uma linha de execucao secundaria para executar um codigo em segundo plano por cima do clock base.
+	Config config = new Config(this);
 	
 	public UI ui = new UI(this);
 	

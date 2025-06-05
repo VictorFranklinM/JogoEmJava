@@ -8,8 +8,9 @@ public class Main {
 		JFrame window = new JFrame(); // Cria a janela do jogo com a classe JFrame.
 		Screen screen = new Screen(); // Instanciando nossa classe Screen na main.
 		
-		window.add(screen); /* Adicionando as features do objeto screen dentro do objeto window. 
-			Window é apenas a janela do aplicativo, enquanto screen é a interface. */
+		window.add(screen);
+		
+		screen.config.loadConfig();
 		
 		window.setTitle("Shin Megami Tensei: Persona VI"); // Nome da Janela.
 		window.setUndecorated(true); // Tira as bordas da janela.
