@@ -78,6 +78,7 @@ public class UI {
 		
 		//TITLE STATE
 		if(screen.gameState == screen.titleState) {
+			screen.tsm.stopTileSound();
 			drawTitleScreen();
 			
 		}
@@ -100,10 +101,86 @@ public class UI {
 		}
 		//OPTIONS STATE
 		if(screen.gameState == screen.optionsState) {
+			screen.tsm.stopTileSound();
 			drawOptionsScreen();
 			
 		}
+		//GAME OVER
+		if(screen.gameState == screen.gameOverState) {
+			screen.tsm.stopTileSound();
+			drawGameOverScreen();
+					
+		}
 		
+	}
+	
+	public void drawGameOverScreen() {
+		g2.setColor(new Color(0, 0, 0, 150));
+		g2.fillRect(0, 0, Screen.screenWidth, Screen.screenHeight);
+		
+		int x;
+		int y;
+		String text;
+		g2.setFont(g2.getFont().deriveFont(Font.BOLD, 110F));
+		
+		text = "You Died";
+		
+		// Shadow
+		g2.setColor(greenGreen);
+		x = getCenteredX(text);
+		y = Screen.tileSize*2;
+		g2.drawString(text, x, y);
+		
+		// Text
+		g2.setColor(brightGreen);
+		g2.drawString(text, x-4, y-4);
+		
+		y += Screen.tileSize/1.5;
+		
+		g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 32F));
+		g2.setColor(greenGreen);
+		text = "You, who has fallen before fulfilling your destiny...\nBeyond lies the land to which all souls eventually return...\nWhere the souls of the dead await their next reincarnation...\nDo not be afraid...";
+		for(String line : text.split("\n")) {
+			g2.drawString(line, getCenteredX(line), y);
+			y += Screen.tileSize/1.5;
+		}
+		
+		y = Screen.tileSize*2;
+		y += Screen.tileSize/1.5;
+		g2.setColor(brightGreen);
+		for(String line : text.split("\n")) {
+			g2.drawString(line, getCenteredX(line)-2, y-2);
+			y += Screen.tileSize/1.5;
+		}
+		
+		// Retry
+		g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 50F));
+		g2.setColor(greenGreen);
+		text = "Reincarnate";
+		x = getCenteredX(text);
+		y += Screen.tileSize*2.5;
+		g2.drawString(text, x, y);
+		
+		g2.setColor(brightGreen);
+		g2.drawString(text, x-2, y-2);
+		
+		if(commandNum == 0) {
+			g2.drawString(">", x-40, y);
+		}
+		
+		// Exit
+		g2.setColor(greenGreen);
+		text = "Give Up";
+		x = getCenteredX(text);
+		y += Screen.tileSize;
+		g2.drawString(text, x, y);
+		
+		g2.setColor(brightGreen);
+		g2.drawString(text, x-2, y-2);
+		
+		if(commandNum == 1) {
+			g2.drawString(">", x-40, y);
+		}
 	}
 	
 	public void drawMessage() {
@@ -564,7 +641,7 @@ public class UI {
 		g2.fillRect(textX, textY, volumeWidth, 24);
 		
 		screen.config.saveConfig();
-		}
+	}
 	
 	public void optionsControl(int frameX, int frameY) {
 		int textX;
@@ -630,6 +707,8 @@ public class UI {
 				screen.gameState = screen.titleState;
 				screen.playSFX(1);
 				screen.key.enterProcessed = true;
+				screen.stopMusic();
+				screen.playMusic(4);
 			}
 		}
 		

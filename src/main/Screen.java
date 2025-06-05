@@ -73,6 +73,7 @@ public class Screen extends JPanel implements Runnable{
 	public final int dialogueState = 2;
 	public final int statusState = 3;
 	public final int optionsState = 4;
+	public final int gameOverState = 5;
 	
 	int fps = 60; // Quantas vezes a tela vai ser atualizada por segundo.
 	
@@ -90,6 +91,27 @@ public class Screen extends JPanel implements Runnable{
 		npcPlacer.placeEnemy();
 		playMusic(4);
 		gameState = titleState;
+	}
+	
+	public void retry() {
+		player.setDefaultPositions();
+		player.restoreHpAndMana();
+		npcPlacer.placeNPC();
+		npcPlacer.placeEnemy();
+		stopMusic();
+		playMusic(2);
+	}
+	
+	public void restart() {
+		player.setDefaultValues();
+		player.setDefaultPositions();
+		player.restoreHpAndMana();
+		player.setItems();
+		objPlacer.placeObject();
+		npcPlacer.placeNPC();
+		npcPlacer.placeEnemy();
+		stopMusic();
+		playMusic(4);
 	}
 	
     public void startGameThread() {

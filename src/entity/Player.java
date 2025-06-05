@@ -62,7 +62,7 @@ public class Player extends Entity{
 	
 	public void setDefaultValues() {
 		// World X e Y sao onde o personagem do player aparecera no mapa inicialmente.
-		worldX = Screen.tileSize * 46;
+		worldX = Screen.tileSize * 46; // LEMBRAR DE MUDAR SETDEFAULTPOSITIONS()
 		worldY = Screen.tileSize * 29;
 		speed = defaultSpeed;
 		facing = "down";
@@ -87,6 +87,22 @@ public class Player extends Entity{
 			attack = strenght;
 			defense = dexterity;
 		}
+	}
+	
+	public void setDefaultPositions() {
+		worldX = Screen.tileSize * 46; // MUDAR NA VERSÃO FINAL DO JOGO
+		worldY = Screen.tileSize * 29;
+		facing = "down";
+	}
+	
+	public void restoreHpAndMana() {
+		hp = maxHP;
+		mana = maxMana;
+		isInvincible = false;
+	}
+	
+	public void setItems() {
+		inventory.clear();
 	}
 	
 	public void getImage() {
@@ -280,6 +296,12 @@ public class Player extends Entity{
 	    if(spellCooldown > 0) {
 	    	spellCooldown--;
 	    }
+	    
+	    if(hp <= 0) {
+			screen.stopMusic();
+			screen.playMusic(10);
+	    	screen.gameState = screen.gameOverState;
+	    }
 	}
 	
 	public void attack() {
@@ -355,9 +377,6 @@ public class Player extends Entity{
 		}
 	}
 			
-			
-	
-	
 	public void pickUpObjectWithCol(int index) {
 		if(index != 999 && screen.key.ePressed) {
 			screen.gameState = screen.dialogueState;
@@ -599,9 +618,5 @@ public class Player extends Entity{
 	
 	public int getDefense(){
 		return defense = dexterity+currentMagatama.defenseValue;
-	}
-	
-	public void setItems() {
-		
 	}
 }

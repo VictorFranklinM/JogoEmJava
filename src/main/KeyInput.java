@@ -49,6 +49,10 @@ public class KeyInput implements KeyListener {
 		else if(screen.gameState == screen.optionsState) {
 			optionsState(code);
 		}
+		//GAME OVER STATE
+		else if(screen.gameState == screen.gameOverState) {
+			gameOverState(code);
+		}
 	}
 	
 	public void titleState(int code) {
@@ -222,6 +226,33 @@ public class KeyInput implements KeyListener {
 		}
 		if(code == KeyEvent.VK_E) {
 			screen.player.selectItem();
+		}
+	}
+	
+	public void gameOverState(int code) {
+		if(code == KeyEvent.VK_W) {
+			screen.ui.commandNum--;
+			if(screen.ui.commandNum < 0) {
+				screen.ui.commandNum = 1;
+			}
+			screen.playSFX(8);
+		}
+		if(code == KeyEvent.VK_S) {
+			screen.ui.commandNum++;
+			if(screen.ui.commandNum > 1) {
+				screen.ui.commandNum = 0;
+			}
+			screen.playSFX(8);
+		}
+		if(code == KeyEvent.VK_ENTER) {
+			if(screen.ui.commandNum == 0) {
+				screen.gameState = screen.playState;
+				screen.retry();
+			}
+			else if(screen.ui.commandNum == 1) {
+				screen.gameState = screen.titleState;
+				screen.restart();
+			}
 		}
 	}
 		
