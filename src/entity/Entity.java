@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
@@ -77,6 +78,9 @@ public abstract class Entity   {
 	public int macca;
 	public Entity currentMagatama;
 	public Projectile projectile;
+	
+	public ArrayList<Entity> inventory = new ArrayList<>();
+	public final int inventorySize = 30;
 	
 	// Item status
 	public int value;

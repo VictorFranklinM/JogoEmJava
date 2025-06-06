@@ -4,6 +4,7 @@ import main.Screen;
 
 public class Projectile extends Entity{
 	Entity user;
+	private int map = Screen.currentMap;
 	
 	public Projectile(Screen screen) {
 		super(screen);
@@ -20,7 +21,11 @@ public class Projectile extends Entity{
 	}
 	
 	public void update() {
-		
+		if(map != Screen.currentMap) {
+			alive = false;
+			map = screen.currentMap;
+			return;
+		}
 		if(user == screen.player && alive) {
 	        int enemyIndex = screen.colCheck.checkEntity(this, screen.enemy);
 	        if(enemyIndex != 999) {

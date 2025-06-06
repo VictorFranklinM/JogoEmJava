@@ -122,18 +122,23 @@ public class UI {
 	}
 	
 	public void drawTransition() {
+		int transitionTime = 40;
 		counter++;
-		g2.setColor(new Color(0, 0, 0, (255/40)*counter));
+		g2.setColor(new Color(0, 0, 0, (255/transitionTime)*counter));
 		g2.fillRect(0, 0, Screen.screenWidth, Screen.screenHeight);
 		
-		if(counter == 40) {
-			counter = 0;
+		if(counter == transitionTime) {
 			screen.gameState = screen.playState;
 			Screen.currentMap = screen.eventManager.tempMap;
 			screen.player.worldX = screen.eventManager.tempCol*Screen.tileSize;
 			screen.player.worldY = screen.eventManager.tempRow*Screen.tileSize;
 			screen.eventManager.lastEventX = screen.player.worldX;
 			screen.eventManager.lastEventY = screen.player.worldY;
+		}
+		while(screen.gameState == screen.playState && counter != 0) {
+			counter--;
+			g2.setColor(new Color(0, 0, 0, (255/transitionTime)*counter));
+			g2.fillRect(0, 0, Screen.screenWidth, Screen.screenHeight);
 		}
 	}
 	

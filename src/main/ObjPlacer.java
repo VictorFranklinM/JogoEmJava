@@ -19,10 +19,7 @@ public class ObjPlacer extends Entity {
 	public void placeObject() {
 		int i = 0;
 		int mapNum = 0;
-		screen.obj[mapNum][i] = new OBJ_MagaGreen(screen);
-		screen.obj[mapNum][i].worldX = 17 * Screen.tileSize;
-		screen.obj[mapNum][i].worldY = 34 * Screen.tileSize;
-		i++;
+
 		screen.obj[mapNum][i] = new OBJ_MagaRed(screen);
 		screen.obj[mapNum][i].worldX = 18 * Screen.tileSize;
 		screen.obj[mapNum][i].worldY = 34 * Screen.tileSize;
@@ -45,6 +42,12 @@ public class ObjPlacer extends Entity {
 		i++;
 		
 		mapNum = 1;
+		i = 0;
+		
+		screen.obj[mapNum][i] = new OBJ_MagaGreen(screen);
+		screen.obj[mapNum][i].worldX = 19 * Screen.tileSize;
+		screen.obj[mapNum][i].worldY = 32 * Screen.tileSize;
+		i++;
 	}
 	public void getImage(){
 		

@@ -2,6 +2,9 @@ package main;
 
 import entity.NPC_BlackFrost;
 import entity.NPC_JackFrost;
+import entity.NPC_Merchant;
+import entity.NPC_Nadja;
+import object.OBJ_MagaGreen;
 import enemy.En_Decarabia;
 import enemy.En_Fomorian;
 import enemy.En_Goblin;
@@ -29,6 +32,16 @@ public class NpcPlacer {
 		i++;
 		
 		mapNum = 1;
+		i = 0;
+		
+		screen.npc[mapNum][i] = new NPC_Nadja(screen);
+		screen.npc[mapNum][i].worldX = 19 * Screen.tileSize;
+		screen.npc[mapNum][i].worldY = 34 * Screen.tileSize;
+		i++;
+		screen.npc[mapNum][i] = new NPC_Merchant(screen);
+		screen.npc[mapNum][i].worldX = 19 * Screen.tileSize;
+		screen.npc[mapNum][i].worldY = 36 * Screen.tileSize;
+		i++;
 	}
 	
 	public void placeEnemy() {

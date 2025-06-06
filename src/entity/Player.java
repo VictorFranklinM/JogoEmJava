@@ -22,8 +22,6 @@ public class Player extends Entity{
 	private final int defaultSpeed = 5;
 	
 	public int hasMaga = 0;
-	public ArrayList<Entity> inventory = new ArrayList<>();
-	public final int inventorySize = 30;
 	
 	public boolean isMoving = false;
 	public boolean canAttack = true;
