@@ -17,13 +17,13 @@ public class Projectile extends Entity{
 		this.alive = alive;
 		this.user = user;
 		this.hp = this.maxHP;
+		this.map = Screen.currentMap;
 		
 	}
 	
 	public void update() {
 		if(map != Screen.currentMap) {
 			alive = false;
-			map = screen.currentMap;
 			return;
 		}
 		if(user == screen.player && alive) {

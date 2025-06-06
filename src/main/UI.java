@@ -163,7 +163,7 @@ public class UI {
 		g2.setColor(brightGreen);
 		g2.drawString(text, x-4, y-4);
 		
-		y += Screen.tileSize/1.5;
+		y += Screen.tileSize*1.5;
 		
 		g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 32F));
 		g2.setColor(greenGreen);
@@ -174,7 +174,7 @@ public class UI {
 		}
 		
 		y = Screen.tileSize*2;
-		y += Screen.tileSize/1.5;
+		y += Screen.tileSize*1.5;
 		g2.setColor(brightGreen);
 		for(String line : text.split("\n")) {
 			g2.drawString(line, getCenteredX(line)-2, y-2);
@@ -186,7 +186,7 @@ public class UI {
 		g2.setColor(greenGreen);
 		text = "Reincarnate";
 		x = getCenteredX(text);
-		y += Screen.tileSize*2.5;
+		y += Screen.tileSize*2;
 		g2.drawString(text, x, y);
 		
 		g2.setColor(brightGreen);
