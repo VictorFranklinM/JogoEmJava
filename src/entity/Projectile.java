@@ -25,7 +25,7 @@ public class Projectile extends Entity{
 	        int enemyIndex = screen.colCheck.checkEntity(this, screen.enemy);
 	        if(enemyIndex != 999) {
 	            screen.player.damageEnemy(enemyIndex, attack);
-	            generateParticle(user.projectile, screen.enemy[enemyIndex]);
+	            generateParticle(user.projectile, screen.enemy[Screen.currentMap][enemyIndex]);
 	            alive = false;
 				return;
 			}

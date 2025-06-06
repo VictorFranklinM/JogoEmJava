@@ -114,7 +114,6 @@ public abstract class Entity   {
 		screen.colCheck.checkTile(this);
 		screen.colCheck.checkObject(this, false); // NPC nao pega objetos
 		screen.colCheck.checkEntity(this, screen.npc); // Checa com outros NPCs
-		screen.colCheck.checkEntity(this, new Entity[]{screen.player}); // Checa com o player
 		screen.colCheck.checkEntity(this, screen.enemy);
 		boolean contactPlayer = screen.colCheck.checkPlayer(this);
 		
@@ -324,10 +323,10 @@ public abstract class Entity   {
 	
 	public void dropItem(Entity droppedItem) {
 		for(int i = 0; i < Screen.objPerScreen; i++) {
-			if(screen.obj[i] == null) {
-				screen.obj[i] = droppedItem;
-				screen.obj[i].worldX = worldX;
-				screen.obj[i].worldY = worldY;
+			if(screen.obj[Screen.currentMap][i] == null) {
+				screen.obj[Screen.currentMap][i] = droppedItem;
+				screen.obj[Screen.currentMap][i].worldX = worldX;
+				screen.obj[Screen.currentMap][i].worldY = worldY;
 				break;
 			}
 		}

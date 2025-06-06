@@ -43,7 +43,7 @@ public class TileSoundManager {
 	        wasMoving = true;
 
 	        if (col >= 0 && col < Screen.maxWorldCol && row >= 0 && row < Screen.maxWorldRow) {
-	            int tileNum = screen.tileM.mapTileNum[col][row];
+	            int tileNum = screen.tileM.mapTileNum[Screen.currentMap][col][row];
 	            int soundIndex = screen.tileM.tile[tileNum].soundIndex;
 
 	            if (soundIndex != noSoundIndex) {
@@ -61,7 +61,7 @@ public class TileSoundManager {
 
 	    if (movedTile) {
 	        if (col >= 0 && col < Screen.maxWorldCol && row >= 0 && row < Screen.maxWorldRow) {
-	            int tileNum = screen.tileM.mapTileNum[col][row];
+	            int tileNum = screen.tileM.mapTileNum[Screen.currentMap][col][row];
 	            int soundIndex = screen.tileM.tile[tileNum].soundIndex;
 
 	            if (soundIndex != lastTileSoundIndex) {

@@ -17,38 +17,45 @@ public class NpcPlacer {
 	}
 	
 	public void placeNPC() {
-		screen.npc[0] = new NPC_JackFrost(screen);
-		screen.npc[0].worldX = 27 * Screen.tileSize;
-		screen.npc[0].worldY = 38 * Screen.tileSize;
+		int i = 0;
+		int mapNum = 0;
+		screen.npc[mapNum][i] = new NPC_JackFrost(screen);
+		screen.npc[mapNum][i].worldX = 27 * Screen.tileSize;
+		screen.npc[mapNum][i].worldY = 38 * Screen.tileSize;
+		i++;
+		screen.npc[mapNum][i] = new NPC_BlackFrost(screen);
+		screen.npc[mapNum][i].worldX = 21 * Screen.tileSize;
+		screen.npc[mapNum][i].worldY = 37 * Screen.tileSize;
+		i++;
 		
-		screen.npc[1] = new NPC_BlackFrost(screen);
-		screen.npc[1].worldX = 21 * Screen.tileSize;
-		screen.npc[1].worldY = 37 * Screen.tileSize;
+		mapNum = 1;
 	}
 	
 	public void placeEnemy() {
 		int i = 0;
+		int mapNum = 0;
+		screen.enemy[mapNum][i] = new En_Slime(screen);
+		screen.enemy[mapNum][i].worldX = 20 * Screen.tileSize;
+		screen.enemy[mapNum][i].worldY = 29 * Screen.tileSize;
+		i++;
+		screen.enemy[mapNum][i] = new En_Goblin(screen);
+		screen.enemy[mapNum][i].worldX = 24 * Screen.tileSize;
+		screen.enemy[mapNum][i].worldY = 32 * Screen.tileSize;
+		i++;
+		screen.enemy[mapNum][i] = new En_Fomorian(screen);
+		screen.enemy[mapNum][i].worldX = 28 * Screen.tileSize;
+		screen.enemy[mapNum][i].worldY = 26 * Screen.tileSize;
+		i++;
+		screen.enemy[mapNum][i] = new En_Decarabia(screen);
+		screen.enemy[mapNum][i].worldX = 32 * Screen.tileSize;
+		screen.enemy[mapNum][i].worldY = 29 * Screen.tileSize;
+		i++;
+		screen.enemy[mapNum][i] = new En_Katakirauwa(screen);
+		screen.enemy[mapNum][i].worldX = 19 * Screen.tileSize;
+		screen.enemy[mapNum][i].worldY = 26 * Screen.tileSize;
+		i++;
 		
-		screen.enemy[i] = new En_Slime(screen);
-		screen.enemy[i].worldX = 20 * Screen.tileSize;
-		screen.enemy[i].worldY = 29 * Screen.tileSize;
-		i++;
-		screen.enemy[i] = new En_Goblin(screen);
-		screen.enemy[i].worldX = 24 * Screen.tileSize;
-		screen.enemy[i].worldY = 32 * Screen.tileSize;
-		i++;
-		screen.enemy[i] = new En_Fomorian(screen);
-		screen.enemy[i].worldX = 28 * Screen.tileSize;
-		screen.enemy[i].worldY = 26 * Screen.tileSize;
-		i++;
-		screen.enemy[i] = new En_Decarabia(screen);
-		screen.enemy[i].worldX = 32 * Screen.tileSize;
-		screen.enemy[i].worldY = 29 * Screen.tileSize;
-		i++;
-		screen.enemy[i] = new En_Katakirauwa(screen);
-		screen.enemy[i].worldX = 19 * Screen.tileSize;
-		screen.enemy[i].worldY = 26 * Screen.tileSize;
-		i++;
+		mapNum = 1;
 	}
 
 }

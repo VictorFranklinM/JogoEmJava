@@ -41,6 +41,7 @@ public class UI {
 	public int slotCol = 0;
 	public int slotRow = 0;
 	int subState = 0;
+	int counter = 0;
 	
 	public UI(Screen screen) {
 		this.screen = screen;
@@ -111,7 +112,29 @@ public class UI {
 			drawGameOverScreen();
 					
 		}
+		//TRANSITION
+		if(screen.gameState == screen.transitionState) {
+			screen.tsm.stopTileSound();
+			drawTransition();
+							
+		}
 		
+	}
+	
+	public void drawTransition() {
+		counter++;
+		g2.setColor(new Color(0, 0, 0, (255/40)*counter));
+		g2.fillRect(0, 0, Screen.screenWidth, Screen.screenHeight);
+		
+		if(counter == 40) {
+			counter = 0;
+			screen.gameState = screen.playState;
+			Screen.currentMap = screen.eventManager.tempMap;
+			screen.player.worldX = screen.eventManager.tempCol*Screen.tileSize;
+			screen.player.worldY = screen.eventManager.tempRow*Screen.tileSize;
+			screen.eventManager.lastEventX = screen.player.worldX;
+			screen.eventManager.lastEventY = screen.player.worldY;
+		}
 	}
 	
 	public void drawGameOverScreen() {

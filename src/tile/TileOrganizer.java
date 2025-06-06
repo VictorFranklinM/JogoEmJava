@@ -16,7 +16,7 @@ public class TileOrganizer {
 	
 	Screen screen; // Referencia a tela principal
 	public Tile[] tile; // Array de tiles
-	public int mapTileNum[][]; // Matriz que armazena os numeros dos tiles do mapa
+	public int mapTileNum[][][]; // Matriz que armazena os numeros dos tiles do mapa
 	
 	public TileOrganizer(Screen screen) {
 		
@@ -24,10 +24,12 @@ public class TileOrganizer {
 		
 		tile = new Tile[20]; //Quantidade maxima de tiles que podem ser usados, alterar conforme necessidade;
 		
-		mapTileNum = new int [Screen.maxWorldCol][Screen.maxWorldRow]; // Inicializa a matriz do mapa
+		mapTileNum = new int [Screen.maxMap][Screen.maxWorldCol][Screen.maxWorldRow]; // Inicializa a matriz do mapa
 		
 		getTileImage();
-		loadMap("/maps/world01.txt");
+		// SE MUDAR O ID DOS MAPAS TEM QUE MUDAR O DEBUG MODE NO KEYINPUT E O MAPNUM NOS PLACERS DOS NPCS, OBJETOS E INIMIGOS
+		loadMap("/maps/world01.txt", 0);
+		loadMap("/maps/dungeon.txt", 1);
 	}
 	
 	// Metodo para carregar as imagens dos tiles
@@ -78,7 +80,7 @@ public class TileOrganizer {
 	}
 	
 	// Metodo para carregar o mapa a partir de um arquivo de texto
-	public void loadMap(String mapPath) {
+	public void loadMap(String mapPath, int map) {
 		try {
 			
 			InputStream is = getClass().getResourceAsStream(mapPath);
@@ -98,7 +100,7 @@ public class TileOrganizer {
 					
 					int num = Integer.parseInt(numbers[col]); // Converte a string em numero inteiro
 					
-					mapTileNum[col][row] = num; // Armazena o numero na matriz
+					mapTileNum[map][col][row] = num; // Armazena o numero na matriz
 					col++;
 				}
 				if(col == Screen.maxWorldCol) {	// Se a linha foi completamente lida, passa para a proxima
@@ -122,7 +124,7 @@ public class TileOrganizer {
 		
 		while(worldCol < Screen.maxWorldCol && worldRow < Screen.maxWorldRow) {
 			
-			int tileNum = mapTileNum[worldCol][worldRow]; // Obtem o numero do tile
+			int tileNum = mapTileNum[Screen.currentMap][worldCol][worldRow]; // Obtem o numero do tile
 			
 			int worldX = worldCol * Screen.tileSize;
 			int worldY = worldRow * Screen.tileSize;

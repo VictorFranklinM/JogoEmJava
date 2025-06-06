@@ -26,8 +26,8 @@ public class CollisionChecker {
 		switch(entity.facing) {
 		case "up":
 			entityTopRow = (entityTopY - entity.speed) / Screen.tileSize;
-			tileNum1 = screen.tileM.mapTileNum[entityLeftCol][entityTopRow];
-			tileNum2 = screen.tileM.mapTileNum[entityRightCol][entityTopRow];
+			tileNum1 = screen.tileM.mapTileNum[Screen.currentMap][entityLeftCol][entityTopRow];
+			tileNum2 = screen.tileM.mapTileNum[Screen.currentMap][entityRightCol][entityTopRow];
 			
 			if((screen.tileM.tile[tileNum1].collision == true) || (screen.tileM.tile[tileNum2].collision == true)) {
 				entity.collision = true;
@@ -36,8 +36,8 @@ public class CollisionChecker {
 			
 		case "down":
 			entityBottomRow = (entityBottomY + entity.speed) / Screen.tileSize;
-			tileNum1 = screen.tileM.mapTileNum[entityLeftCol][entityBottomRow];
-			tileNum2 = screen.tileM.mapTileNum[entityRightCol][entityBottomRow];
+			tileNum1 = screen.tileM.mapTileNum[Screen.currentMap][entityLeftCol][entityBottomRow];
+			tileNum2 = screen.tileM.mapTileNum[Screen.currentMap][entityRightCol][entityBottomRow];
 			
 			if((screen.tileM.tile[tileNum1].collision == true) || (screen.tileM.tile[tileNum2].collision == true)) {
 				entity.collision = true;
@@ -46,8 +46,8 @@ public class CollisionChecker {
 			
 		case "left":
 			entityLeftCol = (entityLeftX - entity.speed) / Screen.tileSize;
-			tileNum1 = screen.tileM.mapTileNum[entityLeftCol][entityTopRow];
-			tileNum2 = screen.tileM.mapTileNum[entityLeftCol][entityBottomRow];
+			tileNum1 = screen.tileM.mapTileNum[Screen.currentMap][entityLeftCol][entityTopRow];
+			tileNum2 = screen.tileM.mapTileNum[Screen.currentMap][entityLeftCol][entityBottomRow];
 			
 			if((screen.tileM.tile[tileNum1].collision == true) || (screen.tileM.tile[tileNum2].collision == true)) {
 				entity.collision = true;
@@ -56,8 +56,8 @@ public class CollisionChecker {
 			
 		case "right":
 			entityRightCol = (entityRightX + entity.speed) / Screen.tileSize;
-			tileNum1 = screen.tileM.mapTileNum[entityRightCol][entityTopRow];
-			tileNum2 = screen.tileM.mapTileNum[entityRightCol][entityBottomRow];
+			tileNum1 = screen.tileM.mapTileNum[Screen.currentMap][entityRightCol][entityTopRow];
+			tileNum2 = screen.tileM.mapTileNum[Screen.currentMap][entityRightCol][entityBottomRow];
 			
 			if((screen.tileM.tile[tileNum1].collision == true) || (screen.tileM.tile[tileNum2].collision == true)) {
 				entity.collision = true;
@@ -70,20 +70,20 @@ public class CollisionChecker {
 		
 		int index = 999; // (Pode ser qualquer numero maior que o tamanho do array de objetos).
 		
-		for(int i = 0; i < screen.obj.length; i++) {
+		for(int i = 0; i < screen.objPerScreen; i++) {
 			
-			if(screen.obj[i] != null) {
+			if(screen.obj[Screen.currentMap][i] != null) {
 				entity.collisionArea.x = entity.worldX + entity.collisionArea.x;
 				entity.collisionArea.y = entity.worldY + entity.collisionArea.y;
 				
-				screen.obj[i].collisionArea.x = screen.obj[i].worldX + screen.obj[i].collisionArea.x;
-				screen.obj[i].collisionArea.y = screen.obj[i].worldY + screen.obj[i].collisionArea.y;
+				screen.obj[Screen.currentMap][i].collisionArea.x = screen.obj[Screen.currentMap][i].worldX + screen.obj[Screen.currentMap][i].collisionArea.x;
+				screen.obj[Screen.currentMap][i].collisionArea.y = screen.obj[Screen.currentMap][i].worldY + screen.obj[Screen.currentMap][i].collisionArea.y;
 				
 				switch(entity.facing) {
 				case "up":
 					entity.collisionArea.y -= entity.speed;
-					if(entity.collisionArea.intersects(screen.obj[i].collisionArea)) {
-						if(screen.obj[i].collision == true) {
+					if(entity.collisionArea.intersects(screen.obj[Screen.currentMap][i].collisionArea)) {
+						if(screen.obj[Screen.currentMap][i].collision == true) {
 							entity.collision = true;
 						}
 						if(player == true) {
@@ -94,8 +94,8 @@ public class CollisionChecker {
 					
 				case "down":
 					entity.collisionArea.y += entity.speed;
-					if(entity.collisionArea.intersects(screen.obj[i].collisionArea)) {
-						if(screen.obj[i].collision == true) {
+					if(entity.collisionArea.intersects(screen.obj[Screen.currentMap][i].collisionArea)) {
+						if(screen.obj[Screen.currentMap][i].collision == true) {
 							entity.collision = true;
 						}
 						if(player == true) {
@@ -107,8 +107,8 @@ public class CollisionChecker {
 					
 				case "left":
 					entity.collisionArea.x -= entity.speed;
-					if(entity.collisionArea.intersects(screen.obj[i].collisionArea)) {
-						if(screen.obj[i].collision == true) {
+					if(entity.collisionArea.intersects(screen.obj[Screen.currentMap][i].collisionArea)) {
+						if(screen.obj[Screen.currentMap][i].collision == true) {
 							entity.collision = true;
 						}
 						if(player == true) {
@@ -119,8 +119,8 @@ public class CollisionChecker {
 					
 				case "right":
 					entity.collisionArea.x += entity.speed;
-					if(entity.collisionArea.intersects(screen.obj[i].collisionArea)) {
-						if(screen.obj[i].collision == true) {
+					if(entity.collisionArea.intersects(screen.obj[Screen.currentMap][i].collisionArea)) {
+						if(screen.obj[Screen.currentMap][i].collision == true) {
 							entity.collision = true;
 						}
 						if(player == true) {
@@ -132,8 +132,8 @@ public class CollisionChecker {
 				entity.collisionArea.x = entity.collisionAreaDefaultX;
 				entity.collisionArea.y = entity.collisionAreaDefaultY;
 				
-				screen.obj[i].collisionArea.x = screen.obj[i].collisionAreaDefaultX;
-				screen.obj[i].collisionArea.y = screen.obj[i].collisionAreaDefaultY;
+				screen.obj[Screen.currentMap][i].collisionArea.x = screen.obj[Screen.currentMap][i].collisionAreaDefaultX;
+				screen.obj[Screen.currentMap][i].collisionArea.y = screen.obj[Screen.currentMap][i].collisionAreaDefaultY;
 			}
 		}
 		
@@ -141,17 +141,17 @@ public class CollisionChecker {
 	}
 	
 	// Colisao de NPC e inimigos
-	public int checkEntity (Entity entity, Entity[] target) {
+	public int checkEntity (Entity entity, Entity[][] target) {
 		int index = 999;
 		
-		for(int i = 0; i < target.length; i++) {
-	        if(target[i] != null && target[i] != entity && !target[i].dying) {
+		for(int i = 0; i < target[1].length; i++) {
+	        if(target[Screen.currentMap][i] != null && target[Screen.currentMap][i] != entity && !target[Screen.currentMap][i].dying) {
 
 	            entity.collisionArea.x = entity.worldX + entity.collisionArea.x;
 	            entity.collisionArea.y = entity.worldY + entity.collisionArea.y;
 
-	            target[i].collisionArea.x = target[i].worldX + target[i].collisionArea.x;
-	            target[i].collisionArea.y = target[i].worldY + target[i].collisionArea.y;
+	            target[Screen.currentMap][i].collisionArea.x = target[Screen.currentMap][i].worldX + target[Screen.currentMap][i].collisionArea.x;
+	            target[Screen.currentMap][i].collisionArea.y = target[Screen.currentMap][i].worldY + target[Screen.currentMap][i].collisionArea.y;
 
 	            switch(entity.facing) {
 				case "up":
@@ -177,7 +177,7 @@ public class CollisionChecker {
 					
 				}
 
-	            if(entity.collisionArea.intersects(target[i].collisionArea)) {
+	            if(entity.collisionArea.intersects(target[Screen.currentMap][i].collisionArea)) {
 	                entity.collision = true;
 	                index = i;
 	            }
@@ -185,8 +185,8 @@ public class CollisionChecker {
 	            entity.collisionArea.x = entity.collisionAreaDefaultX;
 	            entity.collisionArea.y = entity.collisionAreaDefaultY;
 
-	            target[i].collisionArea.x = target[i].collisionAreaDefaultX;
-	            target[i].collisionArea.y = target[i].collisionAreaDefaultY;
+	            target[Screen.currentMap][i].collisionArea.x = target[Screen.currentMap][i].collisionAreaDefaultX;
+	            target[Screen.currentMap][i].collisionArea.y = target[Screen.currentMap][i].collisionAreaDefaultY;
 	        }
 	    }
 	    return index;

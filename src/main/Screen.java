@@ -60,9 +60,9 @@ public class Screen extends JPanel implements Runnable{
 	public NpcPlacer npcPlacer = new NpcPlacer(this);
 	
 	public Player player = new Player(this,key);
-	public Entity obj[] = new Entity[objPerScreen]; // new Object[x]. x e a quantidade de objetos que podem ser renderizados na tela ao mesmo tempo.
-	public Entity npc[] = new Entity[npcPerScreen];
-	public Entity enemy[] = new Entity[enemyPerScreen];
+	public Entity obj[][] = new Entity[maxMap][objPerScreen]; // new Object[x]. x e a quantidade de objetos que podem ser renderizados na tela ao mesmo tempo.
+	public Entity npc[][] = new Entity[maxMap][npcPerScreen];
+	public Entity enemy[][] = new Entity[maxMap][enemyPerScreen];
 	public ArrayList<Entity> entityList = new ArrayList<>();
 	public ArrayList<Entity> spellList = new ArrayList<>();
 	public ArrayList<Entity> particleList = new ArrayList<>();
@@ -74,6 +74,7 @@ public class Screen extends JPanel implements Runnable{
 	public final int statusState = 3;
 	public final int optionsState = 4;
 	public final int gameOverState = 5;
+	public final int transitionState = 6;
 	
 	int fps = 60; // Quantas vezes a tela vai ser atualizada por segundo.
 	
@@ -128,19 +129,20 @@ public class Screen extends JPanel implements Runnable{
     		tsm.playTileSound();
     		
     		//NPC
-    		for (int i = 0; i < npc.length; i++) {
-    			if(npc[i] != null) {
-    				npc[i].update();
+    		for (int i = 0; i < npcPerScreen; i++) {
+    			if(npc[currentMap][i] != null) {
+    				npc[currentMap][i].update();
     			}
     		}
-    		for (int i = 0; i < npc.length; i++) {
-    			if(enemy[i] != null) {
-    				if(enemy[i].alive && !enemy[i].dying) {
-    					enemy[i].update();
+    		//ENEMY
+    		for (int i = 0; i < enemyPerScreen; i++) {
+    			if(enemy[currentMap][i] != null) {
+    				if(enemy[currentMap][i].alive && !enemy[currentMap][i].dying) {
+    					enemy[currentMap][i].update();
     				}
-    				if(!enemy[i].alive) {
-    					enemy[i].checkDrop();
-    					enemy[i] = null;
+    				if(!enemy[currentMap][i].alive) {
+    					enemy[currentMap][i].checkDrop();
+    					enemy[currentMap][i] = null;
     				}
     			}
     		}
@@ -191,19 +193,19 @@ public class Screen extends JPanel implements Runnable{
     		tileM.draw(g2); // mapa
     		//ADD ENTITY TO THE ENTITY LIST
     		entityList.add(player);
-    		for(int i = 0;i < npc.length; i++) {
-    			if (npc[i] != null) {
-    				entityList.add(npc[i]);
+    		for(int i = 0;i < npcPerScreen; i++) {
+    			if (npc[currentMap][i] != null) {
+    				entityList.add(npc[currentMap][i]);
     			}
     		}
-    		for(int i = 0; i < enemy.length; i++) {
-    			if(enemy[i] != null) {
-    				entityList.add(enemy[i]);
+    		for(int i = 0; i < enemyPerScreen; i++) {
+    			if(enemy[currentMap][i] != null) {
+    				entityList.add(enemy[currentMap][i]);
     			}
     		}
-    		for(int i = 0; i < obj.length; i++) {
-    			if(obj[i] != null) {
-    				entityList.add(obj[i]);
+    		for(int i = 0; i < objPerScreen; i++) {
+    			if(obj[currentMap][i] != null) {
+    				entityList.add(obj[currentMap][i]);
     			}
     		}
     		
@@ -262,8 +264,8 @@ public class Screen extends JPanel implements Runnable{
     	}
         //liberar memoria
         g2.dispose();
-        }
 
+    }
 
     // Linha de execucao secundaria do jogo, onde ocorrem as coisas na tela.
 	public void run() {

@@ -178,11 +178,17 @@ public class KeyInput implements KeyListener {
 		if(code == KeyEvent.VK_T) {
 			if(isDebugging == false) {
 				isDebugging = true;
-				screen.tileM.loadMap("/maps/world01.txt");
 			}
 			else {
 				isDebugging = false;
 			}
+		}
+		if(isDebugging && code == KeyEvent.VK_R) {
+			switch(Screen.currentMap) {
+			case 0: screen.tileM.loadMap("/maps/world01.txt", 0);
+			case 1: screen.tileM.loadMap("/maps/dungeon.txt", 1);
+			}
+			
 		}
 		if(code == KeyEvent.VK_F && screen.player.currentMagatama != null) {
 			shootKeyPressed = true;

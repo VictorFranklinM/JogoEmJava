@@ -346,28 +346,28 @@ public class Player extends Entity{
 	}
 	
 	public void pickUpObject(int index) {
-		if(!screen.obj[index].collision) {
+		if(!screen.obj[Screen.currentMap][index].collision) {
 			pickUpObjectNoCol(index);
 		}
-		else if(screen.obj[index].collision) {
+		else if(screen.obj[Screen.currentMap][index].collision) {
 			pickUpObjectWithCol(index);
 		}
 	}
 			
 	public void pickUpObjectNoCol(int index) {
 		if(index != 999) {
-			if(screen.obj[index].type == typePickupOnly) {
-				screen.obj[index].use(this);
-				screen.obj[index] = null;
+			if(screen.obj[Screen.currentMap][index].type == typePickupOnly) {
+				screen.obj[Screen.currentMap][index].use(this);
+				screen.obj[Screen.currentMap][index] = null;
 			}
 			else {
 				String text;
 
 				if(inventory.size() != inventorySize) {
-					inventory.add(screen.obj[index]);
+					inventory.add(screen.obj[Screen.currentMap][index]);
 					screen.playSFX(1);
-					text = "Got " + screen.obj[index].name + "!";
-					screen.obj[index] = null;
+					text = "Got " + screen.obj[Screen.currentMap][index].name + "!";
+					screen.obj[Screen.currentMap][index] = null;
 				}
 				else {
 					text = "Your inventory is full!";
@@ -383,14 +383,14 @@ public class Player extends Entity{
 			canAttack = false;
 			
 			if(inventory.size() != inventorySize) {
-				if(screen.obj[index].name.contains("Magatama")) {
+				if(screen.obj[Screen.currentMap][index].name.contains("Magatama")) {
 					hasMaga++;
 					System.out.println(hasMaga);
 				}
-				inventory.add(screen.obj[index]);
+				inventory.add(screen.obj[Screen.currentMap][index]);
 				screen.playSFX(1);
-				screen.ui.currentSpeechLine = "Got " + screen.obj[index].name + "!";
-				screen.obj[index] = null;
+				screen.ui.currentSpeechLine = "Got " + screen.obj[Screen.currentMap][index].name + "!";
+				screen.obj[Screen.currentMap][index] = null;
 			}
 			else {
 				screen.ui.currentSpeechLine = "Your inventory is full!";
@@ -403,7 +403,7 @@ public class Player extends Entity{
 			if (i != 999) {
 				canAttack = false;
 				screen.gameState = screen.dialogueState;
-				screen.npc[i].speak();
+				screen.npc[Screen.currentMap][i].speak();
 			}
 		}	
 	}
@@ -411,11 +411,11 @@ public class Player extends Entity{
 	private void contactEnemy(int i) {
 		if(i != 999) {
 			
-			if(isInvincible == false && screen.enemy[i].dying == false) {
+			if(isInvincible == false && screen.enemy[Screen.currentMap][i].dying == false) {
 				
 				playSFX(6);
 				
-				int damage = screen.enemy[i].attack - screen.player.defense;
+				int damage = screen.enemy[Screen.currentMap][i].attack - screen.player.defense;
 				if(damage < 0) {
 					damage = 0;
 				}
@@ -428,26 +428,26 @@ public class Player extends Entity{
 	public void damageEnemy(int i, int attack) {
 		if(i != 999) {
 			
-			if(!screen.enemy[i].isInvincible) {
+			if(!screen.enemy[Screen.currentMap][i].isInvincible) {
 				
 				playSFX(5);
 				
-				int damage = attack - screen.enemy[i].defense;
+				int damage = attack - screen.enemy[Screen.currentMap][i].defense;
 				if(damage < 0) {
 					damage = 0;
 				}
-				screen.enemy[i].hp -= damage;
-				screen.ui.addMessage(damage+" damage to "+screen.enemy[i].name+"!");
+				screen.enemy[Screen.currentMap][i].hp -= damage;
+				screen.ui.addMessage(damage+" damage to "+screen.enemy[Screen.currentMap][i].name+"!");
 				
-				screen.enemy[i].isInvincible = true;
-				screen.enemy[i].damageReaction();
+				screen.enemy[Screen.currentMap][i].isInvincible = true;
+				screen.enemy[Screen.currentMap][i].damageReaction();
 				
-				if (screen.enemy[i].hp <= 0) {
-					screen.enemy[i].hp = 0;
-					screen.enemy[i].dying = true;
-					screen.ui.addMessage("Killed the "+screen.enemy[i].name+"!");
-					screen.ui.addMessage("Exp +"+screen.enemy[i].exp+"!");
-					exp += screen.enemy[i].exp;
+				if (screen.enemy[Screen.currentMap][i].hp <= 0) {
+					screen.enemy[Screen.currentMap][i].hp = 0;
+					screen.enemy[Screen.currentMap][i].dying = true;
+					screen.ui.addMessage("Killed the "+screen.enemy[Screen.currentMap][i].name+"!");
+					screen.ui.addMessage("Exp +"+screen.enemy[Screen.currentMap][i].exp+"!");
+					exp += screen.enemy[Screen.currentMap][i].exp;
 					checkLevelUp();
 				}
 			}
