@@ -56,7 +56,7 @@ public class TileOrganizer {
 		i++;
 		setup(i,"tree", true, Tile.noSoundIndex);
 		i++;
-		setup(i,"treeTrunk", true, Tile.noSoundIndex);
+		setup(i,"treeTrunk", false, Tile.noSoundIndex);
 		i++;
 		setup(i,"wall", true, Tile.noSoundIndex);
 		i++;
