@@ -88,6 +88,7 @@ public abstract class Entity   {
 	public int attackValue;
 	public int defenseValue;
 	public String description = "";
+	public int price;
 	
 	public Entity(Screen screen) {
 		this.screen = screen;

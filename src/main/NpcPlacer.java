@@ -4,7 +4,6 @@ import entity.NPC_BlackFrost;
 import entity.NPC_JackFrost;
 import entity.NPC_Merchant;
 import entity.NPC_Nadja;
-import object.OBJ_MagaGreen;
 import enemy.En_Decarabia;
 import enemy.En_Fomorian;
 import enemy.En_Goblin;

@@ -1,7 +1,6 @@
 package main;
 
 import entity.Entity;
-import object.OBJ_GreenMacca;
 import object.OBJ_MagaBlue;
 import object.OBJ_MagaGreen;
 import object.OBJ_MagaRed;

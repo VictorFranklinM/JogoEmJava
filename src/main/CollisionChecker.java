@@ -70,7 +70,7 @@ public class CollisionChecker {
 		
 		int index = 999; // (Pode ser qualquer numero maior que o tamanho do array de objetos).
 		
-		for(int i = 0; i < screen.objPerScreen; i++) {
+		for(int i = 0; i < Screen.objPerScreen; i++) {
 			
 			if(screen.obj[Screen.currentMap][i] != null) {
 				entity.collisionArea.x = entity.worldX + entity.collisionArea.x;

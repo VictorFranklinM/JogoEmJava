@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 
 import main.KeyInput;
 import main.Screen;
@@ -298,7 +297,7 @@ public class Player extends Entity{
 	    if(hp <= 0) {
 			screen.stopMusic();
 			screen.playMusic(10);
-	    	screen.gameState = screen.gameOverState;
+	    	screen.gameState = Screen.gameOverState;
 	    }
 	}
 	
@@ -377,7 +376,7 @@ public class Player extends Entity{
 			
 	public void pickUpObjectWithCol(int index) {
 		if(index != 999 && screen.key.ePressed) {
-			screen.gameState = screen.dialogueState;
+			screen.gameState = Screen.dialogueState;
 			canAttack = false;
 			
 			if(inventory.size() != inventorySize) {
@@ -400,7 +399,7 @@ public class Player extends Entity{
 		if(screen.key.ePressed == true) {
 			if (i != 999) {
 				canAttack = false;
-				screen.gameState = screen.dialogueState;
+				screen.gameState = Screen.dialogueState;
 				screen.npc[Screen.currentMap][i].speak();
 			}
 		}	
@@ -487,13 +486,13 @@ public class Player extends Entity{
 			}
 		
 			screen.playSFX(1);
-			screen.gameState = screen.dialogueState;
+			screen.gameState = Screen.dialogueState;
 			screen.ui.currentSpeechLine = "You are now at level "+level+"!\n"+"You feel stronger!";
 		}
 	}
 	
 	public void selectItem() {
-		int itemIndex = screen.ui.getItemIndexOnSlot();
+		int itemIndex = screen.ui.getItemIndexOnSlot(screen.ui.playerSlotCol, screen.ui.playerSlotRow);
 		if(itemIndex < inventory.size()) {
 			Entity selectedItem = inventory.get(itemIndex);
 			

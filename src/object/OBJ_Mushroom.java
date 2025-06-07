@@ -16,6 +16,7 @@ public class OBJ_Mushroom extends Entity{
 		description = "[" +name+ "]\n"
 					+ "An item that may be used to heal\nyou. Not as useful as medicine, but\nit still can save your skin.\n"
 					+ "+"+value+" hp!";
+		price = 2;
 		
 		down1 = setup("/objects/mushroom",Screen.tileSize, Screen.tileSize);
 		down2 = setup("/objects/mushrooms",Screen.tileSize, Screen.tileSize);
@@ -31,7 +32,7 @@ public class OBJ_Mushroom extends Entity{
 	
 	public void use(Entity entity) {
 		screen.playSFX(1);
-		screen.gameState = screen.dialogueState;
+		screen.gameState = Screen.dialogueState;
 		screen.ui.currentSpeechLine = "You eat the "+name+"!\n"
 									+"You recovered "+value+" hp!";
 		entity.hp += value;

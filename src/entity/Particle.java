@@ -2,7 +2,6 @@ package entity;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.security.cert.PolicyQualifierInfo;
 
 import main.Screen;
 

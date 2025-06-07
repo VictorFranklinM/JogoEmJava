@@ -17,6 +17,7 @@ public class NPC_Merchant extends Entity{
 		speed = defaultSpeed;
 		getImage();
 		setTextLines();
+		setItems();
 		collisionArea = new Rectangle();
 		collisionArea.x = (4 * Screen.scale);
 		collisionArea.y = (8 * Screen.scale);
@@ -30,22 +31,24 @@ public class NPC_Merchant extends Entity{
 	public void speak() {
 		screen.ui.setFace(face);
 		super.speak();
+		screen.gameState = Screen.tradeState;
+		screen.ui.npc = this;
 	}
 	
 	public void getImage() {
 		face = setup("/npc/Merchant-Face",Screen.tileSize, Screen.tileSize);
 		up1 = setup("/npc/Merchant-Down-1",Screen.tileSize, Screen.tileSize);
-		up2 = setup("/npc/Merchant-Down-2",Screen.tileSize, Screen.tileSize);
-		up3 = setup("/npc/Merchant-Down-2",Screen.tileSize, Screen.tileSize);
+		up2 = setup("/npc/Merchant-Down-1",Screen.tileSize, Screen.tileSize);
+		up3 = setup("/npc/Merchant-Down-1",Screen.tileSize, Screen.tileSize);
 		down1 = setup("/npc/Merchant-Down-1",Screen.tileSize, Screen.tileSize);
-		down2 = setup("/npc/Merchant-Down-2",Screen.tileSize, Screen.tileSize);
-		down3 = setup("/npc/Merchant-Down-2",Screen.tileSize, Screen.tileSize);
+		down2 = setup("/npc/Merchant-Down-1",Screen.tileSize, Screen.tileSize);
+		down3 = setup("/npc/Merchant-Down-1",Screen.tileSize, Screen.tileSize);
 		left1 = setup("/npc/Merchant-Down-1",Screen.tileSize, Screen.tileSize);
-		left2 = setup("/npc/Merchant-Down-2",Screen.tileSize, Screen.tileSize);
-		left3 = setup("/npc/Merchant-Down-2",Screen.tileSize, Screen.tileSize);
+		left2 = setup("/npc/Merchant-Down-1",Screen.tileSize, Screen.tileSize);
+		left3 = setup("/npc/Merchant-Down-1",Screen.tileSize, Screen.tileSize);
 		right1 = setup("/npc/Merchant-Down-1",Screen.tileSize, Screen.tileSize);
-		right2 = setup("/npc/Merchant-Down-2",Screen.tileSize, Screen.tileSize);
-		right3 = setup("/npc/Merchant-Down-2",Screen.tileSize, Screen.tileSize);
+		right2 = setup("/npc/Merchant-Down-1",Screen.tileSize, Screen.tileSize);
+		right3 = setup("/npc/Merchant-Down-1",Screen.tileSize, Screen.tileSize);
 	}
 	
 	public void setTextLines() {

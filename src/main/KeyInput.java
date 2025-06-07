@@ -28,30 +28,69 @@ public class KeyInput implements KeyListener {
 		int code = e.getKeyCode(); // Identifica a tecla pressionada.
 		
 		//TITLE STATE
-		if(screen.gameState == screen.titleState) {
+		if(screen.gameState == Screen.titleState) {
 			titleState(code);
 		}
 		
 		//PLAY STATE
-		else if(screen.gameState == screen.playState) {
+		else if(screen.gameState == Screen.playState) {
 			playState(code);
 		}
 		
 		//DIALOGUE STATE
-		else if(screen.gameState == screen.dialogueState) {
+		else if(screen.gameState == Screen.dialogueState) {
 			dialogueState(code);
 		}
 		//Status State
-		else if(screen.gameState == screen.statusState) {
+		else if(screen.gameState == Screen.statusState) {
 			statusState(code);
 		}
 		//OPTIONS STATE
-		else if(screen.gameState == screen.optionsState) {
+		else if(screen.gameState == Screen.optionsState) {
 			optionsState(code);
 		}
 		//GAME OVER STATE
-		else if(screen.gameState == screen.gameOverState) {
+		else if(screen.gameState == Screen.gameOverState) {
 			gameOverState(code);
+		}
+		//TRADE STATE
+		else if(screen.gameState == Screen.tradeState) {
+			tradeState(code);
+		}
+	}
+	
+	public void tradeState(int code) {
+		if(code == KeyEvent.VK_E) {
+			ePressed = true;
+		}
+		
+		if(screen.ui.subState == 0) {
+			if(code == KeyEvent.VK_W) {
+				screen.ui.commandNum--;
+				if(screen.ui.commandNum < 0) {
+					screen.ui.commandNum = 2;
+				}
+				screen.playSFX(8);
+			}
+			if(code == KeyEvent.VK_S) {
+				screen.ui.commandNum++;
+				if(screen.ui.commandNum > 2) {
+					screen.ui.commandNum = 0;
+				}
+				screen.playSFX(8);
+			}
+		}
+		if(screen.ui.subState == 1) {
+			npcInventory(code);
+			if(code == KeyEvent.VK_ENTER) {
+				screen.ui.subState = 0;
+			}
+		}
+		if(screen.ui.subState == 2) {
+			playerInventory(code);
+			if(code == KeyEvent.VK_ENTER) {
+				screen.ui.subState = 0;
+			}
 		}
 	}
 	
@@ -72,7 +111,7 @@ public class KeyInput implements KeyListener {
 		}
 	    if(code == KeyEvent.VK_ENTER) {
 	    	if(screen.ui.commandNum == 0) {
-	    		screen.gameState = screen.playState;
+	    		screen.gameState = Screen.playState;
 	    		
 	    		screen.playSFX(1);
 	    		screen.stopMusic();
@@ -89,7 +128,7 @@ public class KeyInput implements KeyListener {
 	   
 	public void optionsState(int code) {
 	    if(code == KeyEvent.VK_ESCAPE) {
-	            screen.gameState = screen.playState; 
+	            screen.gameState = Screen.playState; 
 	        }
 	    
 	    if(code == KeyEvent.VK_ENTER) {
@@ -173,7 +212,7 @@ public class KeyInput implements KeyListener {
 		}
 		
 		if(code == KeyEvent.VK_ENTER) {
-			screen.gameState = screen.statusState;
+			screen.gameState = Screen.statusState;
 		}
 		if(code == KeyEvent.VK_T) {
 			if(isDebugging == false) {
@@ -194,46 +233,77 @@ public class KeyInput implements KeyListener {
 			shootKeyPressed = true;
 		}
 		if(code == KeyEvent.VK_ESCAPE) {
-			screen.gameState = screen.optionsState;
+			screen.gameState = Screen.optionsState;
 		}
 	}
 	
 	public void dialogueState(int code) {
 		if(code == KeyEvent.VK_E) {
-			screen.gameState = screen.playState;
+			screen.gameState = Screen.playState;
 		}
 	}
 	
 	public void statusState(int code) {
 		if(code == KeyEvent.VK_ENTER) {
-			screen.gameState = screen.playState;
+			screen.gameState = Screen.playState;
 		}
+		if(code == KeyEvent.VK_E) {
+			screen.player.selectItem();
+		}
+		playerInventory(code);
+	}
+	
+	public void playerInventory(int code) {
 		if(code == KeyEvent.VK_W) {
-			if(screen.ui.slotRow != 0) {
-				screen.ui.slotRow--;
+			if(screen.ui.playerSlotRow != 0) {
+				screen.ui.playerSlotRow--;
 				screen.playSFX(8);
 			}
 		}
 		if(code == KeyEvent.VK_A) {
-			if(screen.ui.slotCol != 0) {
-				screen.ui.slotCol--;
+			if(screen.ui.playerSlotCol != 0) {
+				screen.ui.playerSlotCol--;
 				screen.playSFX(8);
 			}
 		}
 		if(code == KeyEvent.VK_S) {
-			if(screen.ui.slotRow != 4) {
-				screen.ui.slotRow++;
+			if(screen.ui.playerSlotRow != 4) {
+				screen.ui.playerSlotRow++;
 				screen.playSFX(8);
 			}
 		}
 		if(code == KeyEvent.VK_D) {
-			if(screen.ui.slotCol != 5) {
-				screen.ui.slotCol++;
+			if(screen.ui.playerSlotCol != 5) {
+				screen.ui.playerSlotCol++;
 				screen.playSFX(8);
 			}
 		}
-		if(code == KeyEvent.VK_E) {
-			screen.player.selectItem();
+	}
+	
+	public void npcInventory(int code) {
+		if(code == KeyEvent.VK_W) {
+			if(screen.ui.npcSlotRow != 0) {
+				screen.ui.npcSlotRow--;
+				screen.playSFX(8);
+			}
+		}
+		if(code == KeyEvent.VK_A) {
+			if(screen.ui.npcSlotCol != 0) {
+				screen.ui.npcSlotCol--;
+				screen.playSFX(8);
+			}
+		}
+		if(code == KeyEvent.VK_S) {
+			if(screen.ui.npcSlotRow != 4) {
+				screen.ui.npcSlotRow++;
+				screen.playSFX(8);
+			}
+		}
+		if(code == KeyEvent.VK_D) {
+			if(screen.ui.npcSlotCol != 5) {
+				screen.ui.npcSlotCol++;
+				screen.playSFX(8);
+			}
 		}
 	}
 	
@@ -254,11 +324,11 @@ public class KeyInput implements KeyListener {
 		}
 		if(code == KeyEvent.VK_ENTER) {
 			if(screen.ui.commandNum == 0) {
-				screen.gameState = screen.playState;
+				screen.gameState = Screen.playState;
 				screen.retry();
 			}
 			else if(screen.ui.commandNum == 1) {
-				screen.gameState = screen.titleState;
+				screen.gameState = Screen.titleState;
 				screen.restart();
 			}
 		}

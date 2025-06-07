@@ -68,13 +68,14 @@ public class Screen extends JPanel implements Runnable{
 	public ArrayList<Entity> particleList = new ArrayList<>();
 	
 	public int gameState;
-	public final int titleState = 0;
-	public final int playState = 1;
-	public final int dialogueState = 2;
-	public final int statusState = 3;
-	public final int optionsState = 4;
-	public final int gameOverState = 5;
-	public final int transitionState = 6;
+	public static final int titleState = 0;
+	public static final int playState = 1;
+	public static final int dialogueState = 2;
+	public static final int statusState = 3;
+	public static final int optionsState = 4;
+	public static final int gameOverState = 5;
+	public static final int transitionState = 6;
+	public static final int tradeState = 7;
 	
 	int fps = 60; // Quantas vezes a tela vai ser atualizada por segundo.
 	

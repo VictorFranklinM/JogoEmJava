@@ -14,6 +14,7 @@ public class OBJ_ManaBottle extends Entity{
 		description = "[" +name+ "]\n"
 					+ "An item that may be used to\nrestore your mana on difficult\nsituations. It's wise to always keep\n one.\n"
 					+ "+"+value+" mp!";
+		price = 4;
 		
 		down1 = setup("/objects/manaBottle",Screen.tileSize, Screen.tileSize);
 		
@@ -28,7 +29,7 @@ public class OBJ_ManaBottle extends Entity{
 	
 	public void use(Entity entity) {
 		screen.playSFX(1);
-		screen.gameState = screen.dialogueState;
+		screen.gameState = Screen.dialogueState;
 		screen.ui.currentSpeechLine = "You use the "+name+"!\n"
 									+"You recovered "+value+" mp!";
 				screen.player.mana += value;
