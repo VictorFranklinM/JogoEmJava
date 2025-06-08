@@ -12,6 +12,7 @@ import java.util.Comparator;
 
 import javax.swing.JPanel; // Importa as propriedades da classe JPanel. (Interface da janela).
 
+import ai.PathFinder;
 import entity.Entity;
 import entity.Player;
 import tile.TileOrganizer;
@@ -46,11 +47,11 @@ public class Screen extends JPanel implements Runnable{
 	Sound sfx = new Sound();
 	TileSoundManager tsm = new TileSoundManager(this);
 
-	TileOrganizer tileM = new TileOrganizer(this);
+	public TileOrganizer tileM = new TileOrganizer(this);
 	public KeyInput key = new KeyInput(this);
 	Thread gameThread; // Cria uma linha de execucao secundaria para executar um codigo em segundo plano por cima do clock base.
 	Config config = new Config(this);
-	
+	public PathFinder pFinder = new PathFinder(this);
 	public UI ui = new UI(this);
 	
 	public CollisionChecker colCheck = new CollisionChecker(this);
@@ -171,6 +172,7 @@ public class Screen extends JPanel implements Runnable{
     		}
 
     	}
+    
     }
     
     // Funcao que renderiza os graficos do jogo.

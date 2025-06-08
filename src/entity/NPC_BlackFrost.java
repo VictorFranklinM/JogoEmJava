@@ -28,6 +28,8 @@ public class NPC_BlackFrost extends Entity{
 	public void speak() {
 		screen.ui.setFace(face);
 		super.speak();
+		
+		onPath = true;
 	}
 	
 	public void setTextLines() {
@@ -58,26 +60,36 @@ public class NPC_BlackFrost extends Entity{
 	
 	@Override
 	public void setAction() {
-		actionLockCounter++;
 		
-		if(actionLockCounter == 45) {
-			Random random = new Random();
-			int i = random.nextInt(100)+1; // escolhe um numero de 1�100
+		if(onPath == true) {
 			
-			if (i <= 25) {
-				facing = "up";
-			}
-			if (i > 25 && i <= 50) {
-				facing = "down";
-			}
-			if (i > 50 && i <= 75) {
-				facing = "left";
-			}
-			if (i > 75 && i <= 100) {
-				facing = "right";
-			}
+			int goalCol = 30;
+			int goalRow = 20;
+			searchPath(goalCol,goalRow);
 			
-			actionLockCounter = 0;
+		}else{
+		
+			actionLockCounter++;
+			
+			if(actionLockCounter == 45) {
+				Random random = new Random();
+				int i = random.nextInt(100)+1; // escolhe um numero de 1�100
+				
+				if (i <= 25) {
+					facing = "up";
+				}
+				if (i > 25 && i <= 50) {
+					facing = "down";
+				}
+				if (i > 50 && i <= 75) {
+					facing = "left";
+				}
+				if (i > 75 && i <= 100) {
+					facing = "right";
+				}
+				
+				actionLockCounter = 0;
+			}
 		}
 	}
 }

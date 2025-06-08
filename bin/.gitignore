@@ -1,9 +1,7 @@
-/entity/
+/sound/
+/ai/
 /main/
+/enemy/
+/entity/
 /object/
 /tile/
-/maps/
-/tiles/
-/sound/
-/enemy/
-/npc/

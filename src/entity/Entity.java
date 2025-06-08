@@ -33,20 +33,17 @@ public abstract class Entity   {
 	public Rectangle attackArea = new Rectangle(0, 0, 0, 0);
 	public int collisionAreaDefaultX, collisionAreaDefaultY;
 	public boolean collision = false;
-	
 	public boolean isInvincible = false;
 	public int invincibilityTimer = 0;
 	public int deathCounter = 0;
-	
 	public int spellCooldown = 60;
-	
 	boolean attacking = false;
 	public boolean alive = true;
 	public boolean dying = false;
-	
 	boolean hpBarOn = false;
 	int hpBarCounter = 0;
-	
+	public boolean onPath = false;
+	//DIALOGUES STATUS
 	public int dialoguesQuantity = 20;
 	public int actionLockCounter = 0; // Para movimenta��o dos NPC
 	
@@ -113,8 +110,7 @@ public abstract class Entity   {
 	
 	public void use(Entity entity) {}
 	
-	public void update() {
-		setAction();
+	public void checkCollision() {
 		collision = false;
 		screen.colCheck.checkTile(this);
 		screen.colCheck.checkObject(this, false); // NPC nao pega objetos
@@ -125,6 +121,12 @@ public abstract class Entity   {
 		if(this.type == typeEnemy && contactPlayer == true) {
 			damagePlayer(attack);
 		}
+	
+	}
+	
+	public void update() {
+		setAction();
+		checkCollision();
 		if(collision == false) {
 			switch(facing) {
 			case "up": worldY -= speed;
@@ -371,5 +373,83 @@ public abstract class Entity   {
 		screen.particleList.add(p2);
 		screen.particleList.add(p3);
 		screen.particleList.add(p4);
+	}
+	
+	public void searchPath(int goalCol,int goalRow) {
+		
+		int startCol = (worldX + collisionArea.x) / Screen.tileSize;
+		int startRow = (worldY + collisionArea.y) / Screen.tileSize;
+		screen.pFinder.setNodes(startCol, startRow, goalCol, goalRow, this);
+		
+		if(screen.pFinder.search() == true)  {
+			
+			//NEXT WORLDY AND WORLD X ITS IS GOING TO MOVE
+			int nextX = screen.pFinder.pathList.get(0).col * Screen.tileSize;
+			int nextY = screen.pFinder.pathList.get(0).row * Screen.tileSize;
+			
+			//ENTITY COLLISION AREA POSITIONS
+			int enLeftX = worldX + collisionArea.x;
+			int enRightX = worldX + collisionArea.x + collisionArea.width;
+			int enTopY = worldY + collisionArea.y;
+			int enBottomY = worldY + collisionArea.y + collisionArea.height;
+			
+			if(enTopY > nextY && enLeftX >= nextX && enRightX < nextX + Screen.tileSize ) {
+				facing = "up";
+			}
+			else if(enTopY < nextY && enLeftX >= nextX && enRightX < nextX + Screen.tileSize) {
+				facing = "down";
+			}
+			else if(enTopY >= nextY && enBottomY < nextY + Screen.tileSize) {
+				//LEFT OR RIGHT
+				if(enLeftX > nextX) {
+					facing = "left";
+				}
+				if(enLeftX < nextX) {
+					facing = "right";
+				}
+				
+			}
+			else if(enTopY > nextY && enLeftX > nextX) {
+				//UP OR LEFT
+				facing = "up";
+				checkCollision();
+				if(collision == true) {
+					facing = "left";
+				}
+			}
+			else if(enTopY > nextY && enLeftX < nextX) {
+				//UP OR RIGHT
+				facing = "up";
+				checkCollision();
+				if(collision == true) {
+					facing = "right";
+				}
+			}
+			else if(enTopY < nextY && enLeftX > nextX) {
+				//DOWN OR LEFT
+				facing = "down";
+				checkCollision();
+				if(collision == true) {
+					facing = "left";
+				}
+			}
+			else if(enTopY < nextY && enLeftX < nextX) {
+				//DOWN OR RIGHT
+				facing = "down";
+				checkCollision();
+				if(collision == true) {
+					facing = "right";
+				}
+			}
+			
+			int nextCol = screen.pFinder.pathList.get(0).col;
+			int nextRow = screen.pFinder.pathList.get(0).row;
+			if(nextCol == goalCol && nextRow == goalRow) {
+				onPath = false;
+			}
+
+	}		
+				
+		
 	}
 }

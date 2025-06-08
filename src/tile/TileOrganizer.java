@@ -1,6 +1,7 @@
 
 package tile;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,7 +18,7 @@ public class TileOrganizer {
 	Screen screen; // Referencia a tela principal
 	public Tile[] tile; // Array de tiles
 	public int mapTileNum[][][]; // Matriz que armazena os numeros dos tiles do mapa
-	
+	boolean drawPath = true;
 	public TileOrganizer(Screen screen) {
 		
 		this.screen = screen;
@@ -146,6 +147,21 @@ public class TileOrganizer {
 				worldCol = 0;
 				worldRow++;
 			}	
+	
+			
+		}
+		if(drawPath == true) {
+			g2.setColor(new Color(255,0,0,70));
+			
+			for(int i = 0;i < screen.pFinder.pathList.size(); i++) {
+				
+				int worldX = screen.pFinder.pathList.get(i).col *Screen.tileSize;
+				int worldY = screen.pFinder.pathList.get(i).row * Screen.tileSize;
+				int screenX = worldX - screen.player.worldX + screen.player.screenX;
+				int screenY = worldY - screen.player.worldY + screen.player.screenY;
+				
+				g2.fillRect(screenX, screenY, Screen.tileSize, Screen.tileSize);
+			}
 		}
 	}
 }
