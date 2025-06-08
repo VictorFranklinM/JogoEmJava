@@ -12,7 +12,7 @@ public class PathFinder {
 	PathFindingNode startNode,goalNode,currentNode;
 	boolean goalReached = false;
 	int step = 0;
-	int maxSteps;
+	int maxSteps = 500;
 	int nodeStarterCost = 999;
 	
 	public PathFinder(Screen screen) {
