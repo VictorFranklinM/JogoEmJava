@@ -98,6 +98,8 @@ public abstract class Entity   {
 	public int defenseValue;
 	public String description = "";
 	public int knockBackPower = 0;
+	public boolean stackable = false;
+	public int amount = 1;
 	public int price;
 
 	public boolean isFollowing = false;

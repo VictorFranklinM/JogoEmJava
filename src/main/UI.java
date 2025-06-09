@@ -215,20 +215,21 @@ public class UI {
 					currentSpeechLine = "Oh noo!\nGuess you're too poor to buy that -Ho!";
 					drawDialogueScreen();
 				}
-				else if(screen.player.inventory.size() == screen.player.inventorySize) {
-					subState = 0;
-					screen.gameState = Screen.dialogueState;
-					currentSpeechLine = "You can't carry any more!";
-				}
 				else {
-					screen.playSFX(1);
-					screen.player.macca -= npc.inventory.get(itemIndex).price;
-					screen.player.inventory.add(npc.inventory.get(itemIndex));
+					if(screen.player.canObtainItem(npc.inventory.get(itemIndex)) == true) {
+						screen.player.macca -= npc.inventory.get(itemIndex).price;
+					}
+					else {
+						subState = 0;
+						screen.gameState = Screen.dialogueState;
+						currentSpeechLine = "You can't carry any more!";
+					}
 				}
+			}	
+				
 			}
 		}
 
-	}
 
 	
 	public void tradeSell() {
@@ -267,9 +268,15 @@ public class UI {
 					screen.gameState = Screen.dialogueState;
 					currentSpeechLine = "You probably shouldn't go around selling\nsacred stuff...";
 				} else {
+					if(screen.player.inventory.get(itemIndex).amount > 1) {
+						screen.player.inventory.get(itemIndex).amount--;
+					}
+					else {
+						screen.player.inventory.remove(itemIndex);
+					}
 					screen.playSFX(0);
 					int price = screen.player.inventory.get(itemIndex).price / 2;
-					screen.player.inventory.remove(itemIndex);
+					
 					screen.player.macca += price;
 					commandNum = 0;
 				}
@@ -704,6 +711,27 @@ public class UI {
 			}
 			
 			g2.drawImage(entity.inventory.get(i).down1, slotX, slotY, null);
+			
+			// DISPLAY AMOUNT
+			if(entity == screen.player && entity.inventory.get(i).amount > 1) {
+				
+				g2.setFont(g2.getFont().deriveFont(32F));
+				int amountX;
+				int amountY;
+				
+				String s ="" +  entity.inventory.get(i).amount;
+				 amountX = getAlignToRightX (s, slotX +44);
+				 amountY = slotY + Screen.tileSize;
+				 
+				 // SHADOW
+				 g2.setColor(new Color(60, 60,60));
+				g2.drawString(s, amountX, amountY);
+				//NUMBER
+				g2.setColor(Color.white);
+				g2.drawString(s, amountX-2, amountY-2);
+				
+			}
+			
 			slotX += Screen.tileSize;
 			if(i == 5 || i == 11 || i == 17 || i == 23) {
 				slotX = slotXStart;

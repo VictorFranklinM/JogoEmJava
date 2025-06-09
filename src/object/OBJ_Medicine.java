@@ -11,6 +11,7 @@ public class OBJ_Medicine extends Entity{
 		super(screen);
 		this.screen = screen;
 		type = typeConsumable;
+		stackable = true;
 		
 		name = "Medicine";
 		value = 3;

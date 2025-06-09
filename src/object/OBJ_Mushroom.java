@@ -12,6 +12,7 @@ public class OBJ_Mushroom extends Entity{
 		this.screen = screen;
 		type = typeConsumable;
 		spriteNum = 2;
+		stackable = true;
 		
 		name = "Mushroom";
 		value = 1;

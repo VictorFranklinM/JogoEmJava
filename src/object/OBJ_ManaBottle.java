@@ -11,6 +11,7 @@ public class OBJ_ManaBottle extends Entity{
 		super(screen);
 		this.screen = screen;
 		type = typeConsumable;
+		stackable = true;
 		
 		name = "Mana Bottle";
 		value = 2;

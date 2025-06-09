@@ -10,6 +10,7 @@ public class OBJ_Key extends Entity{
 		super(screen);
 		this.screen = screen;
 		type = typeConsumable;
+		stackable = true;
 		
 		name = "Key";
 		down1 = setup("/objects/key",Screen.tileSize, Screen.tileSize);
