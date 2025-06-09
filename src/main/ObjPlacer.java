@@ -1,12 +1,15 @@
 package main;
 
 import entity.Entity;
+import object.OBJ_Chest;
+import object.OBJ_Key;
 import object.OBJ_MagaBlue;
 import object.OBJ_MagaGreen;
 import object.OBJ_MagaRed;
 import object.OBJ_ManaBottle;
 import object.OBJ_Medicine;
 import object.OBJ_Mushroom;
+import object.OBJ_Obelisk;
 
 public class ObjPlacer extends Entity {
 
@@ -38,6 +41,18 @@ public class ObjPlacer extends Entity {
 		screen.obj[mapNum][i] = new OBJ_ManaBottle(screen);
 		screen.obj[mapNum][i].worldX = 22 * Screen.tileSize;
 		screen.obj[mapNum][i].worldY = 34 * Screen.tileSize;
+		i++;
+		screen.obj[mapNum][i] = new OBJ_Obelisk(screen);
+		screen.obj[mapNum][i].worldX = 37 * Screen.tileSize;
+		screen.obj[mapNum][i].worldY = 33 * Screen.tileSize;
+		i++;
+		screen.obj[mapNum][i] = new OBJ_Key(screen);
+		screen.obj[mapNum][i].worldX = 30 * Screen.tileSize;
+		screen.obj[mapNum][i].worldY = 37 * Screen.tileSize;
+		i++;
+		screen.obj[mapNum][i] = new OBJ_Chest(screen);
+		screen.obj[mapNum][i].worldX = 29 * Screen.tileSize;
+		screen.obj[mapNum][i].worldY = 31 * Screen.tileSize;
 		i++;
 		
 		mapNum = 1;

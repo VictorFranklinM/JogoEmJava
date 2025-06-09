@@ -4,6 +4,8 @@ import entity.Entity;
 import main.Screen;
 public class OBJ_Portal extends Entity{
 	
+	Screen screen;
+	
 	public OBJ_Portal(Screen screen) {
 		super(screen);
 		down1 = setup("/objects/portal",Screen.tileSize, Screen.tileSize);

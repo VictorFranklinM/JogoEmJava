@@ -5,6 +5,8 @@ import main.Screen;
 
 public class OBJ_Medicine extends Entity{
 	
+	Screen screen;
+	
 	public OBJ_Medicine(Screen screen) {
 		super(screen);
 		type = typeConsumable;

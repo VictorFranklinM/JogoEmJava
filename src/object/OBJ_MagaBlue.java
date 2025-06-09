@@ -5,6 +5,7 @@ import main.Screen;
 
 public class OBJ_MagaBlue extends Entity{
 
+	Screen screen;
 	
 	public OBJ_MagaBlue(Screen screen) {
 		super(screen);

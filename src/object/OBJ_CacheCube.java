@@ -4,9 +4,15 @@ import entity.Entity;
 import main.Screen;
 public class OBJ_CacheCube extends Entity{
 	
+	Screen screen;
+	
 	public OBJ_CacheCube(Screen screen) {
 		super(screen);
-		down1 = setup("/objects/cacheCube",Screen.tileSize, Screen.tileSize);
+		this.screen = screen;
+		
+		type = typeObstacle;
+		down1 = setup("/objects/cacheCubeOn",Screen.tileSize, Screen.tileSize);
+		down2 = setup("objects/cacheCube", Screen.tileSize, Screen.tileSize);
 		name = "Cache Cube";
 		
 		collisionArea.x = (3 * Screen.scale);
@@ -19,5 +25,10 @@ public class OBJ_CacheCube extends Entity{
 
         collision = true;
         
+	}
+	
+	public void interact() {
+		screen.gameState = Screen.dialogueState;
+		screen.ui.currentSpeechLine = "You opened the cache cube.";
 	}
 }

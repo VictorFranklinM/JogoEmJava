@@ -5,6 +5,7 @@ import main.Screen;
 
 public class OBJ_Mushroom extends Entity{
 
+	Screen screen;
 	
 	public OBJ_Mushroom(Screen screen) {
 		super(screen);

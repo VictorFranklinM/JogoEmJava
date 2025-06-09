@@ -67,6 +67,7 @@ public abstract class Entity   {
 	public final int typeMaga = 3;
 	public final int typeConsumable = 4;
 	public final int typePickupOnly = 5;
+	public final int typeObstacle = 6;
 	
 	// Status
 	public String name;
@@ -102,6 +103,30 @@ public abstract class Entity   {
 	public boolean isFollowing = false;
 	public Entity(Screen screen) {
 		this.screen = screen;
+	}
+	
+	public int getLeftX() {
+		return worldX + collisionArea.x;
+	}
+	
+	public int getRightX() {
+		return worldX + collisionArea.x + collisionArea.width;
+	}
+	
+	public int getTopY() {
+		return worldY + collisionArea.y;
+	}
+	
+	public int getBottomY() {
+		return worldY + collisionArea.y + collisionArea.y;
+	}
+	
+	public int getCol() {
+		return (worldX + collisionArea.x)/Screen.tileSize;
+	}
+	
+	public int getRow() {
+		return (worldY + collisionArea.y)/Screen.tileSize;
 	}
 	
 	public void playMusic(int i) {
@@ -346,7 +371,6 @@ public abstract class Entity   {
 		return image;
 	}
 
-
 	public void speak() {
 		if(dialogues[dialogueIndex] == null) {
 			dialogueIndex = 0;
@@ -368,6 +392,10 @@ public abstract class Entity   {
 			facing = "left";
 			break;
 		}
+	}
+	
+	public void interact() {
+		
 	}
 	
 	public void damageReaction() {}
@@ -502,6 +530,7 @@ public abstract class Entity   {
 		
 		
 	}
+	
 	public void movementLogic() {
 		actionLockCounter++;
 		
@@ -525,6 +554,7 @@ public abstract class Entity   {
 			actionLockCounter = 0;
 		}
 	}
+	
 	public void followLogic() {
 		if(onPath == true) {
 			
@@ -537,6 +567,7 @@ public abstract class Entity   {
 		
 		}
 	}
+	
 	public void destinedMovement(int col,int row) {
 		if(onPath == true) {
 			int goalCol = col;
@@ -546,6 +577,34 @@ public abstract class Entity   {
 			movementLogic();
 		}
 		
+	}
+	
+	public int getDetected(Entity user, Entity target[][], String targetName) {
+		int index = 999;
+		
+		// Check the surrounding object
+		int nextWorldX = user.getLeftX();
+		int nextWorldY = user.getTopY();
+		
+		switch(user.facing) {
+		case "up": nextWorldY = user.getTopY()-1; break;
+		case "down": nextWorldY = user.getBottomY()+1; break;
+		case "left": nextWorldX = user.getLeftX()-1; break;
+		case "right": nextWorldX = user.getRightX()+1; break;
+		}
+		
+		int col = nextWorldX/Screen.tileSize;
+		int row = nextWorldY/Screen.tileSize;
+		
+		for(int i = 0; i < target[i].length; i++) {
+			if(target[Screen.currentMap][i] != null) {
+				if(target[Screen.currentMap][i].getCol() == col && target[Screen.currentMap][i].getRow() == row && target[Screen.currentMap][i].name == name) {
+					index = i;
+					break;
+				}
+			}
+		}
+		return index;
 	}
 }
 	

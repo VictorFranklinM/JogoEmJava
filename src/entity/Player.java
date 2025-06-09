@@ -393,10 +393,13 @@ public class Player extends Entity{
 			screen.gameState = Screen.dialogueState;
 			canAttack = false;
 			
-			if(inventory.size() != inventorySize) {
+			if(screen.obj[Screen.currentMap][index].type == typeObstacle) {
+				screen.obj[Screen.currentMap][index].interact();
+			}
+			
+			else if(inventory.size() != inventorySize) {
 				if(screen.obj[Screen.currentMap][index].name.contains("Magatama")) {
 					hasMaga++;
-					System.out.println(hasMaga);
 				}
 				inventory.add(screen.obj[Screen.currentMap][index]);
 				screen.playSFX(1);

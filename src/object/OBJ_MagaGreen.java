@@ -4,7 +4,8 @@ import entity.Entity;
 import main.Screen;
 
 public class OBJ_MagaGreen extends Entity{
-
+	
+	Screen screen;
 	
 	public OBJ_MagaGreen(Screen screen) {
 		super(screen);
