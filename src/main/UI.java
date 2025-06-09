@@ -719,15 +719,15 @@ public class UI {
 				int amountX;
 				int amountY;
 				
-				String s ="" +  entity.inventory.get(i).amount;
-				 amountX = getAlignToRightX (s, slotX +44);
+				String s = "" +  entity.inventory.get(i).amount;
+				 amountX = getAlignToRightX(s, slotX +65);
 				 amountY = slotY + Screen.tileSize;
 				 
 				 // SHADOW
-				 g2.setColor(new Color(60, 60,60));
+				g2.setColor(greenGreen);
 				g2.drawString(s, amountX, amountY);
 				//NUMBER
-				g2.setColor(Color.white);
+				g2.setColor(brightGreen);
 				g2.drawString(s, amountX-2, amountY-2);
 				
 			}
