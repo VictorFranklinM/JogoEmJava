@@ -16,7 +16,8 @@ public class En_Goblin extends Entity{
 		super(screen);
 		type = typeEnemy;
 		name = "Goblin";
-		speed = 3;
+		defaultSpeed = 2;
+		speed = defaultSpeed;
 		maxHP = 3;
 		hp = maxHP;
 		attack = 2;
@@ -80,7 +81,17 @@ public class En_Goblin extends Entity{
 		int i = new Random().nextInt(100)+1;
 		if(i > 99 && !projectile.alive && spellCooldown == 0) {
 			projectile.set(worldX, worldY, facing, true, this);
-			screen.spellList.add(projectile);
+			
+			// screen.spellList.add(projectile);
+			
+			// CHECK VACANCY
+			//for(int ii = 0; ii <screen.projectile[1].length; ii++)  {
+			//	if(screen.projectile [Screen.currentMap][ii] ==null) {
+			//	screen.projectile[Screen.currentMap] [ii] = projectile;
+			//	break;
+				//}
+			//}
+			
 			spellCooldown = 90;
 		}
 	}

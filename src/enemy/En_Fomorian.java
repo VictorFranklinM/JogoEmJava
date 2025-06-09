@@ -15,7 +15,8 @@ public class En_Fomorian extends Entity{
 		super(screen);
 		type = typeEnemy;
 		name = "Fomorian";
-		speed = 1;
+		defaultSpeed = 2;
+		speed = defaultSpeed;
 		maxHP = 15;
 		hp = maxHP;
 		attack = 7;

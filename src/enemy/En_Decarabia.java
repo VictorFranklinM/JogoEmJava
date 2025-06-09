@@ -13,7 +13,8 @@ public class En_Decarabia extends Entity{
 		super(screen);
 		type = typeEnemy;
 		name = "Decarabia";
-		speed = 3;
+		defaultSpeed = 2;
+		speed = defaultSpeed;
 		maxHP = 7;
 		hp = maxHP;
 		attack = 2;

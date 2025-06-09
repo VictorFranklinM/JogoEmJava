@@ -18,7 +18,8 @@ public class En_Slime extends Entity{
 		super(screen);
 		type = typeEnemy;
 		name = "Slime";
-		speed = 2;
+		defaultSpeed = 2;
+		speed = defaultSpeed;
 		maxHP = 2;
 		hp = maxHP;
 		attack = 2;

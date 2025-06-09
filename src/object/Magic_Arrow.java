@@ -20,6 +20,7 @@ public class Magic_Arrow extends Projectile{
 		hp = maxHP;
 		manaCost = 1;
 		attack = 2;
+		knockBackPower = 2;
 		alive = false;
 		getImage();
 		

@@ -1,6 +1,5 @@
-/object/
-/ai/
+/enemy/
 /entity/
 /main/
-/sound/
-/enemy/
+/object/
+/tile/

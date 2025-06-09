@@ -18,7 +18,6 @@ public class Player extends Entity{
 	
 	public final int screenX;
 	public final int screenY;
-	private final int defaultSpeed = 5;
 	
 	public int hasMaga = 0;
 	
@@ -61,9 +60,11 @@ public class Player extends Entity{
 		// World X e Y sao onde o personagem do player aparecera no mapa inicialmente.
 		worldX = Screen.tileSize * 25; // LEMBRAR DE MUDAR SETDEFAULTPOSITIONS()
 		worldY = Screen.tileSize * 37;
+		defaultSpeed = 4;
 		speed = defaultSpeed;
 		facing = "down";
 		
+	
 		// Status
 		maxHP = 3;
 		hp = maxHP;
@@ -278,7 +279,16 @@ public class Player extends Entity{
 			
 			projectile.set(worldX, worldY, facing, true, this);
 			projectile.subtractResource(this);
-			screen.spellList.add(projectile);
+				
+			//CHECK VANCANCY
+			for(int i = 0; i < screen.projectile[i].length; i++) {
+				if(screen.projectile[Screen.currentMap][i] == null) {
+					screen.projectile[Screen.currentMap][i] = projectile;
+					break;
+				}
+			}
+			
+			
 			spellCooldown = 60;
 			screen.playSFX(9);
 		}
@@ -325,10 +335,13 @@ public class Player extends Entity{
 		
 		collisionArea.width = attackArea.width;
 		collisionArea.height = attackArea.height;
-		
 		int enemyIndex = screen.colCheck.checkEntity(this, screen.enemy);
-		damageEnemy(enemyIndex, attack);
+		int knockBack = (currentMagatama != null) ? currentMagatama.knockBackPower : 2;
+		damageEnemy(enemyIndex, attack, knockBack);
 
+	    int projectileIndex = screen.colCheck.checkEntity(this, screen.projectile);
+	    damageProjectile(projectileIndex);
+		
 		worldX = currenWorldX;
 		worldY = currenWorldY;
 		collisionArea.width = collisionAreaWidth;
@@ -422,12 +435,18 @@ public class Player extends Entity{
 		}
 	}
 	
-	public void damageEnemy(int i, int attack) {
+	public void damageEnemy(int i, int attack, int knockBackPower) {
 		if(i != 999) {
 			
 			if(!screen.enemy[Screen.currentMap][i].isInvincible) {
 				
 				playSFX(5);
+				
+				if(knockBackPower > 0) {
+					knockBack(screen.enemy[Screen.currentMap][i], knockBackPower);	
+				}
+				
+				
 				
 				int damage = attack - screen.enemy[Screen.currentMap][i].defense;
 				if(damage < 0) {
@@ -450,6 +469,15 @@ public class Player extends Entity{
 			}
 		}
 	}
+	public void damageProjectile (int i) {
+		if(i != 999) {
+		Entity projectile = screen.projectile[Screen.currentMap] [i];
+		projectile.alive = false;
+		generateParticle(projectile,projectile);
+		}
+	}
+	
+	
 	
 	private void checkLevelUp() {
 		if(exp >= nextLevelExp) {
@@ -608,7 +636,13 @@ public class Player extends Entity{
 			g2.fillRect(tempScreenX, tempScreenY, attackArea.width, attackArea.height);
 		}
 	}
-	
+	public void knockBack(Entity entity, int knockBackPower) {
+		
+		entity.facing = facing;
+		entity.speed += knockBackPower;
+		entity.knockBack = true;
+		
+	}
 	public int getAttack() {
 		return attack = strenght+currentMagatama.attackValue;
 	}

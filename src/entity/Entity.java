@@ -44,12 +44,14 @@ public abstract class Entity   {
 	boolean hpBarOn = false;
 	int hpBarCounter = 0;
 	public boolean onPath = false;
+	public boolean knockBack = false;
 	//DIALOGUES STATUS
 	public int dialoguesQuantity = 20;
 	public int actionLockCounter = 0; // Para movimenta��o dos NPC
 	
 	String dialogues[] = new String[dialoguesQuantity]; 
 	int dialogueIndex = 0;
+	
 	
 	public int type;
 	public final int typePlayer = 0;
@@ -58,9 +60,11 @@ public abstract class Entity   {
 	public final int typeMaga = 3;
 	public final int typeConsumable = 4;
 	public final int typePickupOnly = 5;
+	int knockBackCounter = 0;
 	
 	// Status
 	public String name;
+	public int defaultSpeed;
 	public int speed;
 	public int maxHP;
 	public int hp;
@@ -87,6 +91,7 @@ public abstract class Entity   {
 	public int defenseValue;
 	public String description = "";
 	public int price;
+	public int knockBackPower = 0;
 	public boolean isFollowing = false;
 	public Entity(Screen screen) {
 		this.screen = screen;
@@ -126,19 +131,52 @@ public abstract class Entity   {
 	}
 	
 	public void update() {
-		setAction();
-		checkCollision();
-		if(collision == false) {
-			switch(facing) {
-			case "up": worldY -= speed;
-			break;
-			case "down": worldY += speed;
-			break;
-			case "left": worldX -= speed;
-			break;
-			case "right": worldX += speed;
-			break;
+		
+		if(knockBack == true) {
+			
+			checkCollision();
+			if (collision == true) {
+				knockBackCounter = 0;
+				knockBack = false;
+				speed = defaultSpeed;
 			}
+			else if(collision ==false) {
+				switch(screen.player.facing) {
+				case "up": worldY -= speed;
+				break;
+				case "down": worldY += speed;
+				break;
+				case "left": worldX -= speed;
+				break;
+				case "right": worldX += speed;
+				break;
+				}
+			}
+			
+			knockBackCounter++;
+			if(knockBackCounter ==10) {
+				knockBackCounter = 0;
+				knockBack = false;
+				speed = defaultSpeed;
+			}
+			
+		}
+		else {
+			setAction();
+			checkCollision();
+			if(collision == false) {
+				switch(facing) {
+				case "up": worldY -= speed;
+				break;
+				case "down": worldY += speed;
+				break;
+				case "left": worldX -= speed;
+				break;
+				case "right": worldX += speed;
+				break;
+				}
+		}
+		
 			
 			if(collision == true) {
 	    		isMoving = false;

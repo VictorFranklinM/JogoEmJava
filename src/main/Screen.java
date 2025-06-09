@@ -64,6 +64,7 @@ public class Screen extends JPanel implements Runnable{
 	public Entity obj[][] = new Entity[maxMap][objPerScreen]; // new Object[x]. x e a quantidade de objetos que podem ser renderizados na tela ao mesmo tempo.
 	public Entity npc[][] = new Entity[maxMap][npcPerScreen];
 	public Entity enemy[][] = new Entity[maxMap][enemyPerScreen];
+	public Entity projectile [] [] = new Entity[maxMap] [20];
 	public ArrayList<Entity> entityList = new ArrayList<>();
 	public ArrayList<Entity> spellList = new ArrayList<>();
 	public ArrayList<Entity> particleList = new ArrayList<>();
@@ -149,12 +150,13 @@ public class Screen extends JPanel implements Runnable{
     			}
     		}
     	
-    		for (int i = 0; i < spellList.size(); i++) {
-    			if(spellList.get(i) != null) {
-    				if(spellList.get(i).alive) {
-    					spellList.get(i).update();
+    		for (int i = 0; i < projectile[1].length; i++) {
+    			if(projectile[currentMap][i] != null) {
+    				if(projectile[currentMap][i].alive == true) {
+    					projectile[currentMap][i].update();
     				} else {
-    					spellList.remove(i);
+    					projectile[currentMap][i] = null;
+    				
     					i--;
     				}
     			}
@@ -212,9 +214,9 @@ public class Screen extends JPanel implements Runnable{
     			}
     		}
     		
-    		for(int i = 0; i < spellList.size(); i++) {
-    			if(spellList.get(i) != null) {
-    				entityList.add(spellList.get(i));
+    		for(int i = 0; i < projectile[1].length; i++) {
+    			if(projectile[currentMap][i] != null) {
+    				entityList.add(projectile[currentMap][i]);
     			}
     		}
     		

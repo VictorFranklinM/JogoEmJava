@@ -15,7 +15,8 @@ public class En_Katakirauwa extends Entity{
 		super(screen);
 		type = typeEnemy;
 		name = "Katakirauwa";
-		speed = 4;
+		defaultSpeed = 2;
+		speed = defaultSpeed;
 		maxHP = 3;
 		hp = maxHP;
 		attack = 3;

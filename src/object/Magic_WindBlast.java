@@ -19,6 +19,7 @@ public class Magic_WindBlast extends Projectile{
 		maxHP = 100;
 		hp = maxHP;
 		manaCost = 1;
+		knockBackPower = 2;
 		attack = screen.player.dexterity*2;
 		alive = false;
 		getImage();
