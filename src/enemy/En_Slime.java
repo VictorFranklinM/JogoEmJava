@@ -37,6 +37,20 @@ public class En_Slime extends Entity{
         getImage();
 	}
 	
+	public void update() {
+		super.update();
+		int xDistance = Math.abs(worldX - screen.player.worldX);
+		int yDistance = Math.abs(worldY - screen.player.worldY);
+		int tileDistance = (xDistance + yDistance) / Screen.tileSize;
+		if(onPath == false && tileDistance < 5) {
+			int i = new Random().nextInt(100) + 1;
+			if(i > 50) {
+				onPath = true;
+				isFollowing = true;
+			}
+		}
+	
+	}
 	
 	public void getImage() {
 		up1 = setup("/enemies/GSlime-Up-1",Screen.tileSize, Screen.tileSize);
@@ -55,33 +69,15 @@ public class En_Slime extends Entity{
 	}
 	
 	public void setAction() {
-		actionLockCounter++;
-		
-		if(actionLockCounter == 45) {
-			Random random = new Random();
-			int i = random.nextInt(100)+1; // escolhe um numero de 1�100
-			
-			if (i <= 25) {
-				facing = "up";
-			}
-			if (i > 25 && i <= 50) {
-				facing = "down";
-			}
-			if (i > 50 && i <= 75) {
-				facing = "left";
-			}
-			if (i > 75 && i <= 100) {
-				facing = "right";
-			}
-			
-			actionLockCounter = 0;
-		}
+		followLogic();
 	}
 	
 	public void damageReaction() {
 		// Correr do jogador
 		actionLockCounter = 0;
 		facing = screen.player.facing;
+		onPath = true;
+		isFollowing = true;
 	}
 	
 	public void checkDrop() {

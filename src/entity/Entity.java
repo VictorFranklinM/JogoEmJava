@@ -7,6 +7,7 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 
@@ -86,7 +87,7 @@ public abstract class Entity   {
 	public int defenseValue;
 	public String description = "";
 	public int price;
-	
+	public boolean isFollowing = false;
 	public Entity(Screen screen) {
 		this.screen = screen;
 	}
@@ -442,14 +443,64 @@ public abstract class Entity   {
 				}
 			}
 			
-			int nextCol = screen.pFinder.pathList.get(0).col;
-			int nextRow = screen.pFinder.pathList.get(0).row;
-			if(nextCol == goalCol && nextRow == goalRow) {
+			
+			// CHECK IF IT REACHES THE GOAL
+			if(isFollowing == false) {
+				int nextCol = screen.pFinder.pathList.get(0).col;
+				int nextRow = screen.pFinder.pathList.get(0).row;
+				if(nextCol == goalCol && nextRow == goalRow) {
 				onPath = false;
+				}
 			}
-
 	}		
 				
 		
+		
+	}
+	public void movementLogic() {
+		actionLockCounter++;
+		
+		if(actionLockCounter == 45) {
+			Random random = new Random();
+			int i = random.nextInt(100)+1; // escolhe um numero de 1�100
+		
+			if (i <= 25) {
+				facing = "up";
+			}
+			if (i > 25 && i <= 50) {
+				facing = "down";
+			}
+			if (i > 50 && i <= 75) {
+				facing = "left";
+			}
+			if (i > 75 && i <= 100) {
+				facing = "right";
+			}
+		
+			actionLockCounter = 0;
+		}
+	}
+	public void followLogic() {
+		if(onPath == true) {
+			
+			int goalCol = (screen.player.worldX + screen.player.collisionArea.x) / Screen.tileSize;
+			int goalRow = (screen.player.worldY + screen.player.collisionArea.y) / Screen.tileSize;
+			searchPath(goalCol,goalRow);
+		
+		}else{
+			movementLogic();
+		
+		}
+	}
+	public void destinedMovement(int col,int row) {
+		if(onPath == true) {
+			int goalCol = col;
+			int goalRow = row;
+			searchPath(goalCol,goalRow);
+		}else {
+			movementLogic();
+		}
+		
 	}
 }
+	
