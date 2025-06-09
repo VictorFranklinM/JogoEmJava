@@ -9,6 +9,7 @@ public class OBJ_MagaGreen extends Entity{
 	
 	public OBJ_MagaGreen(Screen screen) {
 		super(screen);
+		this.screen = screen;
 		type = typeMaga;
 		
 		Magic_WindBlast wind = new Magic_WindBlast(screen);

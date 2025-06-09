@@ -25,9 +25,10 @@ public class OBJ_GreenMacca extends Entity {
         collisionAreaDefaultY = collisionArea.y;
 	}
 	
-	public void use(Entity entity) {
+	public boolean use(Entity entity) {
 		screen.playSFX(0);
 		screen.ui.addMessage("Macca +"+ value);
 		screen.player.macca += value;
+		return true;
 	}
 }

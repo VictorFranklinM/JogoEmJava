@@ -9,6 +9,7 @@ public class OBJ_Medicine extends Entity{
 	
 	public OBJ_Medicine(Screen screen) {
 		super(screen);
+		this.screen = screen;
 		type = typeConsumable;
 		
 		name = "Medicine";
@@ -29,7 +30,7 @@ public class OBJ_Medicine extends Entity{
         collisionAreaDefaultY = collisionArea.y;
 	}
 	
-	public void use(Entity entity) {
+	public boolean use(Entity entity) {
 		screen.playSFX(1);
 		screen.gameState = Screen.dialogueState;
 		screen.ui.currentSpeechLine = "You use the "+name+"!\n"
@@ -39,5 +40,6 @@ public class OBJ_Medicine extends Entity{
 		if(screen.player.hp > screen.player.maxHP) {
 			screen.player.hp = screen.player.maxHP;
 		}
+		return true;
 	}
 }

@@ -8,6 +8,7 @@ public class OBJ_Portal extends Entity{
 	
 	public OBJ_Portal(Screen screen) {
 		super(screen);
+		this.screen = screen;
 		down1 = setup("/objects/portal",Screen.tileSize, Screen.tileSize);
 		name = "Portal";
 		

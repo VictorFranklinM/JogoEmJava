@@ -22,18 +22,21 @@ public class OBJ_Key extends Entity{
 		collisionAreaDefaultY = collisionArea.y;
 	}
 	
-	public void use(Entity entity) {
+	public boolean use(Entity entity) {
 		screen.gameState = Screen.dialogueState;
-		
+
 		int objIndex = getDetected(entity, screen.obj, "Chest");
-		
-		if(objIndex != 999) {
+
+		if(objIndex != 999 && screen.obj[Screen.currentMap][objIndex].spriteNum == 1) {
 			screen.ui.currentSpeechLine = "You unlocked the chest with the key!";
+			((OBJ_Chest) screen.obj[Screen.currentMap][objIndex]).unlocked = true;
 			screen.playSFX(1);
-			screen.obj[Screen.currentMap][objIndex] = null;
+			return true;
 		}
 		else {
 			screen.ui.currentSpeechLine = "There's nothing nearby to use this.";
+			return false;
 		}
 	}
+
 }

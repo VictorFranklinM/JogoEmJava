@@ -12,7 +12,7 @@ public class OBJ_Obelisk extends Entity{
 		
 		type = typeObstacle;
 		down1 = setup("/objects/obelisk",Screen.tileSize, Screen.tileSize*2);
-		name = "Cache Cube";
+		name = "Obelisk";
 		
 		collisionArea.x = (0 * Screen.scale);
         collisionArea.y = (0 * Screen.scale);
@@ -29,8 +29,14 @@ public class OBJ_Obelisk extends Entity{
 	public void interact() {
 		screen.gameState = Screen.dialogueState;
 		if(screen.player.hasMaga > 0) {
+			screen.playSFX(1);
 			screen.ui.currentSpeechLine = "You are worthy.\nYou can pass.";
-			
+			for (int i = 0; i < screen.obj[Screen.currentMap].length; i++) {
+	            if (screen.obj[Screen.currentMap][i] == this) {
+	                screen.obj[Screen.currentMap][i] = null;
+	                break;
+	            }
+	        }
 		}
 		else {
 			screen.ui.currentSpeechLine = "You need the Force Magatama to pass.";

@@ -50,7 +50,15 @@ public class ObjPlacer extends Entity {
 		screen.obj[mapNum][i].worldX = 30 * Screen.tileSize;
 		screen.obj[mapNum][i].worldY = 37 * Screen.tileSize;
 		i++;
-		screen.obj[mapNum][i] = new OBJ_Chest(screen);
+		screen.obj[mapNum][i] = new OBJ_Key(screen);
+		screen.obj[mapNum][i].worldX = 30 * Screen.tileSize;
+		screen.obj[mapNum][i].worldY = 37 * Screen.tileSize;
+		i++;
+		screen.obj[mapNum][i] = new OBJ_Key(screen);
+		screen.obj[mapNum][i].worldX = 30 * Screen.tileSize;
+		screen.obj[mapNum][i].worldY = 37 * Screen.tileSize;
+		i++;
+		screen.obj[mapNum][i] = new OBJ_Chest(screen, new OBJ_ManaBottle(screen));
 		screen.obj[mapNum][i].worldX = 29 * Screen.tileSize;
 		screen.obj[mapNum][i].worldY = 31 * Screen.tileSize;
 		i++;

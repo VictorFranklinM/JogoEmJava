@@ -9,6 +9,7 @@ public class OBJ_ManaBottle extends Entity{
 	
 	public OBJ_ManaBottle(Screen screen) {
 		super(screen);
+		this.screen = screen;
 		type = typeConsumable;
 		
 		name = "Mana Bottle";
@@ -29,15 +30,17 @@ public class OBJ_ManaBottle extends Entity{
         collisionAreaDefaultY = collisionArea.y;
 	}
 	
-	public void use(Entity entity) {
+	public boolean use(Entity entity) {
 		screen.playSFX(1);
 		screen.gameState = Screen.dialogueState;
 		screen.ui.currentSpeechLine = "You use the "+name+"!\n"
 									+"You recovered "+value+" mp!";
-				screen.player.mana += value;
+		screen.player.mana += value;
 		
 		if(screen.player.mana > screen.player.maxMana) {
 			screen.player.mana = screen.player.maxMana;
+			
 		}
+		return true;
 	}
 }

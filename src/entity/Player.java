@@ -10,6 +10,7 @@ import main.Screen;
 import object.Magic_Fireball;
 import object.Magic_Icicle;
 import object.Magic_WindBlast;
+import object.OBJ_Key;
 
 public class Player extends Entity{
 	Screen screen;
@@ -53,7 +54,7 @@ public class Player extends Entity{
 		setDefaultValues();
 		getImage();
 		getPlayerAttackImage();
-		setItems();
+		setItens();
 	}
 	
 	public void setDefaultValues() {
@@ -99,7 +100,7 @@ public class Player extends Entity{
 		isInvincible = false;
 	}
 	
-	public void setItems() {
+	public void setItens() {
 		inventory.clear();
 	}
 	
@@ -546,8 +547,9 @@ public class Player extends Entity{
 				}
 			}
 			if(selectedItem.type == typeConsumable) {
-				selectedItem.use(this);
-				inventory.remove(itemIndex);
+				if(selectedItem.use(this)) {
+					inventory.remove(itemIndex);
+				}
 			}
 		}
 	}

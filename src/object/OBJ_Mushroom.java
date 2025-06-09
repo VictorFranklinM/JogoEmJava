@@ -9,6 +9,7 @@ public class OBJ_Mushroom extends Entity{
 	
 	public OBJ_Mushroom(Screen screen) {
 		super(screen);
+		this.screen = screen;
 		type = typeConsumable;
 		spriteNum = 2;
 		
@@ -31,7 +32,7 @@ public class OBJ_Mushroom extends Entity{
         collisionAreaDefaultY = collisionArea.y;
 	}
 	
-	public void use(Entity entity) {
+	public boolean use(Entity entity) {
 		screen.playSFX(1);
 		screen.gameState = Screen.dialogueState;
 		screen.ui.currentSpeechLine = "You eat the "+name+"!\n"
@@ -40,5 +41,6 @@ public class OBJ_Mushroom extends Entity{
 		if(screen.player.hp > screen.player.maxHP) {
 			screen.player.hp = screen.player.maxHP;
 		}
+		return true;
 	}
 }

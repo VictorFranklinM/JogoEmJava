@@ -118,7 +118,7 @@ public abstract class Entity   {
 	}
 	
 	public int getBottomY() {
-		return worldY + collisionArea.y + collisionArea.y;
+		return worldY + collisionArea.y + collisionArea.height;
 	}
 	
 	public int getCol() {
@@ -146,7 +146,7 @@ public abstract class Entity   {
 	
 	public void setAction() {}
 	
-	public void use(Entity entity) {}
+	public boolean use(Entity entity) {return false;}
 	
 	public void checkCollision() {
 		collision = false;
@@ -583,22 +583,23 @@ public abstract class Entity   {
 		int index = 999;
 		
 		// Check the surrounding object
-		int nextWorldX = user.getLeftX();
-		int nextWorldY = user.getTopY();
+		int nextWorldX = user.worldX + Screen.tileSize / 2;
+		int nextWorldY = user.worldY + Screen.tileSize / 2;
 		
 		switch(user.facing) {
-		case "up": nextWorldY = user.getTopY()-1; break;
-		case "down": nextWorldY = user.getBottomY()+1; break;
-		case "left": nextWorldX = user.getLeftX()-1; break;
-		case "right": nextWorldX = user.getRightX()+1; break;
+	    case "up": nextWorldY -= Screen.tileSize; break;
+	    case "down": nextWorldY += Screen.tileSize; break;
+	    case "left": nextWorldX -= Screen.tileSize; break;
+	    case "right": nextWorldX += Screen.tileSize; break;
 		}
 		
 		int col = nextWorldX/Screen.tileSize;
 		int row = nextWorldY/Screen.tileSize;
 		
-		for(int i = 0; i < target[i].length; i++) {
+		
+		for (int i = 0; i < target[Screen.currentMap].length; i++) {
 			if(target[Screen.currentMap][i] != null) {
-				if(target[Screen.currentMap][i].getCol() == col && target[Screen.currentMap][i].getRow() == row && target[Screen.currentMap][i].name == name) {
+				if(target[Screen.currentMap][i].getCol() == col && target[Screen.currentMap][i].getRow() == row && target[Screen.currentMap][i].name.equals(targetName) ) {
 					index = i;
 					break;
 				}

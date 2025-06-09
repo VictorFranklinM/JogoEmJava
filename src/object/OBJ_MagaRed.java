@@ -9,6 +9,7 @@ public class OBJ_MagaRed extends Entity{
 	
 	public OBJ_MagaRed(Screen screen) {
 		super(screen);
+		this.screen = screen;
 		type = typeMaga;
 		
 		Magic_Fireball fire = new Magic_Fireball(screen);
