@@ -64,7 +64,7 @@ public class Screen extends JPanel implements Runnable{
 	public Entity obj[][] = new Entity[maxMap][objPerScreen]; // new Object[x]. x e a quantidade de objetos que podem ser renderizados na tela ao mesmo tempo.
 	public Entity npc[][] = new Entity[maxMap][npcPerScreen];
 	public Entity enemy[][] = new Entity[maxMap][enemyPerScreen];
-	public Entity projectile [] [] = new Entity[maxMap] [20];
+	public Entity projectile [][] = new Entity[maxMap][20];
 	public ArrayList<Entity> entityList = new ArrayList<>();
 	public ArrayList<Entity> spellList = new ArrayList<>();
 	public ArrayList<Entity> particleList = new ArrayList<>();

@@ -32,5 +32,6 @@ public class OBJ_MagaBlue extends Entity{
         collisionAreaDefaultY = collisionArea.y;
 
         collision = true;
+        knockBackPower = 3;
 	}
 }

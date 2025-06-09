@@ -18,7 +18,7 @@ public class TileOrganizer {
 	Screen screen; // Referencia a tela principal
 	public Tile[] tile; // Array de tiles
 	public int mapTileNum[][][]; // Matriz que armazena os numeros dos tiles do mapa
-	boolean drawPath = true;
+	public boolean drawPath = false;
 	public TileOrganizer(Screen screen) {
 		
 		this.screen = screen;

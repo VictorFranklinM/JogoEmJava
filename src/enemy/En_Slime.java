@@ -50,6 +50,10 @@ public class En_Slime extends Entity{
 				isFollowing = true;
 			}
 		}
+		if(onPath && tileDistance > 10) {
+			onPath = false;
+			isFollowing = false;
+		}
 	
 	}
 	

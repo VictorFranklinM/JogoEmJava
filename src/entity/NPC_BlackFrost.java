@@ -28,8 +28,7 @@ public class NPC_BlackFrost extends Entity{
 	public void speak() {
 		screen.ui.setFace(face);
 		super.speak();
-		
-		onPath = true;
+
 	}
 	
 	public void setTextLines() {
@@ -60,11 +59,6 @@ public class NPC_BlackFrost extends Entity{
 	
 	@Override
 	public void setAction() {
-		
-		if(isFollowing == true) {
-			followLogic();
-		}else {
-			destinedMovement(20, 30);
-		}
+		movementLogic();
 	}
 }

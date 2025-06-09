@@ -60,7 +60,7 @@ public class Player extends Entity{
 		// World X e Y sao onde o personagem do player aparecera no mapa inicialmente.
 		worldX = Screen.tileSize * 25; // LEMBRAR DE MUDAR SETDEFAULTPOSITIONS()
 		worldY = Screen.tileSize * 37;
-		defaultSpeed = 4;
+		defaultSpeed = 5;
 		speed = defaultSpeed;
 		facing = "down";
 		
@@ -281,7 +281,7 @@ public class Player extends Entity{
 			projectile.subtractResource(this);
 				
 			//CHECK VANCANCY
-			for(int i = 0; i < screen.projectile[i].length; i++) {
+			for(int i = 0; i < screen.projectile[1].length; i++) {
 				if(screen.projectile[Screen.currentMap][i] == null) {
 					screen.projectile[Screen.currentMap][i] = projectile;
 					break;
@@ -336,6 +336,7 @@ public class Player extends Entity{
 		collisionArea.width = attackArea.width;
 		collisionArea.height = attackArea.height;
 		int enemyIndex = screen.colCheck.checkEntity(this, screen.enemy);
+		
 		int knockBack = (currentMagatama != null) ? currentMagatama.knockBackPower : 2;
 		damageEnemy(enemyIndex, attack, knockBack);
 
@@ -445,9 +446,7 @@ public class Player extends Entity{
 				if(knockBackPower > 0) {
 					knockBack(screen.enemy[Screen.currentMap][i], knockBackPower);	
 				}
-				
-				
-				
+		
 				int damage = attack - screen.enemy[Screen.currentMap][i].defense;
 				if(damage < 0) {
 					damage = 0;
@@ -469,16 +468,15 @@ public class Player extends Entity{
 			}
 		}
 	}
+	
 	public void damageProjectile (int i) {
 		if(i != 999) {
-		Entity projectile = screen.projectile[Screen.currentMap] [i];
-		projectile.alive = false;
-		generateParticle(projectile,projectile);
+			Entity projectile = screen.projectile[Screen.currentMap][i];
+			projectile.alive = false;
+			generateParticle(projectile,projectile);
 		}
 	}
-	
-	
-	
+
 	private void checkLevelUp() {
 		if(exp >= nextLevelExp) {
 			level++;
@@ -636,6 +634,7 @@ public class Player extends Entity{
 			g2.fillRect(tempScreenX, tempScreenY, attackArea.width, attackArea.height);
 		}
 	}
+	
 	public void knockBack(Entity entity, int knockBackPower) {
 		
 		entity.facing = facing;
@@ -643,6 +642,7 @@ public class Player extends Entity{
 		entity.knockBack = true;
 		
 	}
+	
 	public int getAttack() {
 		return attack = strenght+currentMagatama.attackValue;
 	}

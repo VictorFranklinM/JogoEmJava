@@ -217,9 +217,11 @@ public class KeyInput implements KeyListener {
 		if(code == KeyEvent.VK_T) {
 			if(isDebugging == false) {
 				isDebugging = true;
+				screen.tileM.drawPath = true;
 			}
 			else {
 				isDebugging = false;
+				screen.tileM.drawPath = false;
 			}
 		}
 		if(isDebugging && code == KeyEvent.VK_R) {

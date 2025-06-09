@@ -15,7 +15,7 @@ public class En_Katakirauwa extends Entity{
 		super(screen);
 		type = typeEnemy;
 		name = "Katakirauwa";
-		defaultSpeed = 2;
+		defaultSpeed = 4;
 		speed = defaultSpeed;
 		maxHP = 3;
 		hp = maxHP;
@@ -33,6 +33,25 @@ public class En_Katakirauwa extends Entity{
 		collisionAreaDefaultY = collisionArea.y;
         
         getImage();
+	}
+	
+	public void update() {
+		super.update();
+		int xDistance = Math.abs(worldX - screen.player.worldX);
+		int yDistance = Math.abs(worldY - screen.player.worldY);
+		int tileDistance = (xDistance + yDistance) / Screen.tileSize;
+		if(onPath == false && tileDistance < 5) {
+			int i = new Random().nextInt(100) + 1;
+			if(i > 50) {
+				onPath = true;
+				isFollowing = true;
+			}
+		}
+		if(onPath && tileDistance > 10) {
+			onPath = false;
+			isFollowing = false;
+		}
+	
 	}
 	
 	
@@ -53,27 +72,7 @@ public class En_Katakirauwa extends Entity{
 	}
 	
 	public void setAction() {
-		actionLockCounter++;
-		
-		if(actionLockCounter == 45) {
-			Random random = new Random();
-			int i = random.nextInt(100)+1; // escolhe um numero de 1�100
-			
-			if (i <= 25) {
-				facing = "up";
-			}
-			if (i > 25 && i <= 50) {
-				facing = "down";
-			}
-			if (i > 50 && i <= 75) {
-				facing = "left";
-			}
-			if (i > 75 && i <= 100) {
-				facing = "right";
-			}
-			
-			actionLockCounter = 0;
-		}
+		followLogic();
 	}
 	
 	public void damageReaction() {

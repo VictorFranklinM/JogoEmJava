@@ -13,7 +13,7 @@ public class En_Decarabia extends Entity{
 		super(screen);
 		type = typeEnemy;
 		name = "Decarabia";
-		defaultSpeed = 2;
+		defaultSpeed = 3;
 		speed = defaultSpeed;
 		maxHP = 7;
 		hp = maxHP;
@@ -33,6 +33,24 @@ public class En_Decarabia extends Entity{
         getImage();
 	}
 	
+	public void update() {
+		super.update();
+		int xDistance = Math.abs(worldX - screen.player.worldX);
+		int yDistance = Math.abs(worldY - screen.player.worldY);
+		int tileDistance = (xDistance + yDistance) / Screen.tileSize;
+		if(onPath == false && tileDistance < 5) {
+			int i = new Random().nextInt(100) + 1;
+			if(i > 50) {
+				onPath = true;
+				isFollowing = true;
+			}
+		}
+		if(onPath && tileDistance > 10) {
+			onPath = false;
+			isFollowing = false;
+		}
+	
+	}
 	
 	public void getImage() {
 		up1 = setup("/enemies/Decarabia-Down-1",Screen.tileSize, Screen.tileSize);
@@ -51,7 +69,7 @@ public class En_Decarabia extends Entity{
 	}
 	
 	public void setAction() {
-		movementLogic();
+		followLogic();
 	}
 	
 	public void damageReaction() {

@@ -34,24 +34,31 @@ public abstract class Entity   {
 	public Rectangle attackArea = new Rectangle(0, 0, 0, 0);
 	public int collisionAreaDefaultX, collisionAreaDefaultY;
 	public boolean collision = false;
+	
 	public boolean isInvincible = false;
 	public int invincibilityTimer = 0;
 	public int deathCounter = 0;
+	
 	public int spellCooldown = 60;
+	
 	boolean attacking = false;
 	public boolean alive = true;
 	public boolean dying = false;
+	
 	boolean hpBarOn = false;
 	int hpBarCounter = 0;
+	
 	public boolean onPath = false;
+	
 	public boolean knockBack = false;
+	int knockBackCounter = 0;
+	
 	//DIALOGUES STATUS
 	public int dialoguesQuantity = 20;
 	public int actionLockCounter = 0; // Para movimenta��o dos NPC
 	
 	String dialogues[] = new String[dialoguesQuantity]; 
 	int dialogueIndex = 0;
-	
 	
 	public int type;
 	public final int typePlayer = 0;
@@ -60,7 +67,6 @@ public abstract class Entity   {
 	public final int typeMaga = 3;
 	public final int typeConsumable = 4;
 	public final int typePickupOnly = 5;
-	int knockBackCounter = 0;
 	
 	// Status
 	public String name;
@@ -90,8 +96,9 @@ public abstract class Entity   {
 	public int attackValue;
 	public int defenseValue;
 	public String description = "";
-	public int price;
 	public int knockBackPower = 0;
+	public int price;
+
 	public boolean isFollowing = false;
 	public Entity(Screen screen) {
 		this.screen = screen;
@@ -140,7 +147,7 @@ public abstract class Entity   {
 				knockBack = false;
 				speed = defaultSpeed;
 			}
-			else if(collision ==false) {
+			else if(collision == false) {
 				switch(screen.player.facing) {
 				case "up": worldY -= speed;
 				break;
@@ -154,7 +161,7 @@ public abstract class Entity   {
 			}
 			
 			knockBackCounter++;
-			if(knockBackCounter ==10) {
+			if(knockBackCounter == 10) {
 				knockBackCounter = 0;
 				knockBack = false;
 				speed = defaultSpeed;

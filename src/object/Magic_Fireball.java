@@ -19,7 +19,7 @@ public class Magic_Fireball extends Projectile{
 		maxHP = 100;
 		hp = maxHP;
 		manaCost = 2;
-		knockBackPower = 0;
+		knockBackPower = 4;
 		attack = screen.player.dexterity*4;
 		alive = false;
 		getImage();

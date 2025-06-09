@@ -56,26 +56,6 @@ public class NPC_Nadja extends Entity{
 	
 	@Override
 	public void setAction() {
-		actionLockCounter++;
-		
-		if(actionLockCounter == 45) {
-			Random random = new Random();
-			int i = random.nextInt(100)+1; // escolhe um numero de 1�100
-			
-			if (i <= 25) {
-				facing = "up";
-			}
-			if (i > 25 && i <= 50) {
-				facing = "down";
-			}
-			if (i > 50 && i <= 75) {
-				facing = "left";
-			}
-			if (i > 75 && i <= 100) {
-				facing = "right";
-			}
-			
-			actionLockCounter = 0;
-		}
+		movementLogic();
 	}
 }
