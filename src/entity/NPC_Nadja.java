@@ -1,7 +1,6 @@
 package entity;
 
 import java.awt.Rectangle;
-import java.util.Random;
 
 import main.Screen;
 

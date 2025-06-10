@@ -268,16 +268,17 @@ public class UI {
 					screen.gameState = Screen.dialogueState;
 					currentSpeechLine = "You probably shouldn't go around selling\nsacred stuff...";
 				} else {
-					if(screen.player.inventory.get(itemIndex).amount > 1) {
+					if(screen.player.inventory.get(itemIndex).amount >= 1) {
+						screen.playSFX(0);
+						screen.player.macca += screen.player.inventory.get(itemIndex).value;
+						commandNum = 0;
 						screen.player.inventory.get(itemIndex).amount--;
 					}
-					else {
+					if(screen.player.inventory.get(itemIndex).amount == 0){
+						
 						screen.player.inventory.remove(itemIndex);
 					}
-					screen.playSFX(0);
-					
-					screen.player.macca += screen.player.inventory.get(itemIndex).value;
-					commandNum = 0;
+				
 				}
 			}
 		}
