@@ -21,6 +21,11 @@ public class OBJ_Key extends Entity{
 		
 		collisionAreaDefaultX = collisionArea.x;
 		collisionAreaDefaultY = collisionArea.y;
+		
+		value = 2;
+		description = "[" +name+ "]\n"
+					+ "It's a key!\nMaybe you can unlock something\nlike a chest with it.";
+		price = 3;
 	}
 	
 	public boolean use(Entity entity) {
@@ -28,7 +33,7 @@ public class OBJ_Key extends Entity{
 
 		int objIndex = getDetected(entity, screen.obj, "Chest");
 
-		if(objIndex != 999 && screen.obj[Screen.currentMap][objIndex].spriteNum == 1) {
+		if(objIndex != 999 && !((OBJ_Chest)screen.obj[Screen.currentMap][objIndex]).unlocked) {
 			screen.ui.currentSpeechLine = "You unlocked the chest with the key!";
 			((OBJ_Chest) screen.obj[Screen.currentMap][objIndex]).unlocked = true;
 			screen.playSFX(1);

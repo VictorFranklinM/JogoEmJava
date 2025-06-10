@@ -243,9 +243,9 @@ public class UI {
 		drawSubWindow(x, y, width / 2, height);
 		int itemIndex = getItemIndexOnSlot(playerSlotCol, playerSlotRow);
 		if (itemIndex < screen.player.inventory.size()) {
-			g2.drawString("Price: " + screen.player.inventory.get(itemIndex).price, x + 24, y + 80);
+			g2.drawString("Sell: " + screen.player.inventory.get(itemIndex).value, x + 24, y + 80);
 		} else {
-			g2.drawString("Price: ", x + 24, y + 80);
+			g2.drawString("Sell: ", x + 24, y + 80);
 		}
 
 		x += width / 2;
@@ -275,9 +275,8 @@ public class UI {
 						screen.player.inventory.remove(itemIndex);
 					}
 					screen.playSFX(0);
-					int price = screen.player.inventory.get(itemIndex).price / 2;
 					
-					screen.player.macca += price;
+					screen.player.macca += screen.player.inventory.get(itemIndex).value;
 					commandNum = 0;
 				}
 			}

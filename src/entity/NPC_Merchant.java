@@ -3,6 +3,7 @@ package entity;
 import java.awt.Rectangle;
 
 import main.Screen;
+import object.OBJ_Key;
 import object.OBJ_ManaBottle;
 import object.OBJ_Medicine;
 import object.OBJ_Mushroom;
@@ -63,5 +64,6 @@ public class NPC_Merchant extends Entity{
 		inventory.add(new OBJ_ManaBottle(screen));
 		inventory.add(new OBJ_Medicine(screen));
 		inventory.add(new OBJ_Mushroom(screen));
+		inventory.add(new OBJ_Key(screen));
 	}
 }
