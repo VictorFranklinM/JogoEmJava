@@ -25,7 +25,7 @@ public class UI {
 	Screen screen;
 	Graphics2D g2;
 	
-	private Font megaten;
+	public Font megaten;
 	
 	BufferedImage titleBG, hpFull, hpNone, manaFull, manaNone, face;
 	

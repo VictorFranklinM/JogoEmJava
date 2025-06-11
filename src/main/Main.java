@@ -2,12 +2,13 @@ package main;
 
 import javax.swing.JFrame; // Importa as propriedades da classe JFrame. (Cria apenas a janela)
 public class Main {
-	
+	 
 	public static void main(String[] args) {
 		
 		JFrame window = new JFrame(); // Cria a janela do jogo com a classe JFrame.
 		Screen screen = new Screen(); // Instanciando nossa classe Screen na main.
 		
+
 		window.add(screen);
 		
 		screen.config.loadConfig();

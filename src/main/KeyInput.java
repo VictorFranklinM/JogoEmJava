@@ -57,6 +57,10 @@ public class KeyInput implements KeyListener {
 		else if(screen.gameState == Screen.tradeState) {
 			tradeState(code);
 		}
+		//MAP STATE
+		else if(screen.gameState == Screen.mapState) {
+		mapState(code);
+				}
 	}
 	
 	public void tradeState(int code) {
@@ -76,7 +80,7 @@ public class KeyInput implements KeyListener {
 				screen.ui.commandNum++;
 				if(screen.ui.commandNum > 2) {
 					screen.ui.commandNum = 0;
-				}
+			}
 				screen.playSFX(8);
 			}
 		}
@@ -214,6 +218,18 @@ public class KeyInput implements KeyListener {
 		if(code == KeyEvent.VK_ENTER) {
 			screen.gameState = Screen.statusState;
 		}
+		if(code == KeyEvent.VK_M) {
+			screen.gameState = Screen.mapState;
+		}
+		if(code == KeyEvent.VK_X) {
+		 if(screen.map.miniMapOn == false) {
+			 screen.map.miniMapOn = true;
+		 }
+		 else {
+			 screen.map.miniMapOn = false;
+		 }
+		}
+		
 		if(code == KeyEvent.VK_T) {
 			if(isDebugging == false) {
 				isDebugging = true;
@@ -254,6 +270,13 @@ public class KeyInput implements KeyListener {
 		}
 		playerInventory(code);
 	}
+	public void mapState(int code) {
+		
+		if(code == KeyEvent.VK_M) {
+			screen.gameState = Screen.playState;
+		}
+	}
+	
 	
 	public void playerInventory(int code) {
 		if(code == KeyEvent.VK_W) {

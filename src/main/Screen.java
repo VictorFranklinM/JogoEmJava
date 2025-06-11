@@ -15,6 +15,7 @@ import javax.swing.JPanel; // Importa as propriedades da classe JPanel. (Interfa
 import ai.PathFinder;
 import entity.Entity;
 import entity.Player;
+import tile.Map;
 import tile.TileOrganizer;
 
 
@@ -57,6 +58,8 @@ public class Screen extends JPanel implements Runnable{
 	public CollisionChecker colCheck = new CollisionChecker(this);
 	public EventManager eventManager = new EventManager(this);
 	
+	
+	
 	public ObjPlacer objPlacer = new ObjPlacer(this);
 	public NpcPlacer npcPlacer = new NpcPlacer(this);
 	
@@ -68,6 +71,7 @@ public class Screen extends JPanel implements Runnable{
 	public ArrayList<Entity> entityList = new ArrayList<>();
 	public ArrayList<Entity> spellList = new ArrayList<>();
 	public ArrayList<Entity> particleList = new ArrayList<>();
+	Map map = new Map(this);
 	
 	public int gameState;
 	public static final int titleState = 0;
@@ -78,6 +82,8 @@ public class Screen extends JPanel implements Runnable{
 	public static final int gameOverState = 5;
 	public static final int transitionState = 6;
 	public static final int tradeState = 7;
+	public final static int mapState = 10;
+	
 	
 	int fps = 60; // Quantas vezes a tela vai ser atualizada por segundo.
 	
@@ -193,6 +199,10 @@ public class Screen extends JPanel implements Runnable{
     	if(gameState == titleState) {
     		ui.draw(g2);
     	}
+    	// MAP SCREEN
+    	else if(gameState == mapState) {
+    		map.drawFullMapScreen(g2);
+    	}
     	//OTHERS
     	else {
     		tileM.draw(g2); // mapa
@@ -241,6 +251,8 @@ public class Screen extends JPanel implements Runnable{
     		}
     		
     		entityList.clear();
+    		
+    		map.drawMiniMap(g2);
     		
         	ui.draw(g2);
         	
