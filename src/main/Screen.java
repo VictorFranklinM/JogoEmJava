@@ -58,8 +58,6 @@ public class Screen extends JPanel implements Runnable{
 	public CollisionChecker colCheck = new CollisionChecker(this);
 	public EventManager eventManager = new EventManager(this);
 	
-	
-	
 	public ObjPlacer objPlacer = new ObjPlacer(this);
 	public NpcPlacer npcPlacer = new NpcPlacer(this);
 	
@@ -82,8 +80,7 @@ public class Screen extends JPanel implements Runnable{
 	public static final int gameOverState = 5;
 	public static final int transitionState = 6;
 	public static final int tradeState = 7;
-	public final static int mapState = 10;
-	
+	public final static int mapState = 8;
 	
 	int fps = 60; // Quantas vezes a tela vai ser atualizada por segundo.
 	

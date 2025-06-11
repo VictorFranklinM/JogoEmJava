@@ -85,47 +85,55 @@ public class UI {
 		//TITLE STATE
 		if(screen.gameState == Screen.titleState) {
 			screen.tsm.stopTileSound();
+			screen.map.miniMapOn = false;
 			drawTitleScreen();
 			
 		}
 		// PLAY STATE
 		if(screen.gameState == Screen.playState) {
 			drawPlayerUI();
+			screen.map.miniMapOn = true;
 			drawMessage();
 			screen.ui.setFace(null);
 		}
 		//Dialogue State
 		if(screen.gameState==Screen.dialogueState) {
 			screen.tsm.stopTileSound();
+			screen.map.miniMapOn = false;
     		drawDialogueScreen();
     	}
 		//Status State
 		if(screen.gameState == Screen.statusState) {
 			screen.tsm.stopTileSound();
+			screen.map.miniMapOn = false;
 			drawStatusScreen();
 			drawInventory(screen.player, true);
 		}
 		//OPTIONS STATE
 		if(screen.gameState == Screen.optionsState) {
 			screen.tsm.stopTileSound();
+			screen.map.miniMapOn = false;
 			drawOptionsScreen();
 			
 		}
 		//GAME OVER
 		if(screen.gameState == Screen.gameOverState) {
 			screen.tsm.stopTileSound();
+			screen.map.miniMapOn = false;
 			drawGameOverScreen();
 					
 		}
 		//TRANSITION
 		if(screen.gameState == Screen.transitionState) {
 			screen.tsm.stopTileSound();
+			screen.map.miniMapOn = false;
 			drawTransition();
 							
 		}
 		//TRADE
 		if(screen.gameState == Screen.tradeState) {
 			screen.tsm.stopTileSound();
+			screen.map.miniMapOn = false;
 			drawTradeScreen();
 									
 		}
@@ -228,10 +236,8 @@ public class UI {
 			}	
 				
 			}
-		}
+	}
 
-
-	
 	public void tradeSell() {
 		drawInventory(screen.player, true);
 		
@@ -284,7 +290,6 @@ public class UI {
 		}
 	}
 
-	
 	public void drawTransition() {
 		int transitionTime = 40;
 		counter++;
@@ -461,7 +466,6 @@ public class UI {
 			drawSubWindow(x-1, y-1, Screen.tileSize+2, Screen.tileSize+2);
 			g2.drawImage(screen.player.currentMagatama.down1, x, y, null);
 		}
-		
 	}
 	
 	public void drawTitleScreen() {

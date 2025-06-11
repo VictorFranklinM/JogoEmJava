@@ -10,7 +10,6 @@ import main.Screen;
 import object.Magic_Fireball;
 import object.Magic_Icicle;
 import object.Magic_WindBlast;
-import object.OBJ_Key;
 
 public class Player extends Entity{
 	Screen screen;
@@ -30,7 +29,6 @@ public class Player extends Entity{
 	public Player(Screen screen, KeyInput keyInput) {
 		super(screen);
 		this.screen = screen;
-		
 		this.key = keyInput;
 		
 		/* Como o personagem e renderizado a partir do pixel superior esquerdo, subtraimos meio tile de X e Y para que ele
@@ -117,7 +115,7 @@ public class Player extends Entity{
 		right1 = setup("/player/Right-1", Screen.tileSize, Screen.tileSize);
 		right2 = setup("/player/Right-2", Screen.tileSize, Screen.tileSize);
 		right3 = setup("/player/Right-3", Screen.tileSize, Screen.tileSize);
-
+		face = setup("/player/face", Screen.tileSize, Screen.tileSize);
 	}	
 	
 	public void getPlayerAttackImage() {
