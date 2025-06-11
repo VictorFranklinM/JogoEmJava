@@ -114,6 +114,7 @@ public class Screen extends JPanel implements Runnable{
 		player.setDefaultPositions();
 		player.restoreHpAndMana();
 		player.setItens();
+		player.currentMagatama = null;
 		objPlacer.placeObject();
 		npcPlacer.placeNPC();
 		npcPlacer.placeEnemy();

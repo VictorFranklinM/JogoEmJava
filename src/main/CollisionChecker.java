@@ -23,7 +23,13 @@ public class CollisionChecker {
 		
 		int tileNum1, tileNum2;
 		
-		switch(entity.facing) {
+		// Temporary direction to check knockback.
+		String facing = entity.facing;
+		if(entity.knockBack) {
+			facing = entity.knockBackDirection;
+		}
+		
+		switch(facing) {
 		case "up":
 			entityTopRow = (entityTopY - entity.speed) / Screen.tileSize;
 			tileNum1 = screen.tileM.mapTileNum[Screen.currentMap][entityLeftCol][entityTopRow];
@@ -70,6 +76,12 @@ public class CollisionChecker {
 		
 		int index = 999; // (Pode ser qualquer numero maior que o tamanho do array de objetos).
 		
+		// Temporary direction to check knockback.
+		String facing = entity.facing;
+		if(entity.knockBack) {
+			facing = entity.knockBackDirection;
+		}
+		
 		for(int i = 0; i < Screen.objPerScreen; i++) {
 			
 			if(screen.obj[Screen.currentMap][i] != null) {
@@ -79,7 +91,7 @@ public class CollisionChecker {
 				screen.obj[Screen.currentMap][i].collisionArea.x = screen.obj[Screen.currentMap][i].worldX + screen.obj[Screen.currentMap][i].collisionArea.x;
 				screen.obj[Screen.currentMap][i].collisionArea.y = screen.obj[Screen.currentMap][i].worldY + screen.obj[Screen.currentMap][i].collisionArea.y;
 				
-				switch(entity.facing) {
+				switch(facing) {
 				case "up":
 					entity.collisionArea.y -= entity.speed;
 					if(entity.collisionArea.intersects(screen.obj[Screen.currentMap][i].collisionArea)) {
@@ -140,9 +152,14 @@ public class CollisionChecker {
 		return index;
 	}
 	
-	// Colisao de NPC e inimigos
 	public int checkEntity (Entity entity, Entity[][] target) {
 		int index = 999;
+		
+		// Temporary direction to check knockback.
+		String facing = entity.facing;
+		if(entity.knockBack) {
+			facing = entity.knockBackDirection;
+		}
 		
 		for(int i = 0; i < target[1].length; i++) {
 	        if(target[Screen.currentMap][i] != null && target[Screen.currentMap][i] != entity && !target[Screen.currentMap][i].dying) {
@@ -153,7 +170,7 @@ public class CollisionChecker {
 	            target[Screen.currentMap][i].collisionArea.x = target[Screen.currentMap][i].worldX + target[Screen.currentMap][i].collisionArea.x;
 	            target[Screen.currentMap][i].collisionArea.y = target[Screen.currentMap][i].worldY + target[Screen.currentMap][i].collisionArea.y;
 
-	            switch(entity.facing) {
+	            switch(facing) {
 				case "up":
 					entity.collisionArea.y -= entity.speed;
 					
@@ -204,23 +221,18 @@ public class CollisionChecker {
 	            switch(entity.facing) {
 				case "up":
 					entity.collisionArea.y -= entity.speed;
-					
 					break;
 					
 				case "down":
 					entity.collisionArea.y += entity.speed;
-					
-					
 					break;
 					
 				case "left":
 					entity.collisionArea.x -= entity.speed;
-					
 					break;
 					
 				case "right":
 					entity.collisionArea.x += entity.speed;
-				
 					break;
 					
 				}
@@ -237,7 +249,7 @@ public class CollisionChecker {
 	            screen.player.collisionArea.y = screen.player.collisionAreaDefaultY;
 	            
 				return contactPlayer;
-	        }
-		
-		}
+
+	}
+}
 	

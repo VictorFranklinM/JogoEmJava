@@ -13,9 +13,11 @@ import object.OBJ_Medicine;
 
 public class En_Slime extends Entity{
 	
+	Screen screen;
 	
 	public En_Slime(Screen screen) {
 		super(screen);
+		this.screen = screen;
 		type = typeEnemy;
 		name = "Slime";
 		defaultSpeed = 2;
@@ -38,25 +40,6 @@ public class En_Slime extends Entity{
         getImage();
 	}
 	
-	public void update() {
-		super.update();
-		int xDistance = Math.abs(worldX - screen.player.worldX);
-		int yDistance = Math.abs(worldY - screen.player.worldY);
-		int tileDistance = (xDistance + yDistance) / Screen.tileSize;
-		if(onPath == false && tileDistance < 5) {
-			int i = new Random().nextInt(100) + 1;
-			if(i > 50) {
-				onPath = true;
-				isFollowing = true;
-			}
-		}
-		if(onPath && tileDistance > 10) {
-			onPath = false;
-			isFollowing = false;
-		}
-	
-	}
-	
 	public void getImage() {
 		up1 = setup("/enemies/GSlime-Up-1",Screen.tileSize, Screen.tileSize);
 		up2 = setup("/enemies/GSlime-Up-2",Screen.tileSize, Screen.tileSize);
@@ -75,6 +58,13 @@ public class En_Slime extends Entity{
 	
 	public void setAction() {
 		followLogic();
+		
+		if(onPath) {
+			loseAgro(screen.player, 15, 100);
+		}
+		else if(!onPath){
+			getAgro(screen.player, 5, 50);
+		}
 	}
 	
 	public void damageReaction() {

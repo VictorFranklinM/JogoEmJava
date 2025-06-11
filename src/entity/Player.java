@@ -31,17 +31,19 @@ public class Player extends Entity{
 		this.screen = screen;
 		this.key = keyInput;
 		
-		/* Como o personagem e renderizado a partir do pixel superior esquerdo, subtraimos meio tile de X e Y para que ele
-		 * seja renderizado corretamente no meio da tela. */
+		type = typePlayer;
+
 		screenX = (Screen.screenWidth / 2) - (Screen.tileSize/2);
 		screenY = (Screen.screenHeight / 2) - (Screen.tileSize/2);
 		
 		collisionArea = new Rectangle();
-		collisionArea.x = (4 * Screen.scale); // X do retângulo (comeca no canto esquerdo).
-		collisionArea.y = (8 * Screen.scale); // Y (comeca no canto superior).
-		collisionArea.width = (8 * Screen.scale); // Largura do retângulo.
-		collisionArea.height = (7 * Screen.scale); // Altura.
+		collisionArea.x = (4 * Screen.scale);
+		collisionArea.y = (8 * Screen.scale);
+		collisionArea.width = (8 * Screen.scale);
+		collisionArea.height = (7 * Screen.scale);
 		
+		motion1Duration = 5;
+		motion2Duration = 25;
 		attackArea.width = (int) (Screen.tileSize/1.5);
 		attackArea.height = (int) (Screen.tileSize/1.5);
 		
@@ -310,51 +312,6 @@ public class Player extends Entity{
 	    }
 	}
 	
-	public void attack() {
-		spriteCounter++;
-		
-		if(spriteCounter <= 5) {
-	        spriteNum = 1;
-	    }
-		
-		if(spriteCounter > 5 && spriteCounter <= 25) {
-			spriteNum = 2;
-			
-		int currenWorldX = worldX;
-		int currenWorldY = worldY;
-		int collisionAreaWidth = collisionArea.width;
-		int collisionAreaHeight = collisionArea.height;
-		
-		switch(facing){
-		case "up": worldY -= attackArea.height; break;
-		case "down": worldY += attackArea.height; break;
-		case "left": worldX -= attackArea.width; break;
-		case "right": worldX += attackArea.width; break;
-		}
-		
-		collisionArea.width = attackArea.width;
-		collisionArea.height = attackArea.height;
-		int enemyIndex = screen.colCheck.checkEntity(this, screen.enemy);
-		
-		int knockBack = (currentMagatama != null) ? currentMagatama.knockBackPower : 2;
-		damageEnemy(enemyIndex, attack, knockBack);
-
-	    int projectileIndex = screen.colCheck.checkEntity(this, screen.projectile);
-	    damageProjectile(projectileIndex);
-		
-		worldX = currenWorldX;
-		worldY = currenWorldY;
-		collisionArea.width = collisionAreaWidth;
-		collisionArea.height = collisionAreaHeight;
-
-		}
-		if(spriteCounter > 25) {
-			spriteNum = 1;
-			spriteCounter = 0;
-			attacking = false;
-		}
-	}
-	
 	public void pickUpObject(int index) {
 		if(!screen.obj[Screen.currentMap][index].collision) {
 			pickUpObjectNoCol(index);
@@ -437,7 +394,7 @@ public class Player extends Entity{
 		}
 	}
 	
-	public void damageEnemy(int i, int attack, int knockBackPower) {
+	public void damageEnemy(int i, Entity attacker, int attack, int knockBackPower) {
 		if(i != 999) {
 			
 			if(!screen.enemy[Screen.currentMap][i].isInvincible) {
@@ -445,7 +402,7 @@ public class Player extends Entity{
 				playSFX(5);
 				
 				if(knockBackPower > 0) {
-					knockBack(screen.enemy[Screen.currentMap][i], knockBackPower);	
+					setKnockBack(screen.enemy[Screen.currentMap][i], attacker, knockBackPower);	
 				}
 		
 				int damage = attack - screen.enemy[Screen.currentMap][i].defense;
@@ -556,6 +513,7 @@ public class Player extends Entity{
 			}
 		}
 	}
+	
 	public int searchItemInInventory (String itemName) {
 		
 		int itemIndex = 999;
@@ -567,6 +525,7 @@ public class Player extends Entity{
 		}
 		return itemIndex;
 	}
+	
 	public boolean canObtainItem(Entity item) {
 		
 		boolean canObtain = false;
@@ -599,6 +558,7 @@ public class Player extends Entity{
 		
 		
 	}
+	
 	public void draw(Graphics2D g2) {
 		BufferedImage image = null;
 		int tempScreenX = screenX;
@@ -681,16 +641,9 @@ public class Player extends Entity{
 			case "right": tempScreenX = screenX + Screen.tileSize; break;
 			}	
 			
+			g2.setColor(new Color(255, 255, 0, 150));
 			g2.fillRect(tempScreenX, tempScreenY, attackArea.width, attackArea.height);
 		}
-	}
-	
-	public void knockBack(Entity entity, int knockBackPower) {
-		
-		entity.facing = facing;
-		entity.speed += knockBackPower;
-		entity.knockBack = true;
-		
 	}
 	
 	public int getAttack() {

@@ -8,6 +8,7 @@ import enemy.En_Decarabia;
 import enemy.En_Fomorian;
 import enemy.En_Goblin;
 import enemy.En_Katakirauwa;
+import enemy.En_Placeholder;
 import enemy.En_Slime;
 
 public class NpcPlacer {
@@ -65,6 +66,10 @@ public class NpcPlacer {
 		screen.enemy[mapNum][i] = new En_Katakirauwa(screen);
 		screen.enemy[mapNum][i].worldX = 19 * Screen.tileSize;
 		screen.enemy[mapNum][i].worldY = 26 * Screen.tileSize;
+		i++;
+		screen.enemy[mapNum][i] = new En_Placeholder (screen);
+		screen.enemy[mapNum][i].worldX = 42 * Screen.tileSize;
+		screen.enemy[mapNum][i].worldY = 34 * Screen.tileSize;
 		i++;
 		
 		mapNum = 1;

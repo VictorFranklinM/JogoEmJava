@@ -4,25 +4,23 @@ import java.awt.Rectangle;
 
 import entity.Entity;
 import main.Screen;
-import object.Magic_Arrow;
 
-public class En_Goblin extends Entity{
+public class En_Placeholder extends Entity{
 	
 	Screen screen;
 	
-	public En_Goblin(Screen screen) {
+	public En_Placeholder(Screen screen) {
 		super(screen);
 		this.screen = screen;
 		type = typeEnemy;
-		name = "Goblin";
-		defaultSpeed = 3;
+		name = "Blank";
+		defaultSpeed = 1;
 		speed = defaultSpeed;
 		maxHP = 3;
 		hp = maxHP;
 		attack = 2;
 		defense = 1;
 		exp = 5;
-		projectile = new Magic_Arrow(screen);
 		
 		collisionArea = new Rectangle();
 		collisionArea.x = (2 * Screen.scale);
@@ -30,10 +28,16 @@ public class En_Goblin extends Entity{
 		collisionArea.width = (12 * Screen.scale);
 		collisionArea.height = (10 * Screen.scale);
 
+		motion1Duration = 40;
+		motion2Duration = 85;
+		attackArea.width = Screen.tileSize*2;
+		attackArea.height = Screen.tileSize;
+		
 		collisionAreaDefaultX = collisionArea.x;
 		collisionAreaDefaultY = collisionArea.y;
         
         getImage();
+        getAttackImage();
 	}
 	
 	public void getImage() {
@@ -52,15 +56,28 @@ public class En_Goblin extends Entity{
 
 	}
 	
+	public void getAttackImage() {
+		attackUp1 = setup("/player/AttackUp-1", Screen.tileSize, Screen.tileSize*2);
+		attackUp2 = setup("/player/AttackUp-2", Screen.tileSize, Screen.tileSize*2);
+		attackDown1 = setup("/player/AttackDown-1", Screen.tileSize, Screen.tileSize*2);
+		attackDown2 = setup("/player/AttackDown-2", Screen.tileSize, Screen.tileSize*2);
+		attackLeft1 = setup("/player/AttackLeft-1", Screen.tileSize*2, Screen.tileSize);
+		attackLeft2 = setup("/player/AttackLeft-2", Screen.tileSize*2, Screen.tileSize);
+		attackRight1 = setup("/player/AttackRight-1", Screen.tileSize*2, Screen.tileSize);
+		attackRight2 = setup("/player/AttackRight-2", Screen.tileSize*2, Screen.tileSize);
+	}
+	
 	public void setAction() {
 		followLogic();
 		
 		if(onPath) {
 			loseAgro(screen.player, 15, 100);
-			useSpellEnemy(200, 90);
 		}
 		else if(!onPath){
 			getAgro(screen.player, 5, 25);
+		}
+		if(!attacking) {
+			useAttackEnemy(30, Screen.tileSize*3, Screen.tileSize);
 		}
 	}
 	
@@ -70,4 +87,3 @@ public class En_Goblin extends Entity{
 		facing = screen.player.facing;
 	}
 }
-

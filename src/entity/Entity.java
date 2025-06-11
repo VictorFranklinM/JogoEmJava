@@ -41,7 +41,8 @@ public abstract class Entity   {
 	
 	public int spellCooldown = 60;
 	
-	boolean attacking = false;
+	public Entity attacker;
+	public boolean attacking = false;
 	public boolean alive = true;
 	public boolean dying = false;
 	
@@ -50,6 +51,7 @@ public abstract class Entity   {
 	
 	public boolean onPath = false;
 	
+	public String knockBackDirection;
 	public boolean knockBack = false;
 	int knockBackCounter = 0;
 	
@@ -87,6 +89,9 @@ public abstract class Entity   {
 	public int macca;
 	public Entity currentMagatama;
 	public Projectile projectile;
+	
+	public int motion1Duration;
+	public int motion2Duration;
 	
 	public ArrayList<Entity> inventory = new ArrayList<>();
 	public final int inventorySize = 30;
@@ -175,7 +180,7 @@ public abstract class Entity   {
 				speed = defaultSpeed;
 			}
 			else if(collision == false) {
-				switch(screen.player.facing) {
+				switch(knockBackDirection) {
 				case "up": worldY -= speed;
 				break;
 				case "down": worldY += speed;
@@ -195,6 +200,9 @@ public abstract class Entity   {
 			}
 			
 		}
+		else if(attacking) {
+			attack();
+		}
 		else {
 			setAction();
 			checkCollision();
@@ -209,9 +217,7 @@ public abstract class Entity   {
 				case "right": worldX += speed;
 				break;
 				}
-		}
-		
-			
+			}
 			if(collision == true) {
 	    		isMoving = false;
 	    		spriteNum = 2;
@@ -234,7 +240,7 @@ public abstract class Entity   {
 		}
 		if(isInvincible == true) {
 	    	invincibilityTimer++;
-	    	if(invincibilityTimer > 40) {
+	    	if(invincibilityTimer > 30) {
 	    		isInvincible = false;
 	    		invincibilityTimer = 0;
 	    	}
@@ -242,6 +248,60 @@ public abstract class Entity   {
 		if(spellCooldown > 0) {
 		    	spellCooldown--;
 		}
+	}
+	
+	public void attack() {
+		spriteCounter++;
+		
+		if(spriteCounter <= motion1Duration) {
+	        spriteNum = 1;
+	    }
+		
+		if(spriteCounter > motion1Duration && spriteCounter <= motion2Duration) {
+			spriteNum = 2;
+			
+		int currenWorldX = worldX;
+		int currenWorldY = worldY;
+		int collisionAreaWidth = collisionArea.width;
+		int collisionAreaHeight = collisionArea.height;
+		
+		switch(facing){
+		case "up": worldY -= attackArea.height; break;
+		case "down": worldY += attackArea.height; break;
+		case "left": worldX -= attackArea.width; break;
+		case "right": worldX += attackArea.width; break;
+		}
+		
+		collisionArea.width = attackArea.width;
+		collisionArea.height = attackArea.height;
+		
+		if(type == typeEnemy) {
+			if(screen.colCheck.checkPlayer(this)) {
+				damagePlayer(attack);
+			}
+		}
+		else if(type == typePlayer) {
+			int enemyIndex = screen.colCheck.checkEntity(this, screen.enemy);
+			
+			int knockBack = (currentMagatama != null) ? currentMagatama.knockBackPower : 2;
+			screen.player.damageEnemy(enemyIndex, this, attack, knockBack);
+
+		    int projectileIndex = screen.colCheck.checkEntity(this, screen.projectile);
+		    screen.player.damageProjectile(projectileIndex);
+		}
+		
+		worldX = currenWorldX;
+		worldY = currenWorldY;
+		collisionArea.width = collisionAreaWidth;
+		collisionArea.height = collisionAreaHeight;
+
+		}
+		if(spriteCounter > motion2Duration) {
+			spriteNum = 1;
+			spriteCounter = 0;
+			attacking = false;
+		}
+		
 	}
 	
 	public void damagePlayer(int attack) {
@@ -256,6 +316,14 @@ public abstract class Entity   {
 		}
 	}
 	
+	public void setKnockBack(Entity target, Entity attacker, int knockBackPower) {
+		this.attacker = attacker;
+		target.knockBackDirection = attacker.facing;
+		target.speed += knockBackPower;
+		target.knockBack = true;
+		
+	}
+	
 	public void draw(Graphics2D g2) {
 		BufferedImage image = null;
 		int screenX = worldX - screen.player.worldX + screen.player.screenX;
@@ -266,31 +334,82 @@ public abstract class Entity   {
 			&& ((worldY + Screen.tileSize) > (screen.player.worldY - screen.player.screenY))
 			&& ((worldY - Screen.tileSize) < (screen.player.worldY + screen.player.screenY))) {
 			
+			int tempScreenX = screenX;
+			int tempScreenY = screenY;
+			
 			switch(facing) {
 			case "up":
-				if(spriteNum == 1) {image = up1;}
-				if(spriteNum == 2) {image = up2;}
-				if(spriteNum == 3) {image = up3;}
+				if(attacking == false) {
+					if(spriteNum == 1) {image = up1;}
+					if(spriteNum == 2) {image = up2;}
+					if(spriteNum == 3) {image = up3;}
+				}
+				if(attacking == true) {
+					tempScreenY = screenY - Screen.tileSize;
+					if(spriteNum == 1) {image = attackUp1;}
+					if(spriteNum == 2) {image = attackUp2;}
+				}
 				break;
-				
 			case "down":
+				if(attacking == false) {
 				if(spriteNum == 1) {image = down1;}
 				if(spriteNum == 2) {image = down2;}
 				if(spriteNum == 3) {image = down3;}
+				}
+				if(attacking == true) {
+					if(spriteNum == 1) {image = attackDown1;}
+					if(spriteNum == 2) {image = attackDown2;}
+				}
 				break;
 				
 			case "left":
+				if(attacking == false) {
 				if(spriteNum == 1) {image = left1;}
 				if(spriteNum == 2) {image = left2;}
 				if(spriteNum == 3) {image = left3;}
+				}
+				if(attacking == true) {
+					tempScreenX = screenX - Screen.tileSize;
+					if(spriteNum == 1) {image = attackLeft1;}
+					if(spriteNum == 2) {image = attackLeft2;}
+				}
 				break;
 				
 			case "right":
+				if(attacking == false) {
 				if(spriteNum == 1) {image = right1;}
 				if(spriteNum == 2) {image = right2;}
 				if(spriteNum == 3) {image = right3;}
+				}
+				if(attacking == true) {
+					if(spriteNum == 1) {image = attackRight1;}
+					if(spriteNum == 2) {image = attackRight2;}
+				}
 				break;
+			
 			}
+	        if(screen.key.isDebugging == true) {
+	        	g2.setColor(new Color(255, 255, 0, 150)); // Amarelo para a hitbox de ataque
+	        	int attackScreenX = screenX;
+	        	int attackScreenY = screenY;
+	                
+	        	switch(facing) {
+	        	case "up": 
+	        		attackScreenY = screenY - attackArea.height; 
+	        		break;
+	        	case "down": 
+	        		attackScreenY = screenY + Screen.tileSize;
+	        		break;
+	        	case "left": 
+	        		attackScreenX = screenX - attackArea.width;
+	        		break;
+	        	case "right":
+	        		attackScreenX = screenX + Screen.tileSize;
+	        		break;
+	        	}
+	                
+	        	g2.fillRect(attackScreenX, attackScreenY, attackArea.width, attackArea.height);
+	        }
 			
 			// Hp inimigo
 			if(type == 2 && hpBarOn) {
@@ -325,7 +444,7 @@ public abstract class Entity   {
 				deathAnimation(g2);
 			}
 			
-			g2.drawImage(image, screenX, screenY, null);
+			g2.drawImage(image, tempScreenX, tempScreenY, null);
 			changeSpriteOpacity(g2, 1f);
 		}
 		
@@ -608,6 +727,96 @@ public abstract class Entity   {
 			}
 		}
 		return index;
+	}
+	
+	public int getXDistance(Entity target) {
+		int xDistance = Math.abs(worldX - target.worldX);
+		return xDistance;
+	}
+	
+	public int getYDistance(Entity target) {
+		int yDistance = Math.abs(worldY - target.worldY);
+		return yDistance;
+	}
+	
+	public int getTileDistance(Entity target) {
+		int tileDistance = (getXDistance(target) + getYDistance(target)) / Screen.tileSize;
+		return tileDistance;
+	}
+	
+	public void getAgro(Entity target, int distance, int rate) {
+		if(getTileDistance(target) < distance) {
+			int i = new Random().nextInt(rate);
+			if(i==0) {
+				onPath = true;
+				isFollowing = true;
+			}
+		}
+	}
+	
+	public void loseAgro(Entity target, int distance, int rate) {
+		if(getTileDistance(target) > distance) {
+			int i = new Random().nextInt(rate);
+			if(i==0) {
+				onPath = false;
+				isFollowing = false;
+			}
+		}
+	}
+	
+	public void useAttackEnemy(int rate, int straightDistance, int sidesDistance) {
+		boolean targetInRange = false;
+		int xDis = getXDistance(screen.player);
+		int yDis = getYDistance(screen.player);
+		
+		switch(facing) {
+		case "up":
+			if(screen.player.worldY < worldY && yDis < straightDistance && xDis < sidesDistance) {
+				targetInRange = true;
+			}
+			break;
+		case "down":
+			if(screen.player.worldY > worldY && yDis < straightDistance && xDis < sidesDistance) {
+				targetInRange = true;
+			}
+			break;
+		case "left":
+			if(screen.player.worldX < worldX && xDis < straightDistance && yDis < sidesDistance) {
+				targetInRange = true;
+			}
+			break;
+		case "right":
+			if(screen.player.worldX > worldX && xDis < straightDistance && yDis < sidesDistance) {
+				targetInRange = true;
+			}
+			break;
+		}
+		
+		if(targetInRange) {
+			int i = new Random().nextInt(rate);
+			if(i == 0) {
+				attacking = true;
+				spriteNum = 1;
+				spriteCounter = 0;
+				spellCooldown = 90;
+			}
+		}
+	}
+	
+	public void useSpellEnemy(int rate, int cooldown) {
+		int i = new Random().nextInt(rate);
+		if(i == 0 && !projectile.alive && spellCooldown == 0) {
+			projectile.set(worldX, worldY, facing, true, this);
+				
+			// CHECK VACANCY
+			for(int j = 0; j <screen.projectile[1].length; j++)  {
+				if(screen.projectile[Screen.currentMap][j] == null) {
+					screen.projectile[Screen.currentMap][j] = projectile;
+					break;
+				}
+			}
+		spellCooldown = cooldown;
+		}
 	}
 }
 	

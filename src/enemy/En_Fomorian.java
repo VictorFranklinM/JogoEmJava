@@ -1,18 +1,17 @@
 package enemy;
 
 import java.awt.Rectangle;
-import java.util.Random;
 
 import entity.Entity;
 import main.Screen;
 
-
-
 public class En_Fomorian extends Entity{
 	
+	Screen screen;
 	
 	public En_Fomorian(Screen screen) {
 		super(screen);
+		this.screen = screen;
 		type = typeEnemy;
 		name = "Fomorian";
 		defaultSpeed = 1;
@@ -35,25 +34,6 @@ public class En_Fomorian extends Entity{
         getImage();
 	}
 	
-	public void update() {
-		super.update();
-		int xDistance = Math.abs(worldX - screen.player.worldX);
-		int yDistance = Math.abs(worldY - screen.player.worldY);
-		int tileDistance = (xDistance + yDistance) / Screen.tileSize;
-		if(onPath == false && tileDistance < 5) {
-			int i = new Random().nextInt(100) + 1;
-			if(i > 50) {
-				onPath = true;
-				isFollowing = true;
-			}
-		}
-		if(onPath && tileDistance > 10) {
-			onPath = false;
-			isFollowing = false;
-		}
-	
-	}
-	
 	public void getImage() {
 		up1 = setup("/enemies/Fomorian-Down-1",Screen.tileSize, Screen.tileSize);
 		up2 = setup("/enemies/Fomorian-Down-1",Screen.tileSize, Screen.tileSize);
@@ -72,6 +52,13 @@ public class En_Fomorian extends Entity{
 	
 	public void setAction() {
 		followLogic();
+		
+		if(onPath) {
+			loseAgro(screen.player, 15, 100);
+		}
+		else if(!onPath){
+			getAgro(screen.player, 5, 25);
+		}
 	}
 	
 	public void damageReaction() {
