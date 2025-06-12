@@ -47,9 +47,10 @@ public class Player extends Entity{
 		attackArea.width = (int) (Screen.tileSize/1.5);
 		attackArea.height = (int) (Screen.tileSize/1.5);
 		
-		
 		collisionAreaDefaultX = collisionArea.x;
 		collisionAreaDefaultY = collisionArea.y;
+		attackAreaDefaultWidth = attackArea.width;
+		attackAreaDefaultHeight = attackArea.height;
 		
 		setDefaultValues();
 		getImage();
@@ -64,7 +65,6 @@ public class Player extends Entity{
 		defaultSpeed = 5;
 		speed = defaultSpeed;
 		facing = "down";
-		
 	
 		// Status
 		maxHP = 3;

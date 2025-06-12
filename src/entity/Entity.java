@@ -33,6 +33,7 @@ public abstract class Entity   {
 	public Rectangle collisionArea =  new Rectangle();
 	public Rectangle attackArea = new Rectangle(0, 0, 0, 0);
 	public int collisionAreaDefaultX, collisionAreaDefaultY;
+	public int attackAreaDefaultWidth, attackAreaDefaultHeight;
 	public boolean collision = false;
 	
 	public boolean isInvincible = false;
@@ -251,57 +252,78 @@ public abstract class Entity   {
 	}
 	
 	public void attack() {
-		spriteCounter++;
-		
-		if(spriteCounter <= motion1Duration) {
+	    spriteCounter++;
+
+	    if (spriteCounter <= motion1Duration) {
 	        spriteNum = 1;
 	    }
-		
-		if(spriteCounter > motion1Duration && spriteCounter <= motion2Duration) {
-			spriteNum = 2;
-			
-		int currenWorldX = worldX;
-		int currenWorldY = worldY;
-		int collisionAreaWidth = collisionArea.width;
-		int collisionAreaHeight = collisionArea.height;
-		
-		switch(facing){
-		case "up": worldY -= attackArea.height; break;
-		case "down": worldY += attackArea.height; break;
-		case "left": worldX -= attackArea.width; break;
-		case "right": worldX += attackArea.width; break;
-		}
-		
-		collisionArea.width = attackArea.width;
-		collisionArea.height = attackArea.height;
-		
-		if(type == typeEnemy) {
-			if(screen.colCheck.checkPlayer(this)) {
-				damagePlayer(attack);
-			}
-		}
-		else if(type == typePlayer) {
-			int enemyIndex = screen.colCheck.checkEntity(this, screen.enemy);
-			
-			int knockBack = (currentMagatama != null) ? currentMagatama.knockBackPower : 2;
-			screen.player.damageEnemy(enemyIndex, this, attack, knockBack);
 
-		    int projectileIndex = screen.colCheck.checkEntity(this, screen.projectile);
-		    screen.player.damageProjectile(projectileIndex);
-		}
-		
-		worldX = currenWorldX;
-		worldY = currenWorldY;
-		collisionArea.width = collisionAreaWidth;
-		collisionArea.height = collisionAreaHeight;
+	    if (spriteCounter > motion1Duration && spriteCounter <= motion2Duration) {
+	        spriteNum = 2;
 
-		}
-		if(spriteCounter > motion2Duration) {
-			spriteNum = 1;
-			spriteCounter = 0;
-			attacking = false;
-		}
-		
+	        int currentWorldX = worldX;
+	        int currentWorldY = worldY;
+	        int collisionAreaWidth = collisionArea.width;
+	        int collisionAreaHeight = collisionArea.height;
+
+	        ajustAttackArea();
+
+	        if (type == typeEnemy) {
+	            if (screen.colCheck.checkPlayer(this)) {
+	                damagePlayer(attack);
+	            }
+	        } else if (type == typePlayer) {
+	            int enemyIndex = screen.colCheck.checkEntity(this, screen.enemy);
+	            int knockBack = (currentMagatama != null) ? currentMagatama.knockBackPower : 2;
+	            screen.player.damageEnemy(enemyIndex, this, attack, knockBack);
+
+	            int projectileIndex = screen.colCheck.checkEntity(this, screen.projectile);
+	            screen.player.damageProjectile(projectileIndex);
+	        }
+
+	        worldX = currentWorldX;
+	        worldY = currentWorldY;
+	        collisionArea.width = collisionAreaWidth;
+	        collisionArea.height = collisionAreaHeight;
+	    }
+
+	    if (spriteCounter > motion2Duration) {
+	        spriteNum = 1;
+	        spriteCounter = 0;
+	        attacking = false;
+	    }
+	}
+
+	
+	public void ajustAttackArea() {
+	    int atkW = attackAreaDefaultWidth;
+	    int atkH = attackAreaDefaultHeight;
+
+	    switch (facing) {
+	        case "up":
+	            attackArea.width = atkH;
+	            attackArea.height = atkW;
+	            worldY -= attackArea.height;
+	            break;
+	        case "down":
+	            attackArea.width = atkH;
+	            attackArea.height = atkW;
+	            worldY += collisionArea.y + collisionArea.height;
+	            break;
+	        case "left":
+	            attackArea.width = atkW;
+	            attackArea.height = atkH;
+	            worldX -= attackArea.width;
+	            break;
+	        case "right":
+	            attackArea.width = atkW;
+	            attackArea.height = atkH;
+	            worldX += collisionArea.x + collisionArea.width;
+	            break;
+	    }
+
+	    collisionArea.width = attackArea.width;
+	    collisionArea.height = attackArea.height;
 	}
 	
 	public void damagePlayer(int attack) {

@@ -35,6 +35,8 @@ public class En_Placeholder extends Entity{
 		
 		collisionAreaDefaultX = collisionArea.x;
 		collisionAreaDefaultY = collisionArea.y;
+		attackAreaDefaultHeight = attackArea.height;
+		attackAreaDefaultWidth = attackArea.width;
         
         getImage();
         getAttackImage();
