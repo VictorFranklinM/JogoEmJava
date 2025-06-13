@@ -447,7 +447,7 @@ public class Player extends Entity{
 					damage = 0;
 				}
 				screen.enemy[Screen.currentMap][i].hp -= damage;
-				if(screen.enemy[Screen.currentMap][i].elementalWeakness.equals(projectile.elementalType)){
+				if(screen.player.projectile != null && screen.enemy[Screen.currentMap][i].elementalWeakness.equals(projectile.elementalType)){
 					screen.ui.addMessage("Hit a weakness!");
 				}
 				screen.ui.addMessage(damage+" damage to "+screen.enemy[Screen.currentMap][i].name+"!");
