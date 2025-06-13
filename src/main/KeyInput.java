@@ -6,7 +6,7 @@ import java.awt.event.KeyListener;
 public class KeyInput implements KeyListener {
 	public boolean upHold, downHold, leftHold , rightHold, ePressed, enterPressed, shootKeyPressed, defenseKeyPressed;
 	public boolean enterProcessed = false;
-	
+	public int endlag;
 	private Screen screen;
 	
 	public boolean isDebugging = false;
@@ -209,7 +209,8 @@ public class KeyInput implements KeyListener {
 		}
 		if(code == KeyEvent.VK_E) {
 			ePressed = true;
-		}
+			}
+		
 		
 		if(code == KeyEvent.VK_ENTER) {
 			screen.gameState = Screen.statusState;
@@ -238,12 +239,15 @@ public class KeyInput implements KeyListener {
 			shootKeyPressed = true;
 		}
 		if(code == KeyEvent.VK_SPACE) {
-			defenseKeyPressed = true;
+			if(this.endlag == 0) {
+				defenseKeyPressed = true;
+			}
 		}
 		if(code == KeyEvent.VK_ESCAPE) {
 			screen.gameState = Screen.optionsState;
+			}
 		}
-	}
+	
 	
 	public void dialogueState(int code) {
 		if(code == KeyEvent.VK_E) {
@@ -375,7 +379,9 @@ public class KeyInput implements KeyListener {
 			ePressed = false;
 		}
 		if(code == KeyEvent.VK_SPACE) {
+			screen.player.endlag = 10;
 			defenseKeyPressed = false;
+			
 		}
 	}
 		

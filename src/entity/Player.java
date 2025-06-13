@@ -18,7 +18,8 @@ public class Player extends Entity{
 	
 	public final int screenX;
 	public final int screenY;
-	
+	public int endlag;
+
 	public int hasMaga = 0;
 	
 	public boolean isMoving = false;
@@ -142,6 +143,9 @@ public class Player extends Entity{
 	}
 	
 	public void update() {
+		if(endlag > 0) {
+			endlag--;
+		}
 		if(knockBack == true) {
 			
 			collision = false;
@@ -175,12 +179,13 @@ public class Player extends Entity{
 				speed = defaultSpeed;
 			}
 			
+			
 		}
-
+		
 		else if(attacking == true) {
 			attack();
 		}
-		else if(key.defenseKeyPressed) {
+		else if(key.defenseKeyPressed && endlag == 0) {
 			guarding = true;
 			guardCounter++;
 		}
@@ -265,7 +270,7 @@ public class Player extends Entity{
 	    		speed = defaultSpeed;
 	    	}
 	    	
-	    	if(key.ePressed && canAttack) {
+			if(key.ePressed && canAttack) {
 	    		screen.playSFX(7);
 	    		attacking = true;
 	    		spriteCounter = 0;
@@ -324,7 +329,7 @@ public class Player extends Entity{
 			spellCooldown = 60;
 			screen.playSFX(9);
 		}
-	    
+	  
 	    if(isInvincible == true) {
 	    	invincibilityTimer++;
 	    	if(invincibilityTimer > 60) {
@@ -439,7 +444,7 @@ public class Player extends Entity{
 				}
 				
 				if(screen.enemy[Screen.currentMap][i].stunned) {
-					attack *= 3;
+					attack *= 2;
 				}
 		
 				int damage = attack - screen.enemy[Screen.currentMap][i].defense;
@@ -471,7 +476,7 @@ public class Player extends Entity{
 		if(i != 999) {
 			Entity projectile = screen.projectile[Screen.currentMap][i];
 			projectile.alive = false;
-			generateParticle(projectile,projectile);
+			generateParticle(projectile,projectile); 
 		}
 	}
 
