@@ -1,11 +1,10 @@
 package main;
 
-import java.awt.event.KeyEvent; // Biblioteca para checar o estado das teclas (Pressionada, solta, etc).
-import java.awt.event.KeyListener; // Biblioteca para reagir ao estado das teclas (Quando pressionada fará ação X).
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
-// Esta classe serve para receber os dados inputs do teclado.
 public class KeyInput implements KeyListener {
-	public boolean upHold, downHold, leftHold , rightHold, ePressed, enterPressed, shootKeyPressed; // Lógica booleana pra estados de movimento, indo pro lado, cima, etc.
+	public boolean upHold, downHold, leftHold , rightHold, ePressed, enterPressed, shootKeyPressed, defenseKeyPressed;
 	public boolean enterProcessed = false;
 	
 	private Screen screen;
@@ -199,15 +198,12 @@ public class KeyInput implements KeyListener {
 		if(code == KeyEvent.VK_W) {
 			upHold = true;
 		}
-		// Caso o a tecla seja "A" ou a seta para a esquerda das teclas direcionais a lógica diz que o personagem deve se mover para esquerda.
 		if(code == KeyEvent.VK_A) {
 			leftHold = true;
 		}
-		// Caso o a tecla seja "S" ou a seta para baixo das teclas direcionais a lógica diz que o personagem deve se mover para baixo.
 		if(code == KeyEvent.VK_S) {
 			downHold = true;
 		}
-		// Caso o a tecla seja "D" ou a seta para a direita das teclas direcionais a lógica diz que o personagem deve se mover para direita.
 		if(code == KeyEvent.VK_D) {
 			rightHold = true;
 		}
@@ -240,6 +236,9 @@ public class KeyInput implements KeyListener {
 		}
 		if(code == KeyEvent.VK_F && screen.player.currentMagatama != null) {
 			shootKeyPressed = true;
+		}
+		if(code == KeyEvent.VK_SPACE) {
+			defenseKeyPressed = true;
 		}
 		if(code == KeyEvent.VK_ESCAPE) {
 			screen.gameState = Screen.optionsState;
@@ -351,22 +350,17 @@ public class KeyInput implements KeyListener {
 	}
 		
 	@Override
-	// Quando a tecla for solta, teremos a lógica de desligar o comando de movimento.
 	public void keyReleased(KeyEvent e) {
 		int code = e.getKeyCode();
-		// Lógica idêntica a de quando for pressionado, porém a lógica de movimento será falsa.
 		if(code == KeyEvent.VK_W) {
 			upHold = false;
 		}
-		// Lógica idêntica a de quando for pressionado, porém a lógica de movimento será falsa.
 		if(code == KeyEvent.VK_A) {
 			leftHold = false;
 		}
-		// Lógica idêntica a de quando for pressionado, porém a lógica de movimento será falsa.
 		if(code == KeyEvent.VK_S) {
 			downHold = false;
 		}
-		// Lógica idêntica a de quando for pressionado, porém a lógica de movimento será falsa.
 		if(code == KeyEvent.VK_D) {
 			rightHold = false;
 		}
@@ -379,6 +373,9 @@ public class KeyInput implements KeyListener {
 		}
 		if(code == KeyEvent.VK_E) {
 			ePressed = false;
+		}
+		if(code == KeyEvent.VK_SPACE) {
+			defenseKeyPressed = false;
 		}
 	}
 		

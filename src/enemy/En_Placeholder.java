@@ -14,13 +14,14 @@ public class En_Placeholder extends Entity{
 		this.screen = screen;
 		type = typeEnemy;
 		name = "Blank";
-		defaultSpeed = 1;
+		defaultSpeed = 0;
 		speed = defaultSpeed;
-		maxHP = 3;
+		maxHP = 20;
 		hp = maxHP;
-		attack = 2;
+		attack = 10;
 		defense = 1;
 		exp = 5;
+		knockBackPower = 5;
 		
 		collisionArea = new Rectangle();
 		collisionArea.x = (2 * Screen.scale);

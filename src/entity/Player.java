@@ -54,12 +54,12 @@ public class Player extends Entity{
 		
 		setDefaultValues();
 		getImage();
-		getPlayerAttackImage();
+		getAttackImage();
+		getGuardImage();
 		setItens();
 	}
 	
 	public void setDefaultValues() {
-		// World X e Y sao onde o personagem do player aparecera no mapa inicialmente.
 		worldX = Screen.tileSize * 25; // LEMBRAR DE MUDAR SETDEFAULTPOSITIONS()
 		worldY = Screen.tileSize * 37;
 		defaultSpeed = 5;
@@ -98,6 +98,7 @@ public class Player extends Entity{
 		hp = maxHP;
 		mana = maxMana;
 		isInvincible = false;
+		isTransparent = false;
 	}
 	
 	public void setItens() {
@@ -120,7 +121,7 @@ public class Player extends Entity{
 		face = setup("/player/face", Screen.tileSize, Screen.tileSize);
 	}	
 	
-	public void getPlayerAttackImage() {
+	public void getAttackImage() {
 		
 		attackUp1 = setup("/player/AttackUp-1", Screen.tileSize, Screen.tileSize*2);
 		attackUp2 = setup("/player/AttackUp-2", Screen.tileSize, Screen.tileSize*2);
@@ -132,9 +133,56 @@ public class Player extends Entity{
 		attackRight2 = setup("/player/AttackRight-2", Screen.tileSize*2, Screen.tileSize);
 	}
 	
+	public void getGuardImage() {
+		
+		guardUp = setup("/player/Up-guard", Screen.tileSize, Screen.tileSize);
+		guardDown = setup("/player/Down-guard", Screen.tileSize, Screen.tileSize);
+		guardLeft = setup("/player/Left-guard", Screen.tileSize, Screen.tileSize);
+		guardRight = setup("/player/Right-guard", Screen.tileSize, Screen.tileSize);
+	}
+	
 	public void update() {
-		if (attacking == true) {
+		if(knockBack == true) {
+			
+			collision = false;
+	    	screen.colCheck.checkTile(this);
+	    	screen.colCheck.checkObject(this, true);
+	    	screen.colCheck.checkEntity(this, screen.npc);
+	    	screen.colCheck.checkEntity(this, screen.enemy);
+			
+			if (collision == true) {
+				knockBackCounter = 0;
+				knockBack = false;
+				speed = defaultSpeed;
+			}
+			else if(collision == false) {
+				switch(knockBackDirection) {
+				case "up": worldY -= speed;
+				break;
+				case "down": worldY += speed;
+				break;
+				case "left": worldX -= speed;
+				break;
+				case "right": worldX += speed;
+				break;
+				}
+			}
+			
+			knockBackCounter++;
+			if(knockBackCounter == 10) {
+				knockBackCounter = 0;
+				knockBack = false;
+				speed = defaultSpeed;
+			}
+			
+		}
+
+		else if(attacking == true) {
 			attack();
+		}
+		else if(key.defenseKeyPressed) {
+			guarding = true;
+			guardCounter++;
 		}
 		else if (key.upHold || key.downHold || key.leftHold || key.rightHold || key.ePressed) {
 			isMoving = true;
@@ -168,74 +216,53 @@ public class Player extends Entity{
 	    	
 	    	screen.eventManager.checkEvent();
 	    	
-	    	
-	    	
 	    	if(collision == false && key.ePressed == false) {
 	    		switch(facing) {
 	    		case "up":
-		    		// Checa se o personagem esta movendo na diagonal e recalcula o vetor de velocidade.
 		    		if(key.leftHold) {
 		    			speed--;
 		    			worldX -=speed;
-
-		    			
 		    		} else if (key.rightHold) {
 		    			speed--;
 		    			worldX +=speed;
 		    		}
-		    		
 		    		worldY -= speed;
 	    			break;
 	    			
 	    		case "down":
-		    		// Checa se o personagem esta movendo na diagonal e recalcula o vetor de velocidade.
 		    		if(key.leftHold) {
 		    			speed--;
 		    			worldX -=speed;
-		    			
 		    		} else if (key.rightHold) {
 		    			speed--;
 		    			worldX +=speed;
-
 		    		}
-		    		
 		    		worldY += speed;
 	    			break;
 	    			
 	    		case "left":
-		    		// Checa se o personagem esta movendo na diagonal e recalcula o vetor de velocidade.
 		    		if(key.upHold) {
 		    			speed--;
 		    			worldY -=speed;
-		    			
 		    		} else if (key.downHold) {
 		    			speed--;
 		    			worldY +=speed;
-
 		    		}
-		    		
 		    		worldX -= speed;
 	    			break;
 	    			
 	    		case "right":
-		    		// Checa se o personagem esta movendo na diagonal e recalcula o vetor de velocidade.
-	    			if(key.upHold) {
+		    		if(key.upHold) {
 	    				speed--;
 		    			worldY -=speed;
-
-		    			
 		    		} else if (key.downHold) {
 		    			speed--;
 		    			worldY +=speed;
-
 		    		}
-	    			
 		    		worldX += speed;
 	    			break;
 	    		}
-	    		
 	    		speed = defaultSpeed;
-	    	
 	    	}
 	    	
 	    	if(key.ePressed && canAttack) {
@@ -246,6 +273,8 @@ public class Player extends Entity{
 	    	
 	    	canAttack = true;
 	    	screen.key.ePressed = false;
+	    	guarding = false;
+	    	guardCounter = 0;
 	    	
 	    	if(collision == true) {
 	    		isMoving = false;
@@ -274,6 +303,8 @@ public class Player extends Entity{
 				spriteNum = 1;
 				standingCounter = 0;
 			}
+			guarding = false;
+	    	guardCounter = 0;
 		}
 		
 		if(screen.key.shootKeyPressed && !projectile.alive && spellCooldown == 0 && projectile.haveResource(this)) {
@@ -298,6 +329,7 @@ public class Player extends Entity{
 	    	invincibilityTimer++;
 	    	if(invincibilityTimer > 60) {
 	    		isInvincible = false;
+	    		isTransparent = false;
 	    		invincibilityTimer = 0;
 	    	}
 	    }
@@ -385,11 +417,12 @@ public class Player extends Entity{
 				playSFX(6);
 				
 				int damage = screen.enemy[Screen.currentMap][i].attack - screen.player.defense;
-				if(damage < 0) {
-					damage = 0;
+				if(damage < 1) {
+					damage = 1;
 				}
 				hp -= damage;
 				isInvincible = true;
+				isTransparent = true;
 			}
 		}
 	}
@@ -403,6 +436,10 @@ public class Player extends Entity{
 				
 				if(knockBackPower > 0) {
 					setKnockBack(screen.enemy[Screen.currentMap][i], attacker, knockBackPower);	
+				}
+				
+				if(screen.enemy[Screen.currentMap][i].stunned) {
+					attack *= 3;
 				}
 		
 				int damage = attack - screen.enemy[Screen.currentMap][i].defense;
@@ -576,7 +613,11 @@ public class Player extends Entity{
 				if(spriteNum == 1) {image = attackUp1;}
 				if(spriteNum == 2) {image = attackUp2;}
 			}
+			if(guarding) {
+				image = guardUp;
+			}
 			break;
+			
 		case "down":
 			if(attacking == false) {
 			if(spriteNum == 1) {image = down1;}
@@ -586,6 +627,9 @@ public class Player extends Entity{
 			if(attacking == true) {
 				if(spriteNum == 1) {image = attackDown1;}
 				if(spriteNum == 2) {image = attackDown2;}
+			}
+			if(guarding) {
+				image = guardDown;
 			}
 			break;
 			
@@ -600,6 +644,9 @@ public class Player extends Entity{
 				if(spriteNum == 1) {image = attackLeft1;}
 				if(spriteNum == 2) {image = attackLeft2;}
 			}
+			if(guarding) {
+				image = guardLeft;
+			}
 			break;
 			
 		case "right":
@@ -612,12 +659,15 @@ public class Player extends Entity{
 				if(spriteNum == 1) {image = attackRight1;}
 				if(spriteNum == 2) {image = attackRight2;}
 			}
+			if(guarding) {
+				image = guardRight;
+			}
 			break;
 		
 		}
 		
 		
-		if(isInvincible == true) {
+		if(isTransparent == true) {
 			 changeSpriteOpacity(g2, 0.4f);
 		}
 		g2.drawImage(image, tempScreenX, tempScreenY, null);

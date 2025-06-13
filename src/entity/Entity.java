@@ -24,6 +24,7 @@ public abstract class Entity   {
 	
 	public BufferedImage up1, up2, up3, left1, left2, left3, right1, right2, right3, down1, down2, down3; // Sprites do personagem.
 	public BufferedImage attackUp1, attackUp2, attackLeft1, attackLeft2, attackRight1, attackRight2, attackDown1, attackDown2;
+	public BufferedImage guardUp, guardDown, guardLeft, guardRight;
 	public BufferedImage image, image2, face;
 	public String facing = "down"; // Direcao do personagem.
 	
@@ -37,6 +38,7 @@ public abstract class Entity   {
 	public boolean collision = false;
 	
 	public boolean isInvincible = false;
+	public boolean isTransparent = false;
 	public int invincibilityTimer = 0;
 	public int deathCounter = 0;
 	
@@ -44,6 +46,10 @@ public abstract class Entity   {
 	
 	public Entity attacker;
 	public boolean attacking = false;
+	public boolean guarding = false;
+	public int guardCounter = 0;
+	public boolean stunned = false;
+	int stunnedCounter = 0;
 	public boolean alive = true;
 	public boolean dying = false;
 	
@@ -249,6 +255,25 @@ public abstract class Entity   {
 		if(spellCooldown > 0) {
 		    	spellCooldown--;
 		}
+		if(stunned) {
+			stunnedCounter++;
+			if(stunnedCounter > 60) {
+				stunned = false;
+				stunnedCounter = 0;
+			}
+		}
+	}
+	
+	public String getOppositeDirection(String facing) {
+		String oppositeDirection = "";
+		switch(facing) {
+		case "up": oppositeDirection = "down"; break;
+		case "down": oppositeDirection = "up"; break;
+		case "left": oppositeDirection = "right"; break;
+		case "right": oppositeDirection = "left"; break;
+		}
+		
+		return oppositeDirection;
 	}
 	
 	public void attack() {
@@ -274,7 +299,13 @@ public abstract class Entity   {
 	            }
 	        } else if (type == typePlayer) {
 	            int enemyIndex = screen.colCheck.checkEntity(this, screen.enemy);
-	            int knockBack = (currentMagatama != null) ? currentMagatama.knockBackPower : 2;
+	            int knockBack;
+	            if(currentMagatama == null) {
+	            	knockBack = 2;
+	            }
+	            else {
+	            	knockBack = currentMagatama.knockBackPower;
+	            }
 	            screen.player.damageEnemy(enemyIndex, this, attack, knockBack);
 
 	            int projectileIndex = screen.colCheck.checkEntity(this, screen.projectile);
@@ -293,7 +324,6 @@ public abstract class Entity   {
 	        attacking = false;
 	    }
 	}
-
 	
 	public void ajustAttackArea() {
 	    int atkW = attackAreaDefaultWidth;
@@ -328,11 +358,40 @@ public abstract class Entity   {
 	
 	public void damagePlayer(int attack) {
 		if(screen.player.isInvincible == false) {
-			screen.playSFX(6);
 			int damage = attack - screen.player.defense;
-			if(damage < 0) {
-				damage = 0;
+			
+			String guardDirection = getOppositeDirection(facing);
+			// Guard
+			if(screen.player.guarding && screen.player.facing.equals(guardDirection)) {
+				//Parry
+				if(screen.player.guardCounter < 10) {
+					damage = 0;
+					screen.playSFX(13);
+					setKnockBack(this, screen.player, knockBackPower);
+					stunned = true;
+					spriteCounter = -60;
+				}
+				else if(screen.player.guardCounter > 10){
+					damage /= 2;
+					screen.playSFX(12);
+				}
+				if(damage < 0) {
+					damage = 0;
+				}
 			}
+			// Damage
+			else {
+				screen.playSFX(6);
+				if(damage < 1) {
+					damage = 1;
+				}
+			}
+			
+			if(damage > 0 ) {
+				screen.player.isTransparent = true;
+				setKnockBack(screen.player, this, knockBackPower);
+			}
+
 			screen.player.hp -= damage;
 			screen.player.isInvincible = true;
 		}
