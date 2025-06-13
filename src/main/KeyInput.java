@@ -239,7 +239,7 @@ public class KeyInput implements KeyListener {
 			shootKeyPressed = true;
 		}
 		if(code == KeyEvent.VK_SPACE) {
-			if(this.endlag == 0) {
+			if(screen.player.endlag == 0) {
 				defenseKeyPressed = true;
 			}
 		}
@@ -379,8 +379,11 @@ public class KeyInput implements KeyListener {
 			ePressed = false;
 		}
 		if(code == KeyEvent.VK_SPACE) {
-			screen.player.endlag = 10;
-			defenseKeyPressed = false;
+			if(screen.player.endlag == 0) {
+				screen.player.endlag = 20;
+				defenseKeyPressed = false;
+
+			}
 			
 		}
 	}
