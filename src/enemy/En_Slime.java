@@ -20,6 +20,7 @@ public class En_Slime extends Entity{
 		this.screen = screen;
 		type = typeEnemy;
 		name = "Slime";
+		elementalWeakness = "Ice";
 		defaultSpeed = 2;
 		speed = defaultSpeed;
 		maxHP = 2;

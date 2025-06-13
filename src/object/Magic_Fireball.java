@@ -15,6 +15,7 @@ public class Magic_Fireball extends Projectile{
 		this.screen = screen;
 		
 		name = "Fireball";
+		elementalType = "Fire";
 		speed = 6;
 		maxHP = 100;
 		hp = maxHP;

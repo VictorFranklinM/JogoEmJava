@@ -4,6 +4,7 @@ import main.Screen;
 
 public class Projectile extends Entity{
 	Entity user;
+	public String elementalType = "";
 	private int map = Screen.currentMap;
 	
 	public Projectile(Screen screen) {
@@ -29,7 +30,13 @@ public class Projectile extends Entity{
 		if(user == screen.player && alive) {
 	        int enemyIndex = screen.colCheck.checkEntity(this, screen.enemy);
 	        if(enemyIndex != 999) {
-	            screen.player.damageEnemy(enemyIndex, this, attack, knockBackPower);
+	        	
+	        	int damage = attack;
+	        	if(screen.enemy[Screen.currentMap][enemyIndex].elementalWeakness.equals(elementalType)) {
+	        		damage *= 1.5;
+	        	}
+	        	
+	            screen.player.damageEnemy(enemyIndex, this, damage, knockBackPower);
 	            generateParticle(user.projectile, screen.enemy[Screen.currentMap][enemyIndex]);
 	            alive = false;
 				return;

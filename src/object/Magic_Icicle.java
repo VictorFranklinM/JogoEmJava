@@ -15,6 +15,7 @@ public class Magic_Icicle extends Projectile{
 		this.screen = screen;
 		
 		name = "Icicle";
+		elementalType = "Ice";
 		speed = 6;
 		maxHP = 100;
 		hp = maxHP;

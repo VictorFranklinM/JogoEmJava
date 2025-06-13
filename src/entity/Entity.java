@@ -42,6 +42,7 @@ public abstract class Entity   {
 	public int invincibilityTimer = 0;
 	public int deathCounter = 0;
 	
+	public String elementalWeakness = "";
 	public int spellCooldown = 60;
 	
 	public Entity attacker;

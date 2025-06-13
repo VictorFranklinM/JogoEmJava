@@ -15,6 +15,7 @@ public class Magic_WindBlast extends Projectile{
 		this.screen = screen;
 		
 		name = "Wind Blast";
+		elementalType = "Wind";
 		speed = 6;
 		maxHP = 100;
 		hp = maxHP;
