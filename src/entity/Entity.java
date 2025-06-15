@@ -63,7 +63,7 @@ public abstract class Entity   {
 	public boolean knockBack = false;
 	int knockBackCounter = 0;
 	
-	// Estava no Chest
+	// Chest
 	public Entity loot;
 	public boolean opened = false;
 	public boolean unlocked = false;

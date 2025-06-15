@@ -17,6 +17,7 @@ import object.OBJ_ManaBottle;
 import object.OBJ_Medicine;
 import object.OBJ_Mushroom;
 import object.OBJ_Obelisk;
+import object.OBJ_Portal;
 
 public class SaveLoad {
 	
@@ -65,7 +66,12 @@ public class SaveLoad {
 			}
 			
 			// Magatama
-			datastorage.currentMagatamaSlot = screen.player.getMagatamaSlot();
+			if(screen.player.currentMagatama != null) {
+				datastorage.currentMagatamaSlot = screen.player.getMagatamaSlot();
+			}
+			else {
+				datastorage.currentMagatamaSlot = screen.player.inventorySize+1;
+			}
 			
 			// Objetos no mapa
 			datastorage.mapObjectNames = new String[Screen.maxMap][screen.obj[1].length];
@@ -85,7 +91,7 @@ public class SaveLoad {
 						datastorage.mapObjectWorldX[mapNum][i] = screen.obj[mapNum][i].worldX;
 						datastorage.mapObjectWorldY[mapNum][i] = screen.obj[mapNum][i].worldY;
 						if(screen.obj[mapNum][i].loot != null) {
-						datastorage.mapObjectLootNames[mapNum][i] = screen.obj[mapNum][i].loot.name;
+							datastorage.mapObjectLootNames[mapNum][i] = screen.obj[mapNum][i].loot.name;
 						}
 						datastorage.mapObjectUnlocked[mapNum][i] = screen.obj[mapNum][i].unlocked;
 						datastorage.mapObjectOpened[mapNum][i] = screen.obj[mapNum][i].opened;
@@ -97,6 +103,7 @@ public class SaveLoad {
 			ooutstr.writeObject(datastorage);
 		}
 		catch(Exception e) {
+			e.printStackTrace();
 			System.out.println("Save Exception!");
 		}
 	}
@@ -129,14 +136,16 @@ public class SaveLoad {
 					screen.player.inventory.get(i).amount = datastorage.itemAmounts.get(i);
 				} else {
 					System.out.println("Objeto não reconhecido: " + datastorage.itemNames.get(i));
-					Entity placeholder = new OBJ_Mushroom(screen);
+					Entity placeholder = new OBJ_Portal(screen);
 				    screen.player.inventory.add(placeholder);
 				    screen.player.inventory.get(i).amount = datastorage.itemAmounts.get(i);
 				}
 			}
 			
 			// Magatama
-			screen.player.currentMagatama = screen.player.inventory.get(datastorage.currentMagatamaSlot);
+			if(datastorage.currentMagatamaSlot != screen.player.inventorySize+1) {
+				screen.player.currentMagatama = screen.player.inventory.get(datastorage.currentMagatamaSlot);
+			}
 			screen.player.getAttack();
 			screen.player.getDefense();
 			screen.player.getAttackImage();
@@ -157,13 +166,14 @@ public class SaveLoad {
 						screen.obj[mapNum][i].unlocked = datastorage.mapObjectUnlocked[mapNum][i];
 						screen.obj[mapNum][i].opened = datastorage.mapObjectOpened[mapNum][i];
 						if (screen.obj[mapNum][i].opened == true) {
-							screen.obj[mapNum][i].down1 = screen.obj[mapNum][i].down2;
+							screen.obj[mapNum][i].spriteNum = 2;
 						}
 					}
 				}
 			}
 		}
 		catch(Exception e) {
+			e.printStackTrace();
 			System.out.println("Load Exception!");
 		}
 	}
