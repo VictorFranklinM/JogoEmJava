@@ -4,6 +4,8 @@ import entity.Entity;
 import main.Screen;
 public class OBJ_Chest extends Entity{
 	
+	public static final String objName = "Chest";
+	
 	Screen screen;
 	
 	public OBJ_Chest(Screen screen) {
@@ -11,7 +13,7 @@ public class OBJ_Chest extends Entity{
 		this.screen = screen;
 		
 		type = typeObstacle;
-		name = "Chest";
+		name = objName;
 		down1 = setup("/objects/chest",Screen.tileSize, Screen.tileSize);
 		down2 = setup("/objects/chestOpen",Screen.tileSize, Screen.tileSize);
 		collisionArea.x = (1 * Screen.scale);

@@ -5,6 +5,8 @@ import main.Screen;
 
 public class OBJ_GreenMacca extends Entity {
 	
+	public static final String objName = "1 Macca";
+	
 	Screen screen;
 	 
 	public OBJ_GreenMacca(Screen screen) {
@@ -12,7 +14,7 @@ public class OBJ_GreenMacca extends Entity {
 		this.screen = screen;
 		
 		type = typePickupOnly;
-		name = "1 Macca";
+		name = objName;
 		value = 1;
 		down1 = setup("/objects/greenMacca",Screen.tileSize, Screen.tileSize);
 		

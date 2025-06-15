@@ -8,15 +8,6 @@ import java.io.ObjectOutputStream;
 
 import entity.Entity;
 import main.Screen;
-import object.OBJ_Chest;
-import object.OBJ_Key;
-import object.OBJ_MagaBlue;
-import object.OBJ_MagaGreen;
-import object.OBJ_MagaRed;
-import object.OBJ_ManaBottle;
-import object.OBJ_Medicine;
-import object.OBJ_Mushroom;
-import object.OBJ_Obelisk;
 import object.OBJ_Portal;
 
 public class SaveLoad {
@@ -26,24 +17,10 @@ public class SaveLoad {
 	public SaveLoad(Screen screen) {
 		this.screen = screen;
 	}
-	public Entity getObject(String itemName) {
-		Entity obj = null;
-		
-		switch(itemName) {
-		case "Key": obj = new OBJ_Key(screen); break;
-		case "Mana Bottle": obj = new OBJ_ManaBottle(screen); break;
-		case "Medicine": obj = new OBJ_Medicine(screen); break;
-		case "Mushroom": obj = new OBJ_Mushroom(screen); break;
-		case "Force Magatama": obj = new OBJ_MagaGreen(screen); break;
-		case "Ice Magatama": obj = new OBJ_MagaBlue(screen); break;
-		case "Fire Magatama": obj = new OBJ_MagaRed(screen); break;
-		case "Obelisk": obj = new OBJ_Obelisk(screen); break;
-		case "Chest": obj = new OBJ_Chest(screen); break;
-		}
-		return obj;
-	}
+	
 	public void save() {
 		try{
+			@SuppressWarnings("resource")
 			ObjectOutputStream ooutstr = new ObjectOutputStream(new FileOutputStream(new File("save.dat")));
 			
 			DataStorage datastorage = new DataStorage();
@@ -58,6 +35,9 @@ public class SaveLoad {
 			datastorage.exp = screen.player.exp;
 			datastorage.nextLevelExp = screen.player.nextLevelExp;
 			datastorage.macca = screen.player.macca;
+			datastorage.worldX = screen.player.worldX;
+			datastorage.worldY = screen.player.worldY;
+			datastorage.currentMap = Screen.currentMap;
 			
 			// Inventario
 			for (int i = 0; i < screen.player.inventory.size(); i++) {
@@ -110,6 +90,7 @@ public class SaveLoad {
 	
 	public void load() {
 		try {
+			@SuppressWarnings("resource")
 			ObjectInputStream oinpstr = new ObjectInputStream(new FileInputStream(new File("save.dat")));
 			
 			//Ler o arquivo de DataStorage
@@ -125,11 +106,14 @@ public class SaveLoad {
 			screen.player.exp = datastorage.exp;
 			screen.player.nextLevelExp = datastorage.nextLevelExp;
 			screen.player.macca = datastorage.macca;
+			screen.player.worldX = datastorage.worldX;
+			screen.player.worldY = datastorage.worldY;
+			Screen.currentMap = datastorage.currentMap;
 			
 			// Inventario
 			screen.player.inventory.clear();
 			for(int i = 0; i < datastorage.itemNames.size(); i++) {
-				Entity loadedItem = getObject(datastorage.itemNames.get(i));
+				Entity loadedItem = screen.eGenerator.getObject(datastorage.itemNames.get(i));
 
 				if (loadedItem != null) {
 					screen.player.inventory.add(loadedItem);
@@ -145,10 +129,9 @@ public class SaveLoad {
 			// Magatama
 			if(datastorage.currentMagatamaSlot != screen.player.inventorySize+1) {
 				screen.player.currentMagatama = screen.player.inventory.get(datastorage.currentMagatamaSlot);
+				screen.player.getAttack();
+				screen.player.getDefense();
 			}
-			screen.player.getAttack();
-			screen.player.getDefense();
-			screen.player.getAttackImage();
 			
 			// Objetos no mapa
 			for(int mapNum = 0; mapNum < Screen.maxMap; mapNum++) {
@@ -157,11 +140,11 @@ public class SaveLoad {
 						screen.obj[mapNum][i] = null;
 					}
 					else {
-						screen.obj[mapNum][i] = getObject(datastorage.mapObjectNames[mapNum][i]);
+						screen.obj[mapNum][i] = screen.eGenerator.getObject(datastorage.mapObjectNames[mapNum][i]);
 						screen.obj[mapNum][i].worldX = datastorage.mapObjectWorldX[mapNum][i];
 						screen.obj[mapNum][i].worldY = datastorage.mapObjectWorldY[mapNum][i];
-						if(datastorage.mapObjectLootNames != null) {
-							screen.obj[mapNum][i].loot = getObject(datastorage.mapObjectLootNames[mapNum][i]);
+						if(datastorage.mapObjectLootNames[mapNum][i] != null) {
+							screen.obj[mapNum][i].loot = screen.eGenerator.getObject(datastorage.mapObjectLootNames[mapNum][i]);
 						}
 						screen.obj[mapNum][i].unlocked = datastorage.mapObjectUnlocked[mapNum][i];
 						screen.obj[mapNum][i].opened = datastorage.mapObjectOpened[mapNum][i];

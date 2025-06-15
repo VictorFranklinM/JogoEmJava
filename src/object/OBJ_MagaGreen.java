@@ -5,6 +5,8 @@ import main.Screen;
 
 public class OBJ_MagaGreen extends Entity{
 	
+	public static final String objName = "Force Magatama";
+	
 	Screen screen;
 	
 	public OBJ_MagaGreen(Screen screen) {
@@ -14,7 +16,7 @@ public class OBJ_MagaGreen extends Entity{
 		
 		Magic_WindBlast wind = new Magic_WindBlast(screen);
 		
-		name = "Force Magatama";
+		name = objName;
 		
 		attackValue = 1;
 		defenseValue = 1;

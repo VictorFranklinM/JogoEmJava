@@ -4,7 +4,9 @@ import entity.Entity;
 import main.Screen;
 
 public class OBJ_MagaBlue extends Entity{
-
+	
+	public static final String objName = "Ice Magatama";
+	
 	Screen screen;
 	
 	public OBJ_MagaBlue(Screen screen) {
@@ -14,7 +16,7 @@ public class OBJ_MagaBlue extends Entity{
 		
 		Magic_Icicle ice = new Magic_Icicle(screen);
 		
-		name = "Ice Magatama";
+		name = objName;
 		
 		attackValue = 3;
 		defenseValue = 6;

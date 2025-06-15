@@ -49,12 +49,12 @@ public class EventManager {
 		}
 		
 		if(canTouchEvent == true) {
-			if(hit(0, 46, 28, "any") == true) {damagePit(Screen.dialogueState);}
+			// if(hit(0, 46, 28, "any") == true) {damagePit(Screen.dialogueState);}
 			// else if(hit(0, 46, 27, "any") == true) {teleportPoint(screen.dialogueState, 50, 40);}
 			// else if(hit(0, 46, 26, "any") == true) {healingPoint(screen.dialogueState);}
-			else if(hit(0, 26, 18, "up") == true) {switchMap(1, 17, 37);}
+			if(hit(0, 26, 18, "up") == true) {switchMap(1, 17, 37);}
 			else if(hit(1, 17, 37, "down") == true) {switchMap(0, 26, 18);}
-			else if(hit(1, 17, 25, "any") == true) {healingPoint(screen.dialogueState);}
+			else if(hit(1, 17, 25, "any") == true) {healingPoint(Screen.dialogueState);}
 		}
 		
 		

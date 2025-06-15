@@ -8,13 +8,15 @@ import main.Screen;
 
 public class Magic_WindBlast extends Projectile{
 	
+	public static final String objName = "Wind Blast";
+	
 	Screen screen;
 
 	public Magic_WindBlast(Screen screen) {
 		super(screen);
 		this.screen = screen;
 		
-		name = "Wind Blast";
+		name = objName;
 		elementalType = "Wind";
 		speed = 6;
 		maxHP = 100;

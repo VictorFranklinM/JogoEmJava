@@ -4,7 +4,9 @@ import entity.Entity;
 import main.Screen;
 
 public class OBJ_MagaRed extends Entity{
-
+	
+	public static final String objName = "Fire Magatama";
+	
 	Screen screen;
 	
 	public OBJ_MagaRed(Screen screen) {
@@ -14,7 +16,7 @@ public class OBJ_MagaRed extends Entity{
 		
 		Magic_Fireball fire = new Magic_Fireball(screen);
 		
-		name = "Fire Magatama";
+		name = objName;
 		
 		attackValue = 5;
 		defenseValue = 3;

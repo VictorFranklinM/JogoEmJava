@@ -8,13 +8,15 @@ import main.Screen;
 
 public class Magic_Fireball extends Projectile{
 	
+	public static final String objName = "Fireball";
+	
 	Screen screen;
 
 	public Magic_Fireball(Screen screen) {
 		super(screen);
 		this.screen = screen;
 		
-		name = "Fireball";
+		name = objName;
 		elementalType = "Fire";
 		speed = 6;
 		maxHP = 100;

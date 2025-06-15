@@ -5,6 +5,8 @@ import main.Screen;
 
 public class OBJ_Medicine extends Entity{
 	
+	public static final String objName = "Medicine";
+	
 	Screen screen;
 	
 	public OBJ_Medicine(Screen screen) {
@@ -13,7 +15,7 @@ public class OBJ_Medicine extends Entity{
 		type = typeConsumable;
 		stackable = true;
 		
-		name = "Medicine";
+		name = objName;
 		value = 3;
 		description = "[" +name+ "]\n"
 					+ "An item that may be used to heal\nyou on difficult situations.\nIt's wise to always keep one.\n"

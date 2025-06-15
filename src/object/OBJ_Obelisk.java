@@ -4,6 +4,8 @@ import entity.Entity;
 import main.Screen;
 public class OBJ_Obelisk extends Entity{
 	
+	public static final String objName = "Obelisk";
+	
 	Screen screen;
 	
 	public OBJ_Obelisk(Screen screen) {
@@ -12,7 +14,7 @@ public class OBJ_Obelisk extends Entity{
 		
 		type = typeObstacle;
 		down1 = setup("/objects/obelisk",Screen.tileSize, Screen.tileSize*2);
-		name = "Obelisk";
+		name = objName;
 		
 		collisionArea.x = (0 * Screen.scale);
         collisionArea.y = (0 * Screen.scale);

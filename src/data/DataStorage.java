@@ -3,6 +3,7 @@ package data;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+@SuppressWarnings("serial")
 public class DataStorage implements Serializable{
 	
 	//Stats do Player
@@ -16,6 +17,9 @@ public class DataStorage implements Serializable{
 	int exp;
 	int nextLevelExp;
 	int macca;
+	int worldX;
+	int worldY;
+	int currentMap;
 	
 	// Inventario
 	ArrayList<String> itemNames = new ArrayList<>();

@@ -5,6 +5,8 @@ import main.Screen;
 
 public class OBJ_ManaBottle extends Entity{
 	
+	public static final String objName = "Mana Bottle";
+	
 	Screen screen;
 	
 	public OBJ_ManaBottle(Screen screen) {
@@ -13,7 +15,7 @@ public class OBJ_ManaBottle extends Entity{
 		type = typeConsumable;
 		stackable = true;
 		
-		name = "Mana Bottle";
+		name = objName;
 		value = 2;
 		description = "[" +name+ "]\n"
 					+ "An item that may be used to\nrestore your mana on difficult\nsituations. It's wise to always keep\n one.\n"

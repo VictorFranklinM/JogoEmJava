@@ -4,6 +4,8 @@ import entity.Entity;
 import main.Screen;
 public class OBJ_Key extends Entity{
 	
+	public static final String objName = "Key";
+	
 	Screen screen;
 	
 	public OBJ_Key(Screen screen) {
@@ -12,7 +14,7 @@ public class OBJ_Key extends Entity{
 		type = typeConsumable;
 		stackable = true;
 		
-		name = "Key";
+		name = objName;
 		down1 = setup("/objects/key",Screen.tileSize, Screen.tileSize);
 		collisionArea.x = (4 * Screen.scale);
 		collisionArea.y = (1 * Screen.scale);

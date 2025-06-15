@@ -4,7 +4,9 @@ import entity.Entity;
 import main.Screen;
 
 public class OBJ_Mushroom extends Entity{
-
+	
+	public static final String objName = "Mushroom";
+	
 	Screen screen;
 	
 	public OBJ_Mushroom(Screen screen) {
@@ -14,7 +16,7 @@ public class OBJ_Mushroom extends Entity{
 		spriteNum = 2;
 		stackable = true;
 		
-		name = "Mushroom";
+		name = objName;
 		value = 1;
 		description = "[" +name+ "]\n"
 					+ "An item that may be used to heal\nyou. Not as useful as medicine, but\nit still can save your skin.\n"

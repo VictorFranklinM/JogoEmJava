@@ -4,6 +4,8 @@ import entity.Entity;
 import main.Screen;
 public class OBJ_CacheCube extends Entity{
 	
+	public static final String objName = "Cache Cube";
+	
 	Screen screen;
 	
 	public OBJ_CacheCube(Screen screen) {
@@ -11,9 +13,10 @@ public class OBJ_CacheCube extends Entity{
 		this.screen = screen;
 		
 		type = typeObstacle;
+		name = objName;
+		
 		down1 = setup("/objects/cacheCubeOn",Screen.tileSize, Screen.tileSize);
 		down2 = setup("objects/cacheCube", Screen.tileSize, Screen.tileSize);
-		name = "Cache Cube";
 		
 		collisionArea.x = (3 * Screen.scale);
         collisionArea.y = (3 * Screen.scale);

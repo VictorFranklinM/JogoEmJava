@@ -9,8 +9,6 @@ import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.swing.JPanel; // Importa as propriedades da classe JPanel. (Interface da janela).
 
@@ -76,6 +74,7 @@ public class Screen extends JPanel implements Runnable{
 	public ArrayList<Entity> particleList = new ArrayList<>();
 	Map map = new Map(this);
 	SaveLoad saveLoad = new SaveLoad(this);
+	public EntityGenerator eGenerator = new EntityGenerator(this);
 	
 	public int gameState;
 	public static final int titleState = 0;

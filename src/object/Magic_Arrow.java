@@ -8,13 +8,15 @@ import main.Screen;
 
 public class Magic_Arrow extends Projectile{
 	
+	public static final String objName = "Arrow";
+	
 	Screen screen;
 
 	public Magic_Arrow(Screen screen) {
 		super(screen);
 		this.screen = screen;
 		
-		name = "Arrow";
+		name = objName;
 		speed = 6;
 		maxHP = 100;
 		hp = maxHP;
