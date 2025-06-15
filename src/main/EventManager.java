@@ -54,6 +54,7 @@ public class EventManager {
 			// else if(hit(0, 46, 26, "any") == true) {healingPoint(screen.dialogueState);}
 			else if(hit(0, 26, 18, "up") == true) {switchMap(1, 17, 37);}
 			else if(hit(1, 17, 37, "down") == true) {switchMap(0, 26, 18);}
+			else if(hit(1, 17, 25, "any") == true) {healingPoint(screen.dialogueState);}
 		}
 		
 		
@@ -105,10 +106,12 @@ public class EventManager {
 			screen.player.canAttack = false;
 			screen.gameState = gameState;
 			screen.playSFX(1);
-			screen.ui.currentSpeechLine = "You heal yourself!";
+			screen.ui.currentSpeechLine = "You heal yourself!\n"
+					+ "(The progress has been saved)";
 			screen.player.hp = screen.player.maxHP;
 			screen.player.mana = screen.player.maxMana;
 			screen.npcPlacer.placeEnemy();
+			screen.saveLoad.save();
 		}
 	}
 	

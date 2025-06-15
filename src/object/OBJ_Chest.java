@@ -5,14 +5,10 @@ import main.Screen;
 public class OBJ_Chest extends Entity{
 	
 	Screen screen;
-	Entity loot;
-	boolean opened = false;
-	public boolean unlocked = false;
 	
-	public OBJ_Chest(Screen screen, Entity loot) {
+	public OBJ_Chest(Screen screen) {
 		super(screen);
 		this.screen = screen;
-		this.loot = loot;
 		
 		type = typeObstacle;
 		name = "Chest";
@@ -27,6 +23,10 @@ public class OBJ_Chest extends Entity{
 		collisionAreaDefaultY = collisionArea.y;
 		
 		collision = true;
+	}
+	
+	public void setLoot(Entity loot) {
+		this.loot = loot;
 	}
 	
 	@Override

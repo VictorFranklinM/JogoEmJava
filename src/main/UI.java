@@ -336,7 +336,7 @@ public class UI {
 		
 		g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 32F));
 		g2.setColor(greenGreen);
-		text = "You, who has fallen before fulfilling your destiny...\nBeyond lies the land to which all souls eventually return...\nWhere the souls of the dead await their next reincarnation...\nDo not be afraid...";
+		text = "You, who has fallen before fulfilling your destiny...\nBeyond lies the land to which all souls eventually return,\nWhere the souls of the dead await their next reincarnation...\nDo not be afraid...";
 		for(String line : text.split("\n")) {
 			g2.drawString(line, getCenteredX(line), y);
 			y += Screen.tileSize/1.5;
@@ -954,8 +954,7 @@ public class UI {
 				screen.gameState = Screen.titleState;
 				screen.playSFX(1);
 				screen.key.enterProcessed = true;
-				screen.stopMusic();
-				screen.playMusic(4);
+				screen.resetGame(true);
 			}
 		}
 		

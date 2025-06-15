@@ -9,10 +9,13 @@ import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.swing.JPanel; // Importa as propriedades da classe JPanel. (Interface da janela).
 
 import ai.PathFinder;
+import data.SaveLoad;
 import entity.Entity;
 import entity.Player;
 import tile.Map;
@@ -40,6 +43,7 @@ public class Screen extends JPanel implements Runnable{
 	public static int currentMap = 0;
 	
 	public static final int objPerScreen = 10;
+	public static final int ovrPerScreen = 40;
 	public static final int npcPerScreen = 10;
 	public static final int enemyPerScreen = 20;
 	
@@ -63,6 +67,7 @@ public class Screen extends JPanel implements Runnable{
 	
 	public Player player = new Player(this,key);
 	public Entity obj[][] = new Entity[maxMap][objPerScreen]; // new Object[x]. x e a quantidade de objetos que podem ser renderizados na tela ao mesmo tempo.
+	public Entity[][] overlay = new Entity[maxMap][ovrPerScreen]; // estou brincando
 	public Entity npc[][] = new Entity[maxMap][npcPerScreen];
 	public Entity enemy[][] = new Entity[maxMap][enemyPerScreen];
 	public Entity projectile [][] = new Entity[maxMap][20];
@@ -70,6 +75,7 @@ public class Screen extends JPanel implements Runnable{
 	public ArrayList<Entity> spellList = new ArrayList<>();
 	public ArrayList<Entity> particleList = new ArrayList<>();
 	Map map = new Map(this);
+	SaveLoad saveLoad = new SaveLoad(this);
 	
 	public int gameState;
 	public static final int titleState = 0;
@@ -100,26 +106,20 @@ public class Screen extends JPanel implements Runnable{
 		gameState = titleState;
 	}
 	
-	public void retry() {
+	public void resetGame(boolean restart) {
 		player.setDefaultPositions();
-		player.restoreHpAndMana();
+		player.restoreStatus();
 		npcPlacer.placeNPC();
 		npcPlacer.placeEnemy();
-		stopMusic();
-		playMusic(2);
-	}
-	
-	public void restart() {
-		player.setDefaultValues();
-		player.setDefaultPositions();
-		player.restoreHpAndMana();
-		player.setItens();
-		player.currentMagatama = null;
-		objPlacer.placeObject();
-		npcPlacer.placeNPC();
-		npcPlacer.placeEnemy();
-		stopMusic();
-		playMusic(4);
+		stopMusic();	
+		if(restart == true) {
+			player.setDefaultValues();
+			player.currentMagatama = null;
+			objPlacer.placeObject();
+			playMusic(4);
+		} else {
+			playMusic(2);
+		}
 	}
 	
     public void startGameThread() {
@@ -152,6 +152,13 @@ public class Screen extends JPanel implements Runnable{
     					enemy[currentMap][i] = null;
     				}
     			}
+    		}
+    		
+    		// OVERLAY
+    		for (int i = 0; i < ovrPerScreen; i++) {
+    		    if (overlay[currentMap][i] != null) {
+    		        overlay[currentMap][i].update();
+    		    }
     		}
     	
     		for (int i = 0; i < projectile[1].length; i++) {
@@ -219,6 +226,12 @@ public class Screen extends JPanel implements Runnable{
     		for(int i = 0; i < objPerScreen; i++) {
     			if(obj[currentMap][i] != null) {
     				entityList.add(obj[currentMap][i]);
+    			}
+    		}
+    		
+    		for (int i = 0; i < ovrPerScreen; i++) {  //eu estou brincando com isso
+    			if (overlay[currentMap][i] != null) {
+    				entityList.add(overlay[currentMap][i]);
     			}
     		}
     		

@@ -63,6 +63,11 @@ public abstract class Entity   {
 	public boolean knockBack = false;
 	int knockBackCounter = 0;
 	
+	// Estava no Chest
+	public Entity loot;
+	public boolean opened = false;
+	public boolean unlocked = false;
+	
 	//DIALOGUES STATUS
 	public int dialoguesQuantity = 20;
 	public int actionLockCounter = 0; // Para movimenta��o dos NPC
@@ -78,6 +83,7 @@ public abstract class Entity   {
 	public final int typeConsumable = 4;
 	public final int typePickupOnly = 5;
 	public final int typeObstacle = 6;
+	public final int typeOverlay = 7;
 	
 	// Status
 	public String name;
@@ -158,6 +164,8 @@ public abstract class Entity   {
 		sound.setFile(i);
 		sound.play();
 	}
+	
+	public void setLoot (Entity loot) {} // CHEST LOOT
 	
 	public void setAction() {}
 	

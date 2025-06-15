@@ -10,6 +10,7 @@ import object.OBJ_ManaBottle;
 import object.OBJ_Medicine;
 import object.OBJ_Mushroom;
 import object.OBJ_Obelisk;
+import object.OVR_Sparkle;
 
 public class ObjPlacer extends Entity {
 
@@ -58,7 +59,8 @@ public class ObjPlacer extends Entity {
 		screen.obj[mapNum][i].worldX = 30 * Screen.tileSize;
 		screen.obj[mapNum][i].worldY = 37 * Screen.tileSize;
 		i++;
-		screen.obj[mapNum][i] = new OBJ_Chest(screen, new OBJ_ManaBottle(screen));
+		screen.obj[mapNum][i] = new OBJ_Chest(screen);
+		screen.obj[mapNum][i].setLoot(new OBJ_ManaBottle(screen));
 		screen.obj[mapNum][i].worldX = 29 * Screen.tileSize;
 		screen.obj[mapNum][i].worldY = 31 * Screen.tileSize;
 		i++;
@@ -69,6 +71,10 @@ public class ObjPlacer extends Entity {
 		screen.obj[mapNum][i] = new OBJ_MagaGreen(screen);
 		screen.obj[mapNum][i].worldX = 19 * Screen.tileSize;
 		screen.obj[mapNum][i].worldY = 32 * Screen.tileSize;
+		i++;
+		screen.overlay[mapNum][i] = new OVR_Sparkle(screen);
+		screen.overlay[mapNum][i].worldX = 17 * Screen.tileSize;
+		screen.overlay[mapNum][i].worldY = 25 * Screen.tileSize;
 		i++;
 	}
 	public void getImage(){

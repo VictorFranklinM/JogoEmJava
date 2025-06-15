@@ -121,7 +121,11 @@ public class KeyInput implements KeyListener {
 	    		screen.playMusic(2);
 	    	}
 	    	if(screen.ui.commandNum == 1) {
-	    		//add later
+	    		screen.saveLoad.load();
+	    		screen.gameState = Screen.playState;
+	    		screen.playSFX(1);
+	    		screen.stopMusic();
+	    		screen.playMusic(2);
 	    	}
 	    	if(screen.ui.commandNum == 2) {
 	    		System.exit(0);
@@ -344,11 +348,11 @@ public class KeyInput implements KeyListener {
 		if(code == KeyEvent.VK_ENTER) {
 			if(screen.ui.commandNum == 0) {
 				screen.gameState = Screen.playState;
-				screen.retry();
+				screen.resetGame(false);
 			}
 			else if(screen.ui.commandNum == 1) {
 				screen.gameState = Screen.titleState;
-				screen.restart();
+				screen.resetGame(true);
 			}
 		}
 	}

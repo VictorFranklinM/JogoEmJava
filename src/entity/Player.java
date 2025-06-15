@@ -54,10 +54,6 @@ public class Player extends Entity{
 		attackAreaDefaultHeight = attackArea.height;
 		
 		setDefaultValues();
-		getImage();
-		getAttackImage();
-		getGuardImage();
-		setItens();
 	}
 	
 	public void setDefaultValues() {
@@ -87,6 +83,10 @@ public class Player extends Entity{
 			attack = strenght;
 			defense = dexterity;
 		}
+		getImage();
+		getAttackImage();
+		getGuardImage();
+		setItens();
 	}
 	
 	public void setDefaultPositions() {
@@ -95,11 +95,15 @@ public class Player extends Entity{
 		facing = "down";
 	}
 	
-	public void restoreHpAndMana() {
+	public void restoreStatus() {
 		hp = maxHP;
 		mana = maxMana;
 		isInvincible = false;
 		isTransparent = false;
+		attacking = false;
+		guarding =  false;
+		knockBack = false;
+		
 	}
 	
 	public void setItens() {
@@ -710,5 +714,15 @@ public class Player extends Entity{
 	
 	public int getDefense(){
 		return defense = dexterity+currentMagatama.defenseValue;
+	}
+	
+	public int getMagatamaSlot() {
+		int currentMagatamaSlot = 0;
+		for(int i = 0; i < inventory.size(); i++) {
+			if(inventory.get(i) == currentMagatama) {
+				currentMagatamaSlot = i;
+			}
+		}
+		return currentMagatamaSlot;
 	}
 }
