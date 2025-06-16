@@ -2,6 +2,7 @@ package main;
 
 import entity.Entity;
 import object.OBJ_Chest;
+import object.OBJ_Door;
 import object.OBJ_Key;
 import object.OBJ_MagaBlue;
 import object.OBJ_MagaGreen;
@@ -10,6 +11,7 @@ import object.OBJ_ManaBottle;
 import object.OBJ_Medicine;
 import object.OBJ_Mushroom;
 import object.OBJ_Obelisk;
+import object.OBJ_SpecialKey;
 import object.OVR_Sparkle;
 
 public class ObjPlacer extends Entity {
@@ -70,6 +72,14 @@ public class ObjPlacer extends Entity {
 		
 		screen.obj[mapNum][i] = new OBJ_MagaGreen(screen);
 		screen.obj[mapNum][i].worldX = 19 * Screen.tileSize;
+		screen.obj[mapNum][i].worldY = 32 * Screen.tileSize;
+		i++;
+		screen.obj[mapNum][i] = new OBJ_SpecialKey(screen);
+		screen.obj[mapNum][i].worldX = 17 * Screen.tileSize;
+		screen.obj[mapNum][i].worldY = 32 * Screen.tileSize;
+		i++;
+		screen.obj[mapNum][i] = new OBJ_Door(screen);
+		screen.obj[mapNum][i].worldX = 18 * Screen.tileSize;
 		screen.obj[mapNum][i].worldY = 32 * Screen.tileSize;
 		i++;
 		screen.overlay[mapNum][i] = new OVR_Sparkle(screen);

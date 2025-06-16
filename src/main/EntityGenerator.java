@@ -8,6 +8,7 @@ import object.Magic_Icicle;
 import object.Magic_WindBlast;
 import object.OBJ_CacheCube;
 import object.OBJ_Chest;
+import object.OBJ_Door;
 import object.OBJ_GreenMacca;
 import object.OBJ_HP;
 import object.OBJ_Key;
@@ -20,6 +21,7 @@ import object.OBJ_Medicine;
 import object.OBJ_Mushroom;
 import object.OBJ_Obelisk;
 import object.OBJ_Portal;
+import object.OBJ_SpecialKey;
 import object.OVR_Sparkle;
 
 public class EntityGenerator {
@@ -40,6 +42,7 @@ public class EntityGenerator {
 		case Magic_WindBlast.objName: obj = new Magic_WindBlast(screen); break;
 		case OBJ_CacheCube.objName: obj = new OBJ_CacheCube(screen); break;
 		case OBJ_Chest.objName: obj = new OBJ_Chest(screen); break;
+		case OBJ_Door.objName: obj = new OBJ_Door(screen); break;
 		case OBJ_GreenMacca.objName: obj = new OBJ_GreenMacca(screen); break;
 		case OBJ_HP.objName: obj = new OBJ_HP(screen); break;
 		case OBJ_Key.objName: obj = new OBJ_Key(screen); break;
@@ -52,6 +55,7 @@ public class EntityGenerator {
 		case OBJ_Mushroom.objName: obj = new OBJ_Mushroom(screen); break;
 		case OBJ_Obelisk.objName: obj = new OBJ_Obelisk(screen); break;
 		case OBJ_Portal.objName: obj = new OBJ_Portal(screen); break;
+		case OBJ_SpecialKey.objName: obj = new OBJ_SpecialKey(screen); break;
 		case OVR_Sparkle.objName: obj = new OVR_Sparkle(screen); break;
 		default : System.out.println("Object not found."); break;
 		}
