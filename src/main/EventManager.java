@@ -1,8 +1,11 @@
 package main;
 
+import entity.Entity;
+
 public class EventManager {
 	Screen screen;
 	EventArea eventArea[][][];
+	Entity eventMaster;
 	
 	int lastEventX, lastEventY;
 	boolean canTouchEvent = true;
@@ -10,6 +13,7 @@ public class EventManager {
 	
 	public EventManager(Screen screen) {
 		this.screen = screen;
+		eventMaster = new Entity(screen);
 		
 		eventArea = new EventArea[Screen.maxMap][Screen.maxWorldCol][Screen.maxWorldRow];
 		int map = 0;
@@ -37,6 +41,18 @@ public class EventManager {
 				}
 			}
 		}
+		
+		setDialogue();
+	}
+	
+	public void setDialogue() {
+		eventMaster.dialogues[0][0] = "You fall into a pit!";
+		
+		eventMaster.dialogues[1][0] = "You heal yourself!\n(The progress has been saved)";
+		eventMaster.dialogues[1][1] = "Truly, a glimmer of hope in these trying times.";
+		
+		eventMaster.dialogues[2][0] = "You have been teleported!";
+		
 	}
 	
 	public void checkEvent() {
@@ -55,6 +71,7 @@ public class EventManager {
 			if(hit(0, 26, 18, "up") == true) {switchMap(1, 17, 37);}
 			else if(hit(1, 17, 37, "down") == true) {switchMap(0, 26, 18);}
 			else if(hit(1, 17, 25, "any") == true) {healingPoint(Screen.dialogueState);}
+			else if(hit(1, 17, 26, "any") == true) {healingPoint(Screen.dialogueState);}
 		}
 		
 		
@@ -92,7 +109,7 @@ public class EventManager {
 	public void damagePit(int gameState) {
 		screen.gameState = gameState;
 		screen.playSFX(6);
-		screen.ui.currentSpeechLine = "You fall into a pit!";
+		eventMaster.startDialogue(eventMaster,0);
 		screen.player.hp -= 1;
 		
 		// eventArea[map][col][row].eventDone = true;
@@ -106,8 +123,7 @@ public class EventManager {
 			screen.player.canAttack = false;
 			screen.gameState = gameState;
 			screen.playSFX(1);
-			screen.ui.currentSpeechLine = "You heal yourself!\n"
-					+ "(The progress has been saved)";
+			eventMaster.startDialogue(eventMaster,1);
 			screen.player.hp = screen.player.maxHP;
 			screen.player.mana = screen.player.maxMana;
 			screen.npcPlacer.placeEnemy();
@@ -118,7 +134,7 @@ public class EventManager {
 	public void teleportPoint(int gameState, int teleportedX, int teleportedY) {
 		screen.gameState = gameState;
 		screen.playSFX(7);
-		screen.ui.currentSpeechLine = "You have been teleported!";
+		eventMaster.startDialogue(eventMaster, 2);
 		screen.player.worldX = Screen.tileSize*teleportedX;
 		screen.player.worldY = Screen.tileSize*teleportedY;
 	}
@@ -130,5 +146,10 @@ public class EventManager {
 		tempRow = row;
 		canTouchEvent = false;
 		screen.playSFX(11);
+		for (int i = 0; i < screen.npc[Screen.currentMap].length; i++) {
+		    if (screen.npc[Screen.currentMap][i] != null) {
+		        screen.npc[Screen.currentMap][i].dialogueSet = -1;
+		    }
+		}
 	}
 }

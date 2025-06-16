@@ -255,7 +255,7 @@ public class KeyInput implements KeyListener {
 	
 	public void dialogueState(int code) {
 		if(code == KeyEvent.VK_E) {
-			screen.gameState = Screen.playState;
+			enterPressed = true; // video dos dialogos paginas
 		}
 	}
 	

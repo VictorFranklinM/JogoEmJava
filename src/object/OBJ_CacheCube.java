@@ -28,10 +28,14 @@ public class OBJ_CacheCube extends Entity{
 
         collision = true;
         
+    	setDialogue();
+	}
+	
+	public void setDialogue() {
+		dialogues[0][0] = "You opened the cache cube.";
 	}
 	
 	public void interact() {
-		screen.gameState = Screen.dialogueState;
-		screen.ui.currentSpeechLine = "You opened the cache cube.";
+		startDialogue(this,0);
 	}
 }

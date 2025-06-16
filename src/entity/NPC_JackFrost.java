@@ -7,6 +7,8 @@ import main.Screen;
 public class NPC_JackFrost extends Entity{
 	
 	private final int defaultSpeed = 1;
+	//private int specialLine = numero;
+	//private int maxTextLines = numero; // mudar se mudar a quantidade de texto normal
 			
 	public NPC_JackFrost(Screen screen) {
 		super(screen);
@@ -26,7 +28,12 @@ public class NPC_JackFrost extends Entity{
 	
 	public void speak() {
 		screen.ui.setFace(face);
-		super.speak();
+		super.facePlayer();
+		super.startDialogue(this, dialogueSet);
+		dialogueSet++;
+		if (dialogues[dialogueSet][0] == null) {
+			dialogueSet--;
+		}
 	}
 	
 	public void getImage() {
@@ -46,10 +53,10 @@ public class NPC_JackFrost extends Entity{
 	}
 	
 	public void setTextLines() {
-		dialogues[0] = "Hee-llo!\nMy name is Jack Frost!";
-		dialogues[1] = "I wanna tell you something -ho!";
-		dialogues[2] = "I heard that if you collect some magatamas, you\ncan go to another areas -ho!";
-		dialogues[3] = "What is a Magatama you say?\nHow could I possibily hee-know!";
+		dialogues[0][0] = "Hee-llo!\nMy name is Jack Frost!";
+		dialogues[0][1] = "I wanna tell you something -ho!";
+		dialogues[0][2] = "I heard that if you collect some magatamas, you\ncan go to another areas -ho!";
+		dialogues[0][3] = "What is a Magatama you say?\nHow could I possibily hee-know!";
 	}
 	
 	@Override

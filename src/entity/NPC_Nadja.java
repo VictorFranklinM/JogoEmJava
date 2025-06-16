@@ -7,11 +7,14 @@ import main.Screen;
 public class NPC_Nadja extends Entity{
 	
 	private final int defaultSpeed = 1;
+	private int specialHPLine = 3;
+	private int maxTextLines = 2;
 			
 	public NPC_Nadja(Screen screen) {
 		super(screen);
 		facing = "down";
 		speed = defaultSpeed;
+		dialogueSet = -1;
 		getImage();
 		setTextLines();
 		collisionArea = new Rectangle();
@@ -26,7 +29,18 @@ public class NPC_Nadja extends Entity{
 	
 	public void speak() {
 		screen.ui.setFace(face);
-		super.speak();
+		super.facePlayer();
+		dialogueSet++;
+		if (screen.player.hp <= screen.player.maxHP / 3) {
+			super.startDialogue(this, specialHPLine);
+			return;
+		}
+		if (dialogues[dialogueSet][0] != null) {
+			super.startDialogue(this, dialogueSet);
+		}
+		if (dialogueSet > maxTextLines || dialogues[dialogueSet][0] == null) {
+			dialogueSet = maxTextLines;
+		}
 	}
 	
 	public void getImage() {
@@ -46,11 +60,20 @@ public class NPC_Nadja extends Entity{
 	}
 	
 	public void setTextLines() {
-		// MUDAR
-		dialogues[0] = "Hee-llo!\nMy name is Jack Frost!";
-		dialogues[1] = "I wanna tell you something -ho!";
-		dialogues[2] = "I heard that if you collect some magatamas, you\ncan go to another areas -ho!";
-		dialogues[3] = "What is a Magatama you say?\nHow could I possibily hee-know!";
+		dialogues[0][0] = "Nice to meet you, handsome, I'm Nadja!";
+		dialogues[0][1] = "Someone once told me my name is short for\nhope in their language.";
+		dialogues[0][2] = "That time, I vowed to be that person's \"Hope\"!\nBut... I can't remember who it was...";
+		
+		dialogues[1][0] = "*Yawn* It's so boring here... Boo.";
+		dialogues[1][1] = "Oh? You're back! Here to see me? Hehe~";
+		dialogues[1][2] = "Remember, you should always save your\nprogress.";
+		dialogues[1][3] = "The other demons will come back when you do,\nbut you should never lose hope!";
+		
+		dialogues[maxTextLines][0] = "*Humming* I should take care not to lose my\nnecklace...";
+		
+		dialogues[specialHPLine][0] = "Oh no, you're all battered!";
+		dialogues[specialHPLine][1] = "There's a place deeper inside where you can\nheal your injuries.";
+		dialogues[specialHPLine][2] = "You could say it's a... glimmer of hope~";
 	}
 	
 	@Override

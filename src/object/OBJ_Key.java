@@ -28,21 +28,27 @@ public class OBJ_Key extends Entity{
 		description = "[" +name+ "]\n"
 					+ "It's a key!\nMaybe you can unlock something\nlike a chest with it.";
 		price = 3;
+		
+		setDialogue();
+	}
+	
+	public void setDialogue() {
+		dialogues[0][0] = "There's nothing nearby to use this.";
+		dialogues[1][0] = "You unlocked the chest with the key!";
 	}
 	
 	public boolean use(Entity entity) {
-		screen.gameState = Screen.dialogueState;
 
 		int objIndex = getDetected(entity, screen.obj, "Chest");
 
 		if(objIndex != 999 && !((OBJ_Chest)screen.obj[Screen.currentMap][objIndex]).unlocked) {
-			screen.ui.currentSpeechLine = "You unlocked the chest with the key!";
+			startDialogue(this,1);
 			((OBJ_Chest) screen.obj[Screen.currentMap][objIndex]).unlocked = true;
 			screen.playSFX(1);
 			return true;
 		}
 		else {
-			screen.ui.currentSpeechLine = "There's nothing nearby to use this.";
+			startDialogue(this,0); 
 			return false;
 		}
 	}

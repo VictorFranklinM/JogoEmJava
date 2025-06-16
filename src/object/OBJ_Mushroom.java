@@ -33,13 +33,17 @@ public class OBJ_Mushroom extends Entity{
 
         collisionAreaDefaultX = collisionArea.x;
         collisionAreaDefaultY = collisionArea.y;
+        
+        setDialogue();
+	}
+	
+	public void setDialogue() {
+		dialogues[0][0] = "You eat the "+name+"!\n"+"You recovered "+value+" hp!";
 	}
 	
 	public boolean use(Entity entity) {
 		screen.playSFX(1);
-		screen.gameState = Screen.dialogueState;
-		screen.ui.currentSpeechLine = "You eat the "+name+"!\n"
-									+"You recovered "+value+" hp!";
+		startDialogue(this,0);
 		entity.hp += value;
 		if(screen.player.hp > screen.player.maxHP) {
 			screen.player.hp = screen.player.maxHP;

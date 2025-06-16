@@ -25,38 +25,42 @@ public class OBJ_Chest extends Entity{
 		collisionAreaDefaultY = collisionArea.y;
 		
 		collision = true;
+		
 	}
 	
 	public void setLoot(Entity loot) {
 		this.loot = loot;
+		setDialogue();
+	}
+	
+	public void setDialogue() {
+		dialogues[0][0] = "You need a key to open the chest.";
+		dialogues[1][0] = "You open the chest and find a " + loot.name + "!\nYou obtain the " + loot.name + "!";
+		dialogues[2][0] = "You open the chest and find a " + loot.name + "!\n...But your inventory is already full!";
+		dialogues[3][0] = "It's empty.";
 	}
 	
 	@Override
 	public void interact() {
-	    screen.gameState = Screen.dialogueState;
 
 	    if (!unlocked) {
-	        screen.ui.currentSpeechLine = "You need a key to open the chest.";
+	        startDialogue(this,0);
 	        return;
 	    }
 
 	    if (!opened) {
 	        screen.playSFX(1);
-	        StringBuilder sb = new StringBuilder();
-	        sb.append("You open the chest and find a " + loot.name + "!");
-
+	        
 	        if (screen.player.canObtainItem(loot) == false) {
-	            sb.append("\n...But your inventory is already full!");
+	        	startDialogue(this,2);
 	        } else {
-	            sb.append("\nYou obtain the " + loot.name + "!");
+	        	startDialogue(this,1);
 	          
 	            spriteNum = 2;
 	            opened = true;
 	        }
-
-	        screen.ui.currentSpeechLine = sb.toString();
 	    } else {
-	        screen.ui.currentSpeechLine = "It's empty.";
+	    	startDialogue(this,3);
 	    }
 	}
 

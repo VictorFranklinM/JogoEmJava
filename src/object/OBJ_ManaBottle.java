@@ -31,13 +31,17 @@ public class OBJ_ManaBottle extends Entity{
 
         collisionAreaDefaultX = collisionArea.x;
         collisionAreaDefaultY = collisionArea.y;
+        
+        setDialogue();
+	}
+	
+	public void setDialogue() {
+		dialogues[0][0] = "You use the "+name+"!\n"+"You recovered "+value+" mp!";
 	}
 	
 	public boolean use(Entity entity) {
 		screen.playSFX(1);
-		screen.gameState = Screen.dialogueState;
-		screen.ui.currentSpeechLine = "You use the "+name+"!\n"
-									+"You recovered "+value+" mp!";
+		startDialogue(this,0);
 		screen.player.mana += value;
 		
 		if(screen.player.mana > screen.player.maxMana) {

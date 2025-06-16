@@ -7,6 +7,8 @@ import main.Screen;
 public class NPC_BlackFrost extends Entity{
 	
 	private final int defaultSpeed = 2;
+	//private int specialLine = numero;
+	//private int maxTextLines = numero; // mudar se mudar a quantidade de texto normal
 			
 	public NPC_BlackFrost(Screen screen) {
 		super(screen);
@@ -26,15 +28,19 @@ public class NPC_BlackFrost extends Entity{
 	
 	public void speak() {
 		screen.ui.setFace(face);
-		super.speak();
-
+		super.facePlayer();
+		super.startDialogue(this, dialogueSet);
 	}
 	
 	public void setTextLines() {
-		dialogues[0] = "My name is Black Frost -hoo!";
-		dialogues[1] = "Have you heard about the Magatamas?";
-		dialogues[2] = "They look like spirals -ho!";
-		dialogues[3] = "Some people are saying they can even let you\nuse magic-hoo!";
+		dialogues[0][0] = "My name is Black Frost -hoo!";
+		dialogues[0][1] = "Have you heard about the Magatamas?";
+		dialogues[0][2] = "They look like spirals -ho!";
+		dialogues[0][3] = "Some people are saying they can even let you\nuse magic-hoo!";
+		dialogueSet++;
+		if (dialogues[dialogueSet][0] == null) {
+			dialogueSet--;
+		}
 	}
 	
 	public void getImage() {

@@ -26,13 +26,18 @@ public class OBJ_Obelisk extends Entity{
 
         collision = true;
         
+        setDialogue();
+	}
+	
+	public void setDialogue() {
+		dialogues[0][0] = "You need the Force Magatama to pass.";
+		dialogues[1][0] = "You are worthy.\nYou can pass.";
 	}
 	
 	public void interact() {
-		screen.gameState = Screen.dialogueState;
 		if(screen.player.hasMaga > 0) {
 			screen.playSFX(1);
-			screen.ui.currentSpeechLine = "You are worthy.\nYou can pass.";
+			startDialogue(this,1);
 			for (int i = 0; i < screen.obj[Screen.currentMap].length; i++) {
 	            if (screen.obj[Screen.currentMap][i] == this) {
 	                screen.obj[Screen.currentMap][i] = null;
@@ -41,7 +46,7 @@ public class OBJ_Obelisk extends Entity{
 	        }
 		}
 		else {
-			screen.ui.currentSpeechLine = "You need the Force Magatama to pass.";
+			startDialogue(this,0);
 		}
 		
 		

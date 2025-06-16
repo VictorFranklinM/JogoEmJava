@@ -15,7 +15,7 @@ import main.PerformanceTool;
 import main.Screen;
 import main.Sound;
 
-public abstract class Entity   {
+public class Entity   { // mudei de abstract pra normal pq ele instancia ela por causa dos diálogos do EventManager
 	public Screen screen;
 	Sound sound = new Sound();
 	
@@ -72,8 +72,9 @@ public abstract class Entity   {
 	public int dialoguesQuantity = 20;
 	public int actionLockCounter = 0; // Para movimenta��o dos NPC
 	
-	String dialogues[] = new String[dialoguesQuantity]; 
-	int dialogueIndex = 0;
+	public String dialogues[][] = new String[dialoguesQuantity][dialoguesQuantity]; 
+	public int dialogueIndex = 0;
+	public int dialogueSet = 0;
 	
 	public int type;
 	public final int typePlayer = 0;
@@ -163,6 +164,15 @@ public abstract class Entity   {
 	public void playSFX(int i) {
 		sound.setFile(i);
 		sound.play();
+	}
+	
+	public void resetCounter() {
+		spriteCounter = 0;
+		actionLockCounter = 0;
+		invincibilityTimer = 0;
+		deathCounter = 0;
+		knockBackCounter = 0;
+		guardCounter = 0;
 	}
 	
 	public void setLoot (Entity loot) {} // CHEST LOOT
@@ -582,12 +592,9 @@ public abstract class Entity   {
 		return image;
 	}
 
-	public void speak() {
-		if(dialogues[dialogueIndex] == null) {
-			dialogueIndex = 0;
-		}
-		screen.ui.currentSpeechLine = dialogues[dialogueIndex];
-		dialogueIndex++;
+	public void speak() {}
+	
+	public void facePlayer() {
 		
 		switch(screen.player.facing) {
 		case "up":
@@ -603,6 +610,12 @@ public abstract class Entity   {
 			facing = "left";
 			break;
 		}
+	}
+	
+	public void startDialogue(Entity entity, int setNum) {
+		screen.gameState = Screen.dialogueState;
+		screen.ui.npc = entity;
+		dialogueSet = setNum;
 	}
 	
 	public void interact() {

@@ -48,6 +48,10 @@ public class UI {
 	int subState = 0;
 	int counter = 0;
 	
+	int charIndex = 0;
+	String combinedText = "";
+	int charSoundCounter = 0;
+	
 	public UI(Screen screen) {
 		this.screen = screen;
 		
@@ -140,6 +144,11 @@ public class UI {
 		
 	}
 	
+	public void resetDialogue() {
+		this.combinedText = "";
+		this.charIndex = 0;
+	}
+	
 	public void drawTradeScreen() {
 		switch(subState) {
 		case 0: tradeSelect(); break;
@@ -150,6 +159,7 @@ public class UI {
 	}
 	
 	public void tradeSelect() {
+		npc.dialogueSet = 0;
 		drawDialogueScreen();
 		
 		int x = (int) (Screen.tileSize*15.25);
@@ -182,8 +192,8 @@ public class UI {
 			g2.drawString(">", x-24, y);
 			if(screen.key.ePressed) {
 				commandNum = 0;
-				screen.gameState = Screen.dialogueState;
-				currentSpeechLine = "Come again!";
+				resetDialogue();
+				npc.startDialogue(npc,1);
 			}
 		}
 	}
@@ -219,8 +229,8 @@ public class UI {
 			if (itemIndex < npc.inventory.size()) {
 				if(npc.inventory.get(itemIndex).price > screen.player.macca) {
 					subState = 0;
-					screen.gameState = Screen.dialogueState;
-					currentSpeechLine = "Oh noo!\nGuess you're too poor to buy that -Ho!";
+					resetDialogue();
+					npc.startDialogue(npc,2);
 					drawDialogueScreen();
 				}
 				else {
@@ -229,8 +239,8 @@ public class UI {
 					}
 					else {
 						subState = 0;
-						screen.gameState = Screen.dialogueState;
-						currentSpeechLine = "You can't carry any more!";
+						resetDialogue();
+						npc.startDialogue(npc,3);
 					}
 				}
 			}	
@@ -271,8 +281,8 @@ public class UI {
 
 					commandNum = 0;
 					subState = 0;
-					screen.gameState = Screen.dialogueState;
-					currentSpeechLine = "You probably shouldn't go around selling\nsacred stuff...";
+					resetDialogue();
+					npc.startDialogue(npc,4);
 				} else {
 					if(screen.player.inventory.get(itemIndex).amount >= 1) {
 						screen.playSFX(0);
@@ -561,6 +571,34 @@ public class UI {
 		g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 40F));
 		x += Screen.tileSize;
 		y += Screen.tileSize;
+		
+		if(npc.dialogues[npc.dialogueSet][npc.dialogueIndex] != null) {
+			//currentSpeechLine = npc.dialogues[npc.dialogueSet][npc.dialogueIndex]; // esse mostra o diálogo todo de uma vez
+			char characters[] = npc.dialogues[npc.dialogueSet][npc.dialogueIndex].toCharArray();
+			if (charIndex < characters.length) {
+				String string = String.valueOf(characters[charIndex]);
+				combinedText = combinedText+string;
+				currentSpeechLine = combinedText;
+				charIndex++;
+				charSoundCounter++;
+				if (charSoundCounter % 3 == 0) {
+					screen.playSFX(14);
+				}
+			}
+			if (screen.key.enterPressed == true) {
+				charIndex = 0;
+				combinedText = "";
+				if (screen.gameState == Screen.dialogueState) {
+					npc.dialogueIndex++;
+					screen.key.enterPressed = false;
+				}
+			}
+		} else {
+			npc.dialogueIndex = 0;
+			if (screen.gameState == Screen.dialogueState) {
+				screen.gameState = Screen.playState;
+			}
+		}
 		
 		for(String line : currentSpeechLine.split("\n")) {
 			g2.drawString(line, x, y);

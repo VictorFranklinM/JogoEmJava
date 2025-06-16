@@ -87,6 +87,7 @@ public class Player extends Entity{
 		getAttackImage();
 		getGuardImage();
 		setItens();
+		setDialogue();
 	}
 	
 	public void setDefaultPositions() {
@@ -389,6 +390,8 @@ public class Player extends Entity{
 			screen.gameState = Screen.dialogueState;
 			canAttack = false;
 			
+			Entity obj = screen.obj[Screen.currentMap][index];
+			
 			if(screen.obj[Screen.currentMap][index].type == typeObstacle) {
 				screen.obj[Screen.currentMap][index].interact();
 			}
@@ -399,11 +402,12 @@ public class Player extends Entity{
 				}
 				inventory.add(screen.obj[Screen.currentMap][index]);
 				screen.playSFX(1);
-				screen.ui.currentSpeechLine = "Got " + screen.obj[Screen.currentMap][index].name + "!";
+				dialogues[2][0] = "Got " + obj.name + "!";
+				startDialogue(this,2);
 				screen.obj[Screen.currentMap][index] = null;
 			}
 			else {
-				screen.ui.currentSpeechLine = "Your inventory is full!";
+				startDialogue(this,0);
 			}
 		}
 	}
@@ -412,7 +416,6 @@ public class Player extends Entity{
 		if(screen.key.ePressed == true) {
 			if (i != 999) {
 				canAttack = false;
-				screen.gameState = Screen.dialogueState;
 				screen.npc[Screen.currentMap][i].speak();
 			}
 		}	
@@ -520,8 +523,13 @@ public class Player extends Entity{
 		
 			screen.playSFX(1);
 			screen.gameState = Screen.dialogueState;
-			screen.ui.currentSpeechLine = "You are now at level "+level+"!\n"+"You feel stronger!";
+			dialogues[1][0] = "You are now at level "+level+"!\n"+"You feel stronger!";
+			startDialogue(this, 1);
 		}
+	}
+	
+	public void setDialogue() {
+		dialogues[0][0] = "Your inventory is full!";
 	}
 	
 	public void selectItem() {

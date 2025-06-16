@@ -30,6 +30,7 @@ public class SaveLoad {
 			datastorage.maxHP = screen.player.maxHP;
 			datastorage.hp = screen.player.hp;
 			datastorage.maxMana = screen.player.maxMana;
+			datastorage.mana = screen.player.mana;
 			datastorage.strenght = screen.player.strenght;
 			datastorage.dexterity = screen.player.dexterity;
 			datastorage.exp = screen.player.exp;
@@ -98,9 +99,10 @@ public class SaveLoad {
 			
 			// Stats do Player
 			screen.player.level = datastorage.level;
-			screen.player.maxHP = datastorage.hp;
+			screen.player.maxHP = datastorage.maxHP;
 			screen.player.hp = datastorage.hp;
 			screen.player.maxMana = datastorage.maxMana;
+			screen.player.mana = datastorage.mana;
 			screen.player.strenght = datastorage.strenght;
 			screen.player.dexterity = datastorage.dexterity;
 			screen.player.exp = datastorage.exp;

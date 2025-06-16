@@ -11,6 +11,8 @@ import object.OBJ_Mushroom;
 public class NPC_Merchant extends Entity{
 	
 	private final int defaultSpeed = 0;
+	//private int specialLine = numero;
+	//private int maxTextLines = numero; // mudar se mudar a quantidade de texto acessado de forma normal
 			
 	public NPC_Merchant(Screen screen) {
 		super(screen);
@@ -31,9 +33,13 @@ public class NPC_Merchant extends Entity{
 	
 	public void speak() {
 		screen.ui.setFace(face);
-		super.speak();
+		super.facePlayer();
 		screen.gameState = Screen.tradeState;
 		screen.ui.npc = this;
+		dialogueSet++;
+		if (dialogues[dialogueSet][0] == null) {
+			dialogueSet--;
+		}
 	}
 	
 	public void getImage() {
@@ -53,11 +59,11 @@ public class NPC_Merchant extends Entity{
 	}
 	
 	public void setTextLines() {
-		// MUDAR
-		dialogues[0] = "Hee-llo!\nMy name is Jack Frost!";
-		dialogues[1] = "I wanna tell you something -ho!";
-		dialogues[2] = "I heard that if you collect some magatamas, you\ncan go to another areas -ho!";
-		dialogues[3] = "What is a Magatama you say?\nHow could I possibily hee-know!";
+		dialogues[0][0] = "Hee-lo! Lamp oil? Rope? Bombs? You want it?\nIt's yours, my friend! As long as you have\nenough Macca -Ho!";
+		dialogues[1][0] = "Thank you for your patronage!";
+		dialogues[2][0] = "Oh noo!\nGuess you're too poor to buy that -Ho!";
+		dialogues[3][0] = "Your inventory is full!\nYou should re-Heeee-ally get someone sworn\nto carry your burdens...";
+		dialogues[4][0] = "You probably shouldn't go around selling\nsacred stuff...";
 	}
 	
 	public void setItems() {

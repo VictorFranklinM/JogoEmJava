@@ -108,6 +108,7 @@ public class Screen extends JPanel implements Runnable{
 	public void resetGame(boolean restart) {
 		player.setDefaultPositions();
 		player.restoreStatus();
+		player.resetCounter();
 		npcPlacer.placeNPC();
 		npcPlacer.placeEnemy();
 		stopMusic();	
@@ -332,6 +333,10 @@ public class Screen extends JPanel implements Runnable{
 	public void playSFX(int i) {
 		sfx.setFile(i);
 		sfx.play();
+	}
+	
+	public void stopSFX(int i) {
+		sfx.stop();
 	}
 	
 }
