@@ -524,6 +524,7 @@ public class Player extends Entity{
 			screen.playSFX(1);
 			screen.gameState = Screen.dialogueState;
 			dialogues[1][0] = "You are now at level "+level+"!\n"+"You feel stronger!";
+			setDialogue();
 			startDialogue(this, 1);
 		}
 	}

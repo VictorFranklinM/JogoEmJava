@@ -7,6 +7,7 @@ import java.util.ArrayList;
 public class DataStorage implements Serializable{
 	
 	//Stats do Player
+	int hasMaga;
 	int level;
 	int maxHP;
 	int hp;
@@ -27,6 +28,7 @@ public class DataStorage implements Serializable{
 	
 	// Magatama
 	int currentMagatamaSlot;
+	String projectile;
 	
 	// Objetos no mapa
 	String mapObjectNames[][];

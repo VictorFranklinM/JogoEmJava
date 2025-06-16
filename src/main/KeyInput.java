@@ -236,6 +236,8 @@ public class KeyInput implements KeyListener {
 			switch(Screen.currentMap) {
 			case 0: screen.tileM.loadMap("/maps/world01.txt", 0);
 			case 1: screen.tileM.loadMap("/maps/dungeon.txt", 1);
+			case 2: screen.tileM.loadMap("/maps/dungeonB1.txt", 2);
+			case 3: screen.tileM.loadMap("/maps/dungeonB2.txt", 3);
 			}
 			
 		}
@@ -255,7 +257,7 @@ public class KeyInput implements KeyListener {
 	
 	public void dialogueState(int code) {
 		if(code == KeyEvent.VK_E) {
-			enterPressed = true; // video dos dialogos paginas
+			enterPressed = true;
 		}
 	}
 	

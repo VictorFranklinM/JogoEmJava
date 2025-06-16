@@ -1,6 +1,7 @@
 package main;
 
 import entity.Entity;
+import entity.Projectile;
 import object.Magic_Arrow;
 import object.Magic_Fireball;
 import object.Magic_Icicle;
@@ -52,7 +53,21 @@ public class EntityGenerator {
 		case OBJ_Obelisk.objName: obj = new OBJ_Obelisk(screen); break;
 		case OBJ_Portal.objName: obj = new OBJ_Portal(screen); break;
 		case OVR_Sparkle.objName: obj = new OVR_Sparkle(screen); break;
+		default : System.out.println("Object not found."); break;
 		}
 		return obj;
+	}
+	
+	public Projectile getProjectile(String projName) {
+		Projectile proj = null;
+		
+		switch(projName) {
+		case Magic_Arrow.objName: proj = new Magic_Arrow(screen); break;
+		case Magic_Fireball.objName: proj = new Magic_Fireball(screen); break;
+		case Magic_Icicle.objName: proj = new Magic_Icicle(screen); break;
+		case Magic_WindBlast.objName: proj = new Magic_WindBlast(screen); break;
+		default : System.out.println("Projectile not found."); break;
+		}
+		return proj;
 	}
 }

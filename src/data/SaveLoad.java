@@ -39,6 +39,7 @@ public class SaveLoad {
 			datastorage.worldX = screen.player.worldX;
 			datastorage.worldY = screen.player.worldY;
 			datastorage.currentMap = Screen.currentMap;
+			datastorage.hasMaga = screen.player.hasMaga;
 			
 			// Inventario
 			for (int i = 0; i < screen.player.inventory.size(); i++) {
@@ -49,6 +50,7 @@ public class SaveLoad {
 			// Magatama
 			if(screen.player.currentMagatama != null) {
 				datastorage.currentMagatamaSlot = screen.player.getMagatamaSlot();
+				datastorage.projectile = screen.player.projectile.name;
 			}
 			else {
 				datastorage.currentMagatamaSlot = screen.player.inventorySize+1;
@@ -110,6 +112,7 @@ public class SaveLoad {
 			screen.player.macca = datastorage.macca;
 			screen.player.worldX = datastorage.worldX;
 			screen.player.worldY = datastorage.worldY;
+			screen.player.hasMaga = datastorage.hasMaga;
 			Screen.currentMap = datastorage.currentMap;
 			
 			// Inventario
@@ -131,6 +134,7 @@ public class SaveLoad {
 			// Magatama
 			if(datastorage.currentMagatamaSlot != screen.player.inventorySize+1) {
 				screen.player.currentMagatama = screen.player.inventory.get(datastorage.currentMagatamaSlot);
+				screen.player.projectile = screen.eGenerator.getProjectile(datastorage.projectile);
 				screen.player.getAttack();
 				screen.player.getDefense();
 			}

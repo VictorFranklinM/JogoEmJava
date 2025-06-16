@@ -15,7 +15,7 @@ import main.PerformanceTool;
 import main.Screen;
 import main.Sound;
 
-public class Entity   { // mudei de abstract pra normal pq ele instancia ela por causa dos diálogos do EventManager
+public class Entity {
 	public Screen screen;
 	Sound sound = new Sound();
 	

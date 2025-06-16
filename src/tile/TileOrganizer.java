@@ -31,6 +31,8 @@ public class TileOrganizer {
 		// SE MUDAR O ID DOS MAPAS TEM QUE MUDAR O DEBUG MODE NO KEYINPUT E O MAPNUM NOS PLACERS DOS NPCS, OBJETOS E INIMIGOS
 		loadMap("/maps/world01.txt", 0);
 		loadMap("/maps/dungeon.txt", 1);
+		loadMap("/maps/dungeonB1.txt", 2);
+		loadMap("/maps/dungeonB2.txt", 3);
 	}
 	
 	// Metodo para carregar as imagens dos tiles
@@ -63,8 +65,11 @@ public class TileOrganizer {
 		i++;
 		setup(i,"water", true, Tile.noSoundIndex);
 		i++;
-			
-	
+		setup(i,"stairsDown", false, Tile.noSoundIndex);
+		i++;
+		setup(i,"stairsUp", false, Tile.noSoundIndex);
+		i++;
+		
 	}
 	public void setup(int index, String imagePath, boolean collision, int soundIndex) {
 	    PerformanceTool performance = new PerformanceTool();
