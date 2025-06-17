@@ -616,6 +616,7 @@ public class Entity {
 		screen.gameState = Screen.dialogueState;
 		screen.ui.npc = entity;
 		dialogueSet = setNum;
+		dialogueIndex = 0;
 	}
 	
 	public void interact() {

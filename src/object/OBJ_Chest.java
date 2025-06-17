@@ -63,5 +63,4 @@ public class OBJ_Chest extends Entity{
 	    	startDialogue(this,3);
 	    }
 	}
-
 }

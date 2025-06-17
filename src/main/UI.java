@@ -573,21 +573,28 @@ public class UI {
 		y += Screen.tileSize;
 		
 		if(npc.dialogues[npc.dialogueSet][npc.dialogueIndex] != null) {
-			//currentSpeechLine = npc.dialogues[npc.dialogueSet][npc.dialogueIndex]; // esse mostra o diálogo todo de uma vez
+			
+			//currentSpeechLine = npc.dialogues[npc.dialogueSet][npc.dialogueIndex]; // esse mostra o diálogo todo de uma vez, se preferir
+			
 			char characters[] = npc.dialogues[npc.dialogueSet][npc.dialogueIndex].toCharArray();
+			
 			if (charIndex < characters.length) {
+				
 				String string = String.valueOf(characters[charIndex]);
 				combinedText = combinedText+string;
 				currentSpeechLine = combinedText;
 				charIndex++;
 				charSoundCounter++;
+				
 				if (charSoundCounter % 3 == 0) {
 					screen.playSFX(14);
 				}
 			}
+			
 			if (screen.key.enterPressed == true) {
 				charIndex = 0;
 				combinedText = "";
+				
 				if (screen.gameState == Screen.dialogueState) {
 					npc.dialogueIndex++;
 					screen.key.enterPressed = false;
@@ -595,6 +602,7 @@ public class UI {
 			}
 		} else {
 			npc.dialogueIndex = 0;
+			
 			if (screen.gameState == Screen.dialogueState) {
 				screen.gameState = Screen.playState;
 			}

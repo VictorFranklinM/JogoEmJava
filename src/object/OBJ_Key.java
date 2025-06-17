@@ -52,5 +52,4 @@ public class OBJ_Key extends Entity{
 			return false;
 		}
 	}
-
 }

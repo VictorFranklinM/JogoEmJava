@@ -25,6 +25,8 @@ public class OBJ_Door extends Entity{
 		
 		collision = true;
 		
+		setDialogue();
+		
 	}
 	
 	public void setDialogue() {
@@ -39,5 +41,4 @@ public class OBJ_Door extends Entity{
 	        return;
 	    }
 	}
-
 }
