@@ -64,14 +64,10 @@ public class OBJ_Lever extends Entity{
 				screen.playSFX(1);
 				if(screen.obj[Screen.currentMap][i].opened) {
 					screen.obj[Screen.currentMap][i].spriteNum = 2;
-					screen.obj[Screen.currentMap][i].collisionArea.height = 0;
-					screen.obj[Screen.currentMap][i].collisionArea.width = 0;
 					screen.obj[Screen.currentMap][i].collision = false;
 				}
 				else if(!screen.obj[Screen.currentMap][i].opened) {
 					screen.obj[Screen.currentMap][i].spriteNum = 1;
-					screen.obj[Screen.currentMap][i].collisionArea.height = 16 * Screen.scale;
-					screen.obj[Screen.currentMap][i].collisionArea.width = 16 * Screen.scale;
 					screen.obj[Screen.currentMap][i].collision = true;
 				}
 			}

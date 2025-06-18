@@ -60,6 +60,7 @@ public class SaveLoad {
 			datastorage.mapObjectNames = new String[Screen.maxMap][screen.obj[1].length];
 			datastorage.mapObjectWorldX = new int[Screen.maxMap][screen.obj[1].length];
 			datastorage.mapObjectWorldY = new int[Screen.maxMap][screen.obj[1].length];
+			datastorage.mapObjectCollision = new boolean[Screen.maxMap][screen.obj[1].length];
 			datastorage.mapObjectLootNames = new String[Screen.maxMap][screen.obj[1].length];
 			datastorage.mapObjectOpened = new boolean[Screen.maxMap][screen.obj[1].length];
 			datastorage.mapObjectUnlocked = new boolean[Screen.maxMap][screen.obj[1].length];
@@ -78,6 +79,7 @@ public class SaveLoad {
 						if(screen.obj[mapNum][i].loot != null) {
 							datastorage.mapObjectLootNames[mapNum][i] = screen.obj[mapNum][i].loot.name;
 						}
+						datastorage.mapObjectCollision[mapNum][i] = screen.obj[mapNum][i].collision;
 						datastorage.mapDoorNum[mapNum][i] = screen.obj[mapNum][i].doorNum;
 						datastorage.mapOpenDoorNum[mapNum][i] = screen.obj[mapNum][i].openDoorNum;
 						datastorage.mapObjectUnlocked[mapNum][i] = screen.obj[mapNum][i].unlocked;
@@ -156,6 +158,7 @@ public class SaveLoad {
 						if(datastorage.mapObjectLootNames[mapNum][i] != null) {
 							screen.obj[mapNum][i].loot = screen.eGenerator.getObject(datastorage.mapObjectLootNames[mapNum][i]);
 						}
+						screen.obj[mapNum][i].collision = datastorage.mapObjectCollision[mapNum][i];
 						screen.obj[mapNum][i].openDoorNum = datastorage.mapOpenDoorNum[mapNum][i];
 						screen.obj[mapNum][i].doorNum = datastorage.mapDoorNum[mapNum][i];
 						screen.obj[mapNum][i].unlocked = datastorage.mapObjectUnlocked[mapNum][i];

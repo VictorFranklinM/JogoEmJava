@@ -369,7 +369,7 @@ public class Player extends Entity{
 				screen.obj[Screen.currentMap][index].use(this);
 				screen.obj[Screen.currentMap][index] = null;
 			}
-			else {
+			else if(screen.obj[Screen.currentMap][index].type == typeConsumable){
 				String text;
 
 				if(canObtainItem(screen.obj[Screen.currentMap][index]) == true) {
@@ -613,7 +613,6 @@ public class Player extends Entity{
 			}
 		}
 		return canObtain;
-		
 		
 	}
 	

@@ -47,8 +47,6 @@ public class OBJ_IronDoor extends Entity{
 	public void setOpenDoor() {
 		opened = true;
 		spriteNum = 2;
-		collisionArea.height = 0;
-		collisionArea.width = 0;
 		collision = false;
 	}
 }
