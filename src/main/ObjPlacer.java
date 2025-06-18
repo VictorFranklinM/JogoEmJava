@@ -96,6 +96,11 @@ public class ObjPlacer extends Entity {
 		screen.obj[mapNum][i].worldX = 16 * Screen.tileSize;
 		screen.obj[mapNum][i].worldY = 32 * Screen.tileSize;
 		i++;
+		screen.obj[mapNum][i] = new OBJ_IronDoor(screen, 1);
+		((OBJ_IronDoor) screen.obj[mapNum][i]).setOpenDoor();
+		screen.obj[mapNum][i].worldX = 19 * Screen.tileSize;
+		screen.obj[mapNum][i].worldY = 28 * Screen.tileSize;
+		i++;
 		screen.obj[mapNum][i] = new OBJ_Lever(screen, 1);
 		screen.obj[mapNum][i].worldX = 16 * Screen.tileSize;
 		screen.obj[mapNum][i].worldY = 24 * Screen.tileSize;

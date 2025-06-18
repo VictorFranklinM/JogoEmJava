@@ -74,7 +74,6 @@ public class OBJ_Lever extends Entity{
 					screen.obj[Screen.currentMap][i].collisionArea.width = 16 * Screen.scale;
 					screen.obj[Screen.currentMap][i].collision = true;
 				}
-				return;
 			}
 		}
 	}
