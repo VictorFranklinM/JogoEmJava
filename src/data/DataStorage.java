@@ -37,4 +37,6 @@ public class DataStorage implements Serializable{
 	String mapObjectLootNames[][];
 	boolean mapObjectUnlocked[][];
 	boolean mapObjectOpened[][];
+	int mapDoorNum[][];
+	int mapOpenDoorNum[][];
 }

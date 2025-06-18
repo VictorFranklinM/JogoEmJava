@@ -3,7 +3,9 @@ package main;
 import entity.Entity;
 import object.OBJ_Chest;
 import object.OBJ_Door;
+import object.OBJ_IronDoor;
 import object.OBJ_Key;
+import object.OBJ_Lever;
 import object.OBJ_MagaBlue;
 import object.OBJ_MagaGreen;
 import object.OBJ_MagaRed;
@@ -85,6 +87,18 @@ public class ObjPlacer extends Entity {
 		screen.overlay[mapNum][i] = new OVR_Sparkle(screen);
 		screen.overlay[mapNum][i].worldX = 17 * Screen.tileSize;
 		screen.overlay[mapNum][i].worldY = 25 * Screen.tileSize;
+		i++;
+		
+		mapNum = 2;
+		i = 0;
+
+		screen.obj[mapNum][i] = new OBJ_IronDoor(screen, 1);
+		screen.obj[mapNum][i].worldX = 16 * Screen.tileSize;
+		screen.obj[mapNum][i].worldY = 32 * Screen.tileSize;
+		i++;
+		screen.obj[mapNum][i] = new OBJ_Lever(screen, 1);
+		screen.obj[mapNum][i].worldX = 16 * Screen.tileSize;
+		screen.obj[mapNum][i].worldY = 24 * Screen.tileSize;
 		i++;
 	}
 	public void getImage(){

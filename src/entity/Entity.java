@@ -63,10 +63,12 @@ public class Entity {
 	public boolean knockBack = false;
 	int knockBackCounter = 0;
 	
-	// Chest
+	// Chest & Door
 	public Entity loot;
 	public boolean opened = false;
 	public boolean unlocked = false;
+	public int doorNum = -1;
+	public int openDoorNum = -1;
 	
 	//DIALOGUES STATUS
 	public int dialoguesQuantity = 20;
