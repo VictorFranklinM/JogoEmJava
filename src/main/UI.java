@@ -97,6 +97,7 @@ public class UI {
 		if(screen.gameState == Screen.playState) {
 			drawPlayerUI();
 			screen.map.miniMapOn = true;
+			drawEnemyHP();
 			drawMessage();
 			screen.ui.setFace(null);
 		}
@@ -1054,5 +1055,51 @@ public class UI {
 	public BufferedImage setFace(BufferedImage face) {
 		this.face = face;
 		return face;
+	}
+	
+	public void drawEnemyHP() {
+		for(int index = 0; index < screen.enemy[1].length; index++) {
+			
+			Entity monster = screen.enemy[Screen.currentMap][index];
+			
+			if(monster != null) {
+				if(monster.hpBarOn && !monster.isBoss && monster.inCamera()) {
+					double hpScale = (double) Screen.tileSize/monster.maxHP;
+					double hpBarValue = hpScale*monster.hp;
+					
+					g2.setColor(blackGreen);
+					g2.fillRect(monster.getScreenX()-Screen.scale/2, monster.getScreenY()-18, Screen.tileSize+Screen.scale, 10 + Screen.scale);
+					g2.setColor(darkerGreen);
+					g2.fillRect(monster.getScreenX(), monster.getScreenY()-16, Screen.tileSize, 10);
+					g2.setColor(greenGreen);
+					g2.fillRect(monster.getScreenX(), monster.getScreenY()-16, (int) hpBarValue, 10);
+					
+					monster.hpBarCounter++;
+					
+					if(monster.hpBarCounter > 600) {
+						monster.hpBarCounter = 0;
+						monster.hpBarOn = false;
+					}
+				}
+				else if(monster.isBoss) {
+					double hpScale = (double) Screen.tileSize*14/monster.maxHP;
+					double hpBarValue = hpScale*monster.hp;
+					
+					int x = Screen.screenWidth/2 - Screen.tileSize*7;
+					int y = Screen.screenHeight - Screen.tileSize;
+					
+					g2.setColor(blackGreen);
+					g2.fillRect(x-Screen.scale, y-Screen.scale, Screen.tileSize*14 + Screen.scale*2, Screen.tileSize/2 + Screen.scale*2);
+					g2.setColor(darkerGreen);
+					g2.fillRect(x, y, Screen.tileSize*14, Screen.tileSize/2);
+					g2.setColor(greenGreen);
+					g2.fillRect(x, y, (int) hpBarValue, Screen.tileSize/2);
+					
+					g2.setFont(g2.getFont().deriveFont(Font.BOLD, 40f));
+					g2.setColor(brightGreen);
+					g2.drawString(monster.name, x+Screen.scale, y-Screen.scale*2);
+				}
+			}
+		}
 	}
 }

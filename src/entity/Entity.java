@@ -54,11 +54,12 @@ public class Entity {
 	public boolean alive = true;
 	public boolean dying = false;
 	
-	boolean hpBarOn = false;
-	int hpBarCounter = 0;
+	public boolean hpBarOn = false;
+	public int hpBarCounter = 0;
 	
 	public boolean onPath = false;
 	public boolean enraged = false;
+	public boolean isBoss = false;
 	
 	public String knockBackDirection;
 	public boolean knockBack = false;
@@ -128,6 +129,16 @@ public class Entity {
 	public boolean isFollowing = false;
 	public Entity(Screen screen) {
 		this.screen = screen;
+	}
+	
+	public int getScreenX() {
+		int screenX = worldX - screen.player.worldX + screen.player.screenX;
+		return screenX;
+	}
+	
+	public int getScreenY() {
+		int screenY = worldY - screen.player.worldY + screen.player.screenY;
+		return screenY;
 	}
 	
 	public int getLeftX() {
@@ -427,15 +438,23 @@ public class Entity {
 		
 	}
 	
-	public void draw(Graphics2D g2) {
-		BufferedImage image = null;
-		int screenX = worldX - screen.player.worldX + screen.player.screenX;
-		int screenY = worldY - screen.player.worldY + screen.player.screenY;
-		
+	public boolean inCamera() {
+		boolean inCamera = false;
 		if(((worldX + Screen.tileSize*5) > (screen.player.worldX - screen.player.screenX))
 			&& ((worldX - Screen.tileSize) < (screen.player.worldX + screen.player.screenX))
 			&& ((worldY + Screen.tileSize*5) > (screen.player.worldY - screen.player.screenY))
 			&& ((worldY - Screen.tileSize) < (screen.player.worldY + screen.player.screenY))) {
+			inCamera = true;
+		}
+		return inCamera;
+	}
+	
+	public void draw(Graphics2D g2) {
+		BufferedImage image = null;
+		int screenX = getScreenX();
+		int screenY = getScreenY();
+		
+		if(inCamera()) {
 			
 			int tempScreenX = screenX;
 			int tempScreenY = screenY;
@@ -498,44 +517,20 @@ public class Entity {
 			    
 			    switch(facing) {
 			        case "up": 
-			            attackScreenY = screenY - attackUp1.getHeight(); // Usa a altura do sprite de ataque para cima
+			            attackScreenY = screenY - attackUp1.getHeight();
 			            break;
 			        case "down": 
-			            attackScreenY = screenY + down1.getHeight(); // Usa a altura do sprite normal (ou attackDown1 se necessário)
+			            attackScreenY = screenY + down1.getHeight();
 			            break;
 			        case "left": 
-			            attackScreenX = screenX - attackLeft1.getWidth(); // Usa a largura do sprite de ataque para esquerda
+			            attackScreenX = screenX - attackLeft1.getWidth();
 			            break;
 			        case "right":
-			            attackScreenX = screenX + right1.getWidth(); // Usa a largura do sprite normal (ou attackRight1 se necessário)
+			            attackScreenX = screenX + right1.getWidth();
 			            break;
 			    }
 			    
 			    g2.fillRect(attackScreenX, attackScreenY, attackArea.width, attackArea.height);
-			}
-			
-			// Enemy HP
-			if(type == 2 && hpBarOn) {
-				double hpScale = (double) Screen.tileSize/maxHP;
-				double hpBarValue = hpScale*hp;
-				
-				Color greenGreen = new Color(64, 152, 94);
-				Color darkGreen = new Color(4, 55, 59);
-				Color blackGreen = new Color(10, 26, 47);
-				
-				g2.setColor(blackGreen);
-				g2.fillRect(screenX-Screen.scale/2, screenY-18, Screen.tileSize+Screen.scale, 10 + Screen.scale);
-				g2.setColor(darkGreen);
-				g2.fillRect(screenX, screenY-16, Screen.tileSize, 10);
-				g2.setColor(greenGreen);
-				g2.fillRect(screenX, screenY-16, (int) hpBarValue, 10);
-				
-				hpBarCounter++;
-				
-				if(hpBarCounter > 600) {
-					hpBarCounter = 0;
-					hpBarOn = false;
-				}
 			}
 			
 			if(isInvincible == true) {

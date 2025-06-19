@@ -25,6 +25,7 @@ public class Boss_Matador extends Entity{
 		defense = 1; // Change later
 		exp = 5; // Change later
 		knockBackPower = 5;
+		isBoss = true;
 		
 		collisionArea = new Rectangle();
 		collisionArea.x = (5 * Screen.scale);
@@ -119,7 +120,7 @@ public class Boss_Matador extends Entity{
 		}
 		*/
 		
-		if(getTileDistance(screen.player) < 10 || onPath) {
+		if(getTileDistance(screen.player) < 15 || onPath) {
 			onPath = true;
 			bossMovement(60);
 		}
