@@ -43,19 +43,19 @@ public class NPC_BlackFrost extends Entity{
 	}
 	
 	public void getImage() {
-		face = setup("/npc/BF-Face",Screen.tileSize, Screen.tileSize);
-		up1 = setup("/npc/BF-Up-1",Screen.tileSize, Screen.tileSize);
-		up2 = setup("/npc/BF-Up-2",Screen.tileSize, Screen.tileSize);
-		up3 = setup("/npc/BF-Up-3",Screen.tileSize, Screen.tileSize);
-		down1 = setup("/npc/BF-Down-1",Screen.tileSize, Screen.tileSize);
-		down2 = setup("/npc/BF-Down-2",Screen.tileSize, Screen.tileSize);
-		down3 = setup("/npc/BF-Down-3",Screen.tileSize, Screen.tileSize);
-		left1 = setup("/npc/BF-Left-1",Screen.tileSize, Screen.tileSize);
-		left2 = setup("/npc/BF-Left-2",Screen.tileSize, Screen.tileSize);
-		left3 = setup("/npc/BF-Left-3",Screen.tileSize, Screen.tileSize);
-		right1 = setup("/npc/BF-Right-1",Screen.tileSize, Screen.tileSize);
-		right2 = setup("/npc/BF-Right-2",Screen.tileSize, Screen.tileSize);
-		right3 = setup("/npc/BF-Right-3",Screen.tileSize, Screen.tileSize);
+		face = setup("/npc/blackfrost/BF-Face",Screen.tileSize, Screen.tileSize);
+		up1 = setup("/npc/blackfrost/BF-Up-1",Screen.tileSize, Screen.tileSize);
+		up2 = setup("/npc/blackfrost/BF-Up-2",Screen.tileSize, Screen.tileSize);
+		up3 = setup("/npc/blackfrost/BF-Up-3",Screen.tileSize, Screen.tileSize);
+		down1 = setup("/npc/blackfrost/BF-Down-1",Screen.tileSize, Screen.tileSize);
+		down2 = setup("/npc/blackfrost/BF-Down-2",Screen.tileSize, Screen.tileSize);
+		down3 = setup("/npc/blackfrost/BF-Down-3",Screen.tileSize, Screen.tileSize);
+		left1 = setup("/npc/blackfrost/BF-Left-1",Screen.tileSize, Screen.tileSize);
+		left2 = setup("/npc/blackfrost/BF-Left-2",Screen.tileSize, Screen.tileSize);
+		left3 = setup("/npc/blackfrost/BF-Left-3",Screen.tileSize, Screen.tileSize);
+		right1 = setup("/npc/blackfrost/BF-Right-1",Screen.tileSize, Screen.tileSize);
+		right2 = setup("/npc/blackfrost/BF-Right-2",Screen.tileSize, Screen.tileSize);
+		right3 = setup("/npc/blackfrost/BF-Right-3",Screen.tileSize, Screen.tileSize);
 
 	}
 	

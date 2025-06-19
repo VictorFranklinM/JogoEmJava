@@ -37,19 +37,19 @@ public class NPC_JackFrost extends Entity{
 	}
 	
 	public void getImage() {
-		face = setup("/npc/JF-Face",Screen.tileSize, Screen.tileSize);
-		up1 = setup("/npc/JF-Up-1",Screen.tileSize, Screen.tileSize);
-		up2 = setup("/npc/JF-Up-2",Screen.tileSize, Screen.tileSize);
-		up3 = setup("/npc/JF-Up-3",Screen.tileSize, Screen.tileSize);
-		down1 = setup("/npc/JF-Down-1",Screen.tileSize, Screen.tileSize);
-		down2 = setup("/npc/JF-Down-2",Screen.tileSize, Screen.tileSize);
-		down3 = setup("/npc/JF-Down-3",Screen.tileSize, Screen.tileSize);
-		left1 = setup("/npc/JF-Left-1",Screen.tileSize, Screen.tileSize);
-		left2 = setup("/npc/JF-Left-2",Screen.tileSize, Screen.tileSize);
-		left3 = setup("/npc/JF-Left-3",Screen.tileSize, Screen.tileSize);
-		right1 = setup("/npc/JF-Right-1",Screen.tileSize, Screen.tileSize);
-		right2 = setup("/npc/JF-Right-2",Screen.tileSize, Screen.tileSize);
-		right3 = setup("/npc/JF-Right-3",Screen.tileSize, Screen.tileSize);
+		face = setup("/npc/jackfrost/JF-Face",Screen.tileSize, Screen.tileSize);
+		up1 = setup("/npc/jackfrost/JF-Up-1",Screen.tileSize, Screen.tileSize);
+		up2 = setup("/npc/jackfrost/JF-Up-2",Screen.tileSize, Screen.tileSize);
+		up3 = setup("/npc/jackfrost/JF-Up-3",Screen.tileSize, Screen.tileSize);
+		down1 = setup("/npc/jackfrost/JF-Down-1",Screen.tileSize, Screen.tileSize);
+		down2 = setup("/npc/jackfrost/JF-Down-2",Screen.tileSize, Screen.tileSize);
+		down3 = setup("/npc/jackfrost/JF-Down-3",Screen.tileSize, Screen.tileSize);
+		left1 = setup("/npc/jackfrost/JF-Left-1",Screen.tileSize, Screen.tileSize);
+		left2 = setup("/npc/jackfrost/JF-Left-2",Screen.tileSize, Screen.tileSize);
+		left3 = setup("/npc/jackfrost/JF-Left-3",Screen.tileSize, Screen.tileSize);
+		right1 = setup("/npc/jackfrost/JF-Right-1",Screen.tileSize, Screen.tileSize);
+		right2 = setup("/npc/jackfrost/JF-Right-2",Screen.tileSize, Screen.tileSize);
+		right3 = setup("/npc/jackfrost/JF-Right-3",Screen.tileSize, Screen.tileSize);
 	}
 	
 	public void setTextLines() {

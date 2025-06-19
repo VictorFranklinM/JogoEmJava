@@ -42,18 +42,18 @@ public class En_Slime extends Entity{
 	}
 	
 	public void getImage() {
-		up1 = setup("/enemies/GSlime-Up-1",Screen.tileSize, Screen.tileSize);
-		up2 = setup("/enemies/GSlime-Up-2",Screen.tileSize, Screen.tileSize);
-		up3 = setup("/enemies/GSlime-Up-2",Screen.tileSize, Screen.tileSize);
-		down1 = setup("/enemies/GSlime-Down-1",Screen.tileSize, Screen.tileSize);
-		down2 = setup("/enemies/GSlime-Down-2",Screen.tileSize, Screen.tileSize);
-		down3 = setup("/enemies/GSlime-Down-2",Screen.tileSize, Screen.tileSize);
-		left1 = setup("/enemies/GSlime-Left-1",Screen.tileSize, Screen.tileSize);
-		left2 = setup("/enemies/GSlime-Left-2",Screen.tileSize, Screen.tileSize);
-		left3 = setup("/enemies/GSlime-Left-2",Screen.tileSize, Screen.tileSize);
-		right1 = setup("/enemies/GSlime-Right-1",Screen.tileSize, Screen.tileSize);
-		right2 = setup("/enemies/GSlime-Right-2",Screen.tileSize, Screen.tileSize);
-		right3 = setup("/enemies/GSlime-Right-2",Screen.tileSize, Screen.tileSize);
+		up1 = setup("/enemies/gslime/GSlime-Up-1",Screen.tileSize, Screen.tileSize);
+		up2 = setup("/enemies/gslime/GSlime-Up-2",Screen.tileSize, Screen.tileSize);
+		up3 = setup("/enemies/gslime/GSlime-Up-2",Screen.tileSize, Screen.tileSize);
+		down1 = setup("/enemies/gslime/GSlime-Down-1",Screen.tileSize, Screen.tileSize);
+		down2 = setup("/enemies/gslime/GSlime-Down-2",Screen.tileSize, Screen.tileSize);
+		down3 = setup("/enemies/gslime/GSlime-Down-2",Screen.tileSize, Screen.tileSize);
+		left1 = setup("/enemies/gslime/GSlime-Left-1",Screen.tileSize, Screen.tileSize);
+		left2 = setup("/enemies/gslime/GSlime-Left-2",Screen.tileSize, Screen.tileSize);
+		left3 = setup("/enemies/gslime/GSlime-Left-2",Screen.tileSize, Screen.tileSize);
+		right1 = setup("/enemies/gslime/GSlime-Right-1",Screen.tileSize, Screen.tileSize);
+		right2 = setup("/enemies/gslime/GSlime-Right-2",Screen.tileSize, Screen.tileSize);
+		right3 = setup("/enemies/gslime/GSlime-Right-2",Screen.tileSize, Screen.tileSize);
 
 	}
 	

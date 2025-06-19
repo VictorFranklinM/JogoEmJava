@@ -44,19 +44,19 @@ public class NPC_Nadja extends Entity{
 	}
 	
 	public void getImage() {
-		face = setup("/npc/Nadja-Face",Screen.tileSize, Screen.tileSize);
-		up1 = setup("/npc/Nadja-Down-1",Screen.tileSize, Screen.tileSize);
-		up2 = setup("/npc/Nadja-Down-1",Screen.tileSize, Screen.tileSize);
-		up3 = setup("/npc/Nadja-Down-1",Screen.tileSize, Screen.tileSize);
-		down1 = setup("/npc/Nadja-Down-1",Screen.tileSize, Screen.tileSize);
-		down2 = setup("/npc/Nadja-Down-1",Screen.tileSize, Screen.tileSize);
-		down3 = setup("/npc/Nadja-Down-1",Screen.tileSize, Screen.tileSize);
-		left1 = setup("/npc/Nadja-Down-1",Screen.tileSize, Screen.tileSize);
-		left2 = setup("/npc/Nadja-Down-1",Screen.tileSize, Screen.tileSize);
-		left3 = setup("/npc/Nadja-Down-1",Screen.tileSize, Screen.tileSize);
-		right1 = setup("/npc/Nadja-Down-1",Screen.tileSize, Screen.tileSize);
-		right2 = setup("/npc/Nadja-Down-1",Screen.tileSize, Screen.tileSize);
-		right3 = setup("/npc/Nadja-Down-1",Screen.tileSize, Screen.tileSize);
+		face = setup("/npc/nadja/Nadja-Face",Screen.tileSize, Screen.tileSize);
+		up1 = setup("/npc/nadja/Nadja-Down-1",Screen.tileSize, Screen.tileSize);
+		up2 = setup("/npc/nadja/Nadja-Down-1",Screen.tileSize, Screen.tileSize);
+		up3 = setup("/npc/nadja/Nadja-Down-1",Screen.tileSize, Screen.tileSize);
+		down1 = setup("/npc/nadja/Nadja-Down-1",Screen.tileSize, Screen.tileSize);
+		down2 = setup("/npc/nadja/Nadja-Down-1",Screen.tileSize, Screen.tileSize);
+		down3 = setup("/npc/nadja/Nadja-Down-1",Screen.tileSize, Screen.tileSize);
+		left1 = setup("/npc/nadja/Nadja-Down-1",Screen.tileSize, Screen.tileSize);
+		left2 = setup("/npc/nadja/Nadja-Down-1",Screen.tileSize, Screen.tileSize);
+		left3 = setup("/npc/nadja/Nadja-Down-1",Screen.tileSize, Screen.tileSize);
+		right1 = setup("/npc/nadja/Nadja-Down-1",Screen.tileSize, Screen.tileSize);
+		right2 = setup("/npc/nadja/Nadja-Down-1",Screen.tileSize, Screen.tileSize);
+		right3 = setup("/npc/nadja/Nadja-Down-1",Screen.tileSize, Screen.tileSize);
 	}
 	
 	public void setTextLines() {
