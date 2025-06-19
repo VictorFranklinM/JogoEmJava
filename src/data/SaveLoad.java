@@ -39,6 +39,9 @@ public class SaveLoad {
 			datastorage.worldX = screen.player.worldX;
 			datastorage.worldY = screen.player.worldY;
 			datastorage.currentMap = Screen.currentMap;
+			datastorage.respawnMap = screen.player.respawnMap;
+			datastorage.respawnX = screen.player.respawnX;
+			datastorage.respawnY = screen.player.respawnY;
 			datastorage.hasMaga = screen.player.hasMaga;
 			
 			// Inventory
@@ -120,6 +123,9 @@ public class SaveLoad {
 			screen.player.worldY = datastorage.worldY;
 			screen.player.hasMaga = datastorage.hasMaga;
 			Screen.currentMap = datastorage.currentMap;
+			screen.player.respawnMap = datastorage.respawnMap;
+			screen.player.respawnX = datastorage.respawnX;
+			screen.player.respawnY = datastorage.respawnY;
 			
 			// Inventory
 			screen.player.inventory.clear();

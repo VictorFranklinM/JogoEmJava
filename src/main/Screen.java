@@ -286,6 +286,8 @@ public class Screen extends JPanel implements Runnable{
         		g2.drawString("Col: "+(player.worldX+player.collisionArea.x)/tileSize, x, y); y += lineHeight;
         		g2.drawString("Row: "+(player.worldY+player.collisionArea.y)/tileSize, x, y); y += lineHeight;
         		g2.drawString("Draw Time: "+passed, x, y); y += lineHeight;
+        		g2.drawString("God Mode: "+key.godModeOn,x, y); y += lineHeight;
+        		
         	}
     	}
         g2.dispose();

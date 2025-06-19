@@ -58,6 +58,7 @@ public class Entity {
 	int hpBarCounter = 0;
 	
 	public boolean onPath = false;
+	public boolean enraged = false;
 	
 	public String knockBackDirection;
 	public boolean knockBack = false;
@@ -431,9 +432,9 @@ public class Entity {
 		int screenX = worldX - screen.player.worldX + screen.player.screenX;
 		int screenY = worldY - screen.player.worldY + screen.player.screenY;
 		
-		if(((worldX + Screen.tileSize) > (screen.player.worldX - screen.player.screenX))
+		if(((worldX + Screen.tileSize*5) > (screen.player.worldX - screen.player.screenX))
 			&& ((worldX - Screen.tileSize) < (screen.player.worldX + screen.player.screenX))
-			&& ((worldY + Screen.tileSize) > (screen.player.worldY - screen.player.screenY))
+			&& ((worldY + Screen.tileSize*5) > (screen.player.worldY - screen.player.screenY))
 			&& ((worldY - Screen.tileSize) < (screen.player.worldY + screen.player.screenY))) {
 			
 			int tempScreenX = screenX;
@@ -447,7 +448,7 @@ public class Entity {
 					if(spriteNum == 3) {image = up3;}
 				}
 				if(attacking == true) {
-					tempScreenY = screenY - Screen.tileSize;
+					tempScreenY = screenY - up1.getHeight();
 					if(spriteNum == 1) {image = attackUp1;}
 					if(spriteNum == 2) {image = attackUp2;}
 				}
@@ -471,7 +472,7 @@ public class Entity {
 				if(spriteNum == 3) {image = left3;}
 				}
 				if(attacking == true) {
-					tempScreenX = screenX - Screen.tileSize;
+					tempScreenX = screenX - left1.getWidth();
 					if(spriteNum == 1) {image = attackLeft1;}
 					if(spriteNum == 2) {image = attackLeft2;}
 				}
@@ -490,28 +491,28 @@ public class Entity {
 				break;
 			
 			}
-	        if(screen.key.isDebugging == true) {
-	        	g2.setColor(new Color(255, 255, 0, 150));
-	        	int attackScreenX = screenX;
-	        	int attackScreenY = screenY;
-	                
-	        	switch(facing) {
-	        	case "up": 
-	        		attackScreenY = screenY - attackArea.height; 
-	        		break;
-	        	case "down": 
-	        		attackScreenY = screenY + Screen.tileSize;
-	        		break;
-	        	case "left": 
-	        		attackScreenX = screenX - attackArea.width;
-	        		break;
-	        	case "right":
-	        		attackScreenX = screenX + Screen.tileSize;
-	        		break;
-	        	}
-	                
-	        	g2.fillRect(attackScreenX, attackScreenY, attackArea.width, attackArea.height);
-	        }
+			if(screen.key.isDebugging == true && attackUp1 != null) {
+			    g2.setColor(new Color(255, 255, 0, 150));
+			    int attackScreenX = screenX;
+			    int attackScreenY = screenY;
+			    
+			    switch(facing) {
+			        case "up": 
+			            attackScreenY = screenY - attackUp1.getHeight(); // Usa a altura do sprite de ataque para cima
+			            break;
+			        case "down": 
+			            attackScreenY = screenY + down1.getHeight(); // Usa a altura do sprite normal (ou attackDown1 se necessário)
+			            break;
+			        case "left": 
+			            attackScreenX = screenX - attackLeft1.getWidth(); // Usa a largura do sprite de ataque para esquerda
+			            break;
+			        case "right":
+			            attackScreenX = screenX + right1.getWidth(); // Usa a largura do sprite normal (ou attackRight1 se necessário)
+			            break;
+			    }
+			    
+			    g2.fillRect(attackScreenX, attackScreenY, attackArea.width, attackArea.height);
+			}
 			
 			// Enemy HP
 			if(type == 2 && hpBarOn) {
@@ -758,11 +759,34 @@ public class Entity {
 		
 	}
 	
+	public void bossMovement(int movementInterval) {
+		actionLockCounter++;
+		
+		if(actionLockCounter > movementInterval) {
+			if(getXDistance(screen.player) > getYDistance(screen.player)) {
+				if(screen.player.getCenterX() < getCenterX()) {
+					facing = "left";
+				}
+				else {
+					facing = "right";
+				}
+			}
+			else if(getXDistance(screen.player) < getYDistance(screen.player)) {
+				if(screen.player.getCenterY() < getCenterY()) {
+					facing = "up";
+				}
+				else {
+					facing = "down";
+				}
+			}
+			actionLockCounter = 0;
+		}
+	}
 	
 	public void movementLogic(int movementInterval) {
 		actionLockCounter++;
 		
-		if(actionLockCounter == movementInterval) {
+		if(actionLockCounter > movementInterval) {
 			Random random = new Random();
 			int i = random.nextInt(100)+1;
 		
@@ -824,13 +848,23 @@ public class Entity {
 		return index;
 	}
 	
+	public int getCenterX() {
+		int centerX = worldX + left1.getWidth()/2;
+		return centerX;
+	}
+	
+	public int getCenterY() {
+		int centerY = worldY + up1.getHeight()/2;
+		return centerY;
+	}
+	
 	public int getXDistance(Entity target) {
-		int xDistance = Math.abs(worldX - target.worldX);
+		int xDistance = Math.abs(getCenterX() - target.getCenterX());
 		return xDistance;
 	}
 	
 	public int getYDistance(Entity target) {
-		int yDistance = Math.abs(worldY - target.worldY);
+		int yDistance = Math.abs(getCenterY() - target.getCenterY());
 		return yDistance;
 	}
 	
@@ -866,22 +900,22 @@ public class Entity {
 		
 		switch(facing) {
 		case "up":
-			if(screen.player.worldY < worldY && yDis < straightDistance && xDis < sidesDistance) {
+			if(screen.player.getCenterY() < getCenterY() && yDis < straightDistance && xDis < sidesDistance) {
 				targetInRange = true;
 			}
 			break;
 		case "down":
-			if(screen.player.worldY > worldY && yDis < straightDistance && xDis < sidesDistance) {
+			if(screen.player.getCenterY() > getCenterY() && yDis < straightDistance && xDis < sidesDistance) {
 				targetInRange = true;
 			}
 			break;
 		case "left":
-			if(screen.player.worldX < worldX && xDis < straightDistance && yDis < sidesDistance) {
+			if(screen.player.getCenterX() < getCenterX() && xDis < straightDistance && yDis < sidesDistance) {
 				targetInRange = true;
 			}
 			break;
 		case "right":
-			if(screen.player.worldX > worldX && xDis < straightDistance && yDis < sidesDistance) {
+			if(screen.player.getCenterX() > getCenterX() && xDis < straightDistance && yDis < sidesDistance) {
 				targetInRange = true;
 			}
 			break;
@@ -914,4 +948,3 @@ public class Entity {
 		}
 	}
 }
-	

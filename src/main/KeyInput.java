@@ -10,6 +10,7 @@ public class KeyInput implements KeyListener {
 	private Screen screen;
 	
 	public boolean isDebugging = false;
+	public boolean godModeOn = false;
 
 	public KeyInput(Screen screen) {
 		this.screen = screen;
@@ -211,9 +212,7 @@ public class KeyInput implements KeyListener {
 		}
 		if(code == KeyEvent.VK_E) {
 			ePressed = true;
-			}
-		
-		
+		}
 		if(code == KeyEvent.VK_ENTER) {
 			screen.gameState = Screen.statusState;
 		}
@@ -230,7 +229,15 @@ public class KeyInput implements KeyListener {
 				screen.tileM.drawPath = false;
 			}
 		}
-		if(isDebugging && code == KeyEvent.VK_R) {
+		if(code == KeyEvent.VK_G) {
+			if(godModeOn == false) {
+				godModeOn = true;
+			}
+			else {
+				godModeOn = false;
+			}
+		}
+		if(code == KeyEvent.VK_R) {
 			switch(Screen.currentMap) {
 			case 0: screen.tileM.loadMap("/maps/world01.txt", 0);
 			case 1: screen.tileM.loadMap("/maps/dungeon.txt", 1);
@@ -250,8 +257,7 @@ public class KeyInput implements KeyListener {
 		if(code == KeyEvent.VK_ESCAPE) {
 			screen.gameState = Screen.optionsState;
 			}
-		}
-	
+	}
 	
 	public void dialogueState(int code) {
 		if(code == KeyEvent.VK_E) {

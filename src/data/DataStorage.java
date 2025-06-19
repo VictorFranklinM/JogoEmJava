@@ -21,6 +21,9 @@ public class DataStorage implements Serializable{
 	int worldX;
 	int worldY;
 	int currentMap;
+	int respawnX;
+	int respawnY;
+	int respawnMap;
 	
 	// Inventory
 	ArrayList<String> itemNames = new ArrayList<>();

@@ -357,7 +357,7 @@ public class Player extends Entity{
 	    	spellCooldown--;
 	    }
 	    
-	    if(hp <= 0) {
+	    if(hp <= 0 && !screen.key.godModeOn) {
 			screen.stopMusic();
 			screen.playMusic(10);
 	    	screen.gameState = Screen.gameOverState;

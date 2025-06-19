@@ -4,6 +4,7 @@ import entity.NPC_BlackFrost;
 import entity.NPC_JackFrost;
 import entity.NPC_Merchant;
 import entity.NPC_Nadja;
+import boss.Boss_Matador;
 import enemy.En_Decarabia;
 import enemy.En_Fomorian;
 import enemy.En_Goblin;
@@ -73,6 +74,13 @@ public class NpcPlacer {
 		i++;
 		
 		mapNum = 1;
+		
+		i = 0;
+		mapNum = 3;
+		
+		screen.enemy[mapNum][i] = new Boss_Matador(screen);
+		screen.enemy[mapNum][i].worldX = 20 * Screen.tileSize;
+		screen.enemy[mapNum][i].worldY = 29 * Screen.tileSize;
+		i++;
 	}
-
 }
