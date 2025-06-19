@@ -7,9 +7,8 @@ import main.Screen;
 public class NPC_BlackFrost extends Entity{
 	
 	private final int defaultSpeed = 2;
-	//private int specialLine = numero;
-	//private int maxTextLines = numero; // mudar se mudar a quantidade de texto normal
-			
+	//private int specialLine = num;
+	//private int maxTextLines = num; // CHANGE IF YOU CHANGE THE DEFAULT TEXT QUANTITY			
 	public NPC_BlackFrost(Screen screen) {
 		super(screen);
 		facing = "down";

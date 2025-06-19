@@ -74,7 +74,7 @@ public class CollisionChecker {
 	
 	public int checkObject (Entity entity, boolean player) {
 		
-		int index = 999; // (Pode ser qualquer numero maior que o tamanho do array de objetos).
+		int index = 999; // (Any number that is outside the objects array).
 		
 		// Temporary direction to check knockback.
 		String facing = entity.facing;

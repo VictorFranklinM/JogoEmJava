@@ -36,9 +36,8 @@ public class OverlayEntity extends Entity {
 
         g2.drawImage(frames[spriteNum], screenX, screenY, null);
 
-        // Retângulo de teste
+        // Debugt Rectangle
         // g2.setColor(Color.RED);
-        // g2.drawRect(screenX + collisionArea.x, screenY + collisionArea.y, 
-                    // collisionArea.width, collisionArea.height);
+        // g2.drawRect(screenX + collisionArea.x, screenY + collisionArea.y, collisionArea.width, collisionArea.height);
     }
 }

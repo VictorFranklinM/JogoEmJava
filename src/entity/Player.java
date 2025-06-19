@@ -57,7 +57,7 @@ public class Player extends Entity{
 	}
 	
 	public void setDefaultValues() {
-		worldX = Screen.tileSize * 25; // LEMBRAR DE MUDAR SETDEFAULTPOSITIONS()
+		worldX = Screen.tileSize * 25; // REMEMBER TO CHANGE SETDEFAULTPOSITIONS()
 		worldY = Screen.tileSize * 37;
 		defaultSpeed = 5;
 		speed = defaultSpeed;
@@ -91,7 +91,7 @@ public class Player extends Entity{
 	}
 	
 	public void setDefaultPositions() {
-		worldX = Screen.tileSize * 25; // MUDAR NA VERSÃO FINAL DO JOGO
+		worldX = Screen.tileSize * 25; // CHANGE ON FINAL VERSION
 		worldY = Screen.tileSize * 37;
 		facing = "down";
 	}

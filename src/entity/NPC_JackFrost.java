@@ -7,8 +7,8 @@ import main.Screen;
 public class NPC_JackFrost extends Entity{
 	
 	private final int defaultSpeed = 1;
-	//private int specialLine = numero;
-	//private int maxTextLines = numero; // mudar se mudar a quantidade de texto normal
+	//private int specialLine = num;
+	//private int maxTextLines = num; // CHANGE IF YOU CHANGE THE DEFAULT TEXT QUANTITY		
 			
 	public NPC_JackFrost(Screen screen) {
 		super(screen);

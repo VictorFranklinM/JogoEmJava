@@ -25,7 +25,7 @@ public class SaveLoad {
 			
 			DataStorage datastorage = new DataStorage();
 			
-			// Stats do Player
+			// Player Stats
 			datastorage.level = screen.player.level;
 			datastorage.maxHP = screen.player.maxHP;
 			datastorage.hp = screen.player.hp;
@@ -41,7 +41,7 @@ public class SaveLoad {
 			datastorage.currentMap = Screen.currentMap;
 			datastorage.hasMaga = screen.player.hasMaga;
 			
-			// Inventario
+			// Inventory
 			for (int i = 0; i < screen.player.inventory.size(); i++) {
 				datastorage.itemNames.add(screen.player.inventory.get(i).name);
 				datastorage.itemAmounts.add(screen.player.inventory.get(i).amount);
@@ -56,7 +56,7 @@ public class SaveLoad {
 				datastorage.currentMagatamaSlot = screen.player.inventorySize+1;
 			}
 			
-			// Objetos no mapa
+			// Map Objects
 			datastorage.mapObjectNames = new String[Screen.maxMap][screen.obj[1].length];
 			datastorage.mapObjectWorldX = new int[Screen.maxMap][screen.obj[1].length];
 			datastorage.mapObjectWorldY = new int[Screen.maxMap][screen.obj[1].length];
@@ -88,7 +88,7 @@ public class SaveLoad {
 				}
 			}
 			
-			//Escrever o arquivo de DataStorage
+			// Write DataStorage Object
 			ooutstr.writeObject(datastorage);
 		}
 		catch(Exception e) {
@@ -102,10 +102,10 @@ public class SaveLoad {
 			@SuppressWarnings("resource")
 			ObjectInputStream oinpstr = new ObjectInputStream(new FileInputStream(new File("save.dat")));
 			
-			//Ler o arquivo de DataStorage
+			// Read DataStorage File
 			DataStorage datastorage = (DataStorage)oinpstr.readObject();
 			
-			// Stats do Player
+			// Player Stats
 			screen.player.level = datastorage.level;
 			screen.player.maxHP = datastorage.maxHP;
 			screen.player.hp = datastorage.hp;
@@ -121,7 +121,7 @@ public class SaveLoad {
 			screen.player.hasMaga = datastorage.hasMaga;
 			Screen.currentMap = datastorage.currentMap;
 			
-			// Inventario
+			// Inventory
 			screen.player.inventory.clear();
 			for(int i = 0; i < datastorage.itemNames.size(); i++) {
 				Entity loadedItem = screen.eGenerator.getObject(datastorage.itemNames.get(i));
@@ -145,7 +145,7 @@ public class SaveLoad {
 				screen.player.getDefense();
 			}
 			
-			// Objetos no mapa
+			// Map Objects
 			for(int mapNum = 0; mapNum < Screen.maxMap; mapNum++) {
 				for(int i = 0; i < screen.obj[1].length; i++) {
 					if(datastorage.mapObjectNames[mapNum][i].equals("N/A")) {

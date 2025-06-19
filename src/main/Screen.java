@@ -1,16 +1,16 @@
 package main;
 
-import java.awt.Color; // Biblioteca para gerenciamento de cores.
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Graphics; // Biblioteca para renderizacoes graficas.
-import java.awt.Graphics2D; // Biblioteca para renderizacoes de formas geometricas.
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-import javax.swing.JPanel; // Importa as propriedades da classe JPanel. (Interface da janela).
+import javax.swing.JPanel;
 
 import ai.PathFinder;
 import data.SaveLoad;
@@ -19,21 +19,19 @@ import entity.Player;
 import tile.Map;
 import tile.TileOrganizer;
 
-
-// Sub-Classe da Classe JPanel.
 @SuppressWarnings("serial")
 public class Screen extends JPanel implements Runnable{
 	
-	private static final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); // Pega as proporcoes da tela.
-	public static final int screenWidth = (int) screenSize.getWidth(); // Pega apenas a largura.
-	public static final int screenHeight = (int) screenSize.getHeight(); // Pega apenas a altura.
+	private static final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	public static final int screenWidth = (int) screenSize.getWidth();
+	public static final int screenHeight = (int) screenSize.getHeight();
 	
-	public static final int originalTileSize = 16; // Tamanho dos Tiles do jogo. (16x16).
-	public static final int scale = 4; // Escala dos pixels.
-	public static final int tileSize = originalTileSize * scale; // Tile redimensionado.
+	public static final int originalTileSize = 16;
+	public static final int scale = 4;
+	public static final int tileSize = originalTileSize * scale;
 	
-	public static final int horizontalTiles = 20; // Quantos tiles horizontais cabem na tela.
-	public static final int verticalTiles = 12; // Quantos tiles verticais cabem na tela.
+	public static final int horizontalTiles = 20;
+	public static final int verticalTiles = 12;
 	
 	public static final int maxWorldCol = 250;
 	public static final int maxWorldRow = 250;
@@ -45,14 +43,14 @@ public class Screen extends JPanel implements Runnable{
 	public static final int npcPerScreen = 10;
 	public static final int enemyPerScreen = 20;
 	
-	//SOM
+	// Sound
 	Sound music = new Sound();
 	Sound sfx = new Sound();
 	TileSoundManager tsm = new TileSoundManager(this);
 
 	public TileOrganizer tileM = new TileOrganizer(this);
 	public KeyInput key = new KeyInput(this);
-	Thread gameThread; // Cria uma linha de execucao secundaria para executar um codigo em segundo plano por cima do clock base.
+	Thread gameThread;
 	Config config = new Config(this);
 	public PathFinder pFinder = new PathFinder(this);
 	public UI ui = new UI(this);
@@ -64,8 +62,8 @@ public class Screen extends JPanel implements Runnable{
 	public NpcPlacer npcPlacer = new NpcPlacer(this);
 	
 	public Player player = new Player(this,key);
-	public Entity obj[][] = new Entity[maxMap][objPerScreen]; // new Object[x]. x e a quantidade de objetos que podem ser renderizados na tela ao mesmo tempo.
-	public Entity[][] overlay = new Entity[maxMap][ovrPerScreen]; // estou brincando
+	public Entity obj[][] = new Entity[maxMap][objPerScreen];
+	public Entity[][] overlay = new Entity[maxMap][ovrPerScreen];
 	public Entity npc[][] = new Entity[maxMap][npcPerScreen];
 	public Entity enemy[][] = new Entity[maxMap][enemyPerScreen];
 	public Entity projectile [][] = new Entity[maxMap][20];
@@ -87,13 +85,13 @@ public class Screen extends JPanel implements Runnable{
 	public static final int tradeState = 7;
 	public final static int mapState = 8;
 	
-	int fps = 60; // Quantas vezes a tela vai ser atualizada por segundo.
+	int fps = 60;
 	
 	public Screen() {
-		this.setBackground(Color.DARK_GRAY); // Define o plano de fundo da janela como a cor preta.
-		this.setDoubleBuffered(true); // Vai renderizar os componentes graficos em segundo plano em uma memoria temporaria.
-		this.addKeyListener(key); // Implementacao da classe KeyInput.
-		this.setFocusable(true); // Indica se e possivel focar na janela do jogo.
+		this.setBackground(Color.DARK_GRAY);
+		this.setDoubleBuffered(true);
+		this.addKeyListener(key);
+		this.setFocusable(true);
 		
 	}
 	
@@ -128,7 +126,6 @@ public class Screen extends JPanel implements Runnable{
 
     }
     
-    // Funcao que atualiza a posicao do jogador quando a tecla de movimento e pressionada.
     public void update() {
     	//PLAY STATE
     	if(gameState==playState) {
@@ -160,7 +157,8 @@ public class Screen extends JPanel implements Runnable{
     		        overlay[currentMap][i].update();
     		    }
     		}
-    	
+    		
+    		//PROJECTILES
     		for (int i = 0; i < projectile[1].length; i++) {
     			if(projectile[currentMap][i] != null) {
     				if(projectile[currentMap][i].alive == true) {
@@ -173,6 +171,7 @@ public class Screen extends JPanel implements Runnable{
     			}
     		}
     		
+    		//PARTICLES
     		for (int i = 0; i < particleList.size(); i++) {
     			if(particleList.get(i) != null) {
     				if(particleList.get(i).alive) {
@@ -188,19 +187,18 @@ public class Screen extends JPanel implements Runnable{
     
     }
     
-    // Funcao que renderiza os graficos do jogo.
     public void paintComponent(Graphics g) {
-    	super.paintComponent(g); // Limpa o desenho anterior antes de renderizar novamente.
-    	Graphics2D g2 = (Graphics2D)g; // Faz um casting para Graphics2D para poder manipular x, y e outros atributos mais avancados.
+    	super.paintComponent(g);
+    	Graphics2D g2 = (Graphics2D)g;
     	
     	
-    	//DEBUG (TESTADOR DE VELOCIDADE DE RENDERIZACAO
+    	//DEBUG
     	long drawStart = 0;
     	if(key.isDebugging == true) {
     		drawStart = System.nanoTime();
     	}
     	
-    	// TITULO
+    	// TITLE
     	if(gameState == titleState) {
     		ui.draw(g2);
     	}
@@ -210,7 +208,7 @@ public class Screen extends JPanel implements Runnable{
     	}
     	//OTHERS
     	else {
-    		tileM.draw(g2); // mapa
+    		tileM.draw(g2);
     		//ADD ENTITY TO THE ENTITY LIST
     		entityList.add(player);
     		for(int i = 0;i < npcPerScreen; i++) {
@@ -229,7 +227,7 @@ public class Screen extends JPanel implements Runnable{
     			}
     		}
     		
-    		for (int i = 0; i < ovrPerScreen; i++) {  //eu estou brincando com isso
+    		for (int i = 0; i < ovrPerScreen; i++) {
     			if (overlay[currentMap][i] != null) {
     				entityList.add(overlay[currentMap][i]);
     			}
@@ -290,29 +288,25 @@ public class Screen extends JPanel implements Runnable{
         		g2.drawString("Draw Time: "+passed, x, y); y += lineHeight;
         	}
     	}
-        //liberar memoria
         g2.dispose();
 
     }
 
-    // Linha de execucao secundaria do jogo, onde ocorrem as coisas na tela.
 	public void run() {
-		double drawInterval = 1000000000/fps; // Nosso intervalo de atualizacoes necessarias(1 nano segundo convertido para segundo/fps.
-		double delta = 0; // Nossa variavel de controle, ela servira como um contador de segundos.
-		long lastTime = System.nanoTime(); // Armazenamos nosso tempo atual (que sera trocado, entao ele e nosso ultimo tempo).
-		long currentTime; // Tempo atual, este sera contado na hora de pintar e desenhar.
+		double drawInterval = 1000000000/fps;
+		double delta = 0;
+		long lastTime = System.nanoTime();
+		long currentTime;
 		
-		// Enquanto o thread do jogo (tempo) esta rodando, ele ira contar o tempo.
 		while (gameThread != null) {
-			currentTime = System.nanoTime(); // Nosso tempo atual na thread recebe o tempo em nano segundos.
-			delta += (currentTime - lastTime) / drawInterval; // Nosso delta vai receber o resto da diferenca entre o tempo passado e o atual, dividido pelo fps. E quando der 1 segundo, ira aplicar.
-			lastTime = currentTime; // Resetamos nosso tempo passado, para atualizar o loop, ja que o calculo ja foi feito.
+			currentTime = System.nanoTime();
+			delta += (currentTime - lastTime) / drawInterval;
+			lastTime = currentTime;
 			
-			//Quando delta der o tempo de 1/60 frames por segundo, ele ira atualizar um frame.
 			if(delta >= 1) { 
-				update(); // Chama a funcao de atualizar a posicao do jogador.
-				repaint(); // Redesenha o objeto.
-				delta --; // Reduz o delta para recalcular no nosso loop.
+				update();
+				repaint();
+				delta --;
 			}
 			
 		}

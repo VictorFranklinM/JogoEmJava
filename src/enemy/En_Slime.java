@@ -69,9 +69,8 @@ public class En_Slime extends Entity{
 	}
 	
 	public void damageReaction() {
-		// Correr do jogador
+		// This code makes the enemy agro the player
 		actionLockCounter = 0;
-		facing = screen.player.facing;
 		onPath = true;
 		isFollowing = true;
 	}

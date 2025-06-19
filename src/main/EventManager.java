@@ -65,8 +65,8 @@ public class EventManager {
 		}
 		
 		if(canTouchEvent == true) {
-			// OBS: Pra trocar a musica do mapa, dá pra dar screen.stopMusic() dentro das chaves depois do switchMap(x, y, z),
-			//	e depois dar um screen.playMusic(x), mesma coisa quando for voltar pro mapa original.
+			// In order to change the map music you need to write screen.stopMusic() inside the brackeys after switchMap(x, y, z)
+			//	and after that, write screen.playMusic(x), samething when you go back to the world map.
 			if(hit(0, 26, 18, "up") == true) {switchMap(1, 17, 37);} // Dungeon 
 			else if(hit(1, 17, 37, "down") == true) {switchMap(0, 26, 18);} // Map
 			else if(hit(1, 17, 25, "any") == true) {healingPoint(Screen.dialogueState);} // Save
@@ -116,7 +116,7 @@ public class EventManager {
 		screen.player.hp -= 1;
 		
 		// eventArea[map][col][row].eventDone = true;
-		// Para eventos que só ocorrem 1 vez.
+		// Code for one time only events.
 		
 		canTouchEvent = false;
 	}

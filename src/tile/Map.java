@@ -83,7 +83,7 @@ public class Map extends TileOrganizer {
                 int worldRow = startRow + row;
 
                 if (worldCol >= 0 && worldRow >= 0 && worldCol < Screen.maxWorldCol && worldRow < Screen.maxWorldRow) {
-                    int tileNum = mapTileNum[Screen.currentMap][worldCol][worldRow]; // Usa o mapa atual
+                    int tileNum = mapTileNum[Screen.currentMap][worldCol][worldRow];
                     BufferedImage tileImage = tile[tileNum].image;
                     g2.drawImage(tileImage, x+col*mapZoom, y+row*mapZoom, mapZoom, mapZoom, null);
                 }

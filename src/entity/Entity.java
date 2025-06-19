@@ -22,11 +22,11 @@ public class Entity {
 	public int worldX, worldY;
 	public boolean isMoving = false;
 	
-	public BufferedImage up1, up2, up3, left1, left2, left3, right1, right2, right3, down1, down2, down3; // Sprites do personagem.
+	public BufferedImage up1, up2, up3, left1, left2, left3, right1, right2, right3, down1, down2, down3;
 	public BufferedImage attackUp1, attackUp2, attackLeft1, attackLeft2, attackRight1, attackRight2, attackDown1, attackDown2;
 	public BufferedImage guardUp, guardDown, guardLeft, guardRight;
 	public BufferedImage image, image2, face;
-	public String facing = "down"; // Direcao do personagem.
+	public String facing = "down";
 	
 	public int spriteCounter = 0;
 	public int spriteNum = 1;
@@ -70,9 +70,9 @@ public class Entity {
 	public int doorNum = -1;
 	public int openDoorNum = -1;
 	
-	//DIALOGUES STATUS
+	// DIALOGUES STATUS
 	public int dialoguesQuantity = 20;
-	public int actionLockCounter = 0; // Para movimenta��o dos NPC
+	public int actionLockCounter = 0;
 	
 	public String dialogues[][] = new String[dialoguesQuantity][dialoguesQuantity]; 
 	public int dialogueIndex = 0;
@@ -186,8 +186,8 @@ public class Entity {
 	public void checkCollision() {
 		collision = false;
 		screen.colCheck.checkTile(this);
-		screen.colCheck.checkObject(this, false); // NPC nao pega objetos
-		screen.colCheck.checkEntity(this, screen.npc); // Checa com outros NPCs
+		screen.colCheck.checkObject(this, false);
+		screen.colCheck.checkEntity(this, screen.npc);
 		screen.colCheck.checkEntity(this, screen.enemy);
 		boolean contactPlayer = screen.colCheck.checkPlayer(this);
 		
@@ -384,7 +384,7 @@ public class Entity {
 			String guardDirection = getOppositeDirection(facing);
 			// Guard
 			if(screen.player.guarding && screen.player.facing.equals(guardDirection)) {
-				//Parry
+				// Parry
 				if(screen.player.guardCounter < 10) {
 					damage = 0;
 					screen.playSFX(13);
@@ -491,7 +491,7 @@ public class Entity {
 			
 			}
 	        if(screen.key.isDebugging == true) {
-	        	g2.setColor(new Color(255, 255, 0, 150)); // Amarelo para a hitbox de ataque
+	        	g2.setColor(new Color(255, 255, 0, 150));
 	        	int attackScreenX = screenX;
 	        	int attackScreenY = screenY;
 	                
@@ -513,7 +513,7 @@ public class Entity {
 	        	g2.fillRect(attackScreenX, attackScreenY, attackArea.width, attackArea.height);
 	        }
 			
-			// Hp inimigo
+			// Enemy HP
 			if(type == 2 && hpBarOn) {
 				double hpScale = (double) Screen.tileSize/maxHP;
 				double hpBarValue = hpScale*hp;
@@ -763,7 +763,7 @@ public class Entity {
 		
 		if(actionLockCounter == 45) {
 			Random random = new Random();
-			int i = random.nextInt(100)+1; // escolhe um numero de 1�100
+			int i = random.nextInt(100)+1;
 		
 			if (i <= 25) {
 				facing = "up";

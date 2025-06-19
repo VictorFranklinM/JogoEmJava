@@ -100,13 +100,13 @@ public class UI {
 			drawMessage();
 			screen.ui.setFace(null);
 		}
-		//Dialogue State
+		//DIALOGUE STATE
 		if(screen.gameState==Screen.dialogueState) {
 			screen.tsm.stopTileSound();
 			screen.map.miniMapOn = false;
     		drawDialogueScreen();
     	}
-		//Status State
+		//STATUS STATE
 		if(screen.gameState == Screen.statusState) {
 			screen.tsm.stopTileSound();
 			screen.map.miniMapOn = false;
@@ -213,7 +213,7 @@ public class UI {
 			g2.drawString("Price: " + npc.inventory.get(itemIndex).price, x + 24, y + 80);
 		}
 		else {
-			g2.drawString("Price: ", x + 24, y + 80); // ou pode deixar em branco
+			g2.drawString("Price: ", x + 24, y + 80);
 		}
 
 		x += width/2;
@@ -431,7 +431,7 @@ public class UI {
 		int y = Screen.tileSize/2;
 		int count = 0;
 		
-		// Renderizar HP MAX.
+		// Render max HP.
 		while(count < screen.player.maxHP) {
 			g2.drawImage(hpNone, x, y, null);
 			count++;
@@ -443,14 +443,14 @@ public class UI {
 		y = Screen.tileSize/2;
 		count = 0;
 		
-		// Renderizar HP atual.
+		// Render current hp.
 		while(count < screen.player.hp) {
 			g2.drawImage(hpFull, x, y, null);
 			count++;
 			x += (8*Screen.scale);
 		}
 		
-		// Renderizar Mana.
+		// Render max mana.
 		x = Screen.tileSize/2 + Screen.scale;
 		y = (int) (Screen.tileSize*1.5) - Screen.scale;
 		count = 0;
@@ -464,7 +464,7 @@ public class UI {
 		y = (int) (Screen.tileSize*1.5) - Screen.scale;
 		count = 0;
 		
-		// Renderizar Mana atual.
+		// Render current mana.
 		while(count < screen.player.mana) {
 			g2.drawImage(manaFull, x, y, null);
 			count++;
@@ -488,13 +488,13 @@ public class UI {
 			}
 		g2.drawImage(titleBG, 0, 0, Screen.screenWidth, Screen.screenHeight, null);
 		
-		//Título Principal
+		// Title text
 		g2.setFont(g2.getFont().deriveFont(Font.BOLD,80F));
 		String text = "Shin Megami Tensei:";
 		int x = getCenteredX(text);
 		int y = Screen.tileSize*2;
 		
-		//SHADOW
+		//Shadow
 		g2.setColor(greenGreen);
 		g2.drawString(text, x+5, y+5);
 		
@@ -502,17 +502,17 @@ public class UI {
 		g2.setColor(brightGreen);
 		g2.drawString(text, x, y);
 		
-		// Sub-titulo
+		// Sub-title
 		g2.setFont(g2.getFont().deriveFont(Font.BOLD,70F));
 		text = "Persona VI";
 		x = getCenteredX(text);
 		y = (Screen.tileSize*3);
 		
-		//Sombra
+		//Shadow
 		g2.setColor(greenGreen);
 		g2.drawString(text, x+5, y+5);
 		
-		//Texto
+		//Text
 		g2.setColor(brightGreen);
 		g2.drawString(text, x, y);
 		
@@ -562,7 +562,6 @@ public class UI {
 
 		    drawSubWindow(faceX, y, faceSize+16, faceSize+16, 0);
 
-		    // desenha a imagem do rosto
 		    g2.drawImage(face, faceX+8, y+8, faceSize, faceSize, null);
 		}
 
@@ -574,7 +573,8 @@ public class UI {
 		
 		if(npc.dialogues[npc.dialogueSet][npc.dialogueIndex] != null) {
 			
-			//currentSpeechLine = npc.dialogues[npc.dialogueSet][npc.dialogueIndex]; // esse mostra o diálogo todo de uma vez, se preferir
+			// This shows the whole dialogue instead of letter by letter.
+			//currentSpeechLine = npc.dialogues[npc.dialogueSet][npc.dialogueIndex];
 			
 			char characters[] = npc.dialogues[npc.dialogueSet][npc.dialogueIndex].toCharArray();
 			

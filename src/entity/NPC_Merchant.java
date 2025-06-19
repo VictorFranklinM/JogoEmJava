@@ -11,8 +11,8 @@ import object.OBJ_Mushroom;
 public class NPC_Merchant extends Entity{
 	
 	private final int defaultSpeed = 0;
-	//private int specialLine = numero;
-	//private int maxTextLines = numero; // mudar se mudar a quantidade de texto acessado de forma normal
+	//private int specialLine = num;
+	//private int maxTextLines = num; // CHANGE IF YOU CHANGE THE DEFAULT TEXT QUANTITY		
 			
 	public NPC_Merchant(Screen screen) {
 		super(screen);

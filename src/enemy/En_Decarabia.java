@@ -62,7 +62,7 @@ public class En_Decarabia extends Entity{
 	}
 	
 	public void damageReaction() {
-		// Correr do jogador
+		// This code makes the enemy run from the player
 		actionLockCounter = 0;
 		facing = screen.player.facing;
 	}

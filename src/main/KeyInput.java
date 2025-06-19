@@ -16,15 +16,13 @@ public class KeyInput implements KeyListener {
 	}
 	
 	@Override
-	// Método padrão java para receber se a tecla foi pressionada ou não.
 	public void keyTyped(KeyEvent e) {
 		
 	}
 	
 	@Override
-	// Função que processa quando uma tecla é pressionada.
 	public void keyPressed(KeyEvent e) {
-		int code = e.getKeyCode(); // Identifica a tecla pressionada.
+		int code = e.getKeyCode();
 		
 		//TITLE STATE
 		if(screen.gameState == Screen.titleState) {
@@ -40,7 +38,7 @@ public class KeyInput implements KeyListener {
 		else if(screen.gameState == Screen.dialogueState) {
 			dialogueState(code);
 		}
-		//Status State
+		//STATUS STATE
 		else if(screen.gameState == Screen.statusState) {
 			statusState(code);
 		}

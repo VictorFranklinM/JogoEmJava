@@ -6,7 +6,7 @@ import java.util.ArrayList;
 @SuppressWarnings("serial")
 public class DataStorage implements Serializable{
 	
-	//Stats do Player
+	// Player Stats
 	int hasMaga;
 	int level;
 	int maxHP;
@@ -22,7 +22,7 @@ public class DataStorage implements Serializable{
 	int worldY;
 	int currentMap;
 	
-	// Inventario
+	// Inventory
 	ArrayList<String> itemNames = new ArrayList<>();
 	ArrayList<Integer> itemAmounts = new ArrayList<>();
 	
@@ -30,7 +30,7 @@ public class DataStorage implements Serializable{
 	int currentMagatamaSlot;
 	String projectile;
 	
-	// Objetos no mapa
+	// Map Objects
 	String mapObjectNames[][];
 	int mapObjectWorldX[][];
 	int mapObjectWorldY[][];
