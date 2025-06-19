@@ -50,18 +50,18 @@ public class Boss_Matador extends Entity{
 	public void getImage() {
 		
 		if(!enraged) {
-			up1 = setup("/bosses/matador/Matador-Down-1",Screen.tileSize*size, Screen.tileSize*size);
-			up2 = setup("/bosses/matador/Matador-Down-1",Screen.tileSize*size, Screen.tileSize*size);
-			up3 = setup("/bosses/matador/Matador-Down-1",Screen.tileSize*size, Screen.tileSize*size);
+			up1 = setup("/bosses/matador/Matador-Up-1",Screen.tileSize*size, Screen.tileSize*size);
+			up2 = setup("/bosses/matador/Matador-Up-2",Screen.tileSize*size, Screen.tileSize*size);
+			up3 = setup("/bosses/matador/Matador-Up-3",Screen.tileSize*size, Screen.tileSize*size);
 			down1 = setup("/bosses/matador/Matador-Down-1",Screen.tileSize*size, Screen.tileSize*size);
-			down2 = setup("/bosses/matador/Matador-Down-1",Screen.tileSize*size, Screen.tileSize*size);
-			down3 = setup("/bosses/matador/Matador-Down-1",Screen.tileSize*size, Screen.tileSize*size);
-			left1 = setup("/bosses/matador/Matador-Down-1",Screen.tileSize*size, Screen.tileSize*size);
-			left2 = setup("/bosses/matador/Matador-Down-1",Screen.tileSize*size, Screen.tileSize*size);
-			left3 = setup("/bosses/matador/Matador-Down-1",Screen.tileSize*size, Screen.tileSize*size);
-			right1 = setup("/bosses/matador/Matador-Down-1",Screen.tileSize*size, Screen.tileSize*size);
-			right2 = setup("/bosses/matador/Matador-Down-1",Screen.tileSize*size, Screen.tileSize*size);
-			right3 = setup("/bosses/matador/Matador-Down-1",Screen.tileSize*size, Screen.tileSize*size);
+			down2 = setup("/bosses/matador/Matador-Down-2",Screen.tileSize*size, Screen.tileSize*size);
+			down3 = setup("/bosses/matador/Matador-Down-3",Screen.tileSize*size, Screen.tileSize*size);
+			left1 = setup("/bosses/matador/Matador-Left-1",Screen.tileSize*size, Screen.tileSize*size);
+			left2 = setup("/bosses/matador/Matador-Left-2",Screen.tileSize*size, Screen.tileSize*size);
+			left3 = setup("/bosses/matador/Matador-Left-3",Screen.tileSize*size, Screen.tileSize*size);
+			right1 = setup("/bosses/matador/Matador-Right-1",Screen.tileSize*size, Screen.tileSize*size);
+			right2 = setup("/bosses/matador/Matador-Right-2",Screen.tileSize*size, Screen.tileSize*size);
+			right3 = setup("/bosses/matador/Matador-Right-3",Screen.tileSize*size, Screen.tileSize*size);
 		}
 		/*
 		else if(enraged) {
@@ -83,14 +83,14 @@ public class Boss_Matador extends Entity{
 	
 	public void getAttackImage() {
 		if(!enraged) {
-			attackUp1 = setup("/bosses/matador/Matador-AttackDown-1", Screen.tileSize*size, Screen.tileSize*size*2);
-			attackUp2 = setup("/bosses/matador/Matador-AttackDown-2", Screen.tileSize*size, Screen.tileSize*size*2);
+			attackUp1 = setup("/bosses/matador/Matador-AttackUp-1", Screen.tileSize*size, Screen.tileSize*size*2);
+			attackUp2 = setup("/bosses/matador/Matador-AttackUp-2", Screen.tileSize*size, Screen.tileSize*size*2);
 			attackDown1 = setup("/bosses/matador/Matador-AttackDown-1", Screen.tileSize*size, Screen.tileSize*size*2);
 			attackDown2 = setup("/bosses/matador/Matador-AttackDown-2", Screen.tileSize*size, Screen.tileSize*size*2);
-			attackLeft1 = setup("/bosses/matador/Matador-AttackDown-1", Screen.tileSize*size*2, Screen.tileSize*size);
-			attackLeft2 = setup("/bosses/matador/Matador-AttackDown-2", Screen.tileSize*size*2, Screen.tileSize*size);
-			attackRight1 = setup("/bosses/matador/Matador-AttackDown-1", Screen.tileSize*size*2, Screen.tileSize*size);
-			attackRight2 = setup("/bosses/matador/Matador-AttackDown-2", Screen.tileSize*size*2, Screen.tileSize*size);
+			attackLeft1 = setup("/bosses/matador/Matador-AttackLeft-1", Screen.tileSize*size*2, Screen.tileSize*size);
+			attackLeft2 = setup("/bosses/matador/Matador-AttackLeft-2", Screen.tileSize*size*2, Screen.tileSize*size);
+			attackRight1 = setup("/bosses/matador/Matador-AttackRight-1", Screen.tileSize*size*2, Screen.tileSize*size);
+			attackRight2 = setup("/bosses/matador/Matador-AttackRight-2", Screen.tileSize*size*2, Screen.tileSize*size);
 		}
 		/*
 		else if(enraged) {

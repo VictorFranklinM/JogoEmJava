@@ -260,12 +260,12 @@ public class Entity {
 			}
 			if(collision == true) {
 	    		isMoving = false;
-	    		spriteNum = 2;
+	    		spriteNum = 1;
 	    	} else {
 	    		spriteCounter++;
 	    	}
 	    	
-	    	if(spriteCounter > 6) {
+	    	if(spriteCounter > 10) {
 	    		if(spriteNum == 1) {
 	    			spriteNum = 2;
 	    		}
