@@ -53,13 +53,13 @@ public class En_Goblin extends Entity{
 	}
 	
 	public void setAction() {
-		followLogic();
-		
 		if(onPath) {
+			followLogic();
 			loseAgro(screen.player, 15, 100);
 			useSpellEnemy(200, 90);
 		}
 		else if(!onPath){
+			movementLogic(45);
 			getAgro(screen.player, 5, 25);
 		}
 	}

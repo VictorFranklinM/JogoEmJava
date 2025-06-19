@@ -156,7 +156,7 @@ public class SaveLoad {
 						screen.obj[mapNum][i].worldX = datastorage.mapObjectWorldX[mapNum][i];
 						screen.obj[mapNum][i].worldY = datastorage.mapObjectWorldY[mapNum][i];
 						if(datastorage.mapObjectLootNames[mapNum][i] != null) {
-							screen.obj[mapNum][i].loot = screen.eGenerator.getObject(datastorage.mapObjectLootNames[mapNum][i]);
+							screen.obj[mapNum][i].setLoot(screen.eGenerator.getObject(datastorage.mapObjectLootNames[mapNum][i]));
 						}
 						screen.obj[mapNum][i].collision = datastorage.mapObjectCollision[mapNum][i];
 						screen.obj[mapNum][i].openDoorNum = datastorage.mapOpenDoorNum[mapNum][i];

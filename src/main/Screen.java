@@ -104,7 +104,7 @@ public class Screen extends JPanel implements Runnable{
 	}
 	
 	public void resetGame(boolean restart) {
-		player.setDefaultPositions();
+		player.setRespawnPosition();
 		player.restoreStatus();
 		player.resetCounter();
 		npcPlacer.placeNPC();

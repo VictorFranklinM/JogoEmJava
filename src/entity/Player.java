@@ -27,6 +27,13 @@ public class Player extends Entity{
 	
 	private int standingCounter = 0;
 	
+	private static final int spawnX = Screen.tileSize * 25;
+	private static final int spawnY = Screen.tileSize * 37;
+	private static final int spawnMap = 0;
+	public int respawnX = spawnX;
+	public int respawnY = spawnY;
+	public int respawnMap = spawnMap;
+	
 	public Player(Screen screen, KeyInput keyInput) {
 		super(screen);
 		this.screen = screen;
@@ -57,8 +64,9 @@ public class Player extends Entity{
 	}
 	
 	public void setDefaultValues() {
-		worldX = Screen.tileSize * 25; // REMEMBER TO CHANGE SETDEFAULTPOSITIONS()
-		worldY = Screen.tileSize * 37;
+		Screen.currentMap = spawnMap;
+		worldX = spawnX;
+		worldY = spawnY;
 		defaultSpeed = 5;
 		speed = defaultSpeed;
 		facing = "down";
@@ -90,9 +98,11 @@ public class Player extends Entity{
 		setDialogue();
 	}
 	
-	public void setDefaultPositions() {
-		worldX = Screen.tileSize * 25; // CHANGE ON FINAL VERSION
-		worldY = Screen.tileSize * 37;
+	public void setRespawnPosition() {
+		// CHANGE ON FINAL VERSION
+		Screen.currentMap = respawnMap;
+		worldX = respawnX;
+		worldY = respawnY;
 		facing = "down";
 	}
 	

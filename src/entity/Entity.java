@@ -758,10 +758,11 @@ public class Entity {
 		
 	}
 	
-	public void movementLogic() {
+	
+	public void movementLogic(int movementInterval) {
 		actionLockCounter++;
 		
-		if(actionLockCounter == 45) {
+		if(actionLockCounter == movementInterval) {
 			Random random = new Random();
 			int i = random.nextInt(100)+1;
 		
@@ -783,27 +784,15 @@ public class Entity {
 	}
 	
 	public void followLogic() {
-		if(onPath == true) {
-			
-			int goalCol = (screen.player.worldX + screen.player.collisionArea.x) / Screen.tileSize;
-			int goalRow = (screen.player.worldY + screen.player.collisionArea.y) / Screen.tileSize;
-			searchPath(goalCol,goalRow);
-		
-		}else{
-			movementLogic();
-		
-		}
+		int goalCol = (screen.player.worldX + screen.player.collisionArea.x) / Screen.tileSize;
+		int goalRow = (screen.player.worldY + screen.player.collisionArea.y) / Screen.tileSize;
+		searchPath(goalCol,goalRow);
 	}
 	
-	public void destinedMovement(int col,int row) {
-		if(onPath == true) {
-			int goalCol = col;
-			int goalRow = row;
-			searchPath(goalCol,goalRow);
-		}else {
-			movementLogic();
-		}
-		
+	public void destinedMovement(int col, int row) {
+		int goalCol = col;
+		int goalRow = row;
+		searchPath(goalCol,goalRow);
 	}
 	
 	public int getDetected(Entity user, Entity target[][], String targetName) {

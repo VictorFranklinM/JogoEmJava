@@ -51,12 +51,12 @@ public class En_Decarabia extends Entity{
 	}
 	
 	public void setAction() {
-		followLogic();
-		
 		if(onPath) {
+			followLogic();
 			loseAgro(screen.player, 15, 100);
 		}
 		else if(!onPath){
+			movementLogic(45);
 			getAgro(screen.player, 5, 25);
 		}
 	}

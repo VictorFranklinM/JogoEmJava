@@ -63,6 +63,6 @@ public class NPC_BlackFrost extends Entity{
 	
 	@Override
 	public void setAction() {
-		movementLogic();
+		movementLogic(45);
 	}
 }

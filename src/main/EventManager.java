@@ -129,6 +129,9 @@ public class EventManager {
 			eventMaster.startDialogue(eventMaster,1);
 			screen.player.hp = screen.player.maxHP;
 			screen.player.mana = screen.player.maxMana;
+			screen.player.respawnMap = Screen.currentMap;
+			screen.player.respawnX = screen.player.worldX;
+			screen.player.respawnY = screen.player.worldY;
 			screen.npcPlacer.placeEnemy();
 			screen.saveLoad.save();
 		}

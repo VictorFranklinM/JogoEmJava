@@ -61,6 +61,6 @@ public class NPC_JackFrost extends Entity{
 	
 	@Override
 	public void setAction() {
-		movementLogic();
+		movementLogic(45);
 	}
 }

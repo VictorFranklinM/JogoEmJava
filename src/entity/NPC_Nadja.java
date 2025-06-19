@@ -78,6 +78,6 @@ public class NPC_Nadja extends Entity{
 	
 	@Override
 	public void setAction() {
-		movementLogic();
+		movementLogic(45);
 	}
 }

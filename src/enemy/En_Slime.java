@@ -58,13 +58,13 @@ public class En_Slime extends Entity{
 	}
 	
 	public void setAction() {
-		followLogic();
-		
 		if(onPath) {
+			followLogic();
 			loseAgro(screen.player, 15, 100);
 		}
 		else if(!onPath){
-			getAgro(screen.player, 5, 50);
+			movementLogic(45);
+			getAgro(screen.player, 5, 25);
 		}
 	}
 	
