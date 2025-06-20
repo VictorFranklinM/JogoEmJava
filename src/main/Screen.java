@@ -13,6 +13,7 @@ import java.util.Comparator;
 import javax.swing.JPanel;
 
 import ai.PathFinder;
+import data.Progress;
 import data.SaveLoad;
 import entity.Entity;
 import entity.Player;
@@ -102,7 +103,6 @@ public class Screen extends JPanel implements Runnable{
 	public void setupGame() {
 		objPlacer.placeObject();
 		npcPlacer.placeNPC();
-		npcPlacer.placeEnemy();
 		playMusic(4);
 		gameState = titleState;
 	}
@@ -119,6 +119,8 @@ public class Screen extends JPanel implements Runnable{
 		if(restart == true) {
 			player.setDefaultValues();
 			player.currentMagatama = null;
+			player.hasMaga = 0;
+			Progress.matadorDefeated = false;
 			objPlacer.placeObject();
 			playMusic(4);
 		} else {

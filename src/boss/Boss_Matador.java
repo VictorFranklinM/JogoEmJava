@@ -2,8 +2,10 @@ package boss;
 
 import java.awt.Rectangle;
 
+import data.Progress;
 import entity.Entity;
 import main.Screen;
+import object.OBJ_IronDoor;
 
 public class Boss_Matador extends Entity{
 	
@@ -30,9 +32,9 @@ public class Boss_Matador extends Entity{
 		
 		collisionArea = new Rectangle();
 		collisionArea.x = (5 * Screen.scale);
-		collisionArea.y = (2 * Screen.scale);
+		collisionArea.y = (8 * Screen.scale);
 		collisionArea.width = (19 * Screen.scale);
-		collisionArea.height = (30 * Screen.scale);
+		collisionArea.height = (24 * Screen.scale);
 
 		motion1Duration = 40;
 		motion2Duration = 100;
@@ -145,5 +147,21 @@ public class Boss_Matador extends Entity{
 	
 	public void damageReaction() {
 		actionLockCounter = 0;
+	}
+	
+	public void checkDrop() {
+		
+		screen.bossBattleOn = false;
+		Progress.matadorDefeated = true;
+		
+		screen.stopMusic();
+		screen.playMusic(2); // Change to the dungeon music later
+		
+		for(int i = 0; i < screen.obj[1].length; i++) {
+			if(screen.obj[Screen.currentMap][i] != null && screen.obj[Screen.currentMap][i].name.equals(OBJ_IronDoor.objName)) {
+				screen.playSFX(15);
+				screen.obj[Screen.currentMap][i] = null;
+			}
+		}
 	}
 }

@@ -1,5 +1,6 @@
 package main;
 
+import data.Progress;
 import entity.Entity;
 
 public class EventManager {
@@ -163,7 +164,7 @@ public class EventManager {
 	}
 	
 	public void matadorCutscene() {
-		if(!screen.bossBattleOn) {
+		if(!screen.bossBattleOn && !Progress.matadorDefeated) {
 			screen.gameState = Screen.cutsceneState;
 			screen.cutsceneManager.scenePhase = 0;
 			screen.cutsceneManager.sceneNum = screen.cutsceneManager.matador;

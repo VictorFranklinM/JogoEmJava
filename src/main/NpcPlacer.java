@@ -5,6 +5,7 @@ import entity.NPC_JackFrost;
 import entity.NPC_Merchant;
 import entity.NPC_Nadja;
 import boss.Boss_Matador;
+import data.Progress;
 import enemy.En_Decarabia;
 import enemy.En_Fomorian;
 import enemy.En_Goblin;
@@ -82,9 +83,12 @@ public class NpcPlacer {
 		i = 0;
 		mapNum = 3;
 		
-		screen.enemy[mapNum][i] = new Boss_Matador(screen);
-		screen.enemy[mapNum][i].worldX = 131 * Screen.tileSize;
-		screen.enemy[mapNum][i].worldY = 119 * Screen.tileSize;
-		i++;
+		if(!Progress.matadorDefeated) {
+			screen.enemy[mapNum][i] = new Boss_Matador(screen);
+			screen.enemy[mapNum][i].worldX = 131 * Screen.tileSize;
+			screen.enemy[mapNum][i].worldY = 119 * Screen.tileSize;
+			i++;
+		}
+		
 	}
 }

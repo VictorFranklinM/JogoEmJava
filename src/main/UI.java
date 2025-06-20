@@ -48,6 +48,8 @@ public class UI {
 	int subState = 0;
 	int counter = 0;
 	
+	public boolean isCutsceneDialogue = false;
+	
 	int charIndex = 0;
 	String combinedText = "";
 	int charSoundCounter = 0;
@@ -603,10 +605,14 @@ public class UI {
 			npc.dialogueIndex = 0;
 			
 			if (screen.gameState == Screen.dialogueState) {
-				screen.gameState = Screen.playState;
-			}
-			if(screen.gameState == Screen.cutsceneState) {
-				screen.cutsceneManager.scenePhase++;
+				if(isCutsceneDialogue) {
+					isCutsceneDialogue = false;
+					screen.gameState = Screen.cutsceneState;
+					screen.cutsceneManager.scenePhase++;
+				}
+				else {
+					screen.gameState = Screen.playState;
+				}
 			}
 		}
 		
@@ -1082,7 +1088,7 @@ public class UI {
 						monster.hpBarOn = false;
 					}
 				}
-				else if(monster.isBoss) {
+				else if(monster.isBoss && !monster.sleep) {
 					double hpScale = (double) Screen.tileSize*14/monster.maxHP;
 					double hpBarValue = hpScale*monster.hp;
 					
