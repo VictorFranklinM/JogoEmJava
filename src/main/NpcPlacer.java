@@ -88,7 +88,14 @@ public class NpcPlacer {
 			screen.enemy[mapNum][i].worldX = 131 * Screen.tileSize;
 			screen.enemy[mapNum][i].worldY = 119 * Screen.tileSize;
 			i++;
-		}
-		
+		}	
+	}
+	
+	public void clearEnemies() {
+	    for (int map = 0; map < Screen.maxMap; map++) {
+	        for (int i = 0; i < screen.enemy[map].length; i++) {
+	            screen.enemy[map][i] = null;
+	        }
+	    }
 	}
 }

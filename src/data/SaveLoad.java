@@ -185,6 +185,17 @@ public class SaveLoad {
 					}
 				}
 			}
+			
+			// Reset dialogos
+			for (int i = 0; i < screen.npc[Screen.currentMap].length; i++) {
+			    if (screen.npc[Screen.currentMap][i] != null) {
+			        screen.npc[Screen.currentMap][i].setTextLines();
+			        screen.npc[Screen.currentMap][i].dialogueIndex = 0;
+			    }
+			}
+			screen.ui.charIndex = 0;
+			screen.ui.combinedText = "";
+			screen.ui.currentSpeechLine = "";
 		}
 		catch(Exception e) {
 			e.printStackTrace();

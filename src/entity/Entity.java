@@ -79,7 +79,7 @@ public class Entity {
 	public int dialoguesQuantity = 20;
 	public int actionLockCounter = 0;
 	
-	public String dialogues[][] = new String[dialoguesQuantity][dialoguesQuantity]; 
+	public String dialogues[][] = new String[dialoguesQuantity][dialoguesQuantity];
 	public int dialogueIndex = 0;
 	public int dialogueSet = 0;
 	
@@ -195,6 +195,8 @@ public class Entity {
 	public void setLoot (Entity loot) {} // CHEST LOOT
 	
 	public void setAction() {}
+	
+	public void setTextLines() {}
 	
 	public boolean use(Entity entity) {return false;}
 	

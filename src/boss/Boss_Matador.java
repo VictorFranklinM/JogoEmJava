@@ -113,7 +113,7 @@ public class Boss_Matador extends Entity{
 	
 	public void setDialogue() {
 		dialogues[0][0] = "You search for the Force Magatama...\nThen, like me, you must be seeking supreme\npower.";
-		dialogues[0][1] = "That I cannot allow. Only the greatest warrior\nis worthy of such power.";
+		dialogues[0][1] = "That, I cannot allow. Only the greatest warrior\nis worthy of such power.";
 		dialogues[0][2] = "One who, amidst blood and applause, has put an\nend to countless lives...";
 		dialogues[0][3] = "That warrior is I, Matador!";
 		dialogues[0][4] = "It's unfortunate that we have no spectators,\nbut I believe this will be an excellent show\nregardless.";

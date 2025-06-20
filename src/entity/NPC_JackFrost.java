@@ -14,6 +14,7 @@ public class NPC_JackFrost extends Entity{
 		super(screen);
 		facing = "down";
 		speed = defaultSpeed;
+		dialogueSet = -1;
 		getImage();
 		setTextLines();
 		collisionArea = new Rectangle();

@@ -121,6 +121,7 @@ public class KeyInput implements KeyListener {
 	    	}
 	    	if(screen.ui.commandNum == 1) {
 	    		screen.saveLoad.load();
+	    		screen.npcPlacer.clearEnemies();
 	    		screen.npcPlacer.placeEnemy();
 	    		screen.gameState = Screen.playState;
 	    		screen.playSFX(1);

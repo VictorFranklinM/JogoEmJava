@@ -50,8 +50,8 @@ public class UI {
 	
 	public boolean isCutsceneDialogue = false;
 	
-	int charIndex = 0;
-	String combinedText = "";
+	public int charIndex = 0;
+	public String combinedText = "";
 	int charSoundCounter = 0;
 	
 	public UI(Screen screen) {
@@ -572,9 +572,15 @@ public class UI {
 		x += Screen.tileSize;
 		y += Screen.tileSize;
 		
-		if(npc.dialogues[npc.dialogueSet][npc.dialogueIndex] != null) {
+		if(npc != null &&
+				npc.dialogueSet >= 0 &&
+				npc.dialogueSet < npc.dialogues.length &&
+				npc.dialogues[npc.dialogueSet] != null &&
+				npc.dialogueIndex >= 0 &&
+				npc.dialogueIndex < npc.dialogues[npc.dialogueSet].length &&
+				npc.dialogues[npc.dialogueSet][npc.dialogueIndex] != null) {
 			
-			// This shows the whole dialogue instead of letter by letter.
+			// This shows the whole dialogue at once instead of letter by letter.
 			//currentSpeechLine = npc.dialogues[npc.dialogueSet][npc.dialogueIndex];
 			
 			char characters[] = npc.dialogues[npc.dialogueSet][npc.dialogueIndex].toCharArray();
@@ -603,6 +609,9 @@ public class UI {
 			}
 		} else {
 			npc.dialogueIndex = 0;
+			charIndex = 0;
+			combinedText = "";
+			currentSpeechLine = "";
 			
 			if (screen.gameState == Screen.dialogueState) {
 				if(isCutsceneDialogue) {

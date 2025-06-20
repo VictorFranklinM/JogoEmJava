@@ -13,6 +13,7 @@ public class NPC_BlackFrost extends Entity{
 		super(screen);
 		facing = "down";
 		speed = defaultSpeed;
+		dialogueSet = -1;
 		getImage();
 		setTextLines();
 		collisionArea = new Rectangle();
@@ -29,6 +30,10 @@ public class NPC_BlackFrost extends Entity{
 		screen.ui.setFace(face);
 		super.facePlayer();
 		super.startDialogue(this, dialogueSet);
+		dialogueSet++;
+		if (dialogues[dialogueSet][0] == null) {
+			dialogueSet--;
+		}
 	}
 	
 	public void setTextLines() {
@@ -36,10 +41,6 @@ public class NPC_BlackFrost extends Entity{
 		dialogues[0][1] = "Have you heard about the Magatamas?";
 		dialogues[0][2] = "They look like spirals -ho!";
 		dialogues[0][3] = "Some people are saying they can even let you\nuse magic-hoo!";
-		dialogueSet++;
-		if (dialogues[dialogueSet][0] == null) {
-			dialogueSet--;
-		}
 	}
 	
 	public void getImage() {
