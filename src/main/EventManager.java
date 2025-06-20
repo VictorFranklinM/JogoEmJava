@@ -64,17 +64,20 @@ public class EventManager {
 			canTouchEvent = true;
 		}
 		
-		if(canTouchEvent == true) {
+		if(canTouchEvent) {
 			// In order to change the map music you need to write screen.stopMusic() inside the brackeys after switchMap(x, y, z)
 			//	and after that, write screen.playMusic(x), samething when you go back to the world map.
-			if(hit(0, 26, 18, "up") == true) {switchMap(1, 17, 37);} // Dungeon 
-			else if(hit(1, 17, 37, "down") == true) {switchMap(0, 26, 18);} // Map
-			else if(hit(1, 17, 25, "any") == true) {healingPoint(Screen.dialogueState);} // Save
-			else if(hit(1, 17, 26, "any") == true) {healingPoint(Screen.dialogueState);} // Save
-			else if(hit(1, 27, 35, "any") == true) {switchMap(2, 17, 26);} // Dungeon -> B1
-			else if(hit(2, 17, 26, "any") == true) {switchMap(1, 27, 35);} // B1 -> Dungeon
-			else if(hit(2, 18, 35, "any") == true) {switchMap(3, 11, 35);} // B1 -> B2
-			else if(hit(3, 11, 35, "any") == true) {switchMap(2, 18, 35);} // B2 -> B1
+			
+			if(hit(0, 26, 18, "up")) {switchMap(1, 17, 37);} // Dungeon 
+			else if(hit(1, 17, 37, "down")) {switchMap(0, 26, 18);} // Map
+			else if(hit(1, 17, 25, "any")) {healingPoint(Screen.dialogueState);} // Save
+			else if(hit(1, 17, 26, "any")) {healingPoint(Screen.dialogueState);} // Save
+			else if(hit(1, 27, 35, "any")) {switchMap(2, 17, 26);} // Dungeon -> B1
+			else if(hit(2, 17, 26, "any")) {switchMap(1, 27, 35);} // B1 -> Dungeon
+			else if(hit(2, 18, 35, "any")) {switchMap(3, 123, 144);} // B1 -> B2
+			else if(hit(3, 123, 144, "any")) {switchMap(2, 18, 35);} // B2 -> B1
+			else if(hit(3, 134, 143, "any")) {healingPoint(Screen.dialogueState);} // Save (B2)
+			else if(hit(3, 131, 128, "any")) {matadorCutscene();}
 		}
 		
 		
@@ -122,7 +125,7 @@ public class EventManager {
 	}
 	
 	public void healingPoint(int gameState) {
-		if(screen.key.ePressed == true) {
+		if(screen.key.ePressed) {
 			screen.player.canAttack = false;
 			screen.gameState = gameState;
 			screen.playSFX(1);
@@ -156,6 +159,14 @@ public class EventManager {
 		    if (screen.npc[Screen.currentMap][i] != null) {
 		        screen.npc[Screen.currentMap][i].dialogueSet = -1;
 		    }
+		}
+	}
+	
+	public void matadorCutscene() {
+		if(!screen.bossBattleOn) {
+			screen.gameState = Screen.cutsceneState;
+			screen.cutsceneManager.scenePhase = 0;
+			screen.cutsceneManager.sceneNum = screen.cutsceneManager.matador;
 		}
 	}
 }

@@ -38,10 +38,24 @@ public class Screen extends JPanel implements Runnable{
 	public static final int maxMap = 10;
 	public static int currentMap = 0;
 	
-	public static final int objPerScreen = 10;
+	public static final int objPerScreen = 20;
 	public static final int ovrPerScreen = 40;
 	public static final int npcPerScreen = 10;
 	public static final int enemyPerScreen = 20;
+	
+	public int gameState;
+	public static final int titleState = 0;
+	public static final int playState = 1;
+	public static final int dialogueState = 2;
+	public static final int statusState = 3;
+	public static final int optionsState = 4;
+	public static final int gameOverState = 5;
+	public static final int transitionState = 6;
+	public static final int tradeState = 7;
+	public static final int mapState = 8;
+	public static final int cutsceneState = 9;
+	
+	public boolean bossBattleOn = false;
 	
 	// Sound
 	Sound music = new Sound();
@@ -57,6 +71,7 @@ public class Screen extends JPanel implements Runnable{
 	
 	public CollisionChecker colCheck = new CollisionChecker(this);
 	public EventManager eventManager = new EventManager(this);
+	public CutsceneManager cutsceneManager = new CutsceneManager(this);
 	
 	public ObjPlacer objPlacer = new ObjPlacer(this);
 	public NpcPlacer npcPlacer = new NpcPlacer(this);
@@ -73,17 +88,6 @@ public class Screen extends JPanel implements Runnable{
 	Map map = new Map(this);
 	SaveLoad saveLoad = new SaveLoad(this);
 	public EntityGenerator eGenerator = new EntityGenerator(this);
-	
-	public int gameState;
-	public static final int titleState = 0;
-	public static final int playState = 1;
-	public static final int dialogueState = 2;
-	public static final int statusState = 3;
-	public static final int optionsState = 4;
-	public static final int gameOverState = 5;
-	public static final int transitionState = 6;
-	public static final int tradeState = 7;
-	public final static int mapState = 8;
 	
 	int fps = 60;
 	
@@ -105,6 +109,8 @@ public class Screen extends JPanel implements Runnable{
 	
 	public void resetGame(boolean restart) {
 		player.setRespawnPosition();
+		removeTempObject();
+		bossBattleOn = false;
 		player.restoreStatus();
 		player.resetCounter();
 		npcPlacer.placeNPC();
@@ -263,6 +269,8 @@ public class Screen extends JPanel implements Runnable{
     		
     		map.drawMiniMap(g2);
     		
+    		cutsceneManager.draw(g2);
+    		
         	ui.draw(g2);
         	
         	//DEBUG
@@ -291,7 +299,16 @@ public class Screen extends JPanel implements Runnable{
         	}
     	}
         g2.dispose();
-
+    }
+    
+    public void removeTempObject() {
+    	for(int mapNum = 0; mapNum < maxMap; mapNum++) {
+    		for(int i = 0; i < obj[1].length; i++) {
+    			if(obj[mapNum][i] != null && obj[mapNum][i].temp) {
+    				obj[mapNum][i] = null;
+    			}
+    		}
+    	}
     }
 
 	public void run() {
@@ -331,7 +348,7 @@ public class Screen extends JPanel implements Runnable{
 		sfx.play();
 	}
 	
-	public void stopSFX(int i) {
+	public void stopSFX() {
 		sfx.stop();
 	}
 	

@@ -55,13 +55,13 @@ public class OBJ_Lever extends Entity{
 	    }
 	    
 	    changeDoorState(this.openDoorNum);
+	    screen.playSFX(15);
 	}
 	
 	public void changeDoorState(int openDoorNum) {
 		for(int i = 0; i < screen.obj[1].length; i++) {
 			if(screen.obj[Screen.currentMap][i] != null && screen.obj[Screen.currentMap][i].doorNum == openDoorNum) {
 				screen.obj[Screen.currentMap][i].opened = !screen.obj[Screen.currentMap][i].opened;
-				screen.playSFX(1);
 				if(screen.obj[Screen.currentMap][i].opened) {
 					screen.obj[Screen.currentMap][i].spriteNum = 2;
 					screen.obj[Screen.currentMap][i].collision = false;

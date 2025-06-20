@@ -24,6 +24,7 @@ public class ObjPlacer extends Entity {
 }
 	
 	public void placeObject() {
+		// WORLD MAP
 		int i = 0;
 		int mapNum = 0;
 
@@ -69,13 +70,10 @@ public class ObjPlacer extends Entity {
 		screen.obj[mapNum][i].worldY = 31 * Screen.tileSize;
 		i++;
 		
+		// GREEN DUNGEON ENTRANCE
 		mapNum = 1;
 		i = 0;
 		
-		screen.obj[mapNum][i] = new OBJ_MagaGreen(screen);
-		screen.obj[mapNum][i].worldX = 19 * Screen.tileSize;
-		screen.obj[mapNum][i].worldY = 32 * Screen.tileSize;
-		i++;
 		screen.obj[mapNum][i] = new OBJ_SpecialKey(screen);
 		screen.obj[mapNum][i].worldX = 17 * Screen.tileSize;
 		screen.obj[mapNum][i].worldY = 32 * Screen.tileSize;
@@ -89,6 +87,7 @@ public class ObjPlacer extends Entity {
 		screen.overlay[mapNum][i].worldY = 25 * Screen.tileSize;
 		i++;
 		
+		// GREEN DUNGEON B1
 		mapNum = 2;
 		i = 0;
 
@@ -104,6 +103,23 @@ public class ObjPlacer extends Entity {
 		screen.obj[mapNum][i] = new OBJ_Lever(screen, 1);
 		screen.obj[mapNum][i].worldX = 16 * Screen.tileSize;
 		screen.obj[mapNum][i].worldY = 24 * Screen.tileSize;
+		i++;
+		
+		// GREEN DUNGEON B2
+		mapNum = 3;
+		i = 0;
+		
+		screen.obj[mapNum][i] = new OBJ_MagaGreen(screen);
+		screen.obj[mapNum][i].worldX = 131 * Screen.tileSize;
+		screen.obj[mapNum][i].worldY = 105 * Screen.tileSize;
+		i++;
+		screen.overlay[mapNum][i] = new OVR_Sparkle(screen);
+		screen.overlay[mapNum][i].worldX = 134 * Screen.tileSize;
+		screen.overlay[mapNum][i].worldY = 143 * Screen.tileSize;
+		i++;
+		screen.obj[mapNum][i] = new OBJ_IronDoor(screen);
+		screen.obj[mapNum][i].worldX = 131 * Screen.tileSize;
+		screen.obj[mapNum][i].worldY = 115 * Screen.tileSize;
 		i++;
 	}
 	public void getImage(){

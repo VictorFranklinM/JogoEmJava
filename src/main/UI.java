@@ -246,7 +246,7 @@ public class UI {
 				}
 			}	
 				
-			}
+		}
 	}
 
 	public void tradeSell() {
@@ -565,8 +565,6 @@ public class UI {
 
 		    g2.drawImage(face, faceX+8, y+8, faceSize, faceSize, null);
 		}
-
-
 		
 		g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 40F));
 		x += Screen.tileSize;
@@ -596,7 +594,7 @@ public class UI {
 				charIndex = 0;
 				combinedText = "";
 				
-				if (screen.gameState == Screen.dialogueState) {
+				if (screen.gameState == Screen.dialogueState || screen.gameState == Screen.cutsceneState) {
 					npc.dialogueIndex++;
 					screen.key.enterPressed = false;
 				}
@@ -606,6 +604,9 @@ public class UI {
 			
 			if (screen.gameState == Screen.dialogueState) {
 				screen.gameState = Screen.playState;
+			}
+			if(screen.gameState == Screen.cutsceneState) {
+				screen.cutsceneManager.scenePhase++;
 			}
 		}
 		
@@ -1062,8 +1063,8 @@ public class UI {
 			
 			Entity monster = screen.enemy[Screen.currentMap][index];
 			
-			if(monster != null) {
-				if(monster.hpBarOn && !monster.isBoss && monster.inCamera()) {
+			if(monster != null && monster.inCamera()) {
+				if(monster.hpBarOn && !monster.isBoss) {
 					double hpScale = (double) Screen.tileSize/monster.maxHP;
 					double hpBarValue = hpScale*monster.hp;
 					

@@ -700,7 +700,9 @@ public class Player extends Entity{
 		if(isTransparent == true) {
 			 changeSpriteOpacity(g2, 0.4f);
 		}
-		g2.drawImage(image, tempScreenX, tempScreenY, null);
+		if(drawing) {
+			g2.drawImage(image, tempScreenX, tempScreenY, null);
+		}
 		
 		changeSpriteOpacity(g2, 1f);
 		

@@ -36,7 +36,7 @@ public class KeyInput implements KeyListener {
 		}
 		
 		//DIALOGUE STATE
-		else if(screen.gameState == Screen.dialogueState) {
+		else if(screen.gameState == Screen.dialogueState || screen.gameState == Screen.cutsceneState) {
 			dialogueState(code);
 		}
 		//STATUS STATE

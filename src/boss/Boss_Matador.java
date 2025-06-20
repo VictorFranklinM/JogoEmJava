@@ -26,6 +26,7 @@ public class Boss_Matador extends Entity{
 		exp = 5; // Change later
 		knockBackPower = 5;
 		isBoss = true;
+		sleep = true;
 		
 		collisionArea = new Rectangle();
 		collisionArea.x = (5 * Screen.scale);
@@ -45,11 +46,13 @@ public class Boss_Matador extends Entity{
         
         getImage();
         getAttackImage();
+        setDialogue();
 	}
 	
 	public void getImage() {
 		
 		if(!enraged) {
+			face = setup("/bosses/matador/Matador-Face",Screen.tileSize, Screen.tileSize);
 			up1 = setup("/bosses/matador/Matador-Up-1",Screen.tileSize*size, Screen.tileSize*size);
 			up2 = setup("/bosses/matador/Matador-Up-2",Screen.tileSize*size, Screen.tileSize*size);
 			up3 = setup("/bosses/matador/Matador-Up-3",Screen.tileSize*size, Screen.tileSize*size);
@@ -104,6 +107,14 @@ public class Boss_Matador extends Entity{
 			attackRight2 = setup("/bosses/matador/Matador-AttackDown-2-Phase2", Screen.tileSize*size*2, Screen.tileSize*size);
 		}
 		*/
+	}
+	
+	public void setDialogue() {
+		dialogues[0][0] = "You search for the Force Magatama...\nThen, like me, you must be seeking supreme\npower.";
+		dialogues[0][1] = "That I cannot allow. Only the greatest warrior\nis worthy of such power.";
+		dialogues[0][2] = "One who, amidst blood and applause, has put an\nend to countless lives...";
+		dialogues[0][3] = "That warrior is I, Matador!";
+		dialogues[0][4] = "It's unfortunate that we have no spectators,\nbut I believe this will be an excellent show\nregardless.";
 	}
 	
 	public void setAction() {

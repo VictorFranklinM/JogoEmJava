@@ -59,7 +59,10 @@ public class Entity {
 	
 	public boolean onPath = false;
 	public boolean enraged = false;
+	public boolean sleep = false;
 	public boolean isBoss = false;
+	public boolean temp = false;
+	public boolean drawing = true;
 	
 	public String knockBackDirection;
 	public boolean knockBack = false;
@@ -70,7 +73,7 @@ public class Entity {
 	public boolean opened = false;
 	public boolean unlocked = false;
 	public int doorNum = -1;
-	public int openDoorNum = -1;
+	public int openDoorNum = -2;
 	
 	// DIALOGUES STATUS
 	public int dialoguesQuantity = 20;
@@ -210,89 +213,90 @@ public class Entity {
 	}
 	
 	public void update() {
-		
-		if(knockBack == true) {
-			
-			checkCollision();
-			if (collision == true) {
-				knockBackCounter = 0;
-				knockBack = false;
-				speed = defaultSpeed;
-			}
-			else if(collision == false) {
-				switch(knockBackDirection) {
-				case "up": worldY -= speed;
-				break;
-				case "down": worldY += speed;
-				break;
-				case "left": worldX -= speed;
-				break;
-				case "right": worldX += speed;
-				break;
+		if(!sleep) {
+			if(knockBack) {
+				
+				checkCollision();
+				if (collision) {
+					knockBackCounter = 0;
+					knockBack = false;
+					speed = defaultSpeed;
 				}
-			}
-			
-			knockBackCounter++;
-			if(knockBackCounter == 10) {
-				knockBackCounter = 0;
-				knockBack = false;
-				speed = defaultSpeed;
-			}
-			
-		}
-		else if(attacking) {
-			attack();
-		}
-		else {
-			setAction();
-			checkCollision();
-			if(collision == false) {
-				switch(facing) {
-				case "up": worldY -= speed;
-				break;
-				case "down": worldY += speed;
-				break;
-				case "left": worldX -= speed;
-				break;
-				case "right": worldX += speed;
-				break;
+				else if(!collision) {
+					switch(knockBackDirection) {
+					case "up": worldY -= speed;
+					break;
+					case "down": worldY += speed;
+					break;
+					case "left": worldX -= speed;
+					break;
+					case "right": worldX += speed;
+					break;
+					}
 				}
+				
+				knockBackCounter++;
+				if(knockBackCounter == 10) {
+					knockBackCounter = 0;
+					knockBack = false;
+					speed = defaultSpeed;
+				}
+				
 			}
-			if(collision == true) {
-	    		isMoving = false;
-	    		spriteNum = 1;
-	    	} else {
-	    		spriteCounter++;
-	    	}
-	    	
-	    	if(spriteCounter > 10) {
-	    		if(spriteNum == 1) {
-	    			spriteNum = 2;
-	    		}
-	    		else if(spriteNum == 2) {
-	    			spriteNum = 3;
-	    		}
-	    		else if(spriteNum == 3) {
-	    			spriteNum = 1;
-	    		}
-	    		spriteCounter = 0;
-	    	}  	
-		}
-		if(isInvincible == true) {
-	    	invincibilityTimer++;
-	    	if(invincibilityTimer > 30) {
-	    		isInvincible = false;
-	    		invincibilityTimer = 0;
-	    	}
-		}
-		if(spellCooldown > 0) {
-		    	spellCooldown--;
-		}
-		if(stunned) {
-			stunnedCounter++;
-			if(stunnedCounter > 60) {
-				stunned = false;
-				stunnedCounter = 0;
+			else if(attacking) {
+				attack();
+			}
+			else {
+				setAction();
+				checkCollision();
+				if(!collision) {
+					switch(facing) {
+					case "up": worldY -= speed;
+					break;
+					case "down": worldY += speed;
+					break;
+					case "left": worldX -= speed;
+					break;
+					case "right": worldX += speed;
+					break;
+					}
+				}
+				if(collision) {
+		    		isMoving = false;
+		    		spriteNum = 1;
+		    	} else {
+		    		spriteCounter++;
+		    	}
+		    	
+		    	if(spriteCounter > 10) {
+		    		if(spriteNum == 1) {
+		    			spriteNum = 2;
+		    		}
+		    		else if(spriteNum == 2) {
+		    			spriteNum = 3;
+		    		}
+		    		else if(spriteNum == 3) {
+		    			spriteNum = 1;
+		    		}
+		    		spriteCounter = 0;
+		    	}  	
+			}
+			if(isInvincible) {
+		    	invincibilityTimer++;
+		    	if(invincibilityTimer > 30) {
+		    		isInvincible = false;
+		    		invincibilityTimer = 0;
+		    	}
+			}
+			if(spellCooldown > 0) {
+			    	spellCooldown--;
+			}
+			if(stunned) {
+				stunnedCounter++;
+				if(stunnedCounter > 60) {
+					stunned = false;
+					stunnedCounter = 0;
+				}
 			}
 		}
 	}
