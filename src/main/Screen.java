@@ -113,20 +113,25 @@ public class Screen extends JPanel implements Runnable{
 		removeTempObject();
 		bossBattleOn = false;
 		player.restoreStatus();
-		player.resetCounter();
-		npcPlacer.placeNPC();
-		npcPlacer.placeEnemy();
-		stopMusic();	
+		player.resetCounter();	
 		if(restart == true) {
-			player.setDefaultValues();
 			player.currentMagatama = null;
+			player.setDefaultValues();
 			player.hasMaga = 0;
 			Progress.matadorDefeated = false;
 			Progress.finalCutsceneDone = false;
+			npcPlacer.clearNPCS();
+			npcPlacer.clearEnemies();
+			npcPlacer.placeNPC();
+			npcPlacer.placeEnemy();
 			objPlacer.placeObject();
+			stopMusic();
 			playMusic(4);
 		} else {
+			stopMusic();
 			playMusic(2);
+			npcPlacer.placeNPC();
+			npcPlacer.placeEnemy();
 		}
 	}
 	

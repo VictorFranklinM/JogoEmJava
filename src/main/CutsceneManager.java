@@ -292,14 +292,11 @@ public class CutsceneManager {
 	    	for (int i = 0; i < screen.npc[1].length; i++) {
 	            if (screen.npc[Screen.currentMap][i] != null && screen.npc[Screen.currentMap][i] instanceof NPC_JackFrost jack) {
 	                jack.inCutscene = false;
-	                screen.npc[Screen.currentMap][i] = null;
 	                break;
 	            }
 	    	}
 	    	for(int i = 0; i < screen.npc[1].length; i++) {
-				if(screen.npc[Screen.currentMap][i] != null && screen.npc[Screen.currentMap][i] instanceof PlayerDummy dummy) {
-					screen.player.worldX = dummy.worldX;
-					screen.player.worldY = dummy.worldY;
+				if(screen.npc[Screen.currentMap][i] != null && screen.npc[Screen.currentMap][i] instanceof PlayerDummy) {
 					screen.player.spriteNum = 1;
 					screen.npc[Screen.currentMap][i] = null;
 					break;
@@ -311,8 +308,7 @@ public class CutsceneManager {
 	    	sceneNum = noCutscene;
 	    	scenePhase = noCutscene;
 	    	Progress.finalCutsceneDone = true;
-	    	screen.stopMusic();
-	    	screen.playMusic(4);
+	    	screen.resetGame(true);
 	    }
 	}
 	

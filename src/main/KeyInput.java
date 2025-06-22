@@ -259,7 +259,7 @@ public class KeyInput implements KeyListener {
 		}
 		if(code == KeyEvent.VK_ESCAPE) {
 			screen.gameState = Screen.optionsState;
-			}
+		}
 	}
 	
 	public void dialogueState(int code) {
