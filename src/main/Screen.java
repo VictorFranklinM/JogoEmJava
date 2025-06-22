@@ -103,6 +103,7 @@ public class Screen extends JPanel implements Runnable{
 	public void setupGame() {
 		objPlacer.placeObject();
 		npcPlacer.placeNPC();
+		npcPlacer.placeEnemy();
 		playMusic(4);
 		gameState = titleState;
 	}
@@ -121,6 +122,7 @@ public class Screen extends JPanel implements Runnable{
 			player.currentMagatama = null;
 			player.hasMaga = 0;
 			Progress.matadorDefeated = false;
+			Progress.finalCutsceneDone = false;
 			objPlacer.placeObject();
 			playMusic(4);
 		} else {

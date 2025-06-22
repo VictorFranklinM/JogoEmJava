@@ -114,15 +114,16 @@ public class KeyInput implements KeyListener {
 	    if(code == KeyEvent.VK_ENTER) {
 	    	if(screen.ui.commandNum == 0) {
 	    		screen.gameState = Screen.playState;
-	    		screen.npcPlacer.placeEnemy();
 	    		screen.playSFX(1);
 	    		screen.stopMusic();
 	    		screen.playMusic(2);
 	    	}
 	    	if(screen.ui.commandNum == 1) {
-	    		screen.saveLoad.load();
 	    		screen.npcPlacer.clearEnemies();
+	    		screen.npcPlacer.clearNPCS();
+	    		screen.saveLoad.load();
 	    		screen.npcPlacer.placeEnemy();
+	    		screen.npcPlacer.placeNPC();
 	    		screen.gameState = Screen.playState;
 	    		screen.playSFX(1);
 	    		screen.stopMusic();

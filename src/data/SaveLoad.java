@@ -59,8 +59,9 @@ public class SaveLoad {
 				datastorage.currentMagatamaSlot = screen.player.inventorySize+1;
 			}
 			
-			// Bosses
+			// Progress
 			datastorage.matadorDefeated = Progress.matadorDefeated;
+			datastorage.finalCutsceneDone = Progress.finalCutsceneDone;
 			
 			// Map Objects
 			datastorage.mapObjectNames = new String[Screen.maxMap][screen.obj[1].length];
@@ -158,8 +159,9 @@ public class SaveLoad {
 				screen.player.defense = screen.player.dexterity;
 			}
 			
-			// Bosses
+			// Progress
 			Progress.matadorDefeated = datastorage.matadorDefeated;
+			Progress.finalCutsceneDone = datastorage.finalCutsceneDone;
 
 			// Map Objects
 			for(int mapNum = 0; mapNum < Screen.maxMap; mapNum++) {

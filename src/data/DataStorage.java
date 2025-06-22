@@ -35,6 +35,7 @@ public class DataStorage implements Serializable{
 	
 	// Bosses Defeated
 	boolean matadorDefeated;
+	boolean finalCutsceneDone;
 	
 	// Map Objects
 	String mapObjectNames[][];

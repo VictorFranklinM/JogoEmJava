@@ -114,4 +114,12 @@ public class NpcPlacer {
 	        }
 	    }
 	}
+	
+	public void clearNPCS() {
+	    for (int map = 0; map < Screen.maxMap; map++) {
+	        for (int i = 0; i < screen.npc[map].length; i++) {
+	            screen.npc[map][i] = null;
+	        }
+	    }
+	}
 }
