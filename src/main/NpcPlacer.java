@@ -33,8 +33,8 @@ public class NpcPlacer {
 		screen.npc[mapNum][i].worldY = 37 * Screen.tileSize;
 		i++;
 		
-		mapNum = 1;
 		i = 0;
+		mapNum = 1;
 		
 		screen.npc[mapNum][i] = new NPC_Nadja(screen);
 		screen.npc[mapNum][i].worldX = 19 * Screen.tileSize;
@@ -44,6 +44,22 @@ public class NpcPlacer {
 		screen.npc[mapNum][i].worldX = 19 * Screen.tileSize;
 		screen.npc[mapNum][i].worldY = 36 * Screen.tileSize;
 		i++;
+		
+		i = 0;
+		mapNum = 2;
+		
+		i = 0;
+		mapNum = 3;
+		
+		i = 0;
+		mapNum = 4;
+		if(!Progress.finalCutsceneDone) {
+			screen.npc[mapNum][i] = new NPC_JackFrost(screen);
+			screen.npc[mapNum][i].speed = 0;
+			screen.npc[mapNum][i].worldX = 131 * Screen.tileSize;
+			screen.npc[mapNum][i].worldY = 131 * Screen.tileSize;
+			i++;
+		}
 	}
 	
 	public void placeEnemy() {
@@ -87,15 +103,6 @@ public class NpcPlacer {
 			screen.enemy[mapNum][i] = new Boss_Matador(screen);
 			screen.enemy[mapNum][i].worldX = 131 * Screen.tileSize;
 			screen.enemy[mapNum][i].worldY = 119 * Screen.tileSize;
-			i++;
-		}
-		
-		i = 0;
-		mapNum = 4;
-		if(!Progress.finalCutsceneDone) {
-			screen.npc[mapNum][i] = new NPC_JackFrost(screen);
-			screen.npc[mapNum][i].worldX = 131 * Screen.tileSize;
-			screen.npc[mapNum][i].worldY = 131 * Screen.tileSize;
 			i++;
 		}
 	}

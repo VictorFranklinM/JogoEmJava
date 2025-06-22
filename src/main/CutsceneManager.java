@@ -2,7 +2,6 @@ package main;
 
 import java.awt.AlphaComposite;
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics2D;
 
 import boss.Boss_Matador;
@@ -140,7 +139,7 @@ public class CutsceneManager {
 	        screen.map.miniMapOn = false;
 	        screen.tsm.stopTileSound();
 
-	        // Coloca dummy
+	        // Place dummy
 	        for (int i = 0; i < screen.npc[1].length; i++) {
 	            if (screen.npc[Screen.currentMap][i] == null) {
 	                screen.npc[Screen.currentMap][i] = new PlayerDummy(screen);
@@ -167,11 +166,8 @@ public class CutsceneManager {
 	        for (int i = 0; i < screen.npc[Screen.currentMap].length; i++) {
 	            if (screen.npc[Screen.currentMap][i] instanceof NPC_JackFrost jack) {
 	                jack.inCutscene = true;
-	                jack.facePlayer();
 	                screen.ui.npc = jack;
-	                screen.ui.setFace(jack.face);
 	                screen.ui.isCutsceneDialogue = true;
-	                screen.gameState = Screen.dialogueState;
 	                jack.speak();
 	                scenePhase++;
 	                break;
@@ -208,7 +204,7 @@ public class CutsceneManager {
 	    }
 	    
 	    if (scenePhase == 6) {
-	    	if(counterReached(300) == true) {
+	    	if(counterReached(300)) {
 	    		scenePhase++;
 	    	}	    	
 	    }
@@ -238,7 +234,7 @@ public class CutsceneManager {
 	    	
 	    	drawString(alpha, 55f, 200, text, 110);
 	    	
-	    	if(counterReached(700) == true) {
+	    	if(counterReached(700)) {
 	    		screen.playMusic(18);
 	    		scenePhase++;
 	    	}
@@ -249,7 +245,7 @@ public class CutsceneManager {
 	    	
 	    	drawString (1f, 80f, Screen.screenHeight/2, "Shin Megami Tensei:\nPersona VI", 80);
 	    	
-	    	if(counterReached(300) == true) {
+	    	if(counterReached(300)) {
 	    		scenePhase++;
 	    	}
 	    }
@@ -261,46 +257,57 @@ public class CutsceneManager {
 	    	
 	    	drawString(1f, 45f, y, endCredits, 50);
 	    	
-	    	if(counterReached(450) == true) {
+	    	if(counterReached(450)) {
 	    		scenePhase++;
 	    	}
 	    }
 	    
 	    if(scenePhase == 11) {
 	        drawBlackBackground(1f);
-	        y--;
-
 	        drawString(1f, 45f, y, endCredits, 50);
 
 	        int totalLines = endCredits.split("\n").length;
 	        int lastLineY = y + (totalLines - 1) * 50;
+	        
+	        if(lastLineY > Screen.screenHeight/2) {
+	        	y--;
+	        }
 
-	        if(lastLineY <= Screen.screenHeight/2) {
-	            scenePhase++;
-	            alpha = 0;
+	        else if(lastLineY <= Screen.screenHeight/2) {
+	        	if(counterReached(180)) {
+		    		scenePhase++;
+		    		alpha = 0;
+		    	}
 	        }
 	    }
 	    
 	    if(scenePhase == 12) {
-	    	// Fade out
-	    	drawBlackBackground(alpha);
-	    	alpha += 0.01f;
-	    	if(alpha >= 1f) {
-	    		alpha = 1f;
+	    	drawBlackBackground(1);
+	    	if(counterReached(180)) {
 	    		scenePhase++;
 	    	}
 	    }
 
 	    if(scenePhase == 13) {
-	    	for (int i = 0; i < screen.npc[Screen.currentMap].length; i++) {
-	            if (screen.npc[Screen.currentMap][i] instanceof NPC_JackFrost jack) {
+	    	for (int i = 0; i < screen.npc[1].length; i++) {
+	            if (screen.npc[Screen.currentMap][i] != null && screen.npc[Screen.currentMap][i] instanceof NPC_JackFrost jack) {
 	                jack.inCutscene = false;
+	                screen.npc[Screen.currentMap][i] = null;
 	                break;
 	            }
 	    	}
+	    	for(int i = 0; i < screen.npc[1].length; i++) {
+				if(screen.npc[Screen.currentMap][i] != null && screen.npc[Screen.currentMap][i] instanceof PlayerDummy dummy) {
+					screen.player.worldX = dummy.worldX;
+					screen.player.worldY = dummy.worldY;
+					screen.player.spriteNum = 1;
+					screen.npc[Screen.currentMap][i] = null;
+					break;
+				}
+			}
 	    	screen.gameState = Screen.titleState;
-	    	screen.player.drawing = false;
-	        screen.map.miniMapOn = false;
+	    	screen.player.drawing = true;
+	        screen.map.miniMapOn = true;
 	    	sceneNum = noCutscene;
 	    	scenePhase = noCutscene;
 	    	Progress.finalCutsceneDone = true;

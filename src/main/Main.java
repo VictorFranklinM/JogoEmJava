@@ -32,7 +32,7 @@ public class Main {
 	}
 	
 	public void setIcon() {
-		ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("player/face.png"));
+		ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("ui/icon.png"));
 		window.setIconImage(icon.getImage());
 	}
 }

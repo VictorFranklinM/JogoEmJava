@@ -1,15 +1,4 @@
-/data/
-/entity/
-/object/
 /main/
-/enemy/
-/objects/
-/player/
-/sound/
+/object/
 /tile/
-/tiles/
-/maps/
-/enemies/
-/npc/
-/bosses/
-/boss/
+/ui/
