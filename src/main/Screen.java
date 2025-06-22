@@ -40,7 +40,7 @@ public class Screen extends JPanel implements Runnable{
 	public static int currentMap = 0;
 	
 	public static final int objPerScreen = 20;
-	public static final int ovrPerScreen = 40;
+	public static final int ovrPerScreen = 70;
 	public static final int npcPerScreen = 10;
 	public static final int enemyPerScreen = 20;
 	

@@ -78,7 +78,12 @@ public class EventManager {
 			else if(hit(2, 18, 35, "any")) {switchMap(3, 123, 144);} // B1 -> B2
 			else if(hit(3, 123, 144, "any")) {switchMap(2, 18, 35);} // B2 -> B1
 			else if(hit(3, 134, 143, "any")) {healingPoint(Screen.dialogueState);} // Save (B2)
+			else if(hit(3, 133, 143, "any")) {healingPoint(Screen.dialogueState);} // Save (B2)
+			else if(hit(3, 129, 103, "any")) {switchMap(4, 129, 103);} // B2 -> B3
+			else if(hit(4, 129, 103, "any")) {switchMap(3, 129, 103);} // B3 -> B2
+			else if(hit(4, 131, 110, "any")) {healingPoint(Screen.dialogueState);} // Save (B3)
 			else if(hit(3, 131, 128, "any")) {matadorCutscene();}
+			else if(hit(4, 131, 123, "any")) {finalCutscene();}
 		}
 		
 		
@@ -168,6 +173,15 @@ public class EventManager {
 			screen.gameState = Screen.cutsceneState;
 			screen.cutsceneManager.scenePhase = 0;
 			screen.cutsceneManager.sceneNum = screen.cutsceneManager.matador;
+		}
+	}
+	
+	public void finalCutscene() {
+		if (!Progress.finalCutsceneDone) {
+			screen.gameState = Screen.cutsceneState;
+			screen.cutsceneManager.sceneNum = screen.cutsceneManager.ending;
+			screen.cutsceneManager.scenePhase = 0;
+			Progress.finalCutsceneDone = true;
 		}
 	}
 }

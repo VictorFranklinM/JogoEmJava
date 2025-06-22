@@ -4,20 +4,15 @@ import entity.OverlayEntity;
 import main.Screen;
 
 public class OVR_Sparkle extends OverlayEntity {
-	
-	public static final String objName = "Sparkle";
-	
-	Screen screen;
-	
+
+    public static final String objName = "Sparkle";
+
     public OVR_Sparkle(Screen screen) {
-        super(screen);
-        this.screen = screen;
+        super(screen, 10, true);
+
         name = objName;
         type = typeOverlay;
-        this.isAnimated = true;
         collision = false;
-
-        totalFrames = 10;
 
         for (int i = 0; i < totalFrames; i++) {
             frames[i] = setup("/objects/sparkle/sparkle_" + i, Screen.tileSize, Screen.tileSize);

@@ -1,16 +1,21 @@
 package main;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 public class Main {
 	
+	public static JFrame window;
+	
 	public static void main(String[] args) {
 		
-		JFrame window = new JFrame();
+		window = new JFrame();
 		Screen screen = new Screen();
 		
 		window.add(screen);
 		
 		screen.config.loadConfig();
+		
+		new Main().setIcon();
 		
 		window.setTitle("Shin Megami Tensei: Persona VI");
 		window.setUndecorated(true);
@@ -24,5 +29,10 @@ public class Main {
 	
 		screen.startGameThread();
 		
+	}
+	
+	public void setIcon() {
+		ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("player/face.png"));
+		window.setIconImage(icon.getImage());
 	}
 }

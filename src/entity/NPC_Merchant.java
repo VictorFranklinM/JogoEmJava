@@ -59,11 +59,11 @@ public class NPC_Merchant extends Entity{
 	}
 	
 	public void setTextLines() {
-		dialogues[0][0] = "Hee-lo! Lamp oil? Rope? Bombs? You want it?\nIt's yours, my friend! As long as you have\nenough Macca -Ho!";
-		dialogues[1][0] = "Thank you for your patronage!";
-		dialogues[2][0] = "Oh noo!\nGuess you're too poor to buy that -Ho!";
-		dialogues[3][0] = "Your inventory is full!\nYou should re-Heeee-ally get someone sworn\nto carry your burdens...";
-		dialogues[4][0] = "You probably shouldn't go around selling\nsacred stuff...";
+		dialogues[0][0] = "Ooh, well look who the nekomata dragged in!\nLooking for the hottest stuff in town? It's yours,\nmy friend...! If you have enough Macca, that is~";
+		dialogues[1][0] = "Thanks for spending so much, handsome!\nCome again a lot~";
+		dialogues[2][0] = "Oh noo!\nGuess you're too poor to buy that~";
+		dialogues[3][0] = "Your inventory is full!\nYou know, you should reeeeally get someone\nsworn to carry your burdens...";
+		dialogues[4][0] = "Oh, dear... You probably shouldn't go around\nselling sacred stuff like this...";
 	}
 	
 	public void setItems() {

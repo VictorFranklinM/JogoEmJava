@@ -160,7 +160,7 @@ public class SaveLoad {
 			
 			// Bosses
 			Progress.matadorDefeated = datastorage.matadorDefeated;
-			
+
 			// Map Objects
 			for(int mapNum = 0; mapNum < Screen.maxMap; mapNum++) {
 				for(int i = 0; i < screen.obj[1].length; i++) {

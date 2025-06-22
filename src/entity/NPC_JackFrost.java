@@ -7,8 +7,9 @@ import main.Screen;
 public class NPC_JackFrost extends Entity{
 	
 	private final int defaultSpeed = 1;
-	//private int specialLine = num;
-	//private int maxTextLines = num; // CHANGE IF YOU CHANGE THE DEFAULT TEXT QUANTITY		
+	private int specialLine = 1;
+	private int maxTextLines = 0; // CHANGE IF YOU CHANGE THE DEFAULT TEXT QUANTITY
+	public boolean inCutscene = false;
 			
 	public NPC_JackFrost(Screen screen) {
 		super(screen);
@@ -27,14 +28,26 @@ public class NPC_JackFrost extends Entity{
 		collisionAreaDefaultY = collisionArea.y;
 	}
 	
+	@Override
 	public void speak() {
-		screen.ui.setFace(face);
-		super.facePlayer();
-		super.startDialogue(this, dialogueSet);
-		dialogueSet++;
-		if (dialogues[dialogueSet][0] == null) {
-			dialogueSet--;
-		}
+	    screen.ui.setFace(face);
+	    super.facePlayer();
+	    
+	    if (inCutscene) {
+	        if (dialogues[specialLine] != null && dialogues[specialLine][0] != null) {
+	            super.startDialogue(this, specialLine);
+	        }
+	        return;
+	    }
+
+	    if (dialogues[dialogueSet] != null && dialogues[dialogueSet][0] != null) {
+	        super.startDialogue(this, dialogueSet);
+	    }
+
+	    dialogueSet++;
+	    if (dialogueSet >= maxTextLines) {
+	        dialogueSet = 0;
+	    }
 	}
 	
 	public void getImage() {
@@ -54,10 +67,15 @@ public class NPC_JackFrost extends Entity{
 	}
 	
 	public void setTextLines() {
-		dialogues[0][0] = "Hee-llo!\nMy name is Jack Frost!";
-		dialogues[0][1] = "I wanna tell you something -ho!";
-		dialogues[0][2] = "I heard that if you collect some magatamas, you\ncan go to another areas -ho!";
-		dialogues[0][3] = "What is a Magatama you say?\nHow could I possibily hee-know!";
+		dialogues[maxTextLines][0] = "Hee-llo!\nMy name is Jack Frost!";
+		dialogues[maxTextLines][1] = "I wanna tell you something -ho!";
+		dialogues[maxTextLines][2] = "I heard that if you collect some magatamas, you\ncan go to another areas -ho!";
+		dialogues[maxTextLines][3] = "What is a Magatama you say?\nHow could I possibily hee-know!";
+		
+		dialogues[specialLine][0] = "Hee-llo, Hitoshura!";
+		dialogues[specialLine][1] = "You are hee-re for Pixie, right? -ho!";
+		dialogues[specialLine][2] = "I'm sorry to tell you this, but...";
+		dialogues[specialLine][3] = "Your friend Pixie is in another dungeon! -ho!";
 	}
 	
 	@Override

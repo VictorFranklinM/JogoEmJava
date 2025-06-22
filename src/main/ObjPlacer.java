@@ -15,6 +15,7 @@ import object.OBJ_Mushroom;
 import object.OBJ_Obelisk;
 import object.OBJ_SpecialKey;
 import object.OVR_Sparkle;
+import object.OVR_TreeTop;
 
 public class ObjPlacer extends Entity {
 
@@ -69,6 +70,42 @@ public class ObjPlacer extends Entity {
 		screen.obj[mapNum][i].worldX = 29 * Screen.tileSize;
 		screen.obj[mapNum][i].worldY = 31 * Screen.tileSize;
 		i++;
+		screen.overlay[mapNum][i] = new OVR_TreeTop(screen);
+		screen.overlay[mapNum][i].worldX = 18 * Screen.tileSize;
+		screen.overlay[mapNum][i].worldY = 16 * Screen.tileSize;
+		i++;
+		screen.overlay[mapNum][i] = new OVR_TreeTop(screen);
+		screen.overlay[mapNum][i].worldX = 19 * Screen.tileSize;
+		screen.overlay[mapNum][i].worldY = 16 * Screen.tileSize;
+		i++;
+		screen.overlay[mapNum][i] = new OVR_TreeTop(screen);
+		screen.overlay[mapNum][i].worldX = 20 * Screen.tileSize;
+		screen.overlay[mapNum][i].worldY = 16 * Screen.tileSize;
+		i++;
+		screen.overlay[mapNum][i] = new OVR_TreeTop(screen);
+		screen.overlay[mapNum][i].worldX = 21 * Screen.tileSize;
+		screen.overlay[mapNum][i].worldY = 16 * Screen.tileSize;
+		i++;
+		screen.overlay[mapNum][i] = new OVR_TreeTop(screen);
+		screen.overlay[mapNum][i].worldX = 22 * Screen.tileSize;
+		screen.overlay[mapNum][i].worldY = 16 * Screen.tileSize;
+		i++;
+		screen.overlay[mapNum][i] = new OVR_TreeTop(screen);
+		screen.overlay[mapNum][i].worldX = 30 * Screen.tileSize;
+		screen.overlay[mapNum][i].worldY = 16 * Screen.tileSize;
+		i++;
+		screen.overlay[mapNum][i] = new OVR_TreeTop(screen);
+		screen.overlay[mapNum][i].worldX = 31 * Screen.tileSize;
+		screen.overlay[mapNum][i].worldY = 16 * Screen.tileSize;
+		i++;
+		screen.overlay[mapNum][i] = new OVR_TreeTop(screen);
+		screen.overlay[mapNum][i].worldX = 32 * Screen.tileSize;
+		screen.overlay[mapNum][i].worldY = 16 * Screen.tileSize;
+		i++;
+		screen.overlay[mapNum][i] = new OVR_TreeTop(screen);
+		screen.overlay[mapNum][i].worldX = 33 * Screen.tileSize;
+		screen.overlay[mapNum][i].worldY = 16 * Screen.tileSize;
+		i++;
 		
 		// GREEN DUNGEON ENTRANCE
 		mapNum = 1;
@@ -121,6 +158,16 @@ public class ObjPlacer extends Entity {
 		screen.obj[mapNum][i].worldX = 131 * Screen.tileSize;
 		screen.obj[mapNum][i].worldY = 115 * Screen.tileSize;
 		i++;
+		
+		// GREEN DUNGEON B3
+		mapNum = 4;
+		i = 0;
+		
+		screen.overlay[mapNum][i] = new OVR_Sparkle(screen);
+		screen.overlay[mapNum][i].worldX = 131 * Screen.tileSize;
+		screen.overlay[mapNum][i].worldY = 110 * Screen.tileSize;
+		i++;
+		
 	}
 	public void getImage(){
 		

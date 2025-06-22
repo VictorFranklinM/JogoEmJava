@@ -88,7 +88,16 @@ public class NpcPlacer {
 			screen.enemy[mapNum][i].worldX = 131 * Screen.tileSize;
 			screen.enemy[mapNum][i].worldY = 119 * Screen.tileSize;
 			i++;
-		}	
+		}
+		
+		i = 0;
+		mapNum = 4;
+		if(!Progress.finalCutsceneDone) {
+			screen.npc[mapNum][i] = new NPC_JackFrost(screen);
+			screen.npc[mapNum][i].worldX = 131 * Screen.tileSize;
+			screen.npc[mapNum][i].worldY = 131 * Screen.tileSize;
+			i++;
+		}
 	}
 	
 	public void clearEnemies() {

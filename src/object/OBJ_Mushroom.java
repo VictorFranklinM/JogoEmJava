@@ -26,10 +26,10 @@ public class OBJ_Mushroom extends Entity{
 		down1 = setup("/objects/mushroom",Screen.tileSize, Screen.tileSize);
 		down2 = setup("/objects/mushrooms",Screen.tileSize, Screen.tileSize);
 		
-		collisionArea.x = 7*Screen.scale;
-        collisionArea.y = 7*Screen.scale;
-        collisionArea.width = 2*Screen.scale;
-        collisionArea.height = 2*Screen.scale;
+		collisionArea.x = (2 * Screen.scale);
+        collisionArea.y = (2 * Screen.scale);
+        collisionArea.width = (12 * Screen.scale);
+        collisionArea.height = (12 * Screen.scale);
 
         collisionAreaDefaultX = collisionArea.x;
         collisionAreaDefaultY = collisionArea.y;

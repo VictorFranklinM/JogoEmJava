@@ -2,22 +2,28 @@ package entity;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+
 import main.Screen;
 
 public class OverlayEntity extends Entity {
-    public boolean isAnimated = true;
+    public boolean isAnimated;
     public BufferedImage[] frames;
-    public int totalFrames = 16;
+    public int totalFrames;
 
-    public OverlayEntity(Screen screen) {
+    public OverlayEntity(Screen screen, int totalFrames, boolean isAnimated) {
         super(screen);
+        this.totalFrames = totalFrames;
+        this.isAnimated = isAnimated;
         alive = true;
-        frames = new BufferedImage[totalFrames];
-    }
 
+        if (isAnimated) {
+            frames = new BufferedImage[totalFrames];
+        }
+    }
+    
     @Override
     public void update() {
-        if (!isAnimated) return;
+        if (!isAnimated || frames == null) return;
 
         spriteCounter++;
         if (spriteCounter > 16) {
@@ -29,15 +35,19 @@ public class OverlayEntity extends Entity {
 
     @Override
     public void draw(Graphics2D g2) {
-        if (frames[spriteNum] == null) return;
-
         int screenX = worldX - screen.player.worldX + screen.player.screenX;
         int screenY = worldY - screen.player.worldY + screen.player.screenY;
 
-        g2.drawImage(frames[spriteNum], screenX, screenY, null);
+        BufferedImage imageToDraw;
 
-        // Debugt Rectangle
-        // g2.setColor(Color.RED);
-        // g2.drawRect(screenX + collisionArea.x, screenY + collisionArea.y, collisionArea.width, collisionArea.height);
+        if (isAnimated && frames != null && frames[spriteNum] != null) {
+            imageToDraw = frames[spriteNum];
+        } else {
+            imageToDraw = down1;
+        }
+
+        if (imageToDraw != null) {
+            g2.drawImage(imageToDraw, screenX, screenY, null);
+        }
     }
 }

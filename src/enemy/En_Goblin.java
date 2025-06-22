@@ -37,20 +37,19 @@ public class En_Goblin extends Entity{
 	}
 	
 	public void getImage() {
-		up1 = setup("/enemies/goblin/Goblin-Down-1",Screen.tileSize, Screen.tileSize);
-		up2 = setup("/enemies/goblin/Goblin-Down-1",Screen.tileSize, Screen.tileSize);
-		up3 = setup("/enemies/goblin/Goblin-Down-1",Screen.tileSize, Screen.tileSize);
-		down1 = setup("/enemies/goblin/Goblin-Down-1",Screen.tileSize, Screen.tileSize);
-		down2 = setup("/enemies/goblin/Goblin-Down-1",Screen.tileSize, Screen.tileSize);
-		down3 = setup("/enemies/goblin/Goblin-Down-1",Screen.tileSize, Screen.tileSize);
-		left1 = setup("/enemies/goblin/Goblin-Down-1",Screen.tileSize, Screen.tileSize);
-		left2 = setup("/enemies/goblin/Goblin-Down-1",Screen.tileSize, Screen.tileSize);
-		left3 = setup("/enemies/goblin/Goblin-Down-1",Screen.tileSize, Screen.tileSize);
-		right1 = setup("/enemies/goblin/Goblin-Down-1",Screen.tileSize, Screen.tileSize);
-		right2 = setup("/enemies/goblin/Goblin-Down-1",Screen.tileSize, Screen.tileSize);
-		right3 = setup("/enemies/goblin/Goblin-Down-1",Screen.tileSize, Screen.tileSize);
-
-	}
+        up1 = setup("/enemies/goblin/Goblin-Up-1",Screen.tileSize, Screen.tileSize);
+        up2 = setup("/enemies/goblin/Goblin-Up-2",Screen.tileSize, Screen.tileSize);
+        up3 = setup("/enemies/goblin/Goblin-Up-3",Screen.tileSize, Screen.tileSize);
+        down1 = setup("/enemies/goblin/Goblin-Down-1",Screen.tileSize, Screen.tileSize);
+        down2 = setup("/enemies/goblin/Goblin-Down-2",Screen.tileSize, Screen.tileSize);
+        down3 = setup("/enemies/goblin/Goblin-Down-3",Screen.tileSize, Screen.tileSize);
+        left1 = setup("/enemies/goblin/Goblin-Left-1",Screen.tileSize, Screen.tileSize);
+        left2 = setup("/enemies/goblin/Goblin-Left-2",Screen.tileSize, Screen.tileSize);
+        left3 = setup("/enemies/goblin/Goblin-Left-3",Screen.tileSize, Screen.tileSize);
+        right1 = setup("/enemies/goblin/Goblin-Right-1",Screen.tileSize, Screen.tileSize);
+        right2 = setup("/enemies/goblin/Goblin-Right-2",Screen.tileSize, Screen.tileSize);
+        right3 = setup("/enemies/goblin/Goblin-Right-3",Screen.tileSize, Screen.tileSize);
+    }
 	
 	public void setAction() {
 		if(onPath) {
