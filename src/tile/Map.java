@@ -39,19 +39,24 @@ public class Map extends TileOrganizer {
         g2.setColor(Color.black);
         g2.fillRect(0, 0, Screen.screenWidth, Screen.screenHeight);
 
-        int width = Screen.screenWidth / 2;
-        int height = width;
-        int x = Screen.screenWidth / 2 - width / 2;
-        int y = Screen.screenHeight / 2 - height / 2;
+        int mapSize = 3;
+        int mapWidth = Screen.maxWorldCol * mapSize;
+        int mapHeight = Screen.maxWorldRow * mapSize;
+        
+        int x = Screen.screenWidth / 2 - mapWidth / 2;
+        int y = Screen.screenHeight / 2 - mapHeight / 2;
 
-        g2.drawImage(worldMap[Screen.currentMap], x, y, width, height, null);
+        for (int row = 0; row < Screen.maxWorldRow; row++) {
+            for (int col = 0; col < Screen.maxWorldCol; col++) {
+                int tileNum = mapTileNum[Screen.currentMap][col][row];
+                g2.drawImage(tile[tileNum].image, x + col * mapSize, y + row * mapSize, mapSize, mapSize, null);
+            }
+        }
 
-        double scale = (double) (Screen.tileSize * Screen.maxWorldCol) / width;
-        int playerX = (int) (x + screen.player.worldX / scale);
-        int playerY = (int) (y + screen.player.worldY / scale);
-        int playerSize = (int) (Screen.tileSize / scale);
-        g2.drawImage(screen.player.down1, playerX, playerY, playerSize, playerSize, null);
-
+        int playerX = x + (int)(screen.player.worldX / Screen.tileSize) * mapSize;
+        int playerY = y + (int)(screen.player.worldY / Screen.tileSize) * mapSize;
+        int playerSize = mapSize * 5;
+        g2.drawImage(screen.player.face, playerX, playerY, playerSize, playerSize, null);
         g2.setFont(screen.ui.megaten.deriveFont(32F));
         g2.setColor(new Color(185, 219, 149));
         g2.drawString("PRESS M to Close", Screen.screenWidth - 300, Screen.screenHeight - 100);
