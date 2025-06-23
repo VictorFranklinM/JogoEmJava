@@ -2,6 +2,7 @@ package main;
 
 import entity.NPC_BlackFrost;
 import entity.NPC_JackFrost;
+import entity.NPC_Manikin;
 import entity.NPC_Merchant;
 import entity.NPC_Nadja;
 import boss.Boss_Matador;
@@ -43,6 +44,10 @@ public class NpcPlacer {
 		screen.npc[mapNum][i] = new NPC_Merchant(screen);
 		screen.npc[mapNum][i].worldX = 19 * Screen.tileSize;
 		screen.npc[mapNum][i].worldY = 36 * Screen.tileSize;
+		i++;
+		screen.npc[mapNum][i] = new NPC_Manikin(screen);
+		screen.npc[mapNum][i].worldX = 25 * Screen.tileSize;
+		screen.npc[mapNum][i].worldY = 35 * Screen.tileSize;
 		i++;
 		
 		i = 0;

@@ -39,6 +39,9 @@ public class NPC_JackFrost extends Entity{
 	        }
 	        return;
 	    }
+	    else {
+	    	dialogueSet = 0;
+	    }
 
 	    if (dialogues[dialogueSet] != null && dialogues[dialogueSet][0] != null) {
 	        super.startDialogue(this, dialogueSet);

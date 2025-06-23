@@ -33,7 +33,7 @@ public class DataStorage implements Serializable{
 	int currentMagatamaSlot;
 	String projectile;
 	
-	// Bosses Defeated
+	// Progress Defeated
 	boolean matadorDefeated;
 	boolean finalCutsceneDone;
 	
