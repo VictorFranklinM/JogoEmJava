@@ -1,6 +1,7 @@
 /main/
 /object/
 /tile/
-/ui/
-/data/
 /tiles/
+/objects/
+/enemies/
+/enemy/

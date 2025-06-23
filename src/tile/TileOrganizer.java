@@ -48,7 +48,7 @@ public class TileOrganizer {
 		i++;
 		setup(i,"/ground/snow", false, Tile.noSoundIndex);
 		i++;
-		setup(i,"/ground/grassTosnow", false, Tile.noSoundIndex);
+		setup(i,"/ground/grassToSnow", false, Tile.noSoundIndex);
 		i++;
 		setup(i,"/ground/grass", false, 3);
 		i++;

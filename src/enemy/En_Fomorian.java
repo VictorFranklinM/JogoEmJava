@@ -35,18 +35,18 @@ public class En_Fomorian extends Entity{
 	}
 	
 	public void getImage() {
-		up1 = setup("/enemies/fomorian/Fomorian-Down-1",Screen.tileSize, Screen.tileSize);
-		up2 = setup("/enemies/fomorian/Fomorian-Down-2",Screen.tileSize, Screen.tileSize);
-		up3 = setup("/enemies/fomorian/Fomorian-Down-3",Screen.tileSize, Screen.tileSize);
+		up1 = setup("/enemies/fomorian/Fomorian-Up-1",Screen.tileSize, Screen.tileSize);
+		up2 = setup("/enemies/fomorian/Fomorian-Up-2",Screen.tileSize, Screen.tileSize);
+		up3 = setup("/enemies/fomorian/Fomorian-Up-3",Screen.tileSize, Screen.tileSize);
 		down1 = setup("/enemies/fomorian/Fomorian-Down-1",Screen.tileSize, Screen.tileSize);
 		down2 = setup("/enemies/fomorian/Fomorian-Down-2",Screen.tileSize, Screen.tileSize);
 		down3 = setup("/enemies/fomorian/Fomorian-Down-3",Screen.tileSize, Screen.tileSize);
-		left1 = setup("/enemies/fomorian/Fomorian-Down-1",Screen.tileSize, Screen.tileSize);
-		left2 = setup("/enemies/fomorian/Fomorian-Down-2",Screen.tileSize, Screen.tileSize);
-		left3 = setup("/enemies/fomorian/Fomorian-Down-3",Screen.tileSize, Screen.tileSize);
-		right1 = setup("/enemies/fomorian/Fomorian-Down-1",Screen.tileSize, Screen.tileSize);
-		right2 = setup("/enemies/fomorian/Fomorian-Down-2",Screen.tileSize, Screen.tileSize);
-		right3 = setup("/enemies/fomorian/Fomorian-Down-3",Screen.tileSize, Screen.tileSize);
+		left1 = setup("/enemies/fomorian/Fomorian-Left-1",Screen.tileSize, Screen.tileSize);
+		left2 = setup("/enemies/fomorian/Fomorian-Left-2",Screen.tileSize, Screen.tileSize);
+		left3 = setup("/enemies/fomorian/Fomorian-Left-3",Screen.tileSize, Screen.tileSize);
+		right1 = setup("/enemies/fomorian/Fomorian-Right-1",Screen.tileSize, Screen.tileSize);
+		right2 = setup("/enemies/fomorian/Fomorian-Right-2",Screen.tileSize, Screen.tileSize);
+		right3 = setup("/enemies/fomorian/Fomorian-Right-3",Screen.tileSize, Screen.tileSize);
 
 	}
 	
