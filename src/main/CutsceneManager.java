@@ -29,10 +29,10 @@ public class CutsceneManager {
 	
 	public CutsceneManager(Screen screen) {
 		this.screen = screen;
-		endCredits = "Credits...\n"
-				+ "Equipe nem lembro o nome. Hitoshura?\n"
-				+ "\n\n\n\n\n\n\n\n\n\n"
-				+ "Se fuerte, Pessoal...\n\n\n\n\n\n"
+		endCredits = "Equipe Hitoshura"
+				+ "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+				+ "Victor Franklin\nCaroline de Albuquerque\nKlayver Gabriel\nIslanne Vitoria"
+				+ "\n\n\n\n\n\n\n\n\n\n\n\n"
 				+ "Thank you for Playing!";
 	}
 	
@@ -204,7 +204,7 @@ public class CutsceneManager {
 	    }
 	    
 	    if (scenePhase == 6) {
-	    	if(counterReached(300)) {
+	    	if(counterReached(180)) {
 	    		scenePhase++;
 	    	}	    	
 	    }
@@ -230,11 +230,11 @@ public class CutsceneManager {
 	    	}
 	    	String text = "After this fierce battle against the boss,\n"
 	    			+ "I couldn't even find my friend?\n"
-	    			+ "Fuck this shit, I'm out.";
+	    			+ "Forget about it, I'm out.";
 	    	
 	    	drawString(alpha, 55f, 200, text, 110);
 	    	
-	    	if(counterReached(700)) {
+	    	if(counterReached(360)) {
 	    		screen.playMusic(18);
 	    		scenePhase++;
 	    	}
@@ -245,7 +245,7 @@ public class CutsceneManager {
 	    	
 	    	drawString (1f, 80f, Screen.screenHeight/2, "Shin Megami Tensei:\nPersona VI", 80);
 	    	
-	    	if(counterReached(300)) {
+	    	if(counterReached(180)) {
 	    		scenePhase++;
 	    	}
 	    }
@@ -257,7 +257,7 @@ public class CutsceneManager {
 	    	
 	    	drawString(1f, 45f, y, endCredits, 50);
 	    	
-	    	if(counterReached(450)) {
+	    	if(counterReached(240)) {
 	    		scenePhase++;
 	    	}
 	    }
